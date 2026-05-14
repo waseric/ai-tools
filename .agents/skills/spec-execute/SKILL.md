@@ -1,6 +1,6 @@
 ---
 name: spec-execute
-description: Execute against an existing feature spec, advancing one task at a time with closeout at each task boundary. Orients on spec + journal + branch state, verifies prior task Definition of Done, proposes the next task for approval, implements it strictly within declared scope, verifies DoD with evidence, and updates spec + journal before moving on. Surfaces drift as Amendment Protocol proposals rather than silent deviation. Use whenever the user wants to start or resume a working session against an existing spec at `docs/specs/<feature>.md`. Pairs with `spec-write` and `spec-review`.
+description: Execute against an existing feature spec, advancing one task at a time with closeout at each task boundary. Orients on spec + journal + branch state, verifies prior task Definition of Done, proposes the next task for approval, implements it strictly within declared scope, verifies DoD with evidence, and updates spec + journal before moving on. Surfaces drift by routing to `spec-amend` rather than silent deviation. Use whenever the user wants to start or resume a working session against an existing spec at `docs/specs/<feature>.md`. Pairs with `spec-write` (authors the spec), `spec-review` (reviews checkpoint deliverables), and `spec-amend` (applies spec changes when execution reveals drift).
 ---
 
 # Spec Execute
@@ -153,14 +153,19 @@ If no checkpoint is triggered, return to Phase 1 for the next task, re-reading t
 
 # AMENDMENT PROTOCOL
 
-When the spec must change mid-execution:
+When the spec must change mid-execution, route to the `spec-amend` skill. Do not apply the change yourself. The separation between *proposing* (this skill) and *applying* (`spec-amend`) is what keeps amendments visible.
+
+Your responsibilities when execution surfaces the need for an amendment:
 
 1. Stop work.
-2. State the section of the spec being amended.
-3. Show the proposed change as a diff (before / after) or as a clearly marked addition.
-4. State the reason: what was discovered, why the original is wrong or stale.
-5. State the impact: which task IDs are affected, whether any completed work is invalidated, whether any review checkpoints need to be re-run.
-6. Wait for user approval.
-7. On approval, apply the amendment to the spec, log the amendment in the journal under the current task's entry, then resume.
+2. Capture the trigger: file path, test output, contradiction, or other evidence from your current task.
+3. State which section of the spec needs amending and a one-line description of the proposed change.
+4. State the impact on the current task: blocked entirely, partially blocked, or proceedable-with-a-note.
+5. Hand off to `spec-amend`, passing `SECTION`, `TRIGGER`, and any `PROPOSED_CHANGE` text. The user (or the spec-amend session) drives the rest.
+6. Wait for the amendment to be applied (or rejected) before resuming.
 
-Amendments are first-class events. They are how the spec stays accurate over time without becoming fiction.
+When the amendment is applied, re-orient via Phase 1 against the amended spec — do not rely on memory of the pre-amendment text. The amended spec is the new contract.
+
+When the amendment is rejected (the spec was right; your task's premise was wrong), reconsider whether the task can complete as written. If not, the task itself may need to be re-decomposed via `spec-write`, or the work pulled back to the design level via `spec-design`.
+
+Amendments are first-class events. They are how the spec stays accurate over time without becoming fiction. Routing them through a named skill — instead of folding them into execution — is what makes them visible to reviewers, future sessions, and the user scrolling back through history.

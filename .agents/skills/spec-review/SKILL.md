@@ -1,6 +1,6 @@
 ---
 name: spec-review
-description: Review a body of work against a specific Review Checkpoint declared in a feature spec. Reads the checkpoint contract first (review focus + exit criteria), then walks the diff producing structured findings tagged blocker/important/advisory, distinguishing spec-compliance failures from preferences. Produces a fixed-format verdict (pass / pass with comments / changes requested / blocked) and writes the outcome back to the spec and journal. Use whenever a spec Review Checkpoint has been triggered, or the user wants a structured review of a diff against an existing spec. Pairs with `spec-write` and `spec-execute`.
+description: Review a body of work against a specific Review Checkpoint declared in a feature spec or design spec. Reads the checkpoint contract first (review focus + exit criteria), then walks the diff (or the artifact, for design-spec checkpoints) producing structured findings tagged blocker/important/advisory, distinguishing spec-compliance failures from preferences. Produces a fixed-format verdict (pass / pass with comments / changes requested / blocked) and writes the outcome back to the spec and journal. Use whenever a spec Review Checkpoint has been triggered, or the user wants a structured review against an existing spec. Pairs with `spec-design` and `spec-write` (which declare checkpoints), `spec-execute` (which produces the work being reviewed), and `spec-amend` (which applies spec changes when the review surfaces them).
 ---
 
 # Spec Review
@@ -174,7 +174,7 @@ Regardless of outcome, record the review:
   **Next action:** <what the implementer or user should do next>
 ```
 
-- **If spec amendments were proposed,** route them through the Amendment Protocol from the `spec-execute` skill. Amendments are not applied silently as part of a review.
+- **If spec amendments were proposed,** route them through the `spec-amend` skill. Amendments are not applied silently as part of a review.
 - **If the outcome is `pass` or `pass with comments`,** state the next task ID per the dependency graph so the next session has a clear pickup point.
 
 ## WHAT NOT TO DO

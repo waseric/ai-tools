@@ -1,11 +1,13 @@
 ---
 name: spec-write
-description: Author a feature spec / design document for a new feature in an existing codebase. Runs Discovery → Clarify → Spec Document phases, producing a self-contained markdown spec covering overview, goals, architecture, detailed design, NFRs, atomic task breakdown, test strategy, review checkpoints, risks, rollout, and open questions. Use whenever the user wants to write, draft, or author a feature spec or development plan before implementation begins. Pairs with `spec-execute` (executes against the spec) and `spec-review` (reviews checkpoint deliverables).
+description: Author a feature spec for a new feature in an existing codebase. Runs Discovery → Clarify → Spec Document phases, producing a self-contained markdown spec covering overview, goals, architecture, detailed design, NFRs, atomic task breakdown, test strategy, review checkpoints, risks, rollout, and open questions. When a design spec exists upstream (produced by `spec-design`), reads it as authoritative input rather than redesigning. Use whenever the user wants to write, draft, or author a feature spec or development plan before implementation begins. Pairs with `spec-design` (upstream — architecture/protocol design), `spec-execute` (downstream — executes against the spec), and `spec-review` (downstream — reviews checkpoint deliverables).
 ---
 
 # Spec Write
 
-Produces a spec-driven development plan for a new feature in an existing codebase. Pairs with `spec-execute` and `spec-review`.
+Produces a spec-driven development plan for a new feature in an existing codebase. Sits downstream of `spec-design` (when an architecture-level design spec exists) and upstream of `spec-execute` and `spec-review`.
+
+A design spec commits to a shape, vocabulary, and adoption path. A feature spec — this skill's output — commits to atomic tasks, tests, rollout, and rollback. The two are coordinated: when a design spec exists, this skill reads it as authoritative input and decomposes work consistent with it rather than redesigning.
 
 ## How this skill works
 
@@ -22,7 +24,13 @@ TARGET_BRANCH: <e.g. main, develop>
 DEADLINE_OR_CONSTRAINTS: <if any>
 KNOWN_CONSTRAINTS: <e.g. must not change public API, must support X version, must run on Y runtime>
 NON_GOALS: <things explicitly out of scope, if you already know>
+DESIGN_SPEC_PATH: <optional; repo-relative path to an upstream design spec produced by spec-design; e.g. docs/specs/feature-x-architecture.md>
+CONSTITUTION_PATHS: <optional; repo-relative paths to mission/tech-stack/roadmap or validation produced by project-constitution>
 ```
+
+If `DESIGN_SPEC_PATH` is provided, treat its commitments (architecture, vocabulary, NFRs, adoption path, declared open questions) as authoritative. Do not redesign. Surface contradictions between the design spec and the codebase as proposed amendments (route through `spec-amend`) rather than silently working around them.
+
+If `CONSTITUTION_PATHS` is provided, read them before Discovery. They establish in-scope/out-of-scope and the tech-stack the implementation must match.
 
 ---
 
@@ -44,8 +52,13 @@ You follow established SDLC practices: discovery, design, decomposition, review 
 
 # PHASE 1 — DISCOVERY (do this first, before any spec writing)
 
-Produce a Discovery Report covering:
+If `DESIGN_SPEC_PATH` is provided, read it in full first. Quote its declared vocabulary, the components it commits to, its NFRs, and its named downstream-spec references. This becomes the authoritative frame for the rest of Discovery.
 
+If `CONSTITUTION_PATHS` is provided, read them. Note the declared in-scope/out-of-scope and the tech-stack. The feature spec must not propose work outside scope or stack without an explicit amendment to the constitution.
+
+Then produce a Discovery Report covering:
+
+- **Upstream-spec orientation, if applicable.** Summarize what the design spec committed to that this feature spec is responsible for executing. Name the open questions in the design spec that this feature spec must respect or close out.
 - **Codebase orientation.** Languages, frameworks, build system, package manager, test runner, CI configuration, deployment target. Cite the files you learned each from.
 - **Conventions in use.** Module layout, naming, error handling style, logging style, configuration loading, dependency injection (or lack thereof), test organization. Quote short examples from the codebase.
 - **Existing components relevant to the feature.** What already exists that this feature should reuse, extend, or coexist with. Identify by file path.
@@ -183,3 +196,5 @@ Links to the patterns, RFCs, library docs, internal docs, and prior code that in
 - Do not write task descriptions in the form "Implement X." Write them in the form "Add `<file>` exposing `<function>` such that `<acceptance criteria>`."
 - Do not produce tasks larger than what one engineer can complete and review in a working day. Split them.
 - Do not invent acceptance criteria that cannot be objectively verified ("works well", "is performant"). Replace with measurable criteria.
+- Do not silently redesign work that a `DESIGN_SPEC_PATH` already committed to. If the codebase contradicts the design spec, stop and propose an amendment via `spec-amend`; do not paper over the contradiction.
+- Do not propose tasks outside the in-scope domain or tech-stack declared in `CONSTITUTION_PATHS`. If the feature genuinely requires scope expansion, surface it as a constitution amendment first.
