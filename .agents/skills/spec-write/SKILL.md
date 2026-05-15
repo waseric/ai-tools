@@ -1,6 +1,6 @@
 ---
 name: spec-write
-lastUpdated: 2026-05-14 20:10
+lastUpdated: 2026-05-15
 description: Author a feature spec for a new feature in an existing codebase. Runs Discovery → Clarify → Spec Document phases, producing a self-contained markdown spec covering overview, goals, architecture, detailed design, NFRs, atomic task breakdown, test strategy, review checkpoints, risks, rollout, and open questions. When a design spec exists upstream (produced by `spec-design`), reads it as authoritative input rather than redesigning. Use whenever the user wants to write, draft, or author a feature spec or development plan before implementation begins. Pairs with `spec-design` (upstream — architecture/protocol design), `spec-execute` (downstream — executes against the spec), and `spec-review` (downstream — reviews checkpoint deliverables).
 ---
 
@@ -25,7 +25,7 @@ TARGET_BRANCH: <e.g. main, develop>
 DEADLINE_OR_CONSTRAINTS: <if any>
 KNOWN_CONSTRAINTS: <e.g. must not change public API, must support X version, must run on Y runtime>
 NON_GOALS: <things explicitly out of scope, if you already know>
-DESIGN_SPEC_PATH: <optional; repo-relative path to an upstream design spec produced by spec-design; e.g. docs/specs/feature-x-architecture.md>
+DESIGN_SPEC_PATH: <optional; repo-relative path to an upstream design spec produced by spec-design; e.g. specs/YYYYMMDD-feature-x/architecture.md>
 CONSTITUTION_PATHS: <optional; repo-relative paths to mission/tech-stack/roadmap or validation produced by project-constitution>
 ```
 
@@ -184,7 +184,7 @@ Links to the patterns, RFCs, library docs, internal docs, and prior code that in
 # OUTPUT FORMAT
 
 - Phase 1 and Phase 2 may be conversational.
-- Phase 3 must be a single self-contained markdown document, suitable for committing as `docs/specs/<feature-name>.md`.
+- Phase 3 must be a single self-contained markdown document, suitable for committing as `specs/YYYYMMDD-<feature-name>/feature.md`. Create a `journal.md` in the same directory. If a design spec exists upstream, it should already be in a sibling or parent spec directory referenced via `DESIGN_SPEC_PATH`.
 - All file paths must be repo-relative.
 - All code blocks must specify a language for syntax highlighting.
 - If the spec will be committed to a different repo than the codebase it describes, note this in the spec's §3 Background section and include `SPEC_REPO_ROOT` / `SPEC_TARGET_BRANCH` values for downstream `spec-execute` sessions. This eliminates the need for the executor to rediscover the multi-repo layout each session.

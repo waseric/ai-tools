@@ -1,6 +1,6 @@
 ---
 name: spec-design
-lastUpdated: 2026-05-14 20:10
+lastUpdated: 2026-05-15
 description: Author an architecture or protocol design spec — earlier in the lifecycle than a feature spec. Runs Discovery → Clarify → Spec Document phases, producing a self-contained design document with status banner, named audience, overview, goals, architecture, detailed design, NFRs, implementation sequencing (not atomic tasks), validation approach, review checkpoints, risks, adoption path, and a structured Open Questions section with analysis + leaning + owner per question. Treats conversation as authoritative input rather than restarting an interview. Use when the user wants to design a system, protocol, or architecture before any feature spec is written. Pairs with `project-constitution` (upstream), `spec-write` (downstream — consumes the design spec), and `spec-review` (reviews design checkpoints).
 ---
 
@@ -178,7 +178,7 @@ Inline citations at the point of claim are preferred over a bibliography-at-the-
 # OUTPUT FORMAT
 
 - Phase 1 and Phase 2 may be conversational.
-- Phase 3 must be a single self-contained markdown document, suitable for committing as `docs/specs/<artifact-name>-architecture.md`.
+- Phase 3 must be a single self-contained markdown document, suitable for committing as `specs/YYYYMMDD-<artifact-name>/architecture.md`. Create a `journal.md` in the same directory.
 - All links follow the portability rule (no absolute filesystem paths).
 - All code blocks specify a language.
 - If the spec will be committed to a different repo than the codebase it describes, note this in the spec's §3 Background section and include `SPEC_REPO_ROOT` / `SPEC_TARGET_BRANCH` values for downstream `spec-execute` sessions. This eliminates the need for the executor to rediscover the multi-repo layout each session.

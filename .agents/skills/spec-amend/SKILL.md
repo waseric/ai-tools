@@ -1,6 +1,6 @@
 ---
 name: spec-amend
-lastUpdated: 2026-05-14 20:10
+lastUpdated: 2026-05-15
 description: Propose, structure, and apply an amendment to an existing spec (design spec or feature spec) when implementation, review, or new information reveals the spec must change. Walks the user through stating the section being amended, showing the change as a diff (before/after), capturing reason and impact, getting explicit approval, applying the change, and logging the amendment in the journal as a first-class event. Use when work has revealed that the spec is wrong, stale, or under-specified — instead of silently deviating. Pairs with `spec-write` and `spec-design` (the spec being amended), `spec-execute` (which surfaces drift), and `spec-review` (which may propose amendments rather than block).
 ---
 
@@ -19,8 +19,8 @@ Amendments are surgical, not rewrites. If a spec needs a rewrite, that is a new 
 ## INPUTS
 
 ```
-SPEC_PATH: <repo-relative path to the spec being amended; e.g. docs/specs/feature-x.md>
-JOURNAL_PATH: <repo-relative path; e.g. docs/specs/feature-x.journal.md>
+SPEC_PATH: <repo-relative path to the spec being amended; e.g. specs/YYYYMMDD-feature-x/feature.md>
+JOURNAL_PATH: <repo-relative path; e.g. specs/YYYYMMDD-feature-x/journal.md>
 SECTION: <name or number of the section being amended; e.g. "§5 Detailed Design — Validator", "Task T-04 Scope">
 TRIGGER: <what surfaced the need; e.g. "spec-execute T-04 hit a contradiction", "spec-review CP-2 raised an out-of-spec finding", "user noticed during planning">
 PROPOSED_CHANGE: <the change itself, if the user already drafted it; otherwise the skill drafts from conversation>

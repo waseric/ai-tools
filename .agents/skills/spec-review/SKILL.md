@@ -1,6 +1,6 @@
 ---
 name: spec-review
-lastUpdated: 2026-05-14 20:10
+lastUpdated: 2026-05-15
 description: Review a body of work against a specific Review Checkpoint declared in a feature spec or design spec. Reads the checkpoint contract first (review focus + exit criteria), then walks the diff (or the artifact, for design-spec checkpoints) producing structured findings tagged blocker/important/advisory, distinguishing spec-compliance failures from preferences. Produces a fixed-format verdict (pass / pass with comments / changes requested / blocked) and writes the outcome back to the spec and journal. Use whenever a spec Review Checkpoint has been triggered, or the user wants a structured review against an existing spec. Pairs with `spec-design` and `spec-write` (which declare checkpoints), `spec-execute` (which produces the work being reviewed), and `spec-amend` (which applies spec changes when the review surfaces them).
 ---
 
@@ -15,8 +15,8 @@ When invoked, you act as the reviewer. Gather the INPUTS below from the user —
 ## INPUTS
 
 ```
-SPEC_PATH: <repo-relative path, e.g. docs/specs/feature-x.md>
-JOURNAL_PATH: <repo-relative path, e.g. docs/specs/feature-x.journal.md>
+SPEC_PATH: <repo-relative path, e.g. specs/YYYYMMDD-feature-x/feature.md>
+JOURNAL_PATH: <repo-relative path, e.g. specs/YYYYMMDD-feature-x/journal.md>
 CHECKPOINT_ID: <e.g. CP-1, or the name from the spec's Review Checkpoints section>
 DIFF_RANGE: <e.g. main..feature/x, or a list of commit SHAs, or a PR URL>
 TASK_IDS_IN_SCOPE: <task IDs covered by this checkpoint, from the spec>
