@@ -1,6 +1,6 @@
 ---
 name: project-constitution
-lastUpdated: 2026-05-14 20:10
+lastUpdated: 2026-05-15
 description: Bootstrap a new (or recently created) repo with a constitution — the three-part shape that orients contributors, AI agents, and stakeholders before any feature or design spec is written. Produces `mission.md` (the why), `tech-stack.md` (the how), and conditionally `roadmap.md` (planned phases) or `validation.md` (done criteria), depending on the repo's lifecycle stage. Scans for existing signals (package manifests, READMEs, framework markers, CI config) before prompting for what the scan cannot determine. Use when starting a new repo, adopting an inherited repo, or formalizing a repo whose intent has drifted from its docs. Pairs with `spec-design` (downstream — references the constitution).
 ---
 
@@ -14,7 +14,7 @@ A repo without a constitution forces every contributor (human and agent) to re-d
 
 When invoked, you act as the agent. Scan the repo for existing signals first; ask the user only for what the scan cannot determine. Then run Phase 1 (Scan), pause at Phase 2 for user input on purpose, audience, and lifecycle stage, and produce the Phase 3 documents.
 
-The output is a set of small markdown documents that live at the root of `docs/` (or the repo root, if the project does not use a `docs/` convention).
+The output is a set of small markdown documents that live at `specs/` (or the repo root, if the repo uses a different convention).
 
 ## INPUTS
 
@@ -73,9 +73,11 @@ Output the following, then **stop and wait for user input**:
 
 # PHASE 3 — DOCUMENTS
 
-Produce two or three small markdown documents. Use the exact headings below. Place them at `docs/mission.md`, `docs/tech-stack.md`, and either `docs/roadmap.md` or `docs/validation.md`. If the repo does not use `docs/`, place at the repo root and note in the journal.
+Produce two or three small markdown documents. Use the exact headings below. Place them at `specs/mission.md`, `specs/tech-stack.md`, and either `specs/roadmap.md` or `specs/validation.md`. If the repo uses a different convention, place at the appropriate location and note in the journal.
 
-## docs/mission.md
+When the scan detects an existing directory structure that differs from the methodology's convention (e.g., `docs/` already contains specs, or a `specifications/` folder exists), surface the layout question to the operator: "The methodology recommends `specs/` for authoritative artifacts and `docs/` for supporting material. This repo has `<detected layout>`. Should I use the methodology's convention, adapt to the existing layout, or ask you to decide per-file?" When the operator chooses a non-default layout, document the exception in the constitution.
+
+## specs/mission.md
 
 ```markdown
 # <Repo name> — Mission
@@ -99,7 +101,7 @@ Produce two or three small markdown documents. Use the exact headings below. Pla
 <One paragraph. How would we know, six or twelve months in, that this repo is working?>
 ```
 
-## docs/tech-stack.md
+## specs/tech-stack.md
 
 ```markdown
 # <Repo name> — Tech Stack
@@ -124,9 +126,11 @@ Produce two or three small markdown documents. Use the exact headings below. Pla
 
 ## Conventions Outside the Stack
 <Anything tooling-adjacent: branch naming, commit-message format, PR template, secret handling, env-var prefixes. Keep this short — link to a CONTRIBUTING.md if more detail is needed.>
+
+- **Repository layout** — `specs/` for authoritative artifacts (constitution, design specs, feature specs, journals). `docs/` for supporting material (research, recommendations, retrospectives). Document any divergence from this convention here.
 ```
 
-## docs/roadmap.md (for `new` and `growing` repos)
+## specs/roadmap.md (for `new` and `growing` repos)
 
 ```markdown
 # <Repo name> — Roadmap
@@ -152,7 +156,7 @@ Produce two or three small markdown documents. Use the exact headings below. Pla
 
 Roadmaps describe phases, not features. Each phase produces an outcome the next phase consumes. Resist the urge to enumerate every backlog item.
 
-## docs/validation.md (for `mature` and `inherited` repos)
+## specs/validation.md (for `mature` and `inherited` repos)
 
 ```markdown
 # <Repo name> — Validation
