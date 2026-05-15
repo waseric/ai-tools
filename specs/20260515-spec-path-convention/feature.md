@@ -128,7 +128,7 @@ The inception date `20260514` comes from the session-economy spec's status banne
 
 ## 7. Task Breakdown
 
-### T-01 — Update path references in spec-lifecycle skills
+### T-01 — Update path references in spec-lifecycle skills ✅ done 2026-05-15 (6d158fb)
 
 **Scope.** Modify 5 files:
 - `.agents/skills/spec-execute/SKILL.md`
