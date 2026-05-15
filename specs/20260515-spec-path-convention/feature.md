@@ -158,7 +158,7 @@ The inception date `20260514` comes from the session-economy spec's status banne
 
 ---
 
-### T-02 — Update project-constitution skill
+### T-02 — Update project-constitution skill ✅ done 2026-05-15 (dc7021f)
 
 **Scope.** Modify 1 file:
 - `.agents/skills/project-constitution/SKILL.md`

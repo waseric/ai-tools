@@ -42,3 +42,22 @@
 **Spec amendments:** None.
 **Surprises and learnings:** None — all replacements were mechanical string substitutions.
 **Next task pointer:** T-02 (Update project-constitution skill)
+
+## 2026-05-15 — T-02: Update project-constitution skill
+
+**Status:** done
+**Commits:** dc7021f
+**Files touched:**
+- `.agents/skills/project-constitution/SKILL.md`
+**Tests added:** N/A (prose-only changes; verified via grep)
+**DoD verification:**
+- All default output paths updated (`specs/mission.md`, etc.) → confirmed: grep for `docs/(mission|tech-stack|roadmap|validation)` returns zero hits.
+- Brownfield guidance added → confirmed: Phase 3 intro contains three-case coverage (greenfield default, brownfield-match, brownfield-conflict) with operator-facing question.
+- Repository layout entry added to tech-stack template → confirmed: "Conventions Outside the Stack" section includes `- **Repository layout** —` bullet.
+- Output paragraph updated → confirmed: reads "live at `specs/`" not "live at the root of `docs/`".
+- `lastUpdated` bumped to `2026-05-15` → confirmed.
+- Changes committed → dc7021f.
+**Decisions made:** None — straight execution per spec.
+**Spec amendments:** None.
+**Surprises and learnings:** None.
+**Next task pointer:** T-03 (Migrate existing spec files and delete todo)
