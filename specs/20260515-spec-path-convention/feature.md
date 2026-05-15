@@ -182,7 +182,7 @@ The inception date `20260514` comes from the session-economy spec's status banne
 
 ---
 
-### T-03 — Migrate existing spec files and delete todo
+### T-03 — Migrate existing spec files and delete todo ✅ done 2026-05-15 (163ea11)
 
 **Scope.** Move and delete files under `specs/`:
 - `specs/session-economy-and-multi-repo-disciplines-architecture.md` → `specs/20260514-session-economy/architecture.md`
@@ -223,6 +223,7 @@ The inception date `20260514` comes from the session-economy spec's status banne
 - **Trigger.** T-01 and T-02 both done.
 - **Review focus.** Consistency of path examples across all six skills. No stale `docs/specs/` or `docs/mission.md` references. Brownfield guidance is clear and covers three cases. Journal guidance notes in `spec-write` and `spec-design` are guidance-only (no behavioral change). Voice and formatting match surrounding prose.
 - **Exit criteria.** Zero `docs/specs/` in skill defaults. Zero `docs/mission.md` (etc.) in `project-constitution` defaults. Each skill reads naturally end-to-end.
+- **Status:** pass with comments on 2026-05-15 by Copilot (self-review, structured)
 
 ### CP-2 — Migration complete
 
