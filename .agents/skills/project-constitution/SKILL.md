@@ -1,5 +1,6 @@
 ---
 name: project-constitution
+lastUpdated: 2026-05-14 20:10
 description: Bootstrap a new (or recently created) repo with a constitution — the three-part shape that orients contributors, AI agents, and stakeholders before any feature or design spec is written. Produces `mission.md` (the why), `tech-stack.md` (the how), and conditionally `roadmap.md` (planned phases) or `validation.md` (done criteria), depending on the repo's lifecycle stage. Scans for existing signals (package manifests, READMEs, framework markers, CI config) before prompting for what the scan cannot determine. Use when starting a new repo, adopting an inherited repo, or formalizing a repo whose intent has drifted from its docs. Pairs with `spec-design` (downstream — references the constitution).
 ---
 

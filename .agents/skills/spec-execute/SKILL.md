@@ -1,5 +1,6 @@
 ---
 name: spec-execute
+lastUpdated: 2026-05-14 20:10
 description: Execute against an existing feature spec, advancing one task at a time with closeout at each task boundary. Orients on spec + journal + branch state, verifies prior task Definition of Done, proposes the next task for approval, implements it strictly within declared scope, verifies DoD with evidence, and updates spec + journal before moving on. Supports the multi-repo case where spec and code live in separate working trees (paired commits per task). At every task boundary, pauses for a session-continuity check (continue in this session vs. pick up fresh). Surfaces drift by routing to `spec-amend` rather than silent deviation. Use whenever the user wants to start or resume a working session against an existing spec at `docs/specs/<feature>.md`. Pairs with `spec-write` (authors the spec), `spec-review` (reviews checkpoint deliverables), and `spec-amend` (applies spec changes when execution reveals drift).
 ---
 

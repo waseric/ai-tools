@@ -1,5 +1,6 @@
 ---
 name: spec-write
+lastUpdated: 2026-05-14 20:10
 description: Author a feature spec for a new feature in an existing codebase. Runs Discovery → Clarify → Spec Document phases, producing a self-contained markdown spec covering overview, goals, architecture, detailed design, NFRs, atomic task breakdown, test strategy, review checkpoints, risks, rollout, and open questions. When a design spec exists upstream (produced by `spec-design`), reads it as authoritative input rather than redesigning. Use whenever the user wants to write, draft, or author a feature spec or development plan before implementation begins. Pairs with `spec-design` (upstream — architecture/protocol design), `spec-execute` (downstream — executes against the spec), and `spec-review` (downstream — reviews checkpoint deliverables).
 ---
 

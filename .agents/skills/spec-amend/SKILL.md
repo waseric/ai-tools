@@ -1,5 +1,6 @@
 ---
 name: spec-amend
+lastUpdated: 2026-05-14 20:10
 description: Propose, structure, and apply an amendment to an existing spec (design spec or feature spec) when implementation, review, or new information reveals the spec must change. Walks the user through stating the section being amended, showing the change as a diff (before/after), capturing reason and impact, getting explicit approval, applying the change, and logging the amendment in the journal as a first-class event. Use when work has revealed that the spec is wrong, stale, or under-specified — instead of silently deviating. Pairs with `spec-write` and `spec-design` (the spec being amended), `spec-execute` (which surfaces drift), and `spec-review` (which may propose amendments rather than block).
 ---
 
