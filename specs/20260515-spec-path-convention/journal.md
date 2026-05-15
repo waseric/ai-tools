@@ -91,3 +91,13 @@
 **Advisory:** 1 — brownfield three-case coverage is implicit rather than labeled; acceptable for instruction prose.
 **Spec amendments proposed:** None
 **Next action:** Proceed to T-03 (Migrate existing spec files and delete todo)
+
+## 2026-05-15 — Review of CP-2
+
+**Reviewer:** Copilot (self-review, structured)
+**Outcome:** pass with comments
+**Tasks reviewed:** T-03
+**Blockers:** 0
+**Important:** 1 — `specs/20260514-session-economy/journal.md` line 7 has stale artifact reference (`docs/specs/session-economy-and-multi-repo-disciplines-architecture.md`); should be `specs/20260514-session-economy/architecture.md`. Pre-existing, not a T-03 DoD violation.
+**Spec amendments proposed:** None
+**Next action:** All tasks complete. Both checkpoints passed. Feature spec marked complete. Follow-up: fix stale artifact reference in session-economy journal.

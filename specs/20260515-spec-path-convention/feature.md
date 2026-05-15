@@ -1,6 +1,6 @@
 # Spec Path Convention — Feature Spec
 
-> Status: Draft — Open for Review
+> Status: Complete
 > Date: 2026-05-15
 > Author: waseric + Copilot
 > Design Spec: specs/20260515-spec-path-convention/architecture.md
@@ -230,6 +230,7 @@ The inception date `20260514` comes from the session-economy spec's status banne
 - **Trigger.** T-03 done.
 - **Review focus.** Git history preserved on migrated files. Directory structure matches design spec §4. No orphaned files. All cross-references within specs resolve (journal pointers, design spec references).
 - **Exit criteria.** `specs/` contains only loose constitution files and dated subdirectories. `git log --follow` works on migrated files.
+- **Status:** pass with comments on 2026-05-15 by Copilot (self-review, structured)
 
 ## 10. Risks and Mitigations
 
