@@ -24,6 +24,7 @@ SECTION: <name or number of the section being amended; e.g. "§5 Detailed Design
 TRIGGER: <what surfaced the need; e.g. "spec-execute T-04 hit a contradiction", "spec-review CP-2 raised an out-of-spec finding", "user noticed during planning">
 PROPOSED_CHANGE: <the change itself, if the user already drafted it; otherwise the skill drafts from conversation>
 APPROVER: <who must approve; usually the user; may be a named reviewer for governance-heavier contexts>
+SPEC_REPO_ROOT: <optional; path to the repo where SPEC_PATH lives, when different from the codebase being amended; inherited from the triggering spec-execute session if set>
 ```
 
 ---
@@ -125,6 +126,8 @@ spec: amendment <YYYY-MM-DD-N> — <one-line summary>
 See <JOURNAL_PATH> for full amendment record.
 ```
 
+**Multi-repo case.** When `SPEC_REPO_ROOT` is set, the spec and journal edits are committed in `SPEC_REPO_ROOT`, not in the codebase repo. The amendment commit message references the same amendment ID as any related code-side changes. Do not let the amendment commit ship without verifying the codebase-side state is consistent — if the amendment changes task scope, the implementer's next code commit must reflect it.
+
 # PHASE 5 — JOURNAL
 
 Append a journal entry to `JOURNAL_PATH`:
@@ -144,6 +147,8 @@ Append a journal entry to `JOURNAL_PATH`:
 ### Full record
 <Paste the structured amendment from Phase 2 here, with the Approver field filled in.>
 ```
+
+When `SPEC_REPO_ROOT` is set, the journal lives in `SPEC_REPO_ROOT`. Stage and commit the journal entry in that repo. The commit references the amendment ID and is paired with any code-side commit that prompted the amendment.
 
 The journal entry is the durable record. The spec itself shows only the new state; the journal preserves the *transition* — what was, what is, and why.
 

@@ -20,6 +20,7 @@ CHECKPOINT_ID: <e.g. CP-1, or the name from the spec's Review Checkpoints sectio
 DIFF_RANGE: <e.g. main..feature/x, or a list of commit SHAs, or a PR URL>
 TASK_IDS_IN_SCOPE: <task IDs covered by this checkpoint, from the spec>
 REVIEWER: <name or role>
+SPEC_REPO_ROOT: <optional; path to the repo where SPEC_PATH and JOURNAL_PATH live, when different from the codebase under review>
 ```
 
 ---
@@ -173,6 +174,8 @@ Regardless of outcome, record the review:
   **Spec amendments proposed:** <if any>
   **Next action:** <what the implementer or user should do next>
 ```
+
+**Multi-repo case.** When `SPEC_REPO_ROOT` is set, spec and journal updates are committed in `SPEC_REPO_ROOT`, not in the codebase repo. The commit message references the checkpoint ID. This is the paired commit to whatever code-side work was reviewed — do not let one ship without the other.
 
 - **If spec amendments were proposed,** route them through the `spec-amend` skill. Amendments are not applied silently as part of a review.
 - **If the outcome is `pass` or `pass with comments`,** state the next task ID per the dependency graph so the next session has a clear pickup point.

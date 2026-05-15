@@ -186,6 +186,7 @@ Links to the patterns, RFCs, library docs, internal docs, and prior code that in
 - Phase 3 must be a single self-contained markdown document, suitable for committing as `docs/specs/<feature-name>.md`.
 - All file paths must be repo-relative.
 - All code blocks must specify a language for syntax highlighting.
+- If the spec will be committed to a different repo than the codebase it describes, note this in the spec's §3 Background section and include `SPEC_REPO_ROOT` / `SPEC_TARGET_BRANCH` values for downstream `spec-execute` sessions. This eliminates the need for the executor to rediscover the multi-repo layout each session.
 - Do not include marketing language. Be precise.
 
 # WHAT NOT TO DO

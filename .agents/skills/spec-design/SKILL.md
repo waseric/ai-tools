@@ -180,6 +180,7 @@ Inline citations at the point of claim are preferred over a bibliography-at-the-
 - Phase 3 must be a single self-contained markdown document, suitable for committing as `docs/specs/<artifact-name>-architecture.md`.
 - All links follow the portability rule (no absolute filesystem paths).
 - All code blocks specify a language.
+- If the spec will be committed to a different repo than the codebase it describes, note this in the spec's §3 Background section and include `SPEC_REPO_ROOT` / `SPEC_TARGET_BRANCH` values for downstream `spec-execute` sessions. This eliminates the need for the executor to rediscover the multi-repo layout each session.
 - No marketing language. Be precise.
 
 # WHAT NOT TO DO
