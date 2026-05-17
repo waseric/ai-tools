@@ -238,7 +238,7 @@ All three resolutions match the §13 leanings; no leaning was overturned at exec
 **Approver:** waseric
 **Approved on:** 2026-05-17
 **Status implication:** kept (status banner remains `Draft — Awaiting Execution`; banner-staleness observed but out of scope for this amendment — flagged separately at Phase 6 handoff)
-**Commit:** this commit
+**Commit:** `2578de2`
 
 ### Full record
 
