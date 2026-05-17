@@ -54,3 +54,36 @@
 - The amendment touched one more section than originally enumerated (§5.3 dangling `See OQ-1` reference — sub-change D) for a total of ten edits across the nine advisories, because advisory 6 split cleanly into two distinct fixes (remove dangling reference + add severity-axis decoupling row). Net design substance unchanged.
 
 **Next task pointer:** T-02 — create `specs/findings/README.md` (schema documentation). Dependency T-01 satisfied; no `[blocker]` open questions; ready to proceed.
+
+## 2026-05-17 — T-02: Create `specs/findings/README.md` (schema documentation)
+
+**Status:** done
+**Commits:** (this commit)
+**Files touched:**
+- specs/findings/README.md (new file, 142 lines)
+- specs/findings/ (new directory)
+
+**Tests added:** N/A — inspection-based per T-02's "Tests required".
+
+**DoD verification:**
+- *File written:* specs/findings/README.md created with all six required sections (What this directory holds, State machine, Status semantics, Persona-frame taxonomy, Field reference, Creating a new finding).
+- *Under ~200 lines:* 142 lines (verified via `wc -l`); leaves headroom for any RC-2-driven additions without breaching the NFR.
+- *State-machine description matches amended design spec §4:* ASCII diagram includes the `reopened` back-transition (sub-change A); composition rules cite "append-only and forward-progressing" wording (sub-change B); route subtype → terminal status mapping paragraph mirrors sub-change E.
+- *Persona-frame taxonomy matches amended §5.6:* uses standardized "orientation, not handoffs" wording (sub-change F first bullet); includes the intake-breadth asymmetry note as its own paragraph (sub-change F second bullet).
+- *Field reference covers every template field:* 29-row table covers all fields from design spec §5.1 (architecture.md lines 118–164) — header block (Status, Domain, Severity, Operational urgency, Date opened, Last transition), Intake section (Reported by, Reported via, Captured by, Summary, External references), Triage section (Triaged by, Triage date, Reproducibility, Repro steps, Scope, Domain confirmation, Severity confirmation, Triage notes), Investigation section (Investigated by, Investigation date, Probable cause, Code/configuration touchpoints, Alternative hypotheses considered, Proposed remedy), Route section (Route decision, Decided by, Route date, Target spec, Route rationale). Title added as a 29th row (the H1 of the artifact, schema-load-bearing even though §5.1's template renders it as an implicit `# <Short title>` heading).
+- *Cross-references valid:* verified `../20260517-findings-pipeline/architecture.md` and `../20260515-spec-path-convention/architecture.md` exist; verified `#7-implementation-sequencing` anchor resolves to `## 7. Implementation Sequencing` at architecture.md:300.
+- *"Create a finding" how-to present:* four-step procedure with literal `cp` shell example; forward-pointer to Phase B `finding-intake` skill noted.
+
+**Decisions made:**
+- Field reference rendered as a 4-column table (Field / Type / Required by phase / Semantics) rather than a definition list, to satisfy the §6 NFR "AI-agent consumable: the field reference table in README.md uses a regular structure (column headers, one row per field) that an agent can parse without prose interpretation."
+- Status semantics rendered per-status with Meaning / Persona-frame / Exit condition triplets — more readable than a single table, and accommodates the "Persona-frame: N/A" terminal-state cases honestly.
+- Title field included as an explicit 29th row in the field reference, even though design spec §5.1 renders the title as an implicit H1 (`# <Short title> — Finding`). The README is a schema document; the title is part of the schema regardless of how the template syntactically expresses it. The T-03 template will need to instantiate the H1 with the title placeholder.
+
+**Spec amendments:** None. Spec was sufficient as written post-T-01.
+
+**Surprises and learnings:**
+- The design spec's §5.1 template uses inline placeholder syntax for fields (`<text>`) rather than enumerating them in a table. Translating those into a structured field-reference table required some interpretive judgment about field naming (e.g., the unlabeled "Date:" rows under Triage and Investigation are disambiguated here as "Triage date" and "Investigation date" so the field reference table has unique names per row).
+- The state-machine ASCII diagram in the README is rendered differently than the topology diagram in design spec §4 — the design spec's diagram covers the full pipeline (signals in, routes out), while the README's focuses narrowly on status transitions, which is what a status-machine consumer needs. Both diagrams are faithful to the same state machine; the choice was to keep the README's diagram tight and topology-free since the README's scope is the schema, not the full pipeline topology.
+- The "Creating a new finding" section deliberately documents the *manual* path (copy + edit) rather than the future `finding-intake` skill path, since the skill does not yet exist (Phase B). When the skill ships, this section is the natural place to update with the skill invocation as the primary path and the manual copy as the fallback.
+
+**Next task pointer:** T-03 — create `specs/findings/_template/finding.md`. Dependencies T-01, T-02 satisfied (T-02 produces the field set that T-03 instantiates). No `[blocker]` open questions; ready to proceed.
