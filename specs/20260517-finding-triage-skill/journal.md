@@ -228,3 +228,43 @@ All three resolutions match the §13 leanings; no leaning was overturned at exec
 **Reviewer notes — self-review honesty:**
 - Self-review caveat acknowledged: Claude executed T-01 through T-04 on the operator's behalf via `/spec-execute`, then performed this review. Per the skill's "be especially honest about advisory findings" guidance, A-1 (state-machine guard inspection-only) was deliberately not dismissed even though my pre-review instinct was to accept inspection as sufficient. The advisory is recorded so the operator (waseric) can decide whether to require the second-invocation exercise before closing RC-3b in their own judgment, or accept the verdict as written.
 - The skip-route inspection-only verdict (A-2) is the area I would most expect a second reviewer to push back on. Option (a) reflects the journal's documented lean and the spec's §7 default-expected-outcome framing; option (b) (synthetic skip-route micro-exercise) is low-cost and would resolve A-2 cleanly. Recommending (a) without pretending the gap is invisible.
+
+## 2026-05-17 — Amendment 2026-05-17-1
+
+**Section amended:** specs/20260517-finding-triage-skill/feature.md §12 (Out of Scope) — two surgical changes
+**Trigger:** RC-3b review (commit `3ad99ce`) advisory A-3 + RC-3 review (commit `62aa0af`) advisory A-3 — recommended a small §12 clarification declaring session-side intake captures as out-of-scope side artifacts. Bundled with a consequential tense-tweak to the existing OQ-3/OQ-4 quoting-back bullet now that design-spec amendments 2026-05-17-3 and -4 have satisfied that deferral.
+**Reason:** Future readers would have no in-spec record that mid-execution intake captures via the upstream `/finding-intake` skill are an expected pattern rather than scope drift; and the existing OQ-3/OQ-4 bullet's future-tense framing is now stale after this session's preceding amendments.
+**Impact summary:** No tasks affected (Phase C T-01–T-04 complete and untouched); no checkpoints re-opened (RC-3b and RC-3 stay closed); no completed work invalidated; no cross-references require follow-up.
+**Approver:** waseric
+**Approved on:** 2026-05-17
+**Status implication:** kept (status banner remains `Draft — Awaiting Execution`; banner-staleness observed but out of scope for this amendment — flagged separately at Phase 6 handoff)
+**Commit:** this commit
+
+### Full record
+
+**Trigger.** RC-3b self-review (commit `3ad99ce`) advisory A-3 surfaced that two intake findings were captured via `/finding-intake` during Phase C execution ([spec-write-leaves-specs-uncommitted](../findings/20260517-spec-write-leaves-specs-uncommitted/) commit `d764c08`; [intake-template-folder-dependency](../findings/20260517-intake-template-folder-dependency/) commit `e0b0a32`), but §12 Out of Scope never declared session-side captures as out-of-scope side artifacts. RC-3 review (commit `62aa0af`) advisory A-3 reinforced the framing. Recommended remedy was "a small §12 Out of Scope clarification, deferrable until convenient." Bundled in this amendment: a surgical tense-tweak to the existing OQ-3/OQ-4 quoting-back bullet, now that this session's preceding amendments (2026-05-17-3 and -4 against the design spec) have satisfied that deferral.
+
+**Section.** §12 Out of Scope (L522–L533 pre-amendment).
+
+**Change.** Two surgical edits to §12 — a tense-tweak to one existing bullet, and a new bullet inserted between two existing bullets.
+
+§12 — Before (relevant adjacency):
+> - **Quoting OQ-3 and OQ-4 resolutions back to the design spec via `/spec-amend`** — the resolutions are recorded in this feature spec's §5.3 and §5.4 and in the produced SKILL.md, satisfying RC-3's exit criteria. Quoting them back to the design spec's §13 (converting OQ-3 and OQ-4 from "open" to "decided") is a small follow-on amendment, executed after RC-3 closes, against the design spec — *not* part of this feature spec's task breakdown.
+> - **External-system push (Slack/Linear/GitHub integration)** — the design spec's §12 declares this out of scope for the methodology; Phase C inherits the exclusion.
+
+§12 — After (relevant adjacency):
+> - **Quoting OQ-3 and OQ-4 resolutions back to the design spec via `/spec-amend`** — the resolutions are recorded in this feature spec's §5.3 and §5.4 and in the produced SKILL.md, satisfying RC-3's exit criteria. Quoting them back to the design spec's §13 (converting OQ-3 and OQ-4 from "open" to "decided") has been satisfied via design-spec amendments [2026-05-17-3](../20260517-findings-pipeline/journal.md) (OQ-3) and [2026-05-17-4](../20260517-findings-pipeline/journal.md) (OQ-4); the work was not part of this feature spec's task breakdown.
+> - **Session-side intake captures via `/finding-intake`** — findings captured via the upstream `/finding-intake` skill during a Phase C execution session (e.g., [spec-write-leaves-specs-uncommitted](../findings/20260517-spec-write-leaves-specs-uncommitted/) commit `d764c08`; [intake-template-folder-dependency](../findings/20260517-intake-template-folder-dependency/) commit `e0b0a32`) are out-of-scope side artifacts: they exercise the `/finding-intake` skill (Phase B deliverable) under real conditions, contribute independent evidence for the design spec's §6 interruption-tolerance NFR, and live in the Findings Pipeline awaiting their own triage in a later session. They require no Phase C amendment, no inclusion in §7 Task Breakdown, and no closeout against this spec's DoD; the intake skill's own discipline (atomic finding commit, status banner, intake journal entry) is the contract they meet.
+> - **External-system push (Slack/Linear/GitHub integration)** — the design spec's §12 declares this out of scope for the methodology; Phase C inherits the exclusion.
+
+**Reason.** RC-3b A-3 and RC-3 A-3 surfaced the same gap from two checkpoint perspectives: the spec's §12 was silent on the legitimate, transparent, and journal-documented practice of capturing parallel findings via the upstream skill during execution. Future readers (or future self) re-orienting to this spec would have no in-spec record that session-side captures are an expected pattern rather than scope drift. The clarification makes the discipline self-documenting. Bundled tense-tweak: the existing OQ-3/OQ-4 bullet's "executed after RC-3 closes" framing became stale the moment this session's amendments 2026-05-17-3 and -4 landed; refreshing the language in the same amendment keeps §12 internally coherent.
+
+**Impact.**
+- **Affected tasks:** none. Phase C's T-01 through T-04 are complete; this amendment does not change task scope, it only declares that the two session-side captures were never task-scoped to begin with, and ratifies that the OQ-3/OQ-4 quote-back is now done.
+- **Affected checkpoints:** RC-3b is closed (`pass with comments` per `3ad99ce`); this amendment ratifies A-3's recommendation in spec text. RC-3 is closed (`pass with comments` per `62aa0af`); same. No re-review triggered.
+- **Completed work invalidated:** none.
+- **Cross-references requiring follow-up:** none — §7 Task Breakdown's silence on session-side captures is now self-consistent with §12's explicit declaration. The two findings themselves are unaffected (they live in the Findings Pipeline regardless). The design-spec OQ-3/OQ-4 entries are already current as of amendments 2026-05-17-3 and -4.
+
+**Status implication.** Spec status banner remains `Draft — Awaiting Execution`. The banner-staleness is observed (Phase C is in fact done, RC-3b closed) but is out of scope for this amendment — flagged separately at Phase 6 handoff so the operator can decide whether to address it as a future amendment.
+
+**Approver.** waseric — approved (with bundled OQ-3/OQ-4 staleness tweak per Phase 3 question) on 2026-05-17.
