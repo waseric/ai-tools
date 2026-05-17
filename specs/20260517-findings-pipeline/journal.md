@@ -352,7 +352,7 @@ After:
 **Approver:** waseric
 **Approved on:** 2026-05-17
 **Status implication:** kept (spec stays at `Draft — Open for Review`)
-**Commit:** this commit
+**Commit:** `5c8eb8a`
 
 ### Full record
 
