@@ -401,3 +401,30 @@ WHAT NOT TO DO templates bullet refined: "byte-for-byte at every position not oc
 **Status implication.** No status change.
 
 **Approver.** waseric (2026-05-17).
+
+## 2026-05-17 — Spec closeout — Phase B complete
+
+**Status:** done
+**Commits:** this closeout commit
+**Files touched:**
+- Edited: `specs/20260517-finding-intake-skill/feature.md` — status banner flipped from `Draft — Open for Review` → `Complete`; §5.2 stop-word list now cross-references SKILL.md Phase 2 as the canonical list (closes amendment 2026-05-17-3's deferred follow-up).
+- Edited: `specs/20260517-finding-intake-skill/journal.md` — this entry.
+
+**Tests added:** None (housekeeping; inspection-based).
+
+**DoD verification:**
+- Status banner reflects post-RC-3a state: ✓ — feature.md:3 now `> Status: Complete`.
+- Amendment 2026-05-17-3 deferred follow-up resolved: ✓ — §5.2 stop-word bullet now points at SKILL.md as the canonical list rather than carrying a stale partial enumeration. Cross-reference resolves (`../../.agents/skills/finding-intake/SKILL.md` from this spec dir).
+- No other §7 tasks outstanding; all four (T-01 through T-04) closed.
+
+**Decisions made:**
+- **Status value: `Complete`** (not `Reviewed — Phase B Complete` or other variants). Matches existing repo precedent — one other spec uses `> Status: Complete`; the rest use `> Status: Draft — Open for Review`. Single-word state is the terser convention.
+- **§5.2 update shape: cross-reference, not mirror.** Amendment 2026-05-17-3's deferred-follow-up note offered two options ("see SKILL.md" pointer *or* matching update). Chose the pointer — duplicates less, decays less. SKILL.md is the operative artifact; feature.md §5.2 is the design rationale and should defer to the operative source for the canonical list.
+
+**Spec amendments:** None. This is closeout housekeeping; the spec is functionally unchanged.
+
+**Surprises and learnings:**
+- The spec's executable surface area is exhausted at this commit. No T-XX task in §7 remained open; the only outstanding work was (1) the status banner (routine post-checkpoint update) and (2) the §5.2 stop-word cross-reference (the one deferred follow-up explicitly identified in amendment 2026-05-17-3's "Cross-references requiring follow-up"). Both are sub-task scope.
+- Closing out the spec with a dedicated journal entry (rather than rolling it into the last amendment closeout) preserves the convention that *spec state changes* — including reaching the terminal `Complete` state — are first-class journal events.
+
+**Next pointer:** **Outside this spec.** Per [RC-3a review's recommended sequence](#next-action), the natural next step is `/spec-write` for Phase C — the `finding-triage` skill — against the upstream [findings-pipeline design spec](../20260517-findings-pipeline/architecture.md). Phase B's contribution to the design-spec RC-3 (joint Phase B + Phase C review) is now sealed.

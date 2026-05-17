@@ -1,6 +1,6 @@
 # Finding Intake Skill — Feature Specification
 
-> Status: Draft — Open for Review
+> Status: Complete
 > Date: 2026-05-17
 > Author: waseric + Claude
 > Audience: Eric Wasgatt (executor); AI coding agents executing this spec; reviewers at the Phase B internal checkpoint and at the design-spec RC-3 (joint with Phase C)
@@ -174,7 +174,7 @@ The Intake `Captured by` field carries the persona-frame label `intake`. The ski
 - Lowercase the title.
 - Strip punctuation except hyphens.
 - Replace whitespace with hyphens.
-- Drop common stop words (`the`, `a`, `an`, `of`, `is`, `are`, `and`, `or`, `to`, `for`, `in`, `on`, `with`) if the resulting slug is still ≥3 words.
+- Drop common stop words (`the`, `a`, `an`, `of`, `is`, `are`, `and`, `or`, `to`, `for`, `in`, `on`, `with`) if the resulting slug is still ≥3 words. The canonical list — including the validation/test-context boilerplate appended by [amendment 2026-05-17-3](journal.md#2026-05-17--amendment-2026-05-17-3) — lives in [.agents/skills/finding-intake/SKILL.md](../../.agents/skills/finding-intake/SKILL.md) Phase 2.
 - Truncate to a target length: 3–5 word-pieces, ≤40 characters total.
 - Present the result to the operator in interactive mode for one-step accept/edit. In structured-input mode, the slug is used as-supplied if `SHORT_NAME` is given, else derived as above with no confirmation.
 
