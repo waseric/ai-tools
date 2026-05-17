@@ -54,3 +54,46 @@
 **Advisory:** 9 — topology diagram missing `reopened` back-transition; monotonicity wording; route/status mapping spread across sections; persona-frame wording drift (§5.6 vs. §6); intake-persona breadth vs. §5.6 role taxonomy; OQ-1 de-facto decided (convert to decision); OQ-5 partly answered (tighten open part to triage-time revalidation policy); `Last transition` field intent undocumented; §14 ITIL/SDLC references uncited (verification pass deferred).
 **Spec amendments proposed:** Route §5.8 important fix through `spec-amend` immediately. Batch advisories into RC-2 schema-pass amendment as part of finalizing the template + state machine.
 **Next action:** Run `spec-amend` for the §5.8 dangling-reference fix, then proceed to `spec-write` for `findings-pipeline-schema` (Phase A in §7 Implementation Sequencing).
+
+## 2026-05-17 — Amendment 2026-05-17-1
+
+**Section amended:** specs/20260517-findings-pipeline/architecture.md §5.8 (bullet 4) and §10 Risks (row for "Findings accumulate at `status: intake` without triage", mitigation column)
+**Trigger:** RC-1 self-review [important] finding — dangling internal reference to "the `spec-execute` adoption path below" with no such section in §11; same orphan dependency inherited by §10 risk row mitigation
+**Reason:** Original wording promised cross-section continuity the spec did not deliver. Treating spec-execute integration as a sibling future enhancement keeps this design's scope honest and matches the operator's Clarify-phase scoping.
+**Impact summary:** No tasks/checkpoints affected (no downstream specs exist yet); no completed work invalidated; cross-references checked — none require follow-up.
+**Approver:** waseric
+**Approved on:** 2026-05-17
+**Status implication:** kept (spec stays at `Draft — Open for Review`)
+**Commit:** this commit
+
+### Full record
+
+**Trigger.** RC-1 Design Freeze self-review on 2026-05-17 surfaced an [important] finding: §5.8 bullet 4 references "the spec-execute adoption path below" but §11 (Adoption Path) has no spec-execute section. The §10 risk-table row for stale-intake-findings carries the same orphan dependency in its mitigation column. The RC-1 recommendation was to treat spec-execute integration as a sibling future enhancement, not part of this design's scope.
+
+**Section.** §5.8 Interruption-tolerance (bullet 4); §10 Risks and Mitigations (row for "Findings accumulate at `status: intake` without triage", mitigation column).
+
+**Change.**
+
+§5.8 bullet 4 — Before:
+> - Allowing `spec-execute`'s task-boundary pause to surface "any open findings worth raising?" as an optional prompt — captured in the `spec-execute` adoption path below.
+
+§5.8 bullet 4 — After:
+> - Keeping the interruption-tolerance property self-contained within the pipeline: the three bullets above (cheap intake, self-contained artifact, no commit-to-route) hold without any change to `spec-execute`. Future enhancement: a separate amendment could teach `spec-execute` to surface "any open findings worth raising?" at task-boundary pauses, but that integration is out of scope for this design and not load-bearing for interruption-tolerance.
+
+§10 row mitigation — Before:
+> Triage is the gate; close/defer are valid terminals; periodic review of stale `intake` findings during spec-execute task-boundary checks
+
+§10 row mitigation — After:
+> Triage is the gate; close/defer are valid terminals; periodic operator review of stale `intake` findings as a habit, not enforced by tooling
+
+**Reason.** The original §5.8 bullet promised cross-section continuity that the spec did not deliver. The §10 risk row inherited the same dependency in its mitigation, making the mitigation effectively unspecified. Treating spec-execute integration as a sibling future enhancement keeps this design's scope honest. The interruption-tolerance property holds without the spec-execute prompt; that prompt is a nice-to-have, not load-bearing.
+
+**Impact.**
+- **Affected tasks:** none (no downstream feature specs have been authored yet).
+- **Affected checkpoints:** RC-1 is closed by this amendment. RC-2 through RC-5 unchanged.
+- **Completed work invalidated:** none.
+- **Cross-references requiring follow-up:** none — §6 NFR row states the requirement (not the mechanism) and remains valid; §5 line 50 constraint description does not promise an integration.
+
+**Status implication.** Spec stays at `Draft — Open for Review`.
+
+**Approver.** waseric — approved as drafted on 2026-05-17.

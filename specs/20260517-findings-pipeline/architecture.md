@@ -275,7 +275,7 @@ A finding raised during active `spec-execute` must not pull the executor off-tas
 - Making intake cheap: a one-paragraph capture is sufficient; triage and investigation can wait.
 - Making the finding artifact self-contained: when the operator returns to the finding later, the artifact carries everything needed; the originating conversation is not load-bearing.
 - Not requiring the spec-execute session to commit a finding to one route. The finding is parked at `status: intake` until a later session triages it.
-- Allowing `spec-execute`'s task-boundary pause to surface "any open findings worth raising?" as an optional prompt — captured in the `spec-execute` adoption path below.
+- Keeping the interruption-tolerance property self-contained within the pipeline: the three bullets above (cheap intake, self-contained artifact, no commit-to-route) hold without any change to `spec-execute`. Future enhancement: a separate amendment could teach `spec-execute` to surface "any open findings worth raising?" at task-boundary pauses, but that integration is out of scope for this design and not load-bearing for interruption-tolerance.
 
 ## 6. Non-functional Requirements
 
@@ -354,7 +354,7 @@ The design is validated by:
 |---|---|---|---|---|
 | The design is wrong — three-phase model is the wrong cut | Low | High | RC-1 design review; RC-5 adoption review with explicit re-cut option | Eric |
 | Pipeline ceremony outweighs benefit for solo work | Medium | High | NFR on interruption-tolerance (60-second intake target); protocol-first investigation; permission to skip investigation when route is obvious | RC-3 reviewer |
-| Findings accumulate at `status: intake` without triage | Medium | Medium | Triage is the gate; close/defer are valid terminals; periodic review of stale `intake` findings during spec-execute task-boundary checks | Operator discipline; surfaced at RC-5 |
+| Findings accumulate at `status: intake` without triage | Medium | Medium | Triage is the gate; close/defer are valid terminals; periodic operator review of stale `intake` findings as a habit, not enforced by tooling | Operator discipline; surfaced at RC-5 |
 | Persona-frame treated as bureaucratic rather than orienting | Medium | Medium | Explicit guidance: personas are orientation, not handoffs. Persona-frame check at RC-5. Skill prompts model the frame for AI agents. | Skill authors; RC-3 reviewer |
 | Vocabulary collision: in-checkpoint findings (spec-review) vs. pipeline findings | Low | Medium | Cross-reference in both directions: `spec-review` notes the pipeline as the home for out-of-checkpoint findings; finding artifacts may reference an originating `spec-review` if applicable | Documentation at RC-2 |
 | External-system pointers go stale (GitHub issue moved/closed; Slack thread expired) | Medium | Low | Artifact captures verbatim summary at intake; external references are supplementary, not load-bearing | Intake skill behavior |
