@@ -1,6 +1,6 @@
 # finding-intake skill depends on specs/findings/_template/ — breaks when installed globally — Finding
 
-> Status: triaged
+> Status: under-investigation
 > Domain: methodology
 > Severity: blocker                                    ← methodology axis
 > Operational urgency (optional): <P1 | P2 | P3 | P4>  ← operational axis (typically operational findings only)
@@ -32,12 +32,23 @@
 
 ## Investigation (optional)
 
-**Investigated by:** <persona-frame: developer>
-**Investigation date:** <YYYY-MM-DD>
-**Probable cause:** <hypothesis with evidence; file:line references where applicable>
-**Code/configuration touchpoints:** <bulleted file paths>
-**Alternative hypotheses considered:** <briefly, with reason rejected>
-**Proposed remedy:** <plain-language description>
+**Investigated by:** waseric; developer; persona-frame: investigation
+**Investigation date:** 2026-05-17
+**Probable cause:** The path-coupling and line-number-coupling that triage identified by inspection of [.agents/skills/finding-intake/SKILL.md](../../../.agents/skills/finding-intake/SKILL.md) Phase 1 step 1, Phase 3 steps 2–3, and the WHAT NOT TO DO section — and that recur in [.agents/skills/finding-triage/SKILL.md](../../../.agents/skills/finding-triage/SKILL.md) Phase 1 step 1 — are downstream symptoms of a missing methodology-level architectural commitment: that skills are *portable atomic units* that self-contain their workflow, schema knowledge, and default templates while discovering and adapting to richer methodology embodiments when present in the host context. The two coupling axes (path resolution; line numbering inside templates) are correct symptom-level identifications but incomplete cause-level identifications: without the underlying principle written down as a methodology commitment, the pattern recurs in any future skill that copies the existing skills' shape as its template (Phase D/E investigation/route skills; Phase E `FINDING_PATH` plumbing for `/spec-amend` and `/spec-write`).
+**Code/configuration touchpoints:**
+- [specs/tech-stack.md](../../tech-stack.md) — primary amend target; add the **Atomic-Skill Portability Principle** as a methodology-wide commitment for skill construction.
+- [specs/20260517-findings-pipeline/architecture.md](../../20260517-findings-pipeline/architecture.md) — cross-reference the principle from the design spec; clarify that the host's `specs/findings/README.md` is documentation (a derived projection of the schema for human readers), not a required runtime distributable.
+- [specs/20260517-findings-pipeline-schema/feature.md](../../20260517-findings-pipeline-schema/feature.md) — cascading edits: replace numeric line-range strip instructions with scaffold-marker delimiters (`<!--scaffold-start-->` … `<!--scaffold-end-->`); commit that templates are skill-bundled defaults that the host project may override.
+- [.agents/skills/finding-intake/SKILL.md](../../../.agents/skills/finding-intake/SKILL.md) — remove `../../../specs/findings/_template/...` relative paths from ORIENT and APPLY; reference scaffold-marker delimiters instead of line ranges; treat templates as skill-bundled assets discoverable in the skill's own directory; reference the schema as a design-spec-level commitment, not as a runtime-resolvable doc.
+- [.agents/skills/finding-triage/SKILL.md](../../../.agents/skills/finding-triage/SKILL.md) — same cascade as finding-intake.
+- [specs/findings/_template/finding.md](../_template/finding.md) and [specs/findings/_template/journal.md](../_template/journal.md) — replace hardcoded HTML scaffolding blocks with marker-delimited boundaries (`<!--scaffold-start-->` … `<!--scaffold-end-->`) so skills can strip by marker without line-number knowledge.
+**Alternative hypotheses considered:**
+- *Triage candidate (a): inline templates into SKILL.md.* Survives as an *implementation* choice under the principle, not as the framing — addresses both coupling axes but duplicates schema content into the skill prompt and creates a sync burden between skill and schema for any non-trivial template size.
+- *Triage candidate (b): marker-based delimiters alone.* Survives as a *component* of the implementation — even with skill-bundled templates, marker delimiters are the right strip mechanism. Insufficient as a primary remedy because it addresses only the line-number coupling, not the path coupling.
+- *Triage candidate (c): bundled `_template/` with host override.* Survives as the *implementation* path under the principle. Rejected *as framed* because the framing left the underlying principle unstated.
+- *Narrow-fix to two SKILL.md files only (Branch A in the design-level conversation).* Rejected — addresses the immediate symptoms but does not commit the methodology to the principle, so the pattern reappears in the next skill authored.
+- *Pluggable storage backends, e.g. GitHub issues as backing store (Branch B in the design-level conversation).* Rejected — re-opens design-spec §5.1 (rejected: "one ticket per finding in an external tracker") and §12 ("Issue-tracker substitute" out of scope) against a need not yet established. The atomic-unit principle leaves Branch B reachable via a future design spec without committing to it now.
+**Proposed remedy:** Adopt the **Atomic-Skill Portability Principle** as a methodology-wide commitment in [specs/tech-stack.md](../../tech-stack.md): each skill is a portable atomic unit that (1) self-contains its workflow, schema knowledge, and default templates; (2) discovers and adapts to richer methodology embodiments in its host context when present (e.g., a project's `specs/findings/` storage convention, project-specific template overrides, sibling skills, design-spec references); (3) degrades cleanly when those embodiments are absent. Cascade the principle through the findings-pipeline design spec, the schema feature spec, the two existing SKILL.md files, and the two template files. Implementation choices under the principle: skill-bundled `_template/` defaults; host-project `_template/` as optional override; scaffold-marker delimiters (`<!--scaffold-start-->` … `<!--scaffold-end-->`) instead of line-range stripping; host's `specs/findings/README.md` reframed as documentation, not required distributable. Follow-on audit of the spec-* skills (`spec-write`, `spec-amend`, `spec-design`, `spec-execute`, `spec-review`, `project-constitution`) for principle compliance, with a sibling finding per non-compliant skill (closed immediately if compliant). Constitution-amendment workflow gap (`/spec-amend`'s documented scope names design and feature specs, not constitution docs) recorded as a follow-on advisory finding so the gap is not lost.
 
 ## Route
 
