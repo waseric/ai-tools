@@ -41,3 +41,37 @@
 - Sibling skill patterns: `finding-intake` (153 lines, 12 structural sections) is the closest reference. Target this spec's deliverable at 180–220 lines.
 
 **Next task pointer:** Execute T-01 (`.agents/skills/finding-triage/SKILL.md`) via `/spec-execute`. Dependencies satisfied (Phase A schema artifacts + Phase B intake skill + two real intake-status findings are committed and stable). No `[blocker]` open questions; ready to proceed.
+
+## 2026-05-17 — T-01: Author `.agents/skills/finding-triage/SKILL.md`
+
+**Status:** done
+**Commits:** `a8f5674` (SKILL.md authored). Session-shouldered companion commits in the same session: `b3a0f94` (spec authorship belatedly committed at orient time — see "Surprises and learnings" below), `d764c08` (intake finding `spec-write-leaves-specs-uncommitted` captured at operator's direction during orient).
+**Files touched:** `.agents/skills/finding-triage/SKILL.md` (new, 197 lines).
+**Tests added:** none — methodology repo, markdown-only deliverable. Verification is by inspection (T-01 Tests-required section): line count, twelve §5.1 structural sections, frontmatter parseable with required cross-references, all eighteen §4 INPUTS fields present, all eight WHAT NOT TO DO anti-goals enumerated, state-machine pre-condition guard in Phase 1, two-journal-entry skip-route discipline in Phase 3.
+**DoD verification:**
+- File written ✓ (`.agents/skills/finding-triage/SKILL.md`, 197 lines).
+- ≤220 lines (`wc -l` = 197) ✓.
+- Committed ✓ (`a8f5674`).
+- Twelve §5.1 structural sections present ✓ — YAML frontmatter; `# Finding Triage` title; three opening paragraphs; `## How this skill works`; `## INPUTS`; `# ROLE`; `# OPERATING PRINCIPLES`; `# PHASE 1 — ORIENT`; `# PHASE 2 — DRAFT`; `# PHASE 3 — APPLY`; `# OUTPUT FORMAT`; `# WHAT NOT TO DO`.
+- All 18 §4 INPUTS fields present ✓ — including the conditional skip-investigation set (`SKIP_INVESTIGATION`, `ROUTE_DECISION`, `ROUTE_RATIONALE`, `TARGET_SPEC`, `WATCH_CONDITION`, `CLOSE_REASON`).
+- All 8 anti-goals enumerated ✓ — no opening code; no rewriting Intake; no inventing reproducibility; no skipping persona-frame; no silent revalidation; no auto-commit; no re-triage of non-intake; no causal hypotheses in Triage.
+- State-machine pre-condition guard ✓ — Phase 1 ORIENT contains an explicit error message and "exit without artifact mutation" wording.
+- Two-journal-entry skip-route discipline ✓ — Phase 3 APPLY step 4 plus WHAT NOT TO DO bullet 6 both name "not collapsed; both entries written, in order, `Triaged` first."
+- Frontmatter description references `Findings Pipeline`, `[[finding-intake]]`, `[[spec-amend]]`, `[[spec-write]]` ✓.
+- OPERATING PRINCIPLES count: 8 (spec range 7–9) ✓.
+
+**Decisions made:**
+- **D-1** (was OQ-1, rich-vs-sparse heuristic prose): one-sentence rule + two grounded examples. Phrased in SKILL.md Phase 2. Closing line preserves operator judgment as the load-bearing authority.
+- **D-2** (was OQ-2, persona-frame label format): `<name>; <descriptive frame>; persona-frame: triage`. Encoded in Phase 2 derivation and Phase 3 step 1 (`Triaged by` field).
+- **D-3** (was OQ-3, reproducing without opening code): running code to reproduce is allowed; reading code to hypothesize is not. Placed in three locations (opening prose, OPERATING PRINCIPLE #2, WHAT NOT TO DO bullet 1) so the discipline is visible regardless of which section the agent loads first.
+
+All three resolutions match the §13 leanings; no leaning was overturned at execution time. Recorded in §13a Decisions.
+
+**Spec amendments:** none. T-01 came together cleanly within the §4 / §5.1 / §7 contracts; no spec edits required beyond the §7 T-01 status line and the §13 → §13a Decisions conversion.
+
+**Surprises and learnings:**
+- **Spec authorship was not committed by `/spec-write`** — `specs/20260517-finding-triage-skill/` was found untracked at orient. This is the second consecutive occurrence (Phase B exhibited the same pattern on 2026-05-16). Remediated at `b3a0f94` before opening T-01; pattern captured as intake finding `specs/findings/20260517-spec-write-leaves-specs-uncommitted/` at commit `d764c08`. The intake's triage and route decisions are out of scope for this spec (the finding now lives in the Findings Pipeline and will be triaged via `/finding-triage` itself in a later session — possibly a fitting dogfood for Phase F if not sooner).
+- **`finding-intake` SKILL.md template line ranges are stale** — the SKILL cites "template lines 1–22" and "lines 1–18" / "lines 29–84" but the actual comment blocks have shifted in the current templates. Spirit of the rule (strip the leading HTML comment block; strip the closing commented-out skeleton block) is unambiguous and was followed. Noted in the spec-write-leaves-specs-uncommitted intake's journal Notes as a minor methodology observation; not load-bearing for this T-01 closeout, not raised as its own finding.
+- **Phase 3 APPLY ordering in SKILL.md** — the spec's §4 implies the status banner update happens early, but in the skill I sequence "populate Triage section first, then update status banner, then append journal entry, then handle skip-route." This is the natural commit order (the Triage section is the load-bearing content; the banner is a scan-aid; the journal is the audit trail) and matches Phase B's analogous APPLY ordering. No spec deviation; just naming for the next executor.
+
+**Next task pointer:** T-02 — Synthetic validation exercise (triage the existing [specs/findings/20260517-test-only-signal-synthetic-fixture/](../findings/20260517-test-only-signal-synthetic-fixture/) using the just-authored skill). Dependencies satisfied (T-01 complete; synthetic fixture present at `status: intake`). Estimated size: S.

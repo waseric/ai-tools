@@ -314,6 +314,8 @@ One-paragraph section + a short skeleton example of the invocation. Target: ~25 
 
 ### T-01 — Author `.agents/skills/finding-triage/SKILL.md`
 
+**Status:** done — 2026-05-17 — commit a8f5674 — see journal entry. SKILL.md written at 197 lines (within §7 soft target of 180–220 and §6 NFR ceiling of ≤220). All twelve §5.1 structural sections present; YAML frontmatter parseable with description block referencing the Findings Pipeline and naming `[[finding-intake]]`, `[[spec-amend]]`, `[[spec-write]]`. All 18 §4 INPUTS fields covered (including the conditional skip-investigation set). All eight T-01-scope anti-goals enumerated in WHAT NOT TO DO. State-machine pre-condition guard present in Phase 1 ORIENT with explicit "exit without artifact mutation" wording. Two-journal-entry skip-route discipline explicit in Phase 3 APPLY ("not collapsed; both written, in order, `Triaged` first"). The three internal OQs from §13 (OQ-1 rich/sparse heuristic prose; OQ-2 persona-frame label format; OQ-3 reproducing-without-opening-code) were decided at execution time per their leanings — see §13.
+
 **Scope:**
 
 - New file: `.agents/skills/finding-triage/SKILL.md`.
@@ -525,31 +527,21 @@ This is a feature-spec-level checkpoint that gates Phase C alone. The design-spe
 
 ## 13. Open Questions
 
-Three internal open questions are parked here for resolution at T-01 execution time, following the Phase B precedent (OQ-1 / OQ-2 / OQ-3 in [the intake spec](../20260517-finding-intake-skill/feature.md#L416) were all decided at T-01). None are blockers for spec authoring.
+All three internal OQs (OQ-1 rich-vs-sparse heuristic prose; OQ-2 persona-frame label format; OQ-3 reproducing-without-opening-code) were decided at T-01 execution time per their leanings; see [§13a Decisions](#13a-decisions) below for the resolved record. No new OQs surfaced during T-01.
 
-### OQ-1 — Rich-vs-sparse Summary heuristic prose
+## 13a. Decisions
 
-**Question.** [§5.4 pointer-revalidation policy](#54-pointer-revalidation-policy-resolves-design-spec-oq-4) names a soft heuristic for whether the intake Summary is "rich" or "sparse" — the prose offers example counts (≥3 sentences = rich; ≤2 sentences = sparse) as guidance, not as a hard threshold. The open question is how prescriptively to phrase this in SKILL.md: as a 1-sentence heuristic with examples, as a longer paragraph with named anti-patterns, or as a deferred-to-operator-judgment phrasing without examples.
+### D-1 (was OQ-1) — Rich-vs-sparse heuristic stated as a one-sentence rule + two grounded examples.
 
-**Leaning.** One-sentence heuristic + the two existing examples (rich-example: TAB display finding's multi-sentence detailed summary; sparse-example: a one-line "moderators report X" intake). Examples ground the heuristic; the heuristic itself is operator-judged.
+The SKILL.md Phase 2 pointer-revalidation policy includes a single-sentence heuristic: "a summary is **rich** when it is ≥3 sentences, names the affected components, names the reporter(s), and includes verbatim quotes or snapshot references; **sparse** when it is ≤2 sentences, refers the reader to 'see the URL,' or contains only a one-line 'moderators report X.'" The closing sentence ("the heuristic is orientation, not a threshold") preserves operator judgment as the load-bearing authority. Recorded in SKILL.md Phase 2 "Rich-vs-sparse heuristic" subsection. Decided: 2026-05-17 (T-01 execution).
 
-**Owner.** T-01 author. Decidable at execution time without upstream amendment.
+### D-2 (was OQ-2) — Persona-frame label carries both pieces: `<name>; <descriptive frame>; persona-frame: triage`.
 
-### OQ-2 — Persona-frame label format
+Preserves the per-phase phase-label discipline established by intake while making the descriptive frame visible at a glance. Example written in SKILL.md: `waseric; business analyst; persona-frame: triage`. The `triage` label is fixed across all triage invocations; only the descriptive frame varies. Recorded in SKILL.md Phase 2 "Persona-frame derivation" subsection and Phase 3 step 1 (`Triaged by` field). Decided: 2026-05-17 (T-01 execution).
 
-**Question.** Intake writes `<name>; persona-frame: intake`. Triage's analog would be `<name>; persona-frame: triage`, but the *frame* itself is also descriptive (business analyst, security analyst, etc.). Should the artifact field carry both pieces of information ("waseric; business analyst; persona-frame: triage"), the descriptive frame alone ("waseric; business analyst (solo)"), or only the phase label ("waseric; persona-frame: triage")?
+### D-3 (was OQ-3) — Running code to reproduce is allowed; reading code to hypothesize is not.
 
-**Leaning.** Both pieces, as in intake's analog: `<name>; <descriptive frame>; persona-frame: triage`. Example: `waseric; business analyst; persona-frame: triage`. Preserves the per-phase phase-label discipline while making the descriptive frame visible at a glance.
-
-**Owner.** T-01 author. Decidable at execution time.
-
-### OQ-3 — Reproducing without opening code
-
-**Question.** The persona-frame discipline says "triage stays out of code." But reproducibility may require *running* code (e.g., joining a Minecraft server, triggering the LWC error). Is running code (without reading the implementation) consistent with "stay out of code"?
-
-**Leaning.** Yes — running code to reproduce is allowed and even necessary; "stay out of code" means don't open files to read implementation or propose remedies based on file inspection. The SKILL.md prose should make this distinction explicit so triage doesn't either (a) skip reproducibility because the operator avoids running code, or (b) drift into investigation by reading source.
-
-**Owner.** T-01 author. Decidable at execution time; phrased in the SKILL.md OPERATING PRINCIPLES.
+The SKILL.md draws the distinction explicitly in OPERATING PRINCIPLE #2 ("Stay out of code") and reinforces it in WHAT NOT TO DO ("Do not open code in the codebase being triaged about. Reading source to hypothesize about cause is investigation's job. *Running* code to reproduce a signal — joining a server, triggering an action, observing the error — is allowed and often necessary — that is the act of reproduction, not file inspection."). The opening prose framing also names this distinction. Three placements ensure the discipline is visible regardless of which section the AI agent loads first. Recorded in SKILL.md opening prose paragraph 3, OPERATING PRINCIPLE #2, and WHAT NOT TO DO bullet 1. Decided: 2026-05-17 (T-01 execution).
 
 ## 14. References
 
