@@ -299,3 +299,46 @@ After:
 **Reviewer notes — self-review honesty:**
 - Self-review caveat acknowledged: same agent executed Phases B + C and reviewed RC-3a, RC-3b, and now RC-3. Per [spec-review SKILL.md](../../.agents/skills/spec-review/SKILL.md)'s "be especially honest about advisory findings" guidance, A-3 was deliberately flagged at the RC-3 level (not just inherited from RC-3b) because the [intake-template-folder-dependency](../findings/20260517-intake-template-folder-dependency/) portability concern is *more* visible at the design-spec checkpoint than at the per-skill checkpoint — Phase E is about to extend `/spec-amend` and `/spec-write` to accept `FINDING_PATH`, and host-relative path references in the existing finding-{intake,triage} skills become a portability liability the moment any downstream skill carries the same pattern. The operator should consider whether to address this before Phase E starts or accept it as Phase F adoption-review work.
 - A-4 is the place I would most expect a second reviewer to push back on. RC-3's exit criteria ("at least one synthetic and one real per skill") are unambiguously met; surfacing RC-5's still-distant gate as an RC-3 advisory is debatable. I included it because the four real findings currently in the pipeline are domain-skewed (no security example yet), and Phase F's runway looks deceptively full at a glance — flagging it now is cheaper than discovering at RC-5 that the security-domain example was never opportunistically captured. Not promoting beyond advisory; the operator may dismiss if RC-5 owns the gap explicitly enough.
+
+## 2026-05-17 — Amendment 2026-05-17-3
+
+**Section amended:** specs/20260517-findings-pipeline/architecture.md §13 OQ-3 (Multi-domain personas)
+**Trigger:** RC-3 review (commit `62aa0af`) explicitly proposed quoting the OQ-3 resolution back to §13; deferred from Phase C feature spec per its §12.
+**Reason:** Leaving §13 OQ-3 at "Leaning + Decided at RC-3" after RC-3 had already decided would leave the design spec misleadingly open; the resolution lives in skill prose and Phase C §5.3 but was never quoted back to the design spec's working memory.
+**Impact summary:** No tasks/checkpoints affected (Phase C done, Phase B done, RC-3 already closed); no completed work invalidated; no cross-references require follow-up.
+**Approver:** waseric
+**Approved on:** 2026-05-17
+**Status implication:** kept (spec stays at `Draft — Open for Review`)
+**Commit:** this commit
+
+### Full record
+
+**Trigger.** RC-3 self-review (Claude on behalf of waseric, 2026-05-17, commit `62aa0af`) verified that OQ-3's resolution was already codified in `.agents/skills/finding-triage/SKILL.md` and in the Phase C feature spec §5.3, and validated by real-signal dogfood at T-03 (operator override `business analyst` → `Sandlot administrator`). The RC-3 verdict explicitly proposed this quote-back amendment ("Quote-back amendment for OQ-3"). Phase C feature spec §12 also deferred the quote-back to a follow-on `/spec-amend` session against the design spec — this is that session.
+
+**Section.** §13 OQ-3 (L429–L439 pre-amendment).
+
+**Change.**
+
+§13 OQ-3 — Before:
+> **Leaning.** Option (c) — record the frame descriptively. The pipeline's discipline is "triage stays out of code, regardless of which expert frame fits"; the named frame is orientation, and operators name the frame that fits their finding.
+>
+> **Owner.** Decided at RC-3.
+>
+> **Watch items.** If AI agents fail to adopt the right frame because the prompt always says "business analyst," generalize the prompt to "domain expert appropriate to <domain>."
+
+§13 OQ-3 — After:
+> **Decided.** 2026-05-17 (RC-3). Option (c) — operator records the frame descriptively. The `finding-triage` skill suggests a frame derived from the `Domain` field (`operational` → business analyst; `security` → security analyst; `testing` → QA lead; `methodology` → methodologist; `other` → operator-named) and accepts free-text override. Encoded in [`.agents/skills/finding-triage/SKILL.md` L92–L104](../../.agents/skills/finding-triage/SKILL.md) (persona-frame derivation table + override path) and in [Phase C feature spec §5.3](../20260517-finding-triage-skill/feature.md). Validated on first real-signal dogfood: T-03 ([easy-survival-shelves-lwc-error](../findings/20260517-easy-survival-shelves-lwc-error/), commit `d79a1eb`) overrode suggested `business analyst` to operator-named `Sandlot administrator`, exercising the override path against real evidence.
+>
+> **Watch item (resolved in the direction of *used*).** Pre-decision concern was that AI agents would default to the suggested frame and the override surface would atrophy. T-03 dogfood resolved this in the direction of override-is-used: the operator-named frame fits the finding better than the derived frame, and the prompt structure (suggest + accept-override) preserves agent guidance without removing operator authority. If a future signal shows the override path going unused across multiple real findings, revisit by generalizing the suggestion to "domain expert appropriate to <domain>" — but as of RC-3, the path is exercised and the discipline holds.
+
+**Reason.** RC-3 closed `pass with comments` and explicitly proposed this quote-back as a deferrable follow-on. Leaving §13 OQ-3 at "Leaning + Decided at RC-3" after RC-3 has actually decided would leave the design spec misleadingly open — a future reader would not know the question was resolved, where the resolution lives, or that real evidence supports it. The amendment closes the loop in the spec's own working memory.
+
+**Impact.**
+- **Affected tasks:** none. Phase C is complete; Phase B is complete; no downstream task reads this OQ as an input.
+- **Affected checkpoints:** RC-3 was the deciding checkpoint and is already closed; this amendment ratifies the closure in the spec text. RC-4 and RC-5 unaffected.
+- **Completed work invalidated:** none.
+- **Cross-references requiring follow-up:** none — §5.6 Persona model and §9 RC-3 already reference the multi-domain persona framing as established design; neither needs to change. Phase C feature spec §12's note about "quoting OQ-3 and OQ-4 resolutions back to the design spec" is satisfied by this amendment (for OQ-3) and the next (for OQ-4); a separate update to that §12 entry is *not* warranted (the deferral was correctly executed, and the §12 line is a record of the decision-to-defer, not a stale claim).
+
+**Status implication.** Spec stays at `Draft — Open for Review`. Conversion of an OQ-still-flagged-open into an OQ-decided does not change design substance; it ratifies existing prose in linked artifacts.
+
+**Approver.** waseric — approved as drafted on 2026-05-17.
