@@ -87,3 +87,35 @@
 - The "Creating a new finding" section deliberately documents the *manual* path (copy + edit) rather than the future `finding-intake` skill path, since the skill does not yet exist (Phase B). When the skill ships, this section is the natural place to update with the skill invocation as the primary path and the manual copy as the fallback.
 
 **Next task pointer:** T-03 — create `specs/findings/_template/finding.md`. Dependencies T-01, T-02 satisfied (T-02 produces the field set that T-03 instantiates). No `[blocker]` open questions; ready to proceed.
+
+## 2026-05-17 — T-03: Create `specs/findings/_template/finding.md`
+
+**Status:** done
+**Commits:** ab67d3f (deliverable), (this commit, closeout)
+**Files touched:**
+- specs/findings/_template/finding.md (new file, 65 lines)
+- specs/findings/_template/ (new directory)
+
+**Tests added:** N/A — inspection-based per T-03's "Tests required".
+
+**DoD verification:**
+- *File written:* specs/findings/_template/finding.md created.
+- *Section structure matches design spec §5.1 verbatim:* Header block (Status / Domain / Severity / Operational urgency / Date opened / Last transition) + four phase sections (`## Intake`, `## Triage`, `## Investigation (optional)`, `## Route`) with field lists matching architecture.md:118-164.
+- *Under ~200 lines:* 65 lines (verified via `wc -l`).
+- *Committed:* ab67d3f.
+- *Every README field-reference field present:* All 30 fields enumerated in T-02's field reference table appear in the template (verified field-by-field against specs/findings/README.md).
+- *Operational urgency field present per OQ-1 → recorded decision (amendment sub-change H):* Yes, in the header block with `(optional)` marker and clarifying parenthetical "(typically operational findings only)".
+- *Top-of-file HTML comment guides intake-first:* Yes — comment block instructs "Fill the Intake section first; later phases append" and cross-references README + design spec.
+
+**Decisions made:**
+- Verbatim mirror with one small clarifying gloss: the Operational urgency header line carries the parenthetical "(typically operational findings only)" inline rather than just `(optional)`. This is a minor surface-level addition that helps a first-time user understand when to populate the field; it is consistent with the amendment's severity-axis decoupling NFR row in design spec §6 and does not change the schema.
+- HTML comment block includes a "Conventions when filling this template" sub-list (replace placeholders, use "unknown" honestly, leave future-phase sections in placeholder form, journal investigation-skip rationale). Goes slightly beyond the literal §5.1 template content but is supported by the design spec's intake behavior bullets (§5.2: "Unknown fields are recorded as 'unknown' rather than guessed") and §5.3–§5.4 (investigation may be skipped with journaled rationale).
+- Did not include placeholder example values (e.g., "John Doe" for Reported by). Placeholders in `<angle brackets>` are clearer for both humans and AI agents than realistic-looking example values, which can be accidentally left in place.
+
+**Spec amendments:** None.
+
+**Surprises and learnings:**
+- The §5.1 template's section heading `## Investigation (optional)` carries the `(optional)` marker as part of the heading itself — preserved verbatim. A new finding that skips investigation should still keep the section with placeholder values rather than delete it, so the finding's structure remains recognizable across reads. Recorded this guidance in the HTML comment.
+- Followed the two-commit pattern (deliverable + closeout) per operator guidance after T-02's bundled commit. The deliverable commit (ab67d3f) lands the file; this closeout commit lands the journal update. Pattern matches prior feature (spec-path-convention).
+
+**Next task pointer:** T-04 — create `specs/findings/_template/journal.md`. Dependency T-02 satisfied (README documents the journaling pattern, and the structural precedent at specs/20260515-spec-path-convention/journal.md is on hand). No `[blocker]` open questions; ready to proceed.
