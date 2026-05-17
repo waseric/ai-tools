@@ -142,3 +142,38 @@ All three resolutions match the §13 leanings; no leaning was overturned at exec
 - **T-02 closeout flagged spec-write-leaves-specs-uncommitted (`d764c08`) and intake-template-folder-dependency (`e0b0a32`) as parallel-work findings.** Neither moved during T-03. Both remain at `status: intake`, awaiting their own triage in a later session. Not raised against this spec.
 
 **Next task pointer:** T-04 — Add "Triaging a finding" section to [specs/findings/README.md](../findings/README.md). Dependencies satisfied (T-01 complete; T-03 dogfood produced a real triaged finding per the dependency requirement: "do not flip primary documentation until the skill has been dogfooded successfully"). Estimated size: S. T-04 is the trigger for RC-3b per §9 — once T-04 lands, the checkpoint gate fires and the next action is the reviewer handoff, not another task.
+
+## 2026-05-17 — T-04: README "Triaging a finding" section — flip /finding-triage primary
+
+**Status:** done
+**Commits:** `311d16f` (README extended). Spec closeout commit follows.
+**Files touched:** [specs/findings/README.md](../findings/README.md) (+20 lines: new `## Triaging a finding` section + `### Manual fallback` subsection).
+**Tests added:** none — methodology repo, prose-review discipline. Verification by inspection per spec §7 T-04 Tests-required section.
+**DoD verification:**
+- README.md updated ✓ — new `## Triaging a finding` section appended after `## Creating a new finding` + its `### Manual fallback` block (now at L172).
+- Committed ✓ (`311d16f`).
+- Cross-references valid ✓ — [.agents/skills/finding-triage/SKILL.md](../../.agents/skills/finding-triage/SKILL.md) exists; [specs/20260517-finding-triage-skill/feature.md](feature.md) exists (this spec); [specs/20260517-findings-pipeline/architecture.md §5.3 Triage phase](../20260517-findings-pipeline/architecture.md) exists (heading verified at L200 of that file).
+- New section present immediately after "Creating a new finding" ✓ — section ordering: L142 `## Creating a new finding` → L156 `### Manual fallback` → L172 `## Triaging a finding` → L188 `### Manual fallback`.
+- `/finding-triage` invocation is the first option presented ✓ — opening paragraph + code-fenced slash-command invocation with `FINDING_PATH` argument.
+- Load-bearing inputs named ✓ — `FINDING_PATH` in the invocation; reproducibility, scope, severity confirmation, domain confirmation, operational urgency when applicable, triage notes all named in the behavior paragraph.
+- Skip-investigation surface called out ✓ — dedicated `**Skip-investigation surface.**` paragraph naming the `triaged → routed` / `triaged → closed` skip path, the route-section + second-journal-entry behavior, and the state-machine cross-link.
+- Persona-frame derivation called out ✓ — dedicated `**Persona-frame derivation.**` paragraph with the full Domain → frame table (`operational` → business analyst; `security` → security analyst; `testing` → QA lead; `methodology` → methodologist; `other` → operator-named) and an explicit override example (`Sandlot administrator`) that mirrors the T-03 dogfood evidence.
+- Line count ≤200 ✓ — `wc -l` = 190 (20-line addition from 170; under the 200-line inspection ceiling per §7 T-04 Tests-required).
+- Existing "One finding or several?" paragraph and intake "Manual fallback" section untouched ✓ — verified by section-header listing (L154 and L156 unchanged from pre-T-04 state).
+
+**Decisions made:**
+- **Anchor format for design-spec §5.3 cross-link:** chose `#53-triage-phase` (GFM convention: period dropped, no hyphen replacement). Matches the precedent in the existing intake-section README link `#7-implementation-sequencing` (single-digit, no period to test the choice with). Some markdown renderers use `#5-3-triage-phase` (period → hyphen); if anchors don't resolve in some viewer, that is a known cross-renderer markdown inconsistency, not a content issue. Not raised as its own finding.
+- **Triage manual-fallback wording held to a single sentence** per spec §5.6 (`"states it briefly, since the schema already documents the field reference"`). The intake "Manual fallback" subsection by contrast walks through a `cp` recipe — that asymmetry is intentional: intake's manual path includes file *creation* (which benefits from the explicit shell snippet), triage's manual path is *editing existing fields* (which the field reference already documents).
+- **Override example chosen as `Sandlot administrator`** (mirrors T-03 dogfood). Two purposes: (1) demonstrates the override path concretely for a reader scanning for "what does override look like in practice?", and (2) preserves continuity with the T-03 journal evidence so future RC-3b readers can connect the README copy to a real exercise of the path.
+
+**Spec amendments:** none. T-04 closed within the §7 T-04 acceptance criteria + §5.6 design guidance. No surfaced bugs requiring T-01 amendment; no surfaced gaps requiring schema or design-spec amendment.
+
+**Surprises and learnings:**
+- **README line budget held with headroom.** 190 of 200 lines used. The dedicated paragraphs for skip-investigation and persona-frame derivation (mandated by §7 T-04 scope) plus the manual-fallback subsection landed in 20 lines total — close to the §5.6 ~25-line target but slightly under. If a future amendment needs to extend any of the three paragraphs, the budget supports it without crowding.
+- **The intake `Manual fallback` shell snippet pattern was *not* copied to the triage section.** Per §5.6 ("states it briefly"), the triage manual fallback is a single sentence pointing back to the field reference. This is a deliberate asymmetry, recorded above in Decisions. A future reader who expects symmetric subsections may find this jarring; if so, that is a candidate methodology observation for a follow-on finding, not a T-04 issue.
+- **All four Phase C tasks landed in one calendar day (2026-05-17)** across two sessions: prior session closed T-01 (SKILL.md) and T-02 (synthetic exercise); this session closed T-03 (real-signal dogfood) and T-04 (README integration). Phase B's cadence was similar (T-01/T-02/T-03/T-04 in one day, 2026-05-16). The Phase B/C pattern of "one day per skill" is the second consecutive observation; may inform Phase F sequencing expectations.
+- **No skill or schema amendments surfaced across T-01 → T-04.** The SKILL.md as authored at T-01 carried unchanged through both validation exercises (T-02 synthetic, T-03 real-signal) and the README integration (T-04). This is the second skill (Phase B's `finding-intake` was the first) to complete its full validation cycle without requiring its own spec-amend pass — a positive signal about the design-spec → feature-spec → execution pipeline.
+
+**Spec status:** **All Phase C tasks now complete.** §9 RC-3b checkpoint trigger condition satisfied ("T-01, T-02, T-03, T-04 all complete; commits landed"). The next action per the spec-execute Phase 7 protocol is the RC-3b reviewer handoff, not another task. RC-3b's closure in turn satisfies the design-spec-level RC-3 exit condition (RC-3a already closed for Phase B), unblocking the OQ-3 / OQ-4 quote-back amendment to the design spec (out of scope per §12) and Phase F (adoption review).
+
+**Next task pointer:** **RC-3b — Phase C Skill Review.** Triggered by T-04 completion. Reviewer handoff is the next action; see this spec's §9 RC-3b for review focus and exit criteria. No further tasks remain in this spec's §7 Task Breakdown.
