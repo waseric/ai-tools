@@ -177,3 +177,54 @@ All three resolutions match the §13 leanings; no leaning was overturned at exec
 **Spec status:** **All Phase C tasks now complete.** §9 RC-3b checkpoint trigger condition satisfied ("T-01, T-02, T-03, T-04 all complete; commits landed"). The next action per the spec-execute Phase 7 protocol is the RC-3b reviewer handoff, not another task. RC-3b's closure in turn satisfies the design-spec-level RC-3 exit condition (RC-3a already closed for Phase B), unblocking the OQ-3 / OQ-4 quote-back amendment to the design spec (out of scope per §12) and Phase F (adoption review).
 
 **Next task pointer:** **RC-3b — Phase C Skill Review.** Triggered by T-04 completion. Reviewer handoff is the next action; see this spec's §9 RC-3b for review focus and exit criteria. No further tasks remain in this spec's §7 Task Breakdown.
+
+## 2026-05-17 — Review of RC-3b
+
+**Reviewer:** Claude (self-review on behalf of waseric)
+**Outcome:** pass with comments
+**Tasks reviewed:** T-01, T-02, T-03, T-04
+**Diff range:** `b3a0f94..HEAD` (Phase C spec authorship through T-04 closeout — 12 files, +542/−39)
+**Blockers:** 0
+**Important:** 0
+**Advisory:** 3 — see one-line summaries below.
+
+**Advisory findings (full body in the review report; one-line summaries here):**
+- **A-1 — State-machine guard inspection-verified, not second-invocation-exercised.** SKILL.md L78–L80 encodes the rejection wording with explicit "exit without artifact mutation" guarantee; T-02 journal documents "verified by inspection" rather than running an actual second invocation against the now-`triaged` fixture. For a prompt-style skill, prose-encoding is meaningful evidence; the spec's exit-criterion wording ("second-invocation rejection evidence") reads stricter than what was performed. Recommended follow-on: 30-second second-invocation exercise to close the gap formally. Not blocking — accepted as **met-with-caveat**.
+- **A-2 — Skip-investigation surface not exercised end-to-end.** Both T-02 and T-03 ended at `Status: triaged`. The two-journal-entry discipline is verified by inspection across three SKILL.md placements (OP #6, Phase 3 step 4, WHAT NOT TO DO bullet 6). Spec §7 framed end-at-triaged as the default expected outcome and the RC-3b review-focus phrasing "(and if so, whether...)" anticipates non-use. T-03 journal listed options (a)/(b)/(c); option (a) — accept inspection-only verification — adopted. Phase F adoption may surface a natural skip-route signal.
+- **A-3 — Two session-side intake findings created during Phase C work but not declared in §7 or §12.** [specs/findings/20260517-spec-write-leaves-specs-uncommitted/](../findings/20260517-spec-write-leaves-specs-uncommitted/) (commit `d764c08`) and [specs/findings/20260517-intake-template-folder-dependency/](../findings/20260517-intake-template-folder-dependency/) (commit `e0b0a32`) captured via `/finding-intake` mid-session; both transparently journaled as parallel work; neither modifies Phase C deliverables. Recommended follow-on: a small §12 Out of Scope clarification ("session-side intake captures via the upstream `/finding-intake` skill are out-of-scope side artifacts and require no Phase C amendment"), deferrable until convenient. Not blocking.
+
+**Exit criteria status:**
+- SKILL.md ≤220 lines, twelve §5.1 sections present: **met** (197 lines).
+- T-02 transitions cleanly; Intake-byte-preserved; state-machine guard verified: **met-with-caveat** (guard inspection-verified per A-1).
+- T-03 produces real triaged finding; pointer-revalidation recorded; persona-frame held; operator effort journaled: **met**.
+- T-04 README update preserves existing + adds new section under line-count ceiling: **met** (190 of 200 lines).
+- OQ-3 and OQ-4 resolutions in SKILL.md and feature spec §5.3 + §5.4: **met**.
+- No `[blocker]` / `[important]` findings: **met** (0 / 0).
+
+**Review focus walk (one-line verdicts per RC-3b §9 focus area):**
+- State-machine pre-condition enforcement: **pass with comments** (A-1 advisory).
+- Persona-frame discipline ("stay out of code") in T-02 and T-03: **pass** (no codebase opening; reproduction descriptions are server-running, not source-reading).
+- Hard-facts discipline (no cause hypotheses in Triage): **pass** (T-02 explicit "no cause hypothesis recorded"; T-03 intake-time hypothesis "deferred to investigation," not asserted at triage).
+- Pointer-revalidation policy usefulness in T-03: **pass with comments** (T-03 journal: "felt minimal, not ceremonial"; sparse-Intake branch unexercised, advisory only).
+- Skip-investigation surface usage and discipline: **pass with comments** (A-2 advisory; not used; option (a) adopted).
+- Persona-frame override naturalness in T-03: **pass** (operator override from `business analyst` → `Sandlot administrator` on first dogfood; §10 watch item resolves in direction of *used*).
+- OQ-3 and OQ-4 encoding in SKILL.md prose: **pass** (multi-placement coverage verified).
+
+**Spec amendments proposed:** None required for RC-3b closure. A-3 above suggests a small §12 clarification deferrable to a future session; not gated on this checkpoint.
+
+**Verification evidence summary:**
+- Intake byte-preservation verified by `git show f628db2 -- ...test-only-signal.../finding.md` and `git show d79a1eb -- ...lwc-error/finding.md` — both diffs show only status-banner and Triage-section changes; Intake blocks unchanged.
+- SKILL.md frontmatter parseable: L1–L5; description references `Findings Pipeline`, `[[finding-intake]]`, `[[spec-amend]]`, `[[spec-write]]`.
+- Twelve §5.1 structural sections: confirmed by T-01 journal entry's DoD verification, independently verified at review time.
+- Design-spec §5.3 cross-reference target exists at [specs/20260517-findings-pipeline/architecture.md:200](../20260517-findings-pipeline/architecture.md#L200) (`### 5.3 Triage phase`); GFM anchor `#53-triage-phase` follows the same convention used elsewhere in the repo (e.g., intake README's `#7-implementation-sequencing`).
+
+**Next action:**
+- **RC-3b closed.** No further work required in this feature spec's task breakdown.
+- **RC-3 (design-spec joint checkpoint) becomes eligible to close.** RC-3a passed for Phase B (2026-05-17); RC-3b now passes for Phase C. The design spec's RC-3 entry at [specs/20260517-findings-pipeline/architecture.md §9 RC-3](../20260517-findings-pipeline/architecture.md) should be updated with a status line via a future `/spec-review` or `/spec-amend` pass against that spec; out of scope for this entry per this spec's §9 framing ("closed by this spec's completion").
+- **OQ-3 / OQ-4 quote-back amendments to the design spec §13** are now unblocked. Out of scope for this spec per §12; executed via `/spec-amend` against the design spec in a separate session.
+- **Phase F (adoption review)** becomes the natural next phase per the design-spec implementation sequencing. Three real findings are already in the pipeline at `status: intake` ([20260517-spec-write-leaves-specs-uncommitted](../findings/20260517-spec-write-leaves-specs-uncommitted/), [20260517-intake-template-folder-dependency](../findings/20260517-intake-template-folder-dependency/), and any future captures) plus two end-state references ([20260517-test-only-signal-synthetic-fixture](../findings/20260517-test-only-signal-synthetic-fixture/) end-state-Triaged, [20260517-tab-display-issues](../findings/20260517-tab-display-issues/) end-state-Investigation) — natural Phase F input.
+- **Optional follow-on (low cost, deferrable):** the A-1 second-invocation exercise (30 seconds against the now-`triaged` synthetic fixture, capturing the rejection output as direct evidence). Not gating; recorded here as a confidence-check the operator may run when convenient.
+
+**Reviewer notes — self-review honesty:**
+- Self-review caveat acknowledged: Claude executed T-01 through T-04 on the operator's behalf via `/spec-execute`, then performed this review. Per the skill's "be especially honest about advisory findings" guidance, A-1 (state-machine guard inspection-only) was deliberately not dismissed even though my pre-review instinct was to accept inspection as sufficient. The advisory is recorded so the operator (waseric) can decide whether to require the second-invocation exercise before closing RC-3b in their own judgment, or accept the verdict as written.
+- The skip-route inspection-only verdict (A-2) is the area I would most expect a second reviewer to push back on. Option (a) reflects the journal's documented lean and the spec's §7 default-expected-outcome framing; option (b) (synthetic skip-route micro-exercise) is low-cost and would resolve A-2 cleanly. Recommending (a) without pretending the gap is invisible.

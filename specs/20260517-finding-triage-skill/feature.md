@@ -483,6 +483,7 @@ This is a feature-spec-level checkpoint that gates Phase C alone. The design-spe
   - T-04 README update preserves existing sections and adds the new "Triaging a finding" section under the line-count ceiling.
   - OQ-3 and OQ-4 resolutions are present in SKILL.md prose and in this spec's §5.3 and §5.4.
   - No `[blocker]` findings; `[important]` findings either resolved or escalated to amendments.
+- **Status:** pass with comments on 2026-05-17 by Claude (self-review on behalf of waseric). 0 blockers, 0 important, 3 advisory. Advisories: (A-1) state-machine guard inspection-verified rather than second-invocation-exercised; (A-2) skip-investigation surface not exercised end-to-end across T-02 and T-03 (option (a) — accept inspection-only verification — adopted per the T-03 journal lean); (A-3) two session-side intake findings captured during Phase C work suggest a small §12 Out of Scope clarification in a future amendment. Exit criteria all met (criterion 2 met-with-caveat per A-1). Checkpoint closed; Phase C shippable. See journal entry `2026-05-17 — Review of RC-3b`.
 
 ### RC-3 — Intake & Triage Skill Review (design-spec checkpoint, closed by this spec's completion)
 
