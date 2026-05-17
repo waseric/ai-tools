@@ -70,7 +70,7 @@ All three were marked decidable-at-T-01 in the spec; all three resolved per thei
 ## 2026-05-17 — T-02: Synthetic validation exercise
 
 **Status:** done
-**Commits:** to-be-attached at closeout commit
+**Commits:** e7630c9
 **Files touched:**
 - New: `specs/findings/20260517-test-only-signal-synthetic-fixture/finding.md`
 - New: `specs/findings/20260517-test-only-signal-synthetic-fixture/journal.md`
