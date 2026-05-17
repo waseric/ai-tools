@@ -1,8 +1,8 @@
 # Test-only signal — synthetic-fixture-naming inconsistency — Finding
 
-> Status: intake
+> Status: triaged
 > Domain: methodology
-> Severity: <blocker | important | advisory>           ← methodology axis
+> Severity: advisory
 > Operational urgency (optional): <P1 | P2 | P3 | P4>  ← operational axis (typically operational findings only)
 > Date opened: 2026-05-17
 > Last transition: 2026-05-17
@@ -17,15 +17,18 @@
 
 ## Triage
 
-**Triaged by:** <persona-frame: service desk | business analyst | developer>
-**Triage date:** <YYYY-MM-DD>
-**Reproducibility:** <reliably | intermittently | not reproduced | not applicable>
+**Triaged by:** waseric; methodologist; persona-frame: triage
+**Triage date:** 2026-05-17
+**Reproducibility:** reliably
 **Repro steps (if reproducible):**
-1. ...
-**Scope:** <who/what is affected>
-**Domain confirmation:** <operational | testing | security | methodology | other>
-**Severity confirmation:** <blocker | important | advisory>
-**Triage notes:** <anything else surfaced in triage; rejected hypotheses; clarifications from reporter>
+1. List `specs/findings/` (`ls specs/findings/`).
+2. Observe that `_template/` and `README.md` sit at the same nesting level as the dated `YYYYMMDD-<short-name>/` directories.
+3. Read [specs/20260515-spec-path-convention/architecture.md](../../20260515-spec-path-convention/architecture.md) and confirm it does not call out underscore-prefixed directory names as a reserved sentinel for "not-a-finding."
+4. Confirm the layout convention for `_template/` is therefore implicit (load-bearing by convention, undocumented as such).
+**Scope:** Newcomers (humans or AI agents) scanning `specs/findings/` for the first time without context about the underscore-prefix convention; scripts or skills that iterate the findings directory and must distinguish dated finding dirs from non-finding entries (`_template/`, `README.md`).
+**Domain confirmation:** methodology
+**Severity confirmation:** advisory
+**Triage notes:** Signal is fabricated for T-02 validation of the finding-triage skill (per [specs/20260517-finding-triage-skill/feature.md §7 T-02](../../20260517-finding-triage-skill/feature.md#t-02--synthetic-validation-exercise)) — not a real-world observation. Severity assessed as `advisory` rather than `important` because the ambiguity is self-correcting for anyone who opens `_template/finding.md` (the leading HTML comment explicitly identifies it as a template), and because no real-world friction has been observed; `important` is reserved for cases where the implicit convention has caused actual confusion or wasted effort. No cause hypothesis recorded — Triage produces hard facts about shape; the route question (whether to amend the spec-path-convention spec to declare the `_` prefix as reserved, or to add a `findings/README.md` paragraph naming the convention) belongs to route, not Triage.
 
 ## Investigation (optional)
 
