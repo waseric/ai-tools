@@ -245,3 +245,57 @@ After:
 **Status implication.** Spec stays at `Draft — Open for Review`. No design substance changed.
 
 **Approver.** waseric — approved as drafted on 2026-05-17.
+
+## 2026-05-17 — Review of RC-3
+
+**Reviewer:** Claude (self-review on behalf of waseric)
+**Outcome:** pass with comments
+**Tasks reviewed:** Phase B (`finding-intake-skill` T-01..T-04 + RC-3a) + Phase C (`finding-triage-skill` T-01..T-04 + RC-3b) — the joint deliverable RC-3 gates per [§9 RC-3](architecture.md#rc-3--intake--triage-skill-review-gates-phase-c--phase-e).
+**Diff range:** `b3a0f94~..HEAD` over `.agents/skills/finding-{intake,triage}/` + `specs/findings/` (Phase C feature-spec authorship through RC-3b closure).
+**Blockers:** 0
+**Important:** 0
+**Advisory:** 4 — see one-line summaries below.
+
+**Checkpoint contract quoted verbatim from [§9 RC-3](architecture.md#rc-3--intake--triage-skill-review-gates-phase-c--phase-e):**
+- **Trigger:** "Both `finding-intake-skill` and `finding-triage-skill` feature specs are complete and the skills are operational."
+- **Review focus:** "Persona-frame guidance is correctly embedded in skill prompts; intake friction meets the 60-second target; triage produces hard facts (not hypotheses about cause)."
+- **Exit criteria:** "Both skills exercised against at least one synthetic and one real finding; persona-frame check passes for each."
+
+**Review focus walk (one-line verdicts per RC-3 focus area):**
+- **Persona-frame guidance correctly embedded:** **pass with comments** (A-1 administrative). Intake's fixed-label discipline ([.agents/skills/finding-intake/SKILL.md L55, L151](../../.agents/skills/finding-intake/SKILL.md)) and triage's descriptive-with-override discipline ([.agents/skills/finding-triage/SKILL.md L55, L62, L92–L104, L192](../../.agents/skills/finding-triage/SKILL.md)) faithfully encode the design-spec §5.6 amendment sub-change F asymmetry (intake-is-anyone vs. triage/investigation are role-specific). Override path exercised on first real dogfood (T-03 operator override `business analyst` → `Sandlot administrator`) — resolves OQ-3 §10 watch item cleanly.
+- **Intake friction meets 60-second target:** **pass**. T-03 dogfood timed at ~30–60s with comfortable headroom; T-02 in structured mode was single-pass. Two further intake findings created mid-Phase-C session ([spec-write-leaves-specs-uncommitted](../findings/20260517-spec-write-leaves-specs-uncommitted/) commit `d764c08`, [intake-template-folder-dependency](../findings/20260517-intake-template-folder-dependency/) commit `e0b0a32`) are independent under-real-conditions confirmation of the §6 interruption-tolerance NFR.
+- **Triage produces hard facts (not hypotheses about cause):** **pass**. Synthetic Triage notes ([finding.md L31](../findings/20260517-test-only-signal-synthetic-fixture/finding.md)) explicit: "No cause hypothesis recorded — Triage produces hard facts about shape." Real Triage notes ([finding.md L40](../findings/20260517-easy-survival-shelves-lwc-error/finding.md)) explicit: intake-time plugin-API hypothesis "deferred to investigation — recorded here as deferred, not confirmed at triage." The harder real-finding test case (Intake Summary already contained a plausible cause hypothesis) correctly preserved the hypothesis as deferred rather than promoting it to a Triage claim.
+
+**Exit criteria status:**
+- "Both skills exercised against at least one synthetic and one real finding": **met**. Intake T-02 ([test-only-signal-synthetic-fixture](../findings/20260517-test-only-signal-synthetic-fixture/), commit `e7630c9`) + T-03 ([easy-survival-shelves-lwc-error](../findings/20260517-easy-survival-shelves-lwc-error/), commit `2a6bcc3`); Triage T-02 (same fixture, commit `f628db2`) + T-03 (same real finding, commit `d79a1eb`). The same two artifacts span both skills — natural since triage consumes intake output. Two additional real intake exercises landed independently mid-session.
+- "Persona-frame check passes for each": **met**. Intake fixed-label `Captured by: <name>; persona-frame: intake` verified at both produced artifacts. Triage descriptive-with-override `Triaged by: <name>; <descriptive frame>; persona-frame: triage` verified at both (synthetic: `methodologist`; real: `Sandlot administrator` operator-overridden). Persona discipline held in artifact content: neither triage opened code; reproductions are server-running (real) or convention-checking (synthetic), both legitimate per the design-spec OQ-3 D-3 distinction (running code to reproduce is allowed; reading code to hypothesize is not).
+
+**Advisory findings (one-line summaries; full body in the in-conversation verdict report at the time of review):**
+- **A-1 — OQ-3 and OQ-4 not yet quoted back to design-spec §13.** Phase C feature spec §12 explicitly defers this to a follow-on `/spec-amend` against this design spec; unblocked by RC-3 closure but should be tracked. Proposed wording included in the spec amendments section below. Not gating.
+- **A-2 — Inherited RC-3a + RC-3b advisories remain as recorded.** RC-3a's 5 advisories were either remediated via [amendments 2026-05-17-{1,2,3}](../20260517-finding-intake-skill/journal.md) or accepted; RC-3b's 3 advisories (state-machine guard inspection-verified rather than second-invocation-exercised; skip-investigation surface verified by inspection only across T-01/T-02/T-03 inputs without end-to-end execution; session-side intake findings undeclared in §12) were accepted. None promoted at RC-3.
+- **A-3 — Two session-side intake findings flag adjacent methodology gaps.** [spec-write-leaves-specs-uncommitted](../findings/20260517-spec-write-leaves-specs-uncommitted/) is a recurring commit-hygiene observation; [intake-template-folder-dependency](../findings/20260517-intake-template-folder-dependency/) flags a portability risk — the intake/triage skills carry host-project-relative path references (`../../../specs/findings/_template/`) that would break under global skill installation. The latter is worth examination before any out-of-repo adoption (Phase F or earlier consumer pickup). Not gating RC-3; natural Phase F input.
+- **A-4 — RC-5's three-real-findings adoption gate not satisfied yet.** RC-3 only required "at least one synthetic and one real per skill" (met). RC-5's gate is "Three real findings (operational, testing, security) routed end-to-end" per [§9 RC-5](architecture.md#rc-5--adoption-review). Current real-finding inventory is operational/methodology-heavy; a security-domain real finding remains absent. Phase F's runway is partly stocked but not complete.
+
+**Spec amendments proposed:**
+- Quote-back amendment for **OQ-3** (multi-domain persona naming): convert §13 OQ-3 from "Decided at RC-3" with leaning to a Decided-on-2026-05-17 entry recording option (c) descriptive recording, with cross-reference to [`.agents/skills/finding-triage/SKILL.md` L92–L104](../../.agents/skills/finding-triage/SKILL.md) and T-03 dogfood evidence (override from suggested `business analyst` → operator-named `Sandlot administrator`).
+- Quote-back amendment for **OQ-4** (triage-time revalidation policy): convert §13 OQ-4 from "Decided at RC-3" with leaning to a Decided-on-2026-05-17 entry recording the optional-with-soft-default resolution, with cross-reference to [`.agents/skills/finding-triage/SKILL.md` L106–L114](../../.agents/skills/finding-triage/SKILL.md) and T-03 dogfood evidence (rich-Intake Summary → default `treated-as-static` for the auth-walled forum thread).
+- Both amendments route via `/spec-amend` against this design spec in a separate session per Phase C feature spec §12. Neither is gating.
+
+**Verification evidence summary:**
+- Phase B SKILL.md frontmatter parseable: [`finding-intake/SKILL.md` L1–L5](../../.agents/skills/finding-intake/SKILL.md).
+- Phase C SKILL.md frontmatter parseable: [`finding-triage/SKILL.md` L1–L5](../../.agents/skills/finding-triage/SKILL.md).
+- Line counts: intake 152, triage 197, README 190 — all under their respective peer ceilings.
+- Severity-axis decoupling NFR demonstrated in real finding: `Severity: advisory` + `Operational urgency: P4` populated together ([easy-survival finding.md L5–L6](../findings/20260517-easy-survival-shelves-lwc-error/finding.md)) — the design-spec §6 prediction that the axes can diverge is empirically confirmed at first dogfood.
+- External-pointer durability NFR demonstrated: auth-walled forum source preserved via operator-supplied PDF snapshot with `<!-- fetched 2026-05-17 (via operator-supplied PDF snapshot of auth-walled forum thread) -->` prefix per Phase B amendment 2026-05-17-2.
+- Hard-facts discipline demonstrated in artifact content (both findings), not just SKILL.md prose.
+
+**Next action:**
+- **RC-3 closed.** Phase B + Phase C deliverable accepted as a joint shippable artifact.
+- **Phase E unblocked** per design-spec [§7 Implementation Sequencing](architecture.md#7-implementation-sequencing): authoring `spec-amend-finding-input` and `spec-write-finding-input` feature specs (may be bundled) — minor amendments to `/spec-amend` and `/spec-write` to accept `FINDING_PATH` as a named input. Natural next session via `/spec-write`.
+- **OQ-3 / OQ-4 quote-back amendments** are low-cost follow-ons against this design spec; defer to a convenient `/spec-amend` session per Phase C §12.
+- **A-3 portability concern** ([intake-template-folder-dependency](../findings/20260517-intake-template-folder-dependency/)) worth examining before any out-of-repo skill adoption; not gating Phase E.
+- **Phase F** remains the post-Phase-E adoption checkpoint; the four real findings now in the pipeline are partial RC-5 runway (security-domain example still missing per A-4).
+
+**Reviewer notes — self-review honesty:**
+- Self-review caveat acknowledged: same agent executed Phases B + C and reviewed RC-3a, RC-3b, and now RC-3. Per [spec-review SKILL.md](../../.agents/skills/spec-review/SKILL.md)'s "be especially honest about advisory findings" guidance, A-3 was deliberately flagged at the RC-3 level (not just inherited from RC-3b) because the [intake-template-folder-dependency](../findings/20260517-intake-template-folder-dependency/) portability concern is *more* visible at the design-spec checkpoint than at the per-skill checkpoint — Phase E is about to extend `/spec-amend` and `/spec-write` to accept `FINDING_PATH`, and host-relative path references in the existing finding-{intake,triage} skills become a portability liability the moment any downstream skill carries the same pattern. The operator should consider whether to address this before Phase E starts or accept it as Phase F adoption-review work.
+- A-4 is the place I would most expect a second reviewer to push back on. RC-3's exit criteria ("at least one synthetic and one real per skill") are unambiguously met; surfacing RC-5's still-distant gate as an RC-3 advisory is debatable. I included it because the four real findings currently in the pipeline are domain-skewed (no security example yet), and Phase F's runway looks deceptively full at a glance — flagging it now is cheaper than discovering at RC-5 that the security-domain example was never opportunistically captured. Not promoting beyond advisory; the operator may dismiss if RC-5 owns the gap explicitly enough.
