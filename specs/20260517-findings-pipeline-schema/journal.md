@@ -306,3 +306,58 @@ Inspection-based testing per task spec; all task closeout journal entries walk t
 **Feature spec status:** complete. All five tasks (T-01 through T-05) done; RC-2 verdict pass-with-comments committed at ccce4ce; remediation committed at 71480e9; all findings dispositioned. No further work in this feature spec.
 
 **Next:** Phase B — author the `finding-intake-skill` feature spec via `/spec-write`, per [design spec §7 Implementation Sequencing](../20260517-findings-pipeline/architecture.md#7-implementation-sequencing). Recommended fresh session: Phase B is a clean scope break from this feature spec, and a fresh session benefits from re-reading the now-stable schema artifacts against a clean prompt cache rather than carrying this session's context forward.
+
+## 2026-05-17 — Amendment 2026-05-17-1
+
+**Section amended:** [specs/findings/_template/finding.md](../findings/_template/finding.md) leading HTML comment block (lines 1–22) + [specs/findings/_template/journal.md](../findings/_template/journal.md) leading HTML comment block (lines 1–18). Both files are Phase A deliverables of this schema feature spec.
+**Trigger:** RC-3a review of the finding-intake skill (commit 7ba74ba) advisory A5 — templates don't self-describe their strip-from-artifact behavior, making correct intake handling depend on reading SKILL.md or relying on living-example precedent.
+**Reason:** Three intake exercises (T-05 of this spec; T-02 and T-03 of the Phase B finding-intake-skill spec) all empirically stripped the leading HTML comments as scaffolding. SKILL.md just codified the distinction (Phase B amendment 2026-05-17-1, commit 1e60eb4). Adding a one-paragraph self-describing note inside each leading comment closes the loop: future operators or agents reading the templates directly will reach the right conclusion without needing to read SKILL.md.
+**Impact summary:** No tasks affected (T-03 and T-04 of this spec created the templates as they were; this amendment refines a deliverable post-hoc); no checkpoints reopened (RC-2 closed; this doesn't change exit-criteria assessment); no completed work invalidated (T-05 of this spec and T-02/T-03 of Phase B are ratified, not invalidated); no cross-references to other sections need follow-up edits (feature.md §2/§5.2/§5.3 describe the templates purposively, not verbatim).
+**Approver:** waseric
+**Approved on:** 2026-05-17
+**Status implication:** Schema feature spec stays at "Status: Draft — Open for Review" (no change). Templates have no Status banner.
+**Commit:** this amendment closeout commit
+
+### Full record
+
+**Trigger.** RC-3a review of the finding-intake skill (commit 7ba74ba on [specs/20260517-finding-intake-skill/journal.md](../20260517-finding-intake-skill/journal.md)) advisory A5. Three intake exercises (T-05 of this spec; T-02 and T-03 of the Phase B finding-intake-skill spec) all stripped the templates' leading HTML comment blocks on the empirical reading that those comments are operator-facing scaffolding (instructions for filling the template), not artifact content. SKILL.md just landed amendment 2026-05-17-1 (commit 1e60eb4) codifying this distinction in the finding-intake skill prose. Making the templates self-describe closes the loop: future operators or agents reading the templates directly will reach the right conclusion without needing to read SKILL.md or rely on living-example precedent.
+
+**Section.**
+- [specs/findings/_template/finding.md](../findings/_template/finding.md) lines 1–22 (leading HTML comment block).
+- [specs/findings/_template/journal.md](../findings/_template/journal.md) lines 1–18 (leading HTML comment block).
+
+Both files touched by the same coherent change ("templates self-describe their strip-from-artifact behavior"); per spec-amend's "one coherent change per amendment" principle, this is one amendment, not two.
+
+**Change.**
+
+`_template/finding.md` — appended a final paragraph immediately before the closing `-->` of the leading HTML comment block:
+
+> ```
+> This entire HTML comment block is template scaffolding — strip it from
+> produced finding.md artifacts. See .agents/skills/finding-intake/SKILL.md
+> Phase 3 step 2.
+> ```
+
+`_template/journal.md` — appended a final paragraph immediately before the closing `-->` of the leading HTML comment block:
+
+> ```
+> This leading HTML comment block AND the closing commented-out skeleton block
+> at the end of this file are template scaffolding — strip both from produced
+> journal.md artifacts. The skeleton entries are re-added (uncommented and filled)
+> by downstream skills at the moment of each status transition. See
+> .agents/skills/finding-intake/SKILL.md Phase 3 step 3.
+> ```
+
+The journal.md note is longer than the finding.md note because journal.md has *two* scaffolding regions (the leading comment block AND the closing commented-out skeleton block), while finding.md has only one (the leading comment block). The asymmetry preserves accuracy.
+
+**Reason.** Three living examples converged on stripping the leading comment blocks as scaffolding, but a future operator or agent encountering the templates for the first time has no way to discover this without reading either SKILL.md or one of the existing examples. The amendment makes the templates self-describing: anyone reading the leading comment block now sees, at the bottom of that very block, "strip this when you produce the artifact." Reduces drift risk and decouples the templates from needing to be read alongside SKILL.md.
+
+**Impact.**
+- **Affected tasks:** None. T-03 (created _template/finding.md) and T-04 (created _template/journal.md) of this spec are closed; this amendment is a post-RC-2 refinement, not a re-execution. T-05 of this spec and T-02/T-03 of the Phase B spec used the templates and stripped the scaffolding — their behavior is ratified, not invalidated.
+- **Affected checkpoints:** RC-2 (closed; this amendment does not change RC-2's exit-criteria assessment — the templates still match design spec §5.1 byte-for-byte at every artifact-bearing position; the new scaffolding paragraph lives inside the existing scaffolding region). RC-3 (joint Phase B + Phase C — still open; this amendment strengthens the schema's contribution to Phase C's eventual inheritance).
+- **Completed work invalidated:** None.
+- **Cross-references requiring follow-up:** None. Feature.md §2 Background (line 88), §5.2 (line 143), and §5.3 (line 161) all describe the templates' leading comments purposively rather than verbatim. The amendment grows the comment by one paragraph but does not contradict any of those descriptions. [specs/findings/README.md](../findings/README.md) "Manual fallback" section (lines 163–176) directs operators to copy the templates; after the amendment, a copy-following operator sees the new self-describing line as guidance, an upgrade not a contradiction.
+
+**Status implication.** Schema feature spec stays at `Status: Draft — Open for Review` (no change). The templates themselves have no Status banner. The amendment is purely additive in the deliverables; no revert to Draft warranted.
+
+**Approver.** waseric (2026-05-17).

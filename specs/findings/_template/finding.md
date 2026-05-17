@@ -19,6 +19,10 @@ Conventions when filling this template:
 - The Investigation section is optional and may be skipped entirely when
   triage produces an obvious route. Journal the skip rationale in journal.md
   rather than deleting the section; leave its fields in <placeholder> form.
+
+This entire HTML comment block is template scaffolding — strip it from
+produced finding.md artifacts. See .agents/skills/finding-intake/SKILL.md
+Phase 3 step 2.
 -->
 
 # <Short title> — Finding

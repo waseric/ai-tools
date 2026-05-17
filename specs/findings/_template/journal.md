@@ -15,6 +15,12 @@ Journaling convention:
 - The starter Intake entry below uses placeholders matching the finding template.
 - Skeleton entries for later transitions are shown commented-out at the bottom;
   uncomment and fill as the finding progresses.
+
+This leading HTML comment block AND the closing commented-out skeleton block
+at the end of this file are template scaffolding — strip both from produced
+journal.md artifacts. The skeleton entries are re-added (uncommented and filled)
+by downstream skills at the moment of each status transition. See
+.agents/skills/finding-intake/SKILL.md Phase 3 step 3.
 -->
 
 # <Short title> — Journal
