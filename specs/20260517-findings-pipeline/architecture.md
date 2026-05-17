@@ -84,6 +84,9 @@ The architectural commitment is fourfold: (1) a Markdown finding artifact at `sp
                                   │                                         │
                                   ▼                                         │
                               (route) ──────────────────────────────────────┘
+                                                                            ▲
+                      (any closed/routed finding may be reopened)           │
+                      reopened ──→ triaged | under-investigation ───────────┘
 ```
 
 ### Vocabulary
@@ -99,7 +102,7 @@ The architectural commitment is fourfold: (1) a Markdown finding artifact at `sp
 ### Composition rules
 
 - A finding has exactly one current `status`, drawn from the state machine in §5.1.
-- `status` progresses monotonically through `intake → triaged → under-investigation → routed | closed`. Investigation may be skipped (status transitions `triaged → routed | closed` directly), with a journal entry recording the skip rationale.
+- `status` is append-only and forward-progressing under normal flow through `intake → triaged → under-investigation → routed | closed`. Investigation may be skipped (status transitions `triaged → routed | closed` directly), with a journal entry recording the skip rationale. Reopening creates a new status entry that returns to an earlier phase, preserving prior status history in the journal.
 - Reopening a closed finding requires a new status entry with rationale (`reopened`, transitioning back to an earlier phase); the prior closure is preserved in journal history.
 - Every status transition is journaled with date, persona-frame, and rationale.
 - A finding is self-contained: it does not depend on the originating conversation or external system context being still accessible.
@@ -120,7 +123,7 @@ The architectural commitment is fourfold: (1) a Markdown finding artifact at `sp
 > Severity: <blocker | important | advisory>           ← methodology axis
 > Operational urgency (optional): <P1 | P2 | P3 | P4>  ← operational axis
 > Date opened: <YYYY-MM-DD>
-> Last transition: <YYYY-MM-DD>
+> Last transition: <YYYY-MM-DD>                        ← scan-aid: most recent status change without traversing journal
 
 ## Intake
 
@@ -202,7 +205,7 @@ The skill produces a finding artifact at `specs/findings/YYYYMMDD-<short-name>/f
 - Confirms or refines the summary against the original signal (or reporter, if reachable).
 - Establishes repro steps where applicable; records intermittency or non-reproducibility honestly.
 - Assigns or confirms domain (operational / testing / security / methodology / other) and severity (`blocker` / `important` / `advisory`).
-- Optionally assigns operational urgency (P1–P4) for operational findings where urgency matters separately from methodology severity. See OQ-1.
+- Optionally assigns operational urgency (P1–P4) for operational findings where urgency matters separately from methodology severity. The urgency field is decoupled from methodology severity: the two axes can diverge (an `advisory` finding may be P1-urgent; a `blocker` finding may be P4).
 - Transitions status to `triaged` and journals the transition.
 - Decides: does this require investigation, or is the route already clear?
 
@@ -228,7 +231,7 @@ The skill produces a finding artifact at `specs/findings/YYYYMMDD-<short-name>/f
 
 **Persona orientation.** Developer. The first phase that opens the codebase.
 
-**Why protocol rather than skill (for now).** Solo-operator findings often have obvious causes; the lightweight form is faster to adopt and lower-overhead. Graduating to a `finding-investigate` skill is reserved for evidence that the protocol is failing (see OQ-2).
+**Why protocol rather than skill (for now).** Solo-operator findings often have obvious causes; the lightweight form is faster to adopt and lower-overhead. Graduating to a `finding-investigate` skill is reserved for evidence that the protocol is failing (see OQ-1).
 
 **Alternatives considered.**
 - *`finding-investigate` skill from day one.* Rejected: speculative weight. The protocol form is reversible — promoting to a skill later requires extracting the protocol's structure into a SKILL.md, which is cheap.
@@ -247,6 +250,8 @@ The skill produces a finding artifact at `specs/findings/YYYYMMDD-<short-name>/f
 - Routing is the only place where the finding leaves the pipeline. A finding cannot be "left in triage forever"; either triage ends in a route or the finding goes to `defer` with a watch condition.
 - Multiple findings may route to the same spec (a single amendment may resolve several findings; a new feature spec may incorporate evidence from several findings). The finding artifact records which spec absorbed it; the receiving spec's journal cites which findings it incorporated.
 
+**Route subtype → terminal status mapping.** The four route subtypes map to two terminal status values: `spec-amend` and `spec-write` both terminate at `status: routed` (action delegated to a downstream spec); `defer` terminates at `status: routed` with route subtype `defer` (action consciously deferred, watch condition recorded); `close` terminates at `status: closed` (no action will be taken). The distinction: `routed` means "this finding has produced a decision and is no longer the pipeline's responsibility"; `closed` means "this finding required no decision-producing action." Reopening either terminal state is the `reopened` back-transition documented in §4.
+
 ### 5.6 Persona model
 
 **Purpose.** Orient each phase toward the role that best fits it, even when one operator plays all roles.
@@ -254,7 +259,8 @@ The skill produces a finding artifact at `specs/findings/YYYYMMDD-<short-name>/f
 **Behavior.**
 - Each phase declares its **persona-frame** explicitly. The artifact's per-phase `Triaged by` / `Investigated by` field carries the persona-frame label (e.g., `business analyst (solo: Eric)`), not just the operator name.
 - An AI agent performing a phase on the operator's behalf adopts that persona-frame as its prompt orientation. The triage skill instructs the agent to operate as a business analyst — domain-knowledgeable, not yet opening code. The investigation protocol instructs the developer frame — opening files, citing line numbers, proposing remedies.
-- The persona model is **orientation, not handoff**. The discipline structures the work without requiring multi-person teams. A team adopting the methodology later inherits a structure that maps cleanly to multi-person handoff; a solo adopter benefits from role-framed self-direction in the meantime.
+- The persona model is **orientation, not handoffs**. The discipline structures the work without requiring multi-person teams. A team adopting the methodology later inherits a structure that maps cleanly to multi-person handoffs; a solo adopter benefits from role-framed self-direction in the meantime.
+- **Intake's persona-frame is intentionally broader than the triage/investigation frames.** Triage maps to a domain-expert frame (typically business analyst) and investigation maps to a developer frame, but intake explicitly admits "service desk, manager, end-user, AI agent, or **anyone**" because the input source is unbounded — a stray observation in a meeting, an automated alert, or an external bug report are all valid signals. The asymmetry is by design: optimizing intake for capture rate (NFR: 60-second target) is incompatible with persona gating.
 
 **Pattern invoked.** Role-based decomposition borrowed from service-management traditions (ITIL service desk / business analyst / engineering separation) without binding to any specific framework's role taxonomy.
 
@@ -281,13 +287,14 @@ A finding raised during active `spec-execute` must not pull the executor off-tas
 
 | Property | Requirement |
 |---|---|
-| **Adoptability (solo)** | A solo operator can run the full pipeline without persona-mismatch overhead. Persona-frame is orienting, not gating. |
+| **Adoptability (solo)** | A solo operator can run the full pipeline without persona-mismatch overhead. Persona-frame is orientation, not handoffs (see §5.6). |
 | **Adoptability (team)** | The same artifacts and phases work without modification when persona-frames map to different humans. |
 | **Observability** | Every status transition is journaled with date, persona-frame, and rationale. No transition is silent. |
 | **Reversibility** | A closed finding may be reopened by a new status entry with rationale. A routed finding may be re-routed if the receiving spec is rejected (with journal entry). |
 | **Context economy** | Finding artifacts target under ~200 lines. Skill artifacts that consume findings load only the relevant section, not the full journal history. |
 | **Interruption-tolerance** | Intake cost: under 60 seconds of operator effort from a stray observation to a parked artifact. |
 | **Persona durability** | A solo-adopter pipeline must not require restructuring to onboard team members. Role-frames already map to roles. |
+| **Severity axis decoupling** | Operational urgency (P1–P4) is an optional axis decoupled from methodology severity (`blocker`/`important`/`advisory`). Operational findings may use both; testing/methodology findings typically use severity alone. The two axes may diverge — recorded decision, RC-2 schema pass. |
 | **External-pointer durability** | The artifact survives external-system unavailability. Pointer text, summary, and any pasted context travel with the finding. |
 
 ## 7. Implementation Sequencing
@@ -304,7 +311,7 @@ Phases of work, not atomic tasks. Each phase produces an artifact the next consu
 
 **Phase E — Integration amendments.** Minor amendments to `spec-amend` and `spec-write` to accept `FINDING_PATH` as a named input. **Downstream feature spec(s):** `spec-amend-finding-input`, `spec-write-finding-input`. May be bundled.
 
-**Phase F — Adoption review (after first dogfood).** Route at least three real findings through the pipeline — one operational, one testing, one security — and run an adoption review. Decide whether to graduate investigation to a skill (OQ-2). **No new feature spec required; review checkpoint only.**
+**Phase F — Adoption review (after first dogfood).** Route at least three real findings through the pipeline — one operational, one testing, one security — and run an adoption review. Decide whether to graduate investigation to a skill (OQ-1). **No new feature spec required; review checkpoint only.**
 
 ## 8. Validation Approach
 
@@ -345,7 +352,7 @@ The design is validated by:
 ### RC-5 — Adoption Review
 
 - **Trigger:** Three real findings (operational, testing, security) routed end-to-end.
-- **Review focus:** Cross-domain claim survives reality; persona-frame discipline held; OQ-2 (investigation graduation) is decidable.
+- **Review focus:** Cross-domain claim survives reality; persona-frame discipline held; OQ-1 (investigation graduation) is decidable.
 - **Exit criteria:** Recommendation to either declare the pipeline adopted, amend the design, or graduate investigation to a skill.
 
 ## 10. Risks and Mitigations
@@ -396,19 +403,7 @@ The `ai-tools` repo itself adopts the pipeline as part of Phase F dogfooding. Th
 
 ## 13. Open Questions
 
-### OQ-1 — Operational urgency overlay (P1–P4)
-
-**Question.** Should operational findings carry an optional P1–P4 urgency in addition to the methodology severity (`blocker / important / advisory`)?
-
-**Analysis.** Methodology severity (blocker/important/advisory) is action-oriented: what does the spec pipeline do with this. Operational urgency (P1–P4) is time-oriented: how fast does this need attention. They are not redundant — an `advisory` finding can be P1-urgent if it concerns user-facing safety, and a `blocker` finding can be P4 if it's a long-fuse architectural concern. ITIL traditions distinguish urgency × impact = priority; the methodology has been deliberately frame-agnostic so far.
-
-**Leaning.** Provide it as optional. Operational findings often need urgency; testing/methodology findings rarely do. Costless to leave the field, valuable when used.
-
-**Owner.** Decided at RC-2 (Schema Review) by Eric.
-
-**Watch items.** If the first three dogfood findings reveal that operators want urgency on testing/security findings too, generalize.
-
-### OQ-2 — Investigation graduation: when does the protocol become a skill?
+### OQ-1 — Investigation graduation: when does the protocol become a skill?
 
 **Question.** The pipeline launches with investigation as an embedded protocol (section in the artifact), not a separate skill. When should we promote it to a `finding-investigate` skill?
 
@@ -420,7 +415,7 @@ The `ai-tools` repo itself adopts the pipeline as part of Phase F dogfooding. Th
 
 **Anti-goals.** Do not promote investigation to a skill merely for symmetry with intake/triage. Symmetry is not a goal; appropriate weight per phase is.
 
-### OQ-3 — Incident vs. problem distinction (ITIL framing)
+### OQ-2 — Incident vs. problem distinction (ITIL framing)
 
 **Question.** Should the pipeline distinguish an *incident* (the event) from a *problem* (the underlying cause that may explain multiple incidents)? ITIL maintains this distinction strictly.
 
@@ -430,7 +425,7 @@ The `ai-tools` repo itself adopts the pipeline as part of Phase F dogfooding. Th
 
 **Owner.** Deferred. Re-evaluated as part of the broader Phase 2 operational readiness design.
 
-### OQ-4 — Multi-domain personas: is "business analyst" the right frame for triage of security findings?
+### OQ-3 — Multi-domain personas: is "business analyst" the right frame for triage of security findings?
 
 **Question.** The persona-frame for triage is named "business analyst" — domain-knowledgeable, not yet opening code. For security findings, a more accurate frame might be "security analyst." For testing findings, perhaps "QA lead."
 
@@ -442,15 +437,15 @@ The `ai-tools` repo itself adopts the pipeline as part of Phase F dogfooding. Th
 
 **Watch items.** If AI agents fail to adopt the right frame because the prompt always says "business analyst," generalize the prompt to "domain expert appropriate to <domain>."
 
-### OQ-5 — External-system pointer durability and refresh
+### OQ-4 — Triage-time revalidation policy for external pointers
 
-**Question.** When an intake includes a pointer to an external system (GitHub issue, Slack thread, Sentry alert), what guarantees does the methodology provide about that pointer remaining accessible? What happens when the pointer goes stale?
+**Question.** Intake captures external-system pointers verbatim alongside a summary (§5.2), and the artifact survives external-system unavailability (§6 NFR row). The remaining open question is narrower: should triage actively *revalidate* external pointers (follow the URL, check the linked ticket's current state), or treat the pointer as a static record?
 
-**Analysis.** Three policies: (a) capture verbatim at intake and don't re-check; (b) capture verbatim at intake plus revalidate during triage; (c) require an offline-readable snapshot (paste content into the artifact) at intake. Option (c) is heaviest but most durable; option (a) is lightest but loses fidelity over time.
+**Analysis.** Active revalidation surfaces stale or contradictory external state at the right moment — when a triager is shaping the finding — but introduces an external dependency in triage that may slow it (network reachability, auth) and may pull the triager into the linked ticket's evolving discussion rather than the finding itself. Static treatment keeps triage focused but risks shaping a finding around a no-longer-accurate external pointer.
 
-**Leaning.** Hybrid: intake captures verbatim + summary; if a triager finds the external pointer is unreachable, that fact is journaled but does not block triage (the summary is load-bearing, the URL is convenience).
+**Leaning.** Active revalidation is *optional* in the triage skill prompt: the prompt suggests checking the pointer if the summary is sparse or ambiguous, otherwise treats it as static. Codify the soft default rather than mandate.
 
-**Owner.** Decided at RC-2 as part of intake/triage skill prompts.
+**Owner.** Decided at RC-3 as part of the `finding-triage` skill prompt design.
 
 ## 14. References
 
@@ -465,10 +460,12 @@ The `ai-tools` repo itself adopts the pipeline as part of Phase F dogfooding. Th
 - [`.agents/skills/spec-write/SKILL.md`](../../.agents/skills/spec-write/SKILL.md) — downstream skill for the `spec-write` route.
 - [`.agents/skills/spec-execute/SKILL.md`](../../.agents/skills/spec-execute/SKILL.md) — multi-repo discipline re-used for cross-repo findings (§5.7).
 
-### Inspirational (frame-agnostic; not binding)
+### Inspirational (frame-agnostic; not binding; no canonical citation verification performed)
 
-- **ITIL service-management traditions** — incident/problem management as the source of the role-separation framing (service desk / business analyst / engineering). The methodology is "informed by" ITIL per the constitution; this spec does not bind to a specific ITIL version or compliance target.
-- **SDLC defect-lifecycle traditions** — reproduction-first triage; defect state machines. Cited as common engineering practice rather than against any specific standard.
+These references name traditions that shaped the design's vocabulary and role separation. They are **not** canonical citations: no published source has been verified against the wording or claims attributed below, and the spec is not designed to track any specific framework's version or compliance target. The methodology is "informed by" these traditions per the constitution; precise attribution is deferred to external-adopter need (an adopter who requires citations against ITIL 4 / IEEE / FIRST.org publications can produce a verification pass as a separate exercise).
+
+- **ITIL service-management traditions** — incident/problem management as the source of the role-separation framing (service desk / business analyst / engineering).
+- **SDLC defect-lifecycle traditions** — reproduction-first triage; defect state machines. Cited as common engineering practice.
 - **Coordinated vulnerability disclosure (CVD)** — security-finding flows from CERT/CC and FIRST.org traditions provide the parallel for security-domain findings.
 
 ---
