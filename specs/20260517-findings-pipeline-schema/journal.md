@@ -28,3 +28,29 @@
 - Discovery phase was light — design spec is comprehensive; constitution is small; conventions are well-established.
 
 **Next task pointer:** Execute T-01 (`/spec-amend` for the batched RC-2 schema-pass amendment) via `/spec-execute`. On T-01 completion, proceed to T-02.
+
+## 2026-05-17 — T-01: Apply batched amendment to design spec for 9 RC-1 advisories
+
+**Status:** done
+**Commits:** 8c146ce (amendment applied), d8c3455 (amendment journal entry in design spec)
+**Files touched:**
+- specs/20260517-findings-pipeline/architecture.md (28 insertions, 31 deletions across §4, §5.1, §5.3, §5.5, §5.6, §6, §13, §14)
+- specs/20260517-findings-pipeline/journal.md (148 insertions — full amendment record appended)
+
+**Tests added:** N/A — inspection-based per T-01's "Tests required" (re-read each advisory; verify corresponding change present in amended spec).
+
+**DoD verification:**
+- *Amendment applied:* Commit 8c146ce applies all ten edits (sub-changes A–J) covering all nine RC-1 advisories. Inspection confirms each advisory's corresponding section is amended.
+- *Journal entry written:* Commit d8c3455 appends the full amendment record to the design spec's journal at specs/20260517-findings-pipeline/journal.md lines 101–247, preserving before/after diffs per advisory.
+- *Commit message matches required form:* `spec: amendment 2026-05-17-2 — RC-2 schema-pass advisory batch` — verified on commit 8c146ce.
+- *Design spec status unchanged:* `Draft — Open for Review` per amendment's "Status implication: kept" — verified at specs/20260517-findings-pipeline/architecture.md status banner.
+
+**Decisions made:** None new during execution — all nine advisory resolutions were pre-decided at feature-spec authoring time (per the "Per-advisory change summary" in [feature.md §7 T-01](feature.md#L208)). One execution-time refinement: sub-change H absorbed a §6 NFR-table addition (severity-axis decoupling row) as the natural home for OQ-1's converted decision, rather than placing it in §5.3 — the two locations were both proposed at spec time; §6 was selected as more discoverable.
+
+**Spec amendments:** Amendment 2026-05-17-2 — recorded in [specs/20260517-findings-pipeline/journal.md](../20260517-findings-pipeline/journal.md#L101) as a first-class event. Renumbered OQ-2..5 → OQ-1..4 in the design spec; this feature spec's references to "OQ-1" (operational urgency) and "OQ-5" (external-pointer durability) at feature.md lines 159, 215, 216 now point to renumbered design-spec questions but remain semantically correct in context (the feature spec speaks of them as RC-1-era advisories). No follow-up edit required.
+
+**Surprises and learnings:**
+- T-01 closeout in this feature spec's journal was missed at amendment time — the amendment was journaled in the *design spec's* journal but not in the *feature spec's* journal. Repaired this session as the Phase 2 pre-flight verify gate before T-02 begins. Lesson: when an execution task is itself an amendment, both journals need an entry — the amendment record lives in the amended spec's journal, but the executing feature spec also needs its task closeout.
+- The amendment touched one more section than originally enumerated (§5.3 dangling `See OQ-1` reference — sub-change D) for a total of ten edits across the nine advisories, because advisory 6 split cleanly into two distinct fixes (remove dangling reference + add severity-axis decoupling row). Net design substance unchanged.
+
+**Next task pointer:** T-02 — create `specs/findings/README.md` (schema documentation). Dependency T-01 satisfied; no `[blocker]` open questions; ready to proceed.
