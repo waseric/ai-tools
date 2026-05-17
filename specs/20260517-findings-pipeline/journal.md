@@ -391,7 +391,7 @@ After:
 **Approver:** waseric
 **Approved on:** 2026-05-17
 **Status implication:** kept (spec stays at `Draft — Open for Review`; amendment is additive)
-**Commit:** `<pending — backfill in follow-up commit per repo convention>`
+**Commit:** `d8d87d6`
 
 ### Full record
 
