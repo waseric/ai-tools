@@ -1,9 +1,9 @@
 # LWC "Missing API" error on shelves in Easy Survival — Finding
 
-> Status: intake
+> Status: triaged
 > Domain: operational
-> Severity: <blocker | important | advisory>           ← methodology axis
-> Operational urgency (optional): <P1 | P2 | P3 | P4>  ← operational axis (typically operational findings only)
+> Severity: advisory
+> Operational urgency (optional): P4
 > Date opened: 2026-05-17
 > Last transition: 2026-05-17
 
@@ -23,15 +23,23 @@
 
 ## Triage
 
-**Triaged by:** <persona-frame: service desk | business analyst | developer>
-**Triage date:** <YYYY-MM-DD>
-**Reproducibility:** <reliably | intermittently | not reproduced | not applicable>
+**Triaged by:** waseric; Sandlot administrator; persona-frame: triage
+**Triage date:** 2026-05-17
+**Reproducibility:** reliably
 **Repro steps (if reproducible):**
-1. ...
-**Scope:** <who/what is affected>
-**Domain confirmation:** <operational | testing | security | methodology | other>
-**Severity confirmation:** <blocker | important | advisory>
-**Triage notes:** <anything else surfaced in triage; rejected hypotheses; clarifications from reporter>
+1. Join the Easy Survival Sandlot Minecraft server.
+2. Right-click a shelf, *or* attempt to place or remove an item in a shelf.
+3. Observe the verbatim error returned to the player: `[LWC] Internal error. Notify an admin immediately. :Missing API.`
+4. (Control) Repeat the same interaction on the Normal Survival sibling server; no error occurs.
+
+**Scope:** Easy Survival server only; all observed shelf interactions across two distinct interaction modes (place/remove and right-click); ≥2 distinct players affected per in-thread reports (GargoyleAnt 2026-05-10, NeonLights10927 2026-05-16); Normal Survival is unaffected per in-thread cross-world control test.
+**Domain confirmation:** operational
+**Severity confirmation:** advisory
+**Triage notes:**
+- The cross-world control test (Easy fails, Normal succeeds) is the most useful single fact carried forward to investigation: it isolates the failure to Easy Survival's plugin/configuration state, not to LWC or shelves in general.
+- The intake Summary's hypothesis ("the `:Missing API` suffix typically indicates LWC is looking for an API surface another plugin should expose, likely the shelf-providing furniture/decoration plugin, that is absent or version-mismatched on Easy Survival but present on Normal") is *deferred to investigation* — recorded here as deferred, not confirmed at triage.
+- No live re-fetch of the forum thread was attempted at triage; the operator-supplied PDF snapshot captured at intake is the durable evidence and the intake Summary is judged rich. Pointer revalidation: `treated-as-static` (journaled).
+- No further reporters surfaced between intake (2026-05-17) and triage (same day). Reporter list is stable for now.
 
 ## Investigation (optional)
 
