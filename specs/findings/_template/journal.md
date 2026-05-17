@@ -19,7 +19,7 @@ Journaling convention:
 
 # <Short title> — Journal
 
-## <YYYY-MM-DD> — Intake
+## <YYYY-MM-DD> — Intake: <one-line summary of the captured signal>
 
 **Captured by:** <name; persona-frame: intake>
 **Signal source:** <text / URL / system pointer; same value as finding.md "Reported via">
@@ -30,7 +30,7 @@ Journaling convention:
 Subsequent entries follow the one-event-per-section pattern. Uncomment and fill
 each as the corresponding transition happens. Suggested skeletons:
 
-## <YYYY-MM-DD> — Triaged
+## <YYYY-MM-DD> — Triaged: <one-line summary of triage outcome>
 
 **Triaged by:** <name; persona-frame: business analyst | service desk | developer>
 **Prior status:** `intake`
@@ -40,7 +40,7 @@ each as the corresponding transition happens. Suggested skeletons:
 **Skip-investigation decision (if any):** <if triage chose to route directly, the rationale>
 **Notes:** <triage observations not captured in finding.md Triage section>
 
-## <YYYY-MM-DD> — Under investigation
+## <YYYY-MM-DD> — Under investigation: <one-line summary of investigation scope>
 
 **Investigated by:** <name; persona-frame: developer>
 **Prior status:** `triaged`
@@ -48,7 +48,7 @@ each as the corresponding transition happens. Suggested skeletons:
 **Initial hypothesis:** <starting hypothesis for this investigation pass>
 **Notes:** <scope of investigation; expected duration; what would close vs. defer>
 
-## <YYYY-MM-DD> — Investigation iteration <N>
+## <YYYY-MM-DD> — Investigation iteration <N>: <one-line summary of what this iteration tested>
 
 **Investigated by:** <name; persona-frame: developer>
 **Prior status:** `under-investigation`
@@ -56,7 +56,7 @@ each as the corresponding transition happens. Suggested skeletons:
 **What was learned:** <new evidence; refined or rejected hypotheses>
 **Next step:** <what closes this investigation; or "needs deeper look" with what>
 
-## <YYYY-MM-DD> — Routed
+## <YYYY-MM-DD> — Routed: <one-line summary of routing decision>
 
 **Decided by:** <name; persona-frame and operator>
 **Prior status:** `triaged` or `under-investigation`
@@ -66,7 +66,7 @@ each as the corresponding transition happens. Suggested skeletons:
 **Watch condition (if defer):** <what should cause re-evaluation>
 **Rationale:** <one paragraph; why this route over the others — same as finding.md Route Rationale, may cross-reference>
 
-## <YYYY-MM-DD> — Closed
+## <YYYY-MM-DD> — Closed: <one-line summary of close rationale>
 
 **Decided by:** <name; persona-frame and operator>
 **Prior status:** `triaged` or `under-investigation`
@@ -74,7 +74,7 @@ each as the corresponding transition happens. Suggested skeletons:
 **Close reason:** <cannot reproduce | expected behavior | out of scope | superseded | other>
 **Rationale:** <one paragraph; why close rather than route>
 
-## <YYYY-MM-DD> — Reopened
+## <YYYY-MM-DD> — Reopened: <one-line summary of what re-activated this finding>
 
 **Reopened by:** <name; persona-frame matches the phase being returned to>
 **Prior status:** `routed` or `closed`

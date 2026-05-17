@@ -1,6 +1,6 @@
 # TAB list display issues across Sandlot servers — Journal
 
-## 2026-05-17 — Intake
+## 2026-05-17 — Intake: TAB display defects across Sandlot servers captured from forum thread
 
 **Captured by:** waseric; persona-frame: intake
 **Signal source:** Forum thread https://www.sandlotminecraft.com/threads/tab-screen.39849/
@@ -10,7 +10,7 @@
 - The thread iterated through partial fixes and re-reports between 2026-05-12 and 2026-05-15. The `intake` status on this artifact is the *artifact's* lifecycle state, not the underlying issue's state — the underlying issue is roughly mid-investigation when captured.
 - Other community members who can extend context: trubuhl (initial confirmation), SupersonicE9 (AFK-tag and mod-color reporter), WanderingLlama (screenshot evidence), MangoBreeze (game-mode-list issue), EFret17 (Bedrock-specific scoping report).
 
-## 2026-05-17 — Triaged
+## 2026-05-17 — Triaged: multi-user, cross-client TAB display defect; advisory severity, P3 urgency
 
 **Triaged by:** waseric; persona-frame: business analyst (with admin/operator overlap — solo-operator persona collapse)
 **Prior status:** `intake`
@@ -20,7 +20,7 @@
 **Skip-investigation decision (if any):** Did not skip — investigation is entered to document the hypothesis surface for future reference, even though no full root-cause is available in the visible artifact.
 **Notes:** Triage was captured in the same session as Intake because the finding is retroactive. In a real-time finding the triage would lag the intake by hours to days. Reproducibility is rated "reliably" based on multi-user, multi-day confirmation in the thread, not on a fresh first-party repro.
 
-## 2026-05-17 — Under investigation
+## 2026-05-17 — Under investigation: coupled-display-pipeline hypothesis recorded; route decision pending
 
 **Investigated by:** waseric; persona-frame: developer (with admin overlap)
 **Prior status:** `triaged`

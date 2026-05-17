@@ -14,24 +14,38 @@ This README describes the **schema**: what fields a finding carries, what the st
 A finding has exactly one current `status`, drawn from the values below. Status is append-only and forward-progressing under normal flow; reopening creates a new status entry that returns to an earlier phase, preserving prior history in the journal.
 
 ```
-   ┌─────────┐      ┌──────────┐      ┌────────────────────┐      ┌─────────┐
-   │ intake  │ ───► │ triaged  │ ───► │ under-investigation│ ───► │ routed  │
-   └─────────┘      └──────────┘      └────────────────────┘      └─────────┘
-                          │                                              │
-                          │  (investigation may be skipped               │
-                          │   when route is already obvious)             │
-                          ▼                                              │
-                    ┌─────────┐                                          │
-                    │ closed  │ ◄────────────────────────────────────────┘
-                    └─────────┘   (close is also a valid terminal directly)
-                          │
-                          ▼
-                  ┌──────────────┐
-                  │   reopened   │ ──► triaged | under-investigation
-                  └──────────────┘
-                  (any closed/routed finding may be reopened
-                   with a new status entry; prior history kept)
+   ┌─────────┐      ┌──────────┐      ┌────────────────────┐
+   │ intake  │ ───► │ triaged  │ ───► │ under-investigation│
+   └─────────┘      └─────┬────┘      └──────────┬─────────┘
+                          │                      │
+                          │   route-or-close decision
+                          ▼                      ▼
+                    ┌──────────┐          ┌──────────┐
+                    │  routed  │          │  closed  │   ← sibling parallel
+                    └─────┬────┘          └─────┬────┘     terminal states
+                          │                     │         (no transition
+                          │                     │          between them)
+                          └──────────┬──────────┘
+                                     ▼
+                             ┌──────────────┐
+                             │   reopened   │ ──► triaged | under-investigation
+                             └──────────────┘
 ```
+
+**Valid transitions** (the diagram shows topology; this list is authoritative):
+
+- `intake → triaged`
+- `triaged → under-investigation`
+- `triaged → routed` *(skip investigation when route is obvious)*
+- `triaged → closed` *(skip investigation when close is obvious)*
+- `under-investigation → routed`
+- `under-investigation → closed`
+- `under-investigation → under-investigation` *(iteration in place; same status)*
+- `routed → reopened` *(prior history preserved in journal)*
+- `closed → reopened` *(prior history preserved in journal)*
+- `reopened → triaged` *or* `reopened → under-investigation`
+
+`routed` and `closed` are sibling parallel terminal states — there is no transition between them.
 
 **Terminal status mapping.** The four route subtypes map to two terminal status values: `spec-amend` and `spec-write` terminate at `status: routed` (action delegated to a downstream spec); `defer` terminates at `status: routed` with route subtype `defer` (action consciously postponed, watch condition recorded); `close` terminates at `status: closed` (no decision-producing action required). `routed` means "this finding produced a decision and is no longer the pipeline's responsibility"; `closed` means "this finding required no decision-producing action."
 
@@ -58,13 +72,13 @@ A finding has exactly one current `status`, drawn from the values below. Status 
 ### `routed`
 
 - **Meaning:** A terminal route is selected: `spec-amend`, `spec-write`, or `defer` (with watch condition). The pipeline has handed off responsibility for the next action.
-- **Persona-frame:** N/A — terminal state.
+- **Persona-frame:** N/A for the terminal state itself. The `Decided by` field on the finding carries the persona-frame of the deciding phase (triage or investigation), since the route decision is made *while* in one of those phases and transitions the finding to `routed`.
 - **Exit condition:** None under normal flow. The finding remains `routed` indefinitely; reopening creates a new status entry.
 
 ### `closed`
 
 - **Meaning:** No decision-producing action will be taken. Rationale recorded (cannot reproduce; expected behavior; out of scope; superseded; etc.).
-- **Persona-frame:** N/A — terminal state.
+- **Persona-frame:** N/A for the terminal state itself; `Decided by` carries the deciding phase's persona-frame (same convention as `routed` above).
 - **Exit condition:** None under normal flow. Reopening creates a new status entry.
 
 ### `reopened`
@@ -138,5 +152,7 @@ The fields below are the schema. `_template/finding.md` instantiates them with p
 2. Fill the **Intake** section of `finding.md`. Leave Triage/Investigation/Route as placeholders — later phases append, they do not require pre-filling at intake.
 3. Add an "Intake" entry to `journal.md` per the journal template's structure.
 4. Set `Status: intake`, `Date opened: <today>`, `Last transition: <today>`.
+
+**One finding or several?** When a signal arrives with multiple coupled symptoms — multiple bug reports against the same surface, a thread reporting several distinct-looking defects with one likely shared cause — bundle them into one finding unless and until investigation reveals truly independent root causes. Bundling preserves iteration coherence: the conversation that surfaced the symptoms stays attached to one artifact, the journal records the shared timeline, and the route decision is made once. Split later if needed — the route step naturally supports splitting (one finding may produce two `spec-amend` routes targeting different specs).
 
 The downstream `finding-intake` skill (Phase B in the [design spec's implementation sequencing](../20260517-findings-pipeline/architecture.md#7-implementation-sequencing)) will automate steps 1–4 once available. Until then, the manual copy is the supported path.

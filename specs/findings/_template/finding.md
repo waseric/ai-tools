@@ -8,14 +8,17 @@ See specs/findings/README.md for the schema, state machine, and field reference.
 See specs/20260517-findings-pipeline/architecture.md for the design spec.
 
 Conventions when filling this template:
-- Replace every <placeholder> with the corresponding value, or with "unknown" if
-  not yet known at the current phase.
-- Sections for future phases (Triage / Investigation / Route) may be left as-is
-  with placeholders until that phase begins; the placeholder structure makes it
-  clear what to fill when the phase arrives.
-- The Investigation section is optional and may be skipped entirely when triage
-  produces an obvious route. Journal the skip rationale in journal.md rather
-  than deleting the section.
+- For each field, replace every <placeholder> with the corresponding value.
+- Use "unknown" only within an *active* phase, for a field that was genuinely
+  investigated but could not be determined. "unknown" is a positive statement:
+  "we looked, we couldn't tell." It is distinct from <placeholder>, which
+  signals "this phase has not started yet."
+- Sections for phases that have not yet started may be left entirely in
+  <placeholder> form. Do not pre-fill them with "unknown" — that would
+  conflate "not started" with "investigated and indeterminate."
+- The Investigation section is optional and may be skipped entirely when
+  triage produces an obvious route. Journal the skip rationale in journal.md
+  rather than deleting the section; leave its fields in <placeholder> form.
 -->
 
 # <Short title> — Finding
@@ -38,19 +41,19 @@ Conventions when filling this template:
 ## Triage
 
 **Triaged by:** <persona-frame: service desk | business analyst | developer>
-**Date:** <YYYY-MM-DD>
+**Triage date:** <YYYY-MM-DD>
 **Reproducibility:** <reliably | intermittently | not reproduced | not applicable>
 **Repro steps (if reproducible):**
 1. ...
 **Scope:** <who/what is affected>
 **Domain confirmation:** <operational | testing | security | methodology | other>
 **Severity confirmation:** <blocker | important | advisory>
-**Notes:** <anything else surfaced in triage; rejected hypotheses; clarifications from reporter>
+**Triage notes:** <anything else surfaced in triage; rejected hypotheses; clarifications from reporter>
 
 ## Investigation (optional)
 
 **Investigated by:** <persona-frame: developer>
-**Date:** <YYYY-MM-DD>
+**Investigation date:** <YYYY-MM-DD>
 **Probable cause:** <hypothesis with evidence; file:line references where applicable>
 **Code/configuration touchpoints:** <bulleted file paths>
 **Alternative hypotheses considered:** <briefly, with reason rejected>
@@ -58,8 +61,8 @@ Conventions when filling this template:
 
 ## Route
 
-**Decision:** <spec-amend | spec-write | defer | close>
-**Decided by:** <persona-frame and operator>
-**Date:** <YYYY-MM-DD>
-**Target spec (if amend or new-spec):** <path to spec; e.g., specs/20260517-findings-pipeline/architecture.md>
-**Rationale:** <one paragraph; why this route over the others. For `defer`, include watch condition: what would cause re-evaluation.>
+**Route decision:** <spec-amend | spec-write | defer | close>
+**Decided by:** <persona-frame of the deciding phase, and operator>
+**Route date:** <YYYY-MM-DD>
+**Target spec:** <path to spec, when route is `spec-amend` or `spec-write`; e.g., specs/20260517-findings-pipeline/architecture.md>
+**Route rationale:** <one paragraph; why this route over the others. For `defer`, include watch condition: what would cause re-evaluation.>

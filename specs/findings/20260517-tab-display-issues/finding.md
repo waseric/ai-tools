@@ -20,7 +20,7 @@
 ## Triage
 
 **Triaged by:** waseric; persona-frame: business analyst (with admin/operator overlap — solo-operator persona collapse per design spec §5.6)
-**Date:** 2026-05-17 (artifact-side triage; in-band admin response in the forum thread first occurred 2026-05-13 Wed 7:50 AM)
+**Triage date:** 2026-05-17 (artifact-side triage; in-band admin response in the forum thread first occurred 2026-05-13 Wed 7:50 AM)
 **Reproducibility:** reliably — multi-user, cross-client, cross-game-mode, persisted across multiple posts and dates in the symptomatic windows
 **Repro steps (if reproducible):**
 1. Join any Sandlot Minecraft server on either a Java or Bedrock client.
@@ -32,7 +32,7 @@
 **Scope:** All players opening TAB during symptomatic windows are affected. Cross-client (Java + Bedrock). Cross-game-mode (lobby, Parkour, Creative, Skywars all referenced). Cosmetic — does not affect gameplay, data integrity, or security. Does affect player ability to identify staff and AFK state, with mild moderation-workflow impact.
 **Domain confirmation:** operational
 **Severity confirmation:** advisory (methodology axis). Operational urgency: P3 (user-visible, multi-user, cosmetic, not blocking gameplay).
-**Notes:**
+**Triage notes:**
 - The intake symptoms are related but distinct. They may share an upstream cause (TAB rendering, scoreboard team config, or display plugin) but reporters experienced different combinations. Bundling them into one finding is a judgment call: it preserves the iteration history coherently but risks blurring distinct root causes if investigation reveals them.
 - Iteration pattern observed in the thread: fix → new-symptom-spawned. The 2026-05-13 fix to AFK-tag visibility was followed within hours by reports of missing mod colors and Senior Helper stars. Suggests coupled display dimensions sharing a single config surface.
 - Severity is mixed: visual on its face, but moderation-relevant (staff identification) and player-experience-relevant. Held at advisory + P3 — the operational urgency axis carries the load here, per amendment 2026-05-17-2 sub-change H (severity-axis decoupling).
@@ -41,7 +41,7 @@
 ## Investigation (optional)
 
 **Investigated by:** waseric; persona-frame: developer (with admin overlap)
-**Date:** 2026-05-17 (artifact-side; in-band investigation across the forum thread began 2026-05-13)
+**Investigation date:** 2026-05-17 (artifact-side; in-band investigation across the forum thread began 2026-05-13)
 **Probable cause:** unknown — root-cause documentation does not appear in the visible artifact (fixes were applied without a root-cause narrative in the thread). Working hypothesis based on symptom clustering: a single TAB/scoreboard plugin configures multiple visual dimensions (rank prefix, name color, AFK indicator, Bedrock game-mode partitioning) and a config change to fix one dimension appears to perturb another.
 **Code/configuration touchpoints:** unknown at this artifact level — would require operator access to the production server config. Likely candidates by symptom shape:
 - TAB/scoreboard plugin configuration governing rank-prefix display (Senior Helper second star)
@@ -55,8 +55,18 @@
 
 ## Route
 
-**Decision:** unknown
-**Decided by:** unknown
-**Date:** unknown
-**Target spec (if amend or new-spec):** unknown
-**Rationale:** Route deferred. This finding's primary value at intake is documenting that the in-band fix iteration happened, surfacing the lack of root-cause documentation, and providing a structured artifact future TAB display issues can build on. A real routing decision (audit-spec write, close as remediated, or defer pending recurrence) is appropriate at the next triage pass — likely after observing whether the lingering AFK-tag glitches and rank-missing edge cases reported on 2026-05-15 recur or fade.
+**Route decision:** <spec-amend | spec-write | defer | close>
+**Decided by:** <persona-frame of the deciding phase, and operator>
+**Route date:** <YYYY-MM-DD>
+**Target spec:** <path>
+**Route rationale:** <one paragraph>
+
+<!--
+Route phase has not started — leaving placeholders per the template convention
+("<placeholder>" = phase not yet started; "unknown" reserved for active-phase
+fields that were investigated but could not be determined). The investigation
+above documented hypotheses but the routing decision is appropriate at the next
+triage pass, after observing whether the lingering AFK-tag glitches and the
+rank-missing edge cases reported 2026-05-15 recur or fade.
+-->
+
