@@ -342,3 +342,42 @@ After:
 **Status implication.** Spec stays at `Draft — Open for Review`. Conversion of an OQ-still-flagged-open into an OQ-decided does not change design substance; it ratifies existing prose in linked artifacts.
 
 **Approver.** waseric — approved as drafted on 2026-05-17.
+
+## 2026-05-17 — Amendment 2026-05-17-4
+
+**Section amended:** specs/20260517-findings-pipeline/architecture.md §13 OQ-4 (Triage-time revalidation policy for external pointers)
+**Trigger:** RC-3 review (commit `62aa0af`) explicitly proposed quoting the OQ-4 resolution back to §13; deferred from Phase C feature spec per its §12. Companion amendment to 2026-05-17-3 (OQ-3 quote-back).
+**Reason:** Same pattern as 2026-05-17-3 — leaving OQ-4 at "Leaning + Decided at RC-3" after RC-3 had already decided would leave the design spec misleadingly open; the resolution lives in skill prose and Phase C §5.4 but was never quoted back to the design spec's working memory.
+**Impact summary:** No tasks/checkpoints affected (Phase C done, RC-3 already closed); no completed work invalidated; no cross-references require follow-up. Satisfies Phase C feature spec §12's quoting-back deferral for OQ-4.
+**Approver:** waseric
+**Approved on:** 2026-05-17
+**Status implication:** kept (spec stays at `Draft — Open for Review`)
+**Commit:** this commit
+
+### Full record
+
+**Trigger.** RC-3 self-review (Claude on behalf of waseric, 2026-05-17, commit `62aa0af`) verified that OQ-4's resolution was already codified in `.agents/skills/finding-triage/SKILL.md` L106–L114 and in the Phase C feature spec §5.4, and validated by real-signal dogfood at T-03 (rich-Intake summary → default `treated-as-static` for the auth-walled forum thread, no prompt felt ceremonial). The RC-3 verdict explicitly proposed this quote-back amendment ("Quote-back amendment for OQ-4"). Same Phase C §12 deferral pattern as OQ-3.
+
+**Section.** §13 OQ-4 (L441–L449 pre-amendment).
+
+**Change.**
+
+§13 OQ-4 — Before:
+> **Leaning.** Active revalidation is *optional* in the triage skill prompt: the prompt suggests checking the pointer if the summary is sparse or ambiguous, otherwise treats it as static. Codify the soft default rather than mandate.
+>
+> **Owner.** Decided at RC-3 as part of the `finding-triage` skill prompt design.
+
+§13 OQ-4 — After:
+> **Decided.** 2026-05-17 (RC-3). Optional revalidation with soft default. The `finding-triage` skill prompt asks the triager once whether to check the pointer; the soft default is `treated-as-static` when the Intake Summary is judged rich (≥3 sentences, names components, names reporters, includes verbatim quotes or snapshot references), and `recommend-check` when the Summary is sparse. Outcome recorded per pointer in the Triaged journal entry's `Pointer revalidation` field. Encoded in [`.agents/skills/finding-triage/SKILL.md` L106–L114](../../.agents/skills/finding-triage/SKILL.md) (rich-vs-sparse heuristic + soft-default branch) and in [Phase C feature spec §5.4](../20260517-finding-triage-skill/feature.md). Validated on first real-signal dogfood: T-03 ([easy-survival-shelves-lwc-error](../findings/20260517-easy-survival-shelves-lwc-error/), commit `d79a1eb`) accepted the `treated-as-static` soft default for an auth-walled forum thread (operator-supplied PDF snapshot is durable evidence; the policy "felt minimal, not ceremonial" per the T-03 journal entry). The sparse-Intake branch remains unexercised — if and when a sparse-Intake finding arrives, the `recommend-check` branch gets exercised then.
+
+**Reason.** Same pattern as OQ-3: leaving §13 OQ-4 at "Leaning + Decided at RC-3" after RC-3 has actually decided leaves the design spec misleadingly open. The resolution lives in skill prose and Phase C §5.4 but was never quoted back. Closing the loop in the spec's own working memory.
+
+**Impact.**
+- **Affected tasks:** none. Phase C done; no downstream task reads this OQ as an input.
+- **Affected checkpoints:** RC-3 already closed; this ratifies the closure in spec text. RC-4 and RC-5 unaffected.
+- **Completed work invalidated:** none.
+- **Cross-references requiring follow-up:** none — §5.2 Intake (external pointer capture), §5.3 Triage phase, and §6 NFR (external-pointer durability) already reference the policy as established design. Phase C §12's "Quoting OQ-3 and OQ-4 resolutions back" note is now satisfied (OQ-3 by Amendment 2026-05-17-3; OQ-4 by this one).
+
+**Status implication.** Spec stays at `Draft — Open for Review`. Same ratification-of-existing-prose pattern as Amendment 2026-05-17-3.
+
+**Approver.** waseric — approved as drafted on 2026-05-17.

@@ -442,9 +442,7 @@ The `ai-tools` repo itself adopts the pipeline as part of Phase F dogfooding. Th
 
 **Analysis.** Active revalidation surfaces stale or contradictory external state at the right moment — when a triager is shaping the finding — but introduces an external dependency in triage that may slow it (network reachability, auth) and may pull the triager into the linked ticket's evolving discussion rather than the finding itself. Static treatment keeps triage focused but risks shaping a finding around a no-longer-accurate external pointer.
 
-**Leaning.** Active revalidation is *optional* in the triage skill prompt: the prompt suggests checking the pointer if the summary is sparse or ambiguous, otherwise treats it as static. Codify the soft default rather than mandate.
-
-**Owner.** Decided at RC-3 as part of the `finding-triage` skill prompt design.
+**Decided.** 2026-05-17 (RC-3). Optional revalidation with soft default. The `finding-triage` skill prompt asks the triager once whether to check the pointer; the soft default is `treated-as-static` when the Intake Summary is judged rich (≥3 sentences, names components, names reporters, includes verbatim quotes or snapshot references), and `recommend-check` when the Summary is sparse. Outcome recorded per pointer in the Triaged journal entry's `Pointer revalidation` field. Encoded in [`.agents/skills/finding-triage/SKILL.md` L106–L114](../../.agents/skills/finding-triage/SKILL.md) (rich-vs-sparse heuristic + soft-default branch) and in [Phase C feature spec §5.4](../20260517-finding-triage-skill/feature.md). Validated on first real-signal dogfood: T-03 ([easy-survival-shelves-lwc-error](../findings/20260517-easy-survival-shelves-lwc-error/), commit `d79a1eb`) accepted the `treated-as-static` soft default for an auth-walled forum thread (operator-supplied PDF snapshot is durable evidence; the policy "felt minimal, not ceremonial" per the T-03 journal entry). The sparse-Intake branch remains unexercised — if and when a sparse-Intake finding arrives, the `recommend-check` branch gets exercised then.
 
 ## 14. References
 
