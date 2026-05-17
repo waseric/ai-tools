@@ -4,7 +4,7 @@
 
 **Status:** done
 **Commit:** 3d260dc
-**Artifact:** docs/specs/session-economy-and-multi-repo-disciplines-architecture.md
+**Artifact:** specs/20260514-session-economy/architecture.md
 **Decisions made:**
 - Two disciplines identified: token/session economy (spec-execute Phase 8) and multi-repo paired-commit (spec-execute, spec-amend, spec-review, spec-write, spec-design).
 - Each skill inlines what it needs — no shared-disciplines document.
@@ -17,7 +17,7 @@
 ## 2026-05-14 — Implementation: All Skill Edits Applied
 
 **Status:** done
-**Commits:** (staged, pending — this session)
+**Commits:** e483466
 **Files touched:**
 - .agents/skills/spec-execute/SKILL.md (Phase 1 multi-repo detection, Phase 8 token economy)
 - .agents/skills/spec-amend/SKILL.md (INPUTS + Phase 4 + Phase 5 multi-repo)

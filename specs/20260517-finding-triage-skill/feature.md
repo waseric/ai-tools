@@ -1,6 +1,6 @@
 # Finding Triage Skill — Feature Specification
 
-> Status: Draft — Awaiting Execution
+> Status: Complete
 > Date: 2026-05-17
 > Author: waseric + Claude
 > Audience: Eric Wasgatt (executor); AI coding agents executing this spec; reviewers at the Phase C internal checkpoint (RC-3b) and at the design-spec RC-3 (joint with Phase B)
