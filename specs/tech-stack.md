@@ -18,6 +18,20 @@ None. The repo contains no executable code at this time. Methodology artifacts m
 - **Claude Code configuration** — `.claude/settings.local.json` for repo-scoped agent permissions.
 - **No linter, formatter, or test runner** — prose artifacts are reviewed manually or via agent-assisted review (`spec-review` skill).
 
+### Atomic-Skill Portability Principle
+
+Each skill in `.agents/skills/<skill-name>/` is a **portable atomic unit**. Operationally:
+
+1. **Self-contains its workflow, schema knowledge, and default templates.** The skill's behavior is determined by what ships in its own directory (`SKILL.md`, any bundled assets such as `_template/`, embedded schema understanding in prose) plus the conventions the skill explicitly declares. No runtime dependency on host-repo files for the skill to function.
+2. **Discovers and adapts to richer methodology embodiments when present in the host context.** Host-repo conventions the skill recognizes — a project's `specs/findings/` storage directory, a project-supplied `_template/` override, sibling skills, design-spec references — augment the skill's behavior when present. They are inputs the skill *uses*, not preconditions it *requires*.
+3. **Degrades cleanly when those embodiments are absent.** A skill installed globally (e.g. `~/.claude/skills/<name>/`) and invoked against an unrelated repo must work — producing output that conforms to the skill's bundled schema and templates, not silently failing because host-relative paths do not resolve.
+
+The principle is methodology-wide: it applies to every skill in `.agents/skills/`, including `project-constitution`, `spec-design`, `spec-write`, `spec-execute`, `spec-review`, `spec-amend`, `finding-intake`, `finding-triage`, and any future siblings. New skills are authored against this principle from the start; existing skills are audited for compliance and brought into conformance via [spec-amend](../.agents/skills/spec-amend/SKILL.md) when gaps are found.
+
+**Why.** Skills are the methodology's distributable surface. Outside adopters install the skill, not the repo that authored it; their host project may or may not have any of the methodology's reference docs, templates, or sibling skills present. A skill that silently requires the host to mirror the authoring repo's layout is not portable, regardless of how well it works in the authoring context.
+
+**Originating finding.** [specs/findings/20260517-intake-template-folder-dependency/](findings/20260517-intake-template-folder-dependency/finding.md).
+
 ## Hosting and Deployment
 
 - **GitHub** — `waseric/ai-tools`. Single branch (`main`), no CI/CD pipeline.
