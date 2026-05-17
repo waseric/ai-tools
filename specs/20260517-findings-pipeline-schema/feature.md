@@ -335,6 +335,7 @@ Executed via `/spec-amend`. Single amendment ID `2026-05-17-2` (since `-1` was t
 - **Additional focus added by this feature spec:** Whether the batched amendment (T-01) cleanly resolved all nine RC-1 advisories without introducing new inconsistencies; whether the example-source exercise (T-05) surfaced any schema gaps.
 - **Exit criteria per design spec:** "Template usable for a real finding without further interpretation; state transitions all uniquely defined."
 - **Additional exit criteria:** T-05's example-source finding successfully populates the template; the RC-1 advisory list is fully addressed; no new `[blocker]` findings.
+- **Status:** pass with comments on 2026-05-17 by waseric (self-review). 0 blockers, 1 important (README ASCII state diagram depicts an unauthorized `routed → closed` transition — prose-form state machine is authoritative and unambiguous; diagram cleanup recommended before Phase B `finding-intake-skill` authoring), 7 advisory (field-name asymmetry README↔template; placeholder-vs-`unknown` convention; missing `triaged → routed` direct-skip arrow in diagram; terminal-state vs Decided-by persona-frame phrasing; multi-symptom bundling guidance; retroactive-intake date semantics; journal template section-header format vs starter entry). Full review record at [journal.md](journal.md#review-of-rc-2).
 
 ## 10. Risks and Mitigations
 

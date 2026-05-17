@@ -195,3 +195,71 @@
 **RC-2 checkpoint triggered.** T-05 was the last task in the spec. Per [feature.md §9](feature.md#L329), RC-2 ("Schema Review") triggers when all five tasks complete and commits land. The checkpoint gate is now open. Review focus per design spec §9 RC-2: "Whether the artifact template is concrete and minimal; whether the state machine is unambiguous; whether the persona-frame fields carry their weight." Additional focus per this feature spec: whether the batched amendment (T-01) cleanly resolved all nine RC-1 advisories; whether the example-source exercise (T-05) surfaced any schema gaps. Exit criteria: T-05's example-source finding successfully populates the template (✅ confirmed above); the RC-1 advisory list is fully addressed (✅ amendment 2026-05-17-2 applied); no new `[blocker]` findings (✅ none surfaced).
 
 **Next task pointer:** No further tasks in this feature spec. Awaiting RC-2 reviewer verdict via `/spec-review`. On RC-2 pass, this feature spec transitions to complete; Phase B (`finding-intake` skill) is the next phase per the design spec's §7 Implementation Sequencing.
+
+## 2026-05-17 — Review of RC-2
+
+**Reviewer:** waseric (self-review, with Claude as agent reviewer)
+**Outcome:** pass with comments
+**Tasks reviewed:** T-01, T-02, T-03, T-04, T-05
+**Diff range:** `e65ac98..HEAD` (10 commits)
+**Blockers:** 0
+**Important:** 1 — README ASCII state diagram ([specs/findings/README.md](../findings/README.md) lines 17-26) depicts an unauthorized `routed → closed` transition that is not in design spec §5.5 (`routed` and `closed` are sibling terminal states, not sequential). Prose-form state machine at [README:36-74](../findings/README.md) is unambiguous and authoritative; the diagram needs cleanup before Phase B `finding-intake-skill` authoring so downstream consumers don't read an internally-inconsistent README.
+**Spec amendments proposed:** None. All findings addressable within existing spec scope.
+**Next action:** Clean up the README state diagram (redraw so `routed` and `closed` are visibly parallel terminal states; show both skip-investigation arrows `triaged → routed` and `triaged → closed`; keep the `reopened` loop). The seven advisory findings are good candidates for a small consolidation pass alongside the diagram fix. Once the cleanup lands, work may proceed to Phase B (author `finding-intake-skill` feature spec via `spec-write`, per [design spec §7 Phase B](../20260517-findings-pipeline/architecture.md#L306)).
+
+### Full review record
+
+#### Checkpoint contract
+
+> Review focus per design spec: "Whether the artifact template is concrete and minimal; whether the state machine is unambiguous; whether the persona-frame fields carry their weight."
+> Additional focus per feature spec: Whether the batched amendment (T-01) cleanly resolved all nine RC-1 advisories without introducing new inconsistencies; whether the example-source exercise (T-05) surfaced any schema gaps.
+> Exit criteria per design spec: "Template usable for a real finding without further interpretation; state transitions all uniquely defined."
+> Additional exit criteria: T-05's example-source finding successfully populates the template; the RC-1 advisory list is fully addressed; no new `[blocker]` findings.
+
+#### Scope verification
+
+All five tasks satisfied scope. T-01 touched §5.3, §5.5, §6 of the design spec in addition to the explicitly enumerated sections (§4, §5.1, §5.6, §13, §14) — the additions were journaled as legitimate execution-time expansions in the T-01 closeout (sub-change D removed a dangling `See OQ-1`; sub-change E added the route-subtype mapping paragraph in §5.5; sub-change H placed OQ-1's converted decision in a new §6 NFR row). No out-of-scope file changes; no new dependencies; all declared inspection-based tests performed.
+
+#### Review focus walk
+
+**Focus 1 — Template concrete and minimal:** **pass with comments**. Section structure mirrors design spec §5.1 verbatim; under-budget at 65 lines; top-of-file HTML comment guides intake-first. Two advisories: (a) field-name asymmetry between README field-reference (`Triage date`, `Triage notes`, `Route decision`, `Route rationale`) and template (bare `Date`, `Notes`, `Decision`, `Rationale`) — resolvable in context; (b) template HTML comment says "leave future-phase sections as placeholders" but the T-05 example fills Route with `unknown` while status is `under-investigation` — convention for unfilled-vs-unknown phases not authoritatively answered.
+
+**Focus 2 — State machine unambiguous:** **pass with comments**. Terminal-status mapping paragraph at [README:36](../findings/README.md), per-status semantics block at [README:38-74](../findings/README.md), `reopened` back-transition, append-only forward-progressing wording, and six-status enum are all faithful to amended design spec §4-§5.5. One `[important]`: the ASCII state diagram depicts a `routed → closed` transition not in the design spec. One advisory: diagram is also missing the `triaged → routed` direct-skip path. Prose form is authoritative and unambiguous; diagram is the cleanup target.
+
+**Focus 3 — Persona-frame fields carry their weight:** **pass**. README persona-frame taxonomy table preserves asymmetry-by-design wording from amendment sub-change F. T-05 example uses persona-frame explicitly in solo-operator-collapse case (`business analyst (with admin/operator overlap)` for triage; `developer (with admin overlap)` for investigation) — direct evidence that the field forces deliberate framing rather than degenerating into a label slot. Severity-axis decoupling (sub-change H NFR row) exercised: `advisory + P3` accurately captures "low methodology severity, real but manageable operational urgency." One advisory: template's `Triaged by` line lists persona-frame options without an explicit operator slot — the T-05 example correctly shows `operator; persona-frame: <...>` and the template could prompt that form.
+
+**Additional focus — batched amendment cleanliness:** **pass**. All 9 RC-1 advisories accounted for in 10 sub-changes (advisory 6 split cleanly into D + H). Cross-reference updates handled (OQ-2..5 → OQ-1..4 renumbering propagated). Spec status correctly kept at `Draft — Open for Review`. RC-1's `[important]` (§5.8 dangling reference) was resolved by prior amendment 2026-05-17-1 (commit c05a405).
+
+**Additional focus — T-05 schema-gap detection:** **pass with comments**. Seven validation observations recorded; five are `[ok]` (multi-reporter handling; in-band iteration validated by reopened back-transition + "orientation not handoffs"; `unknown` first-class value worked; severity-axis decoupling exercised; multi-transition single-session capture). Two are `[advisory]`: (a) bundling-vs-splitting guidance is a real operator judgment with no template-side prompt — one paragraph in README "Creating a new finding" could fill this; (b) retroactive-intake date semantics — possible future "Signal date" field, deferred until pattern recurs.
+
+#### Exit criteria walk
+
+| Criterion | Evidence | Verdict |
+|---|---|---|
+| Template usable for a real finding without further interpretation | T-05 produced [specs/findings/20260517-tab-display-issues/finding.md](../findings/20260517-tab-display-issues/finding.md) end-to-end from an external real signal | met |
+| State transitions all uniquely defined | [README:36 terminal-status mapping](../findings/README.md) + [README:38-74 per-status semantics](../findings/README.md) — prose form unambiguous; diagram has `[important]` caveat | met (via prose) |
+| T-05 example-source finding successfully populates the template | finding.md (62 lines) + journal.md (29 lines) committed at 9113c92 | met |
+| RC-1 advisory list is fully addressed | Amendment 2026-05-17-2 record at [design-spec journal:101-247](../20260517-findings-pipeline/journal.md#L101) | met |
+| No new `[blocker]` findings | Zero blockers in this review | met |
+
+#### NFR pass
+
+All §6 NFRs (discoverability, readability, self-contained, AI-agent consumable, backward compatibility, no new dependencies) verified clean. The field-name asymmetry advisory above is the only friction against AI-agent-consumable; not a strict NFR violation.
+
+#### Test and documentation review
+
+Inspection-based testing per task spec; all task closeout journal entries walk the inspection checks. T-05's "the exercise itself is the test" is the strongest validation. One documentation advisory: journal template HTML comment ([_template/journal.md:12](../findings/_template/journal.md)) declares section-header format `## <YYYY-MM-DD> — <New status>: <one-line summary>` but the starter Intake entry omits the colon and summary — convention/example inconsistency.
+
+#### Summary of all findings
+
+**Important (1):**
+- README ASCII state diagram depicts unauthorized `routed → closed` transition ([specs/findings/README.md](../findings/README.md) lines 17-26).
+
+**Advisory (7):**
+- Field-name asymmetry README field-reference ↔ template (`Triage date`/`Triage notes`/`Route decision`/`Route rationale` vs bare `Date`/`Notes`/`Decision`/`Rationale`).
+- Template HTML guidance "leave placeholders" vs T-05 example using `unknown` for unstarted Route phase — unfilled-vs-unknown convention not authoritatively answered.
+- ASCII state diagram missing `triaged → routed` direct-skip path.
+- README terminal-state `Persona-frame: N/A` vs Decided-by field requiring a persona-frame — context-resolvable but subtle.
+- Multi-symptom bundling-vs-splitting guidance absent from README "Creating a new finding."
+- Retroactive-intake date semantics — possible future "Signal date" field, deferred.
+- Journal template section-header format (HTML comment) vs starter Intake entry — convention/example inconsistency.
