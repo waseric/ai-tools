@@ -66,3 +66,52 @@ All three were marked decidable-at-T-01 in the spec; all three resolved per thei
 - **Persona-frame fixity.** SKILL.md OP #6 explicitly forbids asking the operator to pick a persona-frame at intake. This is the codification of design-spec §5.6 amendment sub-change F (intake's persona-frame is "anyone"). One sentence in the spec, one principle in the skill.
 
 **Next task pointer:** T-02 — Synthetic validation exercise. Dependencies (T-01) satisfied. No new blockers surfaced.
+
+## 2026-05-17 — T-02: Synthetic validation exercise
+
+**Status:** done
+**Commits:** to-be-attached at closeout commit
+**Files touched:**
+- New: `specs/findings/20260517-test-only-signal-synthetic-fixture/finding.md`
+- New: `specs/findings/20260517-test-only-signal-synthetic-fixture/journal.md`
+- Edited: `specs/20260517-finding-intake-skill/feature.md` — T-02 marked done
+- Edited: `specs/20260517-finding-intake-skill/journal.md` — this entry
+
+**Tests added:** None (inspection-based per §8 Test Strategy; the exercise itself is the test). Inspection evidence:
+
+*Template-fidelity verification:*
+- Title heading shape matches template: `# <Short title> — Finding` → produced `# Test-only signal — synthetic-fixture-naming inconsistency — Finding`.
+- Status banner: all 6 lines present in declared order. Intake-set fields (Status, Domain, Date opened, Last transition) populated; triage-phase fields (Severity, Operational urgency) left in `<…|…>` enum-placeholder form.
+- Intake section: all 5 fields populated (Reported by, Reported via, Captured by, Summary, External references) in declared order.
+- Triage / Investigation / Route sections: **byte-for-byte identical to template** via `diff` (exit-clean).
+- Journal Intake entry: all 4 fields populated (Captured by, Signal source, New status, Notes). Commented-out skeletons for later transitions stripped per T-05 living-example precedent.
+
+*Behavioral verification:*
+- 60-second-target plausibility: structured-input mode skipped all prompts; artifact produced in a single APPLY pass. Interactive mode would add only Phase 1 round-trip + Phase 2 slug-confirm, both single-keystroke.
+- No triage-phase prompts: skill solicited none of Reproducibility, Scope, Severity confirmation, Triage notes.
+- Persona-frame label correct: `Captured by: waseric; persona-frame: intake` regardless of who the operator is.
+- Placeholder-vs-unknown convention honored: Intake fields populated with concrete values; later-phase fields in `<placeholder>` form (not "unknown").
+- `Date opened` == `Last transition` at intake: both `2026-05-17`.
+- Self-contained: Summary field carries the load-bearing capture in full; no external context required.
+
+**DoD verification:**
+- Synthetic artifact created (or created-and-deleted with rationale): **created and retained** — rationale below.
+- Validation outcomes journaled: this entry.
+- Any surfaced bugs resolved via T-01 amendment or escalated as `[blocker]`: no blockers surfaced; two advisory observations recorded below for post-RC-3a treatment.
+
+**Decisions made:**
+
+- **Retain-vs-delete (synthetic artifact): retain.** The directory name (`test-only-signal-synthetic-fixture`), the Reported-by field (`self (T-02 synthetic exercise — this finding is fabricated...)`), the Summary field (parenthetical "fabricated for T-02 validation"), and the journal Notes (two more "fabricated, not a real signal" disclaimers) all flag the artifact as obviously-not-real at four independent locations. Retaining gives RC-3a reviewers a paired example next to the operational-domain T-05 (`tab-display-issues`) for methodology-domain at status: intake — a structural regression reference. A future operator browsing `specs/findings/` cannot reasonably confuse it for a real finding.
+- **Mode for the exercise: structured-input.** When the skill is invoked by an AI agent (as it is here), structured-input is the honest match — interactive mode would require simulating prompts I'd answer myself. Interactive mode is still in the skill contract; T-03 may exercise it if the real signal arrives via human operator.
+
+**Spec amendments:** None. Two advisory observations parked for post-RC-3a treatment (see below).
+
+**Surprises and learnings:**
+
+1. **SKILL.md "copy verbatim" is ambiguous on template scaffolding.** `_template/finding.md` lines 1–22 are an HTML comment block telling the operator how to fill the template; `_template/journal.md` has both a top HTML comment block AND closing commented-out skeleton entries ("uncomment and fill as the corresponding transition happens"). These are *template scaffolding for the operator filling them in*, not artifact content. The T-05 living example strips both; this T-02 synthetic does the same. SKILL.md Phase 3 step 2/3 says "copy verbatim, then editing only…" — the resolution is "copy the artifact-bearing content verbatim, strip the template scaffolding." **Park as advisory** for post-RC-3a `spec-amend` against SKILL.md; not blocking T-03 because the existing T-05 precedent + this T-02 outcome give the right answer empirically.
+
+2. **Short-name slug stop-word list could grow.** SKILL.md Phase 2 (and feature.md §5.2) lists 12 stop words; "signal" and "test-only" aren't included, so the derived slug for the synthetic was longer than ideal (`test-only-signal-synthetic-fixture` at 33 chars — within the ≤40 budget, but the leading "test-only-signal-" could compress). Cosmetic; recoverable via rename. **Park as advisory.**
+
+3. **Template scaffolding observation applies upstream to the schema spec, not just SKILL.md.** If the SKILL.md's "copy verbatim" clarification lands as an amendment, the schema spec's `_template/*.md` files could *also* benefit from a short comment in their leading scaffolding saying "this comment is for the operator filling the template; strip it from the produced artifact." That's an `[advisory]` upstream finding the T-02 exercise surfaced. Routes via `spec-amend` against the schema spec (not this spec) post-RC-3a.
+
+**Next task pointer:** T-03 — Real-signal dogfood exercise. Dependencies (T-01, T-02) satisfied. T-03 needs a real new signal selected at execution time by the operator (must not be the T-02 fabricated case; must not be the T-05 schema-spec example).

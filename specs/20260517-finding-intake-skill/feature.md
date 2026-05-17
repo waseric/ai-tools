@@ -255,6 +255,8 @@ T-04 (below) flips the section so the `/finding-intake` invocation is the primar
 
 ### T-02 — Synthetic validation exercise
 
+**Status:** done — 2026-05-17 — see journal entry. Skill invoked in structured-input mode against a fabricated methodology-domain signal. Produced [specs/findings/20260517-test-only-signal-synthetic-fixture/](../findings/20260517-test-only-signal-synthetic-fixture/) matching template structurally; Triage/Investigation/Route sections byte-for-byte identical to template; all six behavioral properties verified (60-second-target plausibility, no triage-phase prompts, persona-frame label correct, placeholder-vs-unknown convention honored, Date-opened == Last-transition, self-contained artifact). **Retain-vs-delete: retain** — see journal entry. Two advisory observations surfaced (template-scaffolding ambiguity in SKILL.md, stop-word list cosmetics); both deferred to post-RC-3a `spec-amend`, neither blocking T-03.
+
 **Scope:**
 
 - Invoke the skill (interactively or via structured input — operator's choice at execution time) with a *fabricated* signal: a one-paragraph narrative describing a plausible but non-real finding (e.g., "test-only signal: theme-flicker on dark-mode toggle"). No external pointer.
