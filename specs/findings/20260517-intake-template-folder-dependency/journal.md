@@ -35,7 +35,7 @@
 **Approver:** waseric
 **Approved on:** 2026-05-17
 **Status implication:** kept (tech-stack.md remains Living document; addition extends rather than reopens existing commitments).
-**Commit:** `<pending — backfill in follow-up commit per repo convention>`
+**Commit:** `b515c71`
 **Journal location note:** tech-stack.md has no journal of its own. This amendment record is being kept in the originating finding's journal as the cascade-tracking record; a follow-on advisory finding will capture the constitution-amendment workflow gap.
 
 ### Full record
