@@ -381,3 +381,45 @@ After:
 **Status implication.** Spec stays at `Draft — Open for Review`. Same ratification-of-existing-prose pattern as Amendment 2026-05-17-3.
 
 **Approver.** waseric — approved as drafted on 2026-05-17.
+
+## 2026-05-17 — Amendment 2026-05-17-5
+
+**Section amended:** specs/20260517-findings-pipeline/architecture.md §6 Non-functional Requirements (appended new `Skill portability` row)
+**Trigger:** Direct follow-on from Amendment 2026-05-17-1 to [specs/tech-stack.md](../tech-stack.md) (commit `b515c71`), which committed the Atomic-Skill Portability Principle as a methodology-wide constraint. The design spec needed a back-reference so the principle is visible to readers of the findings-pipeline architecture; the README-as-derived-projection clarification rides along as the specific corollary surfaced by the originating finding's investigation.
+**Reason:** Two coupled gaps: (1) the methodology-wide commitment had no back-reference from the design spec; (2) the prior unstated assumption that host's `specs/findings/README.md` was a load-bearing runtime input for the `finding-{intake,triage}` skills needed an explicit replacement — articulating the README as a derived human-readable projection, not a runtime input.
+**Impact summary:** No tasks/checkpoints affected (RC-1 and RC-3 already closed); no completed work invalidated; cascading amendments 3/4/5 against `findings-pipeline-schema/feature.md` and the two SKILL.md files bring implementation into conformance.
+**Approver:** waseric
+**Approved on:** 2026-05-17
+**Status implication:** kept (spec stays at `Draft — Open for Review`; amendment is additive)
+**Commit:** `<pending — backfill in follow-up commit per repo convention>`
+
+### Full record
+
+**Trigger.** Direct follow-on from Amendment 2026-05-17-1 to [specs/tech-stack.md](../tech-stack.md) (commit `b515c71`), which committed the **Atomic-Skill Portability Principle** as a methodology-wide constraint on skill construction. The design spec needs to reference the principle so it is visible to readers of the findings-pipeline architecture; the README-as-derived-projection clarification rides along because it is the specific corollary surfaced by the originating finding's investigation phase ([intake-template-folder-dependency](../findings/20260517-intake-template-folder-dependency/finding.md), at status `under-investigation`).
+
+**Section.** §6 Non-functional Requirements (L286–L298 pre-amendment), appending one new row after the existing `External-pointer durability` row.
+
+**Change.**
+
+§6 NFR table — Before (last existing row + section transition):
+> | **External-pointer durability** | The artifact survives external-system unavailability. Pointer text, summary, and any pasted context travel with the finding. |
+>
+> ## 7. Implementation Sequencing
+
+§6 NFR table — After:
+> | **External-pointer durability** | The artifact survives external-system unavailability. Pointer text, summary, and any pasted context travel with the finding. |
+> | **Skill portability** | Findings-pipeline skills follow the [Atomic-Skill Portability Principle](../tech-stack.md#atomic-skill-portability-principle): they bundle their own operational mirror of the schema and default templates, and adapt to host-context conventions (e.g., a project's `specs/findings/` storage directory, project-supplied `_template/` overrides, sibling skills) only when those conventions are present. The schema's authoritative articulation is this design spec (§5.1); [specs/findings/README.md](../findings/README.md) is the schema's derived human-readable projection — useful to humans browsing the storage location, not a runtime input for skills. |
+>
+> ## 7. Implementation Sequencing
+
+**Reason.** Two coupled gaps. (1) The methodology-wide commitment in [specs/tech-stack.md](../tech-stack.md) needed a back-reference from the design spec, or readers of the findings-pipeline architecture would not see it. (2) The prior unstated assumption that the host's `specs/findings/README.md` was a load-bearing runtime input for the `finding-{intake,triage}` skills (the originating finding's surface) needed an explicit replacement — articulating the README as a derived human-readable projection of the schema, not a runtime input. The principle was already implicit in §5.1's "the artifact never depends on its originating conversation or any external system being still reachable" — this amendment extends the spirit (artifact-portability) to the skills themselves (skill-portability) by reference.
+
+**Impact.**
+- **Affected tasks:** none. This is a design-spec amendment, not a feature-spec task.
+- **Affected checkpoints:** none. RC-1 (Design Freeze) and RC-3 (Intake & Triage Skill Review) have already closed; this is additive clarification, not a re-opening.
+- **Completed work invalidated:** none. The cascading amendments (3/4/5) bring the schema feature spec and the two SKILL.md files into conformance with the principle now visible in §6.
+- **Cross-references requiring follow-up:** Amendment 3 ([findings-pipeline-schema/feature.md](../20260517-findings-pipeline-schema/feature.md)) implements scaffold-marker delimiters + skill-bundled templates with host override; Amendments 4 and 5 bring the two SKILL.md files into conformance. No follow-up edits required within this design spec.
+
+**Status implication.** Spec stays at `Draft — Open for Review`. Amendment is purely additive; no existing NFR row is changed and no design decision is reversed.
+
+**Approver.** waseric — approved as drafted on 2026-05-17.

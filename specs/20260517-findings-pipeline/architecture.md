@@ -296,6 +296,7 @@ A finding raised during active `spec-execute` must not pull the executor off-tas
 | **Persona durability** | A solo-adopter pipeline must not require restructuring to onboard team members. Role-frames already map to roles. |
 | **Severity axis decoupling** | Operational urgency (P1–P4) is an optional axis decoupled from methodology severity (`blocker`/`important`/`advisory`). Operational findings may use both; testing/methodology findings typically use severity alone. The two axes may diverge — recorded decision, RC-2 schema pass. |
 | **External-pointer durability** | The artifact survives external-system unavailability. Pointer text, summary, and any pasted context travel with the finding. |
+| **Skill portability** | Findings-pipeline skills follow the [Atomic-Skill Portability Principle](../tech-stack.md#atomic-skill-portability-principle): they bundle their own operational mirror of the schema and default templates, and adapt to host-context conventions (e.g., a project's `specs/findings/` storage directory, project-supplied `_template/` overrides, sibling skills) only when those conventions are present. The schema's authoritative articulation is this design spec (§5.1); [specs/findings/README.md](../findings/README.md) is the schema's derived human-readable projection — useful to humans browsing the storage location, not a runtime input for skills. |
 
 ## 7. Implementation Sequencing
 
