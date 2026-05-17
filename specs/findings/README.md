@@ -141,6 +141,22 @@ The fields below are the schema. `_template/finding.md` instantiates them with p
 
 ## Creating a new finding
 
+Invoke the `/finding-intake` skill ([.agents/skills/finding-intake/SKILL.md](../../.agents/skills/finding-intake/SKILL.md)):
+
+```
+/finding-intake
+```
+
+The skill prompts for the load-bearing fields (title, summary, external pointer), derives the rest (short-name slug, date, captured-by), and writes `specs/findings/YYYYMMDD-<short-name>/finding.md` + `journal.md` with `status: intake` set. It optimizes for ≤60 seconds of operator effort per typical signal. The skill does not auto-commit; it returns a suggested commit message and the operator commits when their session is in a commit-friendly state. AI-agent callers can populate the structured INPUTS block directly to skip the prompts — see the skill's INPUTS section for the field set.
+
+The skill was authored in Phase B of the findings-pipeline design; see [specs/20260517-finding-intake-skill/feature.md](../20260517-finding-intake-skill/feature.md) for its feature spec and [the design spec's implementation sequencing](../20260517-findings-pipeline/architecture.md#7-implementation-sequencing) for its position in the pipeline.
+
+**One finding or several?** When a signal arrives with multiple coupled symptoms — multiple bug reports against the same surface, a thread reporting several distinct-looking defects with one likely shared cause — bundle them into one finding unless and until investigation reveals truly independent root causes. Bundling preserves iteration coherence: the conversation that surfaced the symptoms stays attached to one artifact, the journal records the shared timeline, and the route decision is made once. Split later if needed — the route step naturally supports splitting (one finding may produce two `spec-amend` routes targeting different specs).
+
+### Manual fallback (if the skill is not available)
+
+If `/finding-intake` is not available in your environment (the skill loader isn't wired up, or you're producing a finding by hand), the manual copy path remains valid:
+
 1. Copy the template into a new per-finding directory:
 
    ```sh
@@ -152,7 +168,3 @@ The fields below are the schema. `_template/finding.md` instantiates them with p
 2. Fill the **Intake** section of `finding.md`. Leave Triage/Investigation/Route as placeholders — later phases append, they do not require pre-filling at intake.
 3. Add an "Intake" entry to `journal.md` per the journal template's structure.
 4. Set `Status: intake`, `Date opened: <today>`, `Last transition: <today>`.
-
-**One finding or several?** When a signal arrives with multiple coupled symptoms — multiple bug reports against the same surface, a thread reporting several distinct-looking defects with one likely shared cause — bundle them into one finding unless and until investigation reveals truly independent root causes. Bundling preserves iteration coherence: the conversation that surfaced the symptoms stays attached to one artifact, the journal records the shared timeline, and the route decision is made once. Split later if needed — the route step naturally supports splitting (one finding may produce two `spec-amend` routes targeting different specs).
-
-The downstream `finding-intake` skill (Phase B in the [design spec's implementation sequencing](../20260517-findings-pipeline/architecture.md#7-implementation-sequencing)) will automate steps 1–4 once available. Until then, the manual copy is the supported path.

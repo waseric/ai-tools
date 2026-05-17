@@ -168,3 +168,64 @@ All three were marked decidable-at-T-01 in the spec; all three resolved per thei
 4. **Interactive mode preview was load-bearing.** In structured-input mode (T-02), I went straight to APPLY. In interactive mode (T-03), the preview gave the operator a chance to see the Intake section + pointer-fetch decision + suggested directory path before any file was written. The operator's "Apply as drafted" confirmation took ~1 keystroke; if they had wanted edits, the preview was the cheapest moment to surface them. The preview pattern justifies its place in the skill.
 
 **Next task pointer:** T-04 — Update [specs/findings/README.md](../findings/README.md) "Creating a new finding" section to make `/finding-intake` the primary path and the manual `cp` recipe the fallback. Dependencies (T-01, T-03) satisfied. After T-04, the RC-3a checkpoint triggers (all four tasks complete) — Phase 8 session-continuity check applies at that boundary.
+
+## 2026-05-17 — T-04: README "Creating a new finding" — flip `/finding-intake` to primary
+
+**Status:** done
+**Commits:** this closeout commit (single combined commit — README content edit + spec status + journal entry, no SHA-backfill needed)
+**Files touched:**
+- Edited: `specs/findings/README.md` — "Creating a new finding" section restructured per T-04 scope.
+- Edited: `specs/20260517-finding-intake-skill/feature.md` — T-04 marked done; RC-3a trigger noted in status line.
+- Edited: `specs/20260517-finding-intake-skill/journal.md` — this entry.
+
+**Tests added:** None (inspection-based per §8 Test Strategy). Inspection evidence:
+
+- **README line count:** 170 (≤200 ceiling per T-04 inspection criteria). Up from 159 pre-edit; the net addition is the primary-path paragraph + forward-pointer paragraph + Manual fallback subheading + intro sentence, offset by removal of the prior single-line forward-pointer.
+- **`/finding-intake` is the first option presented:** the section opens with "Invoke the `/finding-intake` skill" + fenced slash-command code block, before any reference to the manual path.
+- **Manual recipe preserved verbatim:** the 4-step list at [specs/findings/README.md:165-176](../findings/README.md#L165-L176) is byte-identical to the pre-edit content. Only header-level changes (now under `### Manual fallback (if the skill is not available)` subheading + one intro sentence "If `/finding-intake` is not available in your environment...").
+- **Bundle-vs-split paragraph preserved verbatim:** the "**One finding or several?**" paragraph at [specs/findings/README.md:158](../findings/README.md#L158) is byte-identical to its pre-edit form. Placement moved from "after the manual recipe" to "before the Manual fallback subheading" — this prevents H3 scoping pulling the paragraph into the fallback subsection.
+- **Cross-references resolve:** verified via `ls`:
+  - `../../.agents/skills/finding-intake/SKILL.md` → `ai-tools/.agents/skills/finding-intake/SKILL.md` ✓
+  - `../20260517-finding-intake-skill/feature.md` → `ai-tools/specs/20260517-finding-intake-skill/feature.md` ✓
+  - `../20260517-findings-pipeline/architecture.md` → `ai-tools/specs/20260517-findings-pipeline/architecture.md` ✓
+- **Forward-pointer updated:** old line ("will automate steps 1–4 once available") replaced with sentence pointing to this feature spec + the design-spec implementation sequencing.
+
+**DoD verification:** (per [feature.md §7 T-04 DoD](../20260517-finding-intake-skill/feature.md#L338))
+- README.md updated: ✓
+- Committed: ✓ — this commit.
+- Cross-references valid: ✓ — verified above.
+
+**Decisions made:**
+
+- **Bundle-vs-split paragraph placement:** moved from "after the manual recipe" to "between the primary-path description and the Manual fallback subheading." Reason: it is orthogonal (per T-04 scope: "applies regardless of which intake path"); placing it under `### Manual fallback` would scope it visually to the fallback subsection. Placement at parent `## Creating a new finding` level preserves the orthogonality. Paragraph text itself untouched per T-04's "Keep ... intact" requirement.
+- **Forward-pointer placement:** moved from "end of section" to "right after the primary-path description." Reason: the pointer is now a "see also for the primary path's authoring spec," not a "see also for the future skill that doesn't exist yet" — its semantic relationship has changed, so its placement should follow. The pointer sits inline with the description of what it points to.
+- **Single combined commit (no work-commit + closeout-commit split):** T-04's "work" is a README content edit, not a skill-artifact emission. No SKILL.md-suggested commit format to honor (unlike T-03's `find:` prefix). One commit titled `T-04: README ...` containing both the content change and the spec/journal closeout is cleaner than two commits with a backfill.
+
+**Spec amendments:** None.
+
+**Surprises and learnings:**
+
+- **Forward-pointer semantic shift was the substantive change, not the recipe demotion.** T-04 reads as "demote the manual recipe; promote the skill." In practice, the recipe was already correct and stays verbatim under a new subheading — that part is mechanical. The substantive change is the forward-pointer paragraph going from "the skill will exist" (forecast, line 158 in the old README) to "the skill exists; here are the specs that describe it" (current state, cross-reference). Readers arriving at the README after T-04 land on the skill as the assumed default, not on a forecast.
+- **README line count moved only modestly (159 → 170, +11 lines).** Most of the new content offsets removed content: the primary-path paragraph + intro sentence + subheading replace the single-line forecast paragraph. The README's overall character stays unchanged in surface area, which is the right outcome — Phase B was not supposed to bloat the schema docs.
+- **RC-3a trigger arrives in this same commit.** This is the first task in Phase B whose closeout *also* triggers the spec's only feature-spec-level review checkpoint. The journal's "next task pointer" is no longer another T-XX task; it is the RC-3a checkpoint review. Phase 7 of spec-execute governs from here.
+
+**Next pointer:** **RC-3a — Phase B Skill Review** triggers ([feature.md §9 RC-3a](../20260517-finding-intake-skill/feature.md#L354)). All four Phase B tasks complete:
+- T-01: SKILL.md authored (commit 1e640c7)
+- T-02: synthetic validation exercise (commit e7630c9)
+- T-03: real-signal dogfood exercise (commits 2a6bcc3 + 88d9b0a)
+- T-04: README primary-path flip (this commit)
+
+Reviewer focus per [feature.md §9 RC-3a Exit criteria](../20260517-finding-intake-skill/feature.md#L360-L365):
+- SKILL.md exists, ≤220 lines, frontmatter parseable. (149 lines per T-01 closeout — well under ceiling; frontmatter validated structurally.)
+- T-02 synthetic artifact matches template byte-for-byte at non-input positions. (Verified at T-02 closeout via `diff`.)
+- T-03 dogfood produced a real finding; effort timing recorded; pointer-fetch outcome recorded. (Verified at T-03 closeout — ~30–60s operator effort, live-fetch-not-attempted with rationale.)
+- T-04 README update preserves the manual fallback and updates the forward-pointer. (Verified above.)
+- No `[blocker]` findings; `[important]` findings either resolved or escalated. (Two `[advisory]` observations from T-02 + one from T-03, all deferred to post-RC-3a `spec-amend`; no `[blocker]` or `[important]`.)
+
+Three advisory observations queued for post-RC-3a `spec-amend` against SKILL.md (and one against the schema spec):
+1. **SKILL.md (from T-02):** "copy verbatim" ambiguity on template scaffolding — the top HTML comment in `_template/finding.md` and the bottom commented-out skeleton block in `_template/journal.md` are template scaffolding (instructions to the operator filling them), not artifact content. T-05, T-02, and T-03 all stripped them empirically; SKILL.md prose could be more explicit.
+2. **SKILL.md (from T-02):** short-name slug stop-word list could grow ("test-only", "signal" both surfaced as candidates from T-02; T-03's "easy", "survival" did not need expansion). Cosmetic.
+3. **SKILL.md (from T-03):** pointer-fetch policy gap — the policy ("attempt fetch if capable") does not anticipate the case "operator pre-supplied a snapshot at session intake." Proposed change: add explicit branch handling "operator-supplied snapshot pre-exists" to Phase 3 step 4.
+4. **Schema spec (from T-02):** the template scaffolding observation applies upstream too — `_template/*.md` could carry a short note in their leading comments saying "this comment is for the operator filling the template; strip it from the produced artifact."
+
+Per [spec-execute Phase 7](../../.agents/skills/spec-execute/SKILL.md) — stop here, do not proceed past RC-3a without explicit user confirmation.

@@ -318,6 +318,8 @@ T-04 (below) flips the section so the `/finding-intake` invocation is the primar
 
 ### T-04 — Update `specs/findings/README.md` "Creating a new finding" to make `/finding-intake` primary
 
+**Status:** done — 2026-05-17 — see this T-04 closeout commit + journal entry. README's "Creating a new finding" section restructured: `/finding-intake` is the primary path (slash-command invocation + behavior description + 60-second-target note + INPUTS pointer for AI-agent callers); forward-pointer paragraph updated to cite this feature spec and the design-spec implementation sequencing (no longer "will automate ... once available"); bundle-vs-split paragraph preserved verbatim; manual `cp` recipe preserved verbatim under new `### Manual fallback (if the skill is not available)` subheading. README line count: 170 (≤200 inspection ceiling). All three new cross-references (`../../.agents/skills/finding-intake/SKILL.md`, `../20260517-finding-intake-skill/feature.md`, `../20260517-findings-pipeline/architecture.md#7-implementation-sequencing`) resolve from `specs/findings/README.md`. **All Phase B tasks now complete — RC-3a checkpoint triggers.**
+
 **Scope:**
 
 - Edit [specs/findings/README.md](../findings/README.md), specifically the "Creating a new finding" section (currently lines 142–158).
