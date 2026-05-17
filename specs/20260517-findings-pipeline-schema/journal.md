@@ -361,3 +361,30 @@ The journal.md note is longer than the finding.md note because journal.md has *t
 **Status implication.** Schema feature spec stays at `Status: Draft — Open for Review` (no change). The templates themselves have no Status banner. The amendment is purely additive in the deliverables; no revert to Draft warranted.
 
 **Approver.** waseric (2026-05-17).
+
+## 2026-05-17 — Spec closeout — Phase A complete
+
+**Status:** done
+**Commits:** this closeout commit
+**Files touched:**
+- Edited: `specs/20260517-findings-pipeline-schema/feature.md` — status banner flipped from `Draft — Open for Review` → `Complete`.
+- Edited: `specs/20260517-findings-pipeline-schema/journal.md` — this entry.
+
+**Tests added:** None (housekeeping; inspection-based).
+
+**DoD verification:**
+- Status banner reflects post-RC-2 + post-amendment-1 state: ✓ — [feature.md:3](feature.md#L3) now `> Status: Complete`.
+- All §7 tasks closed: ✓ — T-01 through T-05 all `done` in §7 with commit references; verified at RC-2 remediation closeout.
+- No deferred follow-ups outstanding: ✓ — amendment 2026-05-17-1 explicitly noted "Cross-references requiring follow-up: None" (this journal:359). RC-2 remediation closeout dispositioned six advisories and deferred one ("Signal date" field per advisory's own deferral note — reconsider if a second retroactive-intake finding surfaces; not a banner-blocking follow-up).
+
+**Decisions made:**
+- **Status value: `Complete`.** Matches the precedent set by the Phase B closeout ([finding-intake-skill journal:405-431](../20260517-finding-intake-skill/journal.md#L405)) and the spec-path-convention feature spec.
+- **No bundled content change.** The Phase B closeout (commit e426b8a) bundled a §5.2 stop-word cross-reference (the deferred follow-up from amendment 2026-05-17-3). This spec's amendment 2026-05-17-1 explicitly identified no follow-ups, so this closeout is banner-only — no §X edits piggybacked.
+
+**Spec amendments:** None. This is closeout housekeeping; the spec is functionally unchanged.
+
+**Surprises and learnings:**
+- The schema spec was already operationally complete at the RC-2 remediation closeout (line 306: "Feature spec status: complete. ... No further work in this feature spec.") but the banner was not flipped at that moment because Phase B's amendments against this spec (the A5 advisory from RC-3a, applied as amendment 2026-05-17-1) were still pending. Flipping the banner after *both* RC-2 remediation *and* the post-RC-3a cross-side amendment landed avoids re-flipping it twice. This is the same pattern Phase B used at e426b8a.
+- Two specs in the findings-pipeline tree are now `Complete`: this one (Phase A schema) and the Phase B finding-intake-skill. The upstream design spec ([specs/20260517-findings-pipeline/architecture.md](../20260517-findings-pipeline/architecture.md)) remains `Draft — Open for Review`; its RC-3 (joint Phase B + Phase C review) is still open and will close only after Phase C's `finding-triage` skill spec exists and passes review.
+
+**Next pointer:** **Outside this spec.** The natural next step is `/spec-write` for Phase C — the `finding-triage` skill — against the upstream [findings-pipeline design spec](../20260517-findings-pipeline/architecture.md). Phase A's contribution to the design-spec RC-3 is now sealed alongside Phase B's.

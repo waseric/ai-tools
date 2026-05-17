@@ -1,6 +1,6 @@
 # Findings Pipeline Schema — Feature Specification
 
-> Status: Draft — Open for Review
+> Status: Complete
 > Date: 2026-05-17
 > Author: waseric + Claude
 > Audience: Eric Wasgatt (executor); AI coding agents executing this spec; reviewers at RC-2
