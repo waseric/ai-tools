@@ -1,8 +1,8 @@
 # finding-intake skill depends on specs/findings/_template/ — breaks when installed globally — Finding
 
-> Status: intake
+> Status: triaged
 > Domain: methodology
-> Severity: <blocker | important | advisory>           ← methodology axis
+> Severity: blocker                                    ← methodology axis
 > Operational urgency (optional): <P1 | P2 | P3 | P4>  ← operational axis (typically operational findings only)
 > Date opened: 2026-05-17
 > Last transition: 2026-05-17                        ← scan-aid: most recent status change without traversing journal
@@ -17,15 +17,18 @@
 
 ## Triage
 
-**Triaged by:** <persona-frame: service desk | business analyst | developer>
-**Triage date:** <YYYY-MM-DD>
-**Reproducibility:** <reliably | intermittently | not reproduced | not applicable>
+**Triaged by:** waseric; methodologist; persona-frame: triage
+**Triage date:** 2026-05-17
+**Reproducibility:** reliably
 **Repro steps (if reproducible):**
-1. ...
-**Scope:** <who/what is affected>
-**Domain confirmation:** <operational | testing | security | methodology | other>
-**Severity confirmation:** <blocker | important | advisory>
-**Triage notes:** <anything else surfaced in triage; rejected hypotheses; clarifications from reporter>
+1. Open `.agents/skills/finding-intake/SKILL.md`.
+2. Confirm Phase 3 step 2 references stripping `finding.md` lines 1–22, and Phase 3 step 3 references stripping `journal.md` lines 1–18 and 29–84.
+3. Confirm the relative path `../../../specs/findings/_template/finding.md` (and the journal sibling) appears in ORIENT and APPLY — this path resolves outside the user's workspace when SKILL.md lives at `~/.claude/skills/finding-intake/SKILL.md`.
+4. Simulate (or perform) installation at `~/.claude/skills/finding-intake/` and invocation against a repo with no `specs/findings/_template/` directory — the agent has nothing to copy from, and the path strings in SKILL.md point outside the user's workspace.
+**Scope:** The `finding-intake` skill today, plus any future findings-pipeline skill that inherits the same scaffolding-copy pattern. Phase C's `finding-triage` skill just landed and is a strong candidate for parallel coupling (investigation should audit); Phase D/E skills (investigation, route) have not yet been authored, so the coupling pattern can still be corrected before it spreads.
+**Domain confirmation:** methodology
+**Severity confirmation:** blocker
+**Triage notes:** Three candidate remedies surfaced in the intake summary — (a) inline the template bodies into SKILL.md, (b) replace numeric line-range strips with marker-based delimiters (e.g. `<!--scaffold-start-->` … `<!--scaffold-end-->`), (c) ship a bundled `_template/` alongside SKILL.md with the host project's folder as an override. These are *deferred to investigation*: they require file-level evidence (template-author ergonomics; whether the two coupling layers — path resolution and line numbering — should be removed together or separately; host-project override semantics). Hypothesis worth recording, not asserting: the line-number coupling looks easier to remove (marker-based delimiters are mechanical) than the path-resolution coupling (which forces a design choice between "skill ships its own scaffolding" vs. "skill requires host-project scaffolding"). Deferred to investigation.
 
 ## Investigation (optional)
 
