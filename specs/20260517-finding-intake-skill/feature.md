@@ -222,6 +222,8 @@ T-04 (below) flips the section so the `/finding-intake` invocation is the primar
 
 ### T-01 — Author `.agents/skills/finding-intake/SKILL.md`
 
+**Status:** done — 2026-05-17 — see journal entry. SKILL.md written at 149 lines (below §7 soft target of 180–220, within §6 NFR ceiling of ≤220); all 12 §5.1 structural sections present; all 9 INPUTS fields covered; all 4 anti-goals enumerated in WHAT NOT TO DO. The three internal OQs from §13 (auto-commit, captured-by, multi-pointer) were decided at execution time per their leanings — see §13 for the decisions.
+
 **Scope:**
 
 - New file: `.agents/skills/finding-intake/SKILL.md`.
@@ -405,31 +407,21 @@ This is a feature-spec-level checkpoint that gates Phase B alone. The design-spe
 
 ## 13. Open Questions
 
-### OQ-1 — Should the skill commit the artifact, or leave it as a working-tree change?
+All three internal OQs (OQ-1 auto-commit policy; OQ-2 captured-by field; OQ-3 multi-pointer signals) were decided at T-01 execution time per their leanings; see [§13 Decisions](#13-decisions) below for the resolved record. No new OQs surfaced during T-01.
 
-**Question.** When the skill produces `finding.md` + `journal.md`, should it `git add` + `git commit` them, or leave them as uncommitted working-tree changes for the operator to commit themselves?
+## 13a. Decisions
 
-**Analysis.** Auto-commit preserves the journal-discipline-by-default property (every finding has a paired commit, easy to bisect). Working-tree-leave gives the operator final review and accommodates contexts where the operator is mid-session on another spec and an unrelated commit would pollute history.
+### D-1 (was OQ-1) — Skill leaves the artifact as a working-tree change; does not auto-commit.
 
-**Leaning.** Working-tree-leave, with a suggested commit message returned by the skill for one-step adoption. Preserves interruption-tolerance: an operator capturing a finding during active `spec-execute` should not have a finding commit interleaved with their feature work. The operator can `git commit` the working-tree changes whenever convenient.
+The skill produces `finding.md` and `journal.md` and returns a suggested one-line commit message to the operator. The operator commits when their session is in a commit-friendly state. Preserves interruption-tolerance — an operator capturing a finding during active `spec-execute` does not end up with a finding commit interleaved with their feature work. Recorded in SKILL.md Operating Principle #7 and Phase 3 step 5. Decided: 2026-05-17 (T-01 execution).
 
-**Owner.** Decided at execution time of T-01 by the skill author; documented in T-01's closeout journal entry.
+### D-2 (was OQ-2) — `Captured by` defaults to git `user.name` only; no email.
 
-### OQ-2 — Should the skill's "Captured by" field default include the operator's email or just `user.name`?
+Matches existing journal-entry convention in the repo, avoids accidental email exposure in a public-ish methodology repo. Recorded in SKILL.md Phase 2 ("Captured by" derivation). If `user.name` is unset, the skill falls back to `unknown; persona-frame: intake` and journals the absence. Decided: 2026-05-17 (T-01 execution).
 
-**Question.** Git `user.name` and `user.email` are both available. Should `Captured by` be `<name>` (matches the human-readable journal convention) or `<name> <email>` (more uniquely identifying)?
+### D-3 (was OQ-3) — `EXTERNAL_POINTER` accepts comma- or newline-separated list of pointers.
 
-**Leaning.** `<name>` only — matches journal convention, avoids accidental email exposure in a public-ish methodology repo, and the operator who needs more disambiguation can extend the field manually.
-
-**Owner.** Decided at execution time of T-01.
-
-### OQ-3 — Multi-pointer signals (e.g., a Slack thread *and* a related GitHub issue)
-
-**Question.** The schema's `External references` field is described as "URLs or pointers (may be empty)" — plural. Should the skill prompt for multiple pointers when the operator has more than one?
-
-**Leaning.** Accept a comma-separated or newline-separated list in `EXTERNAL_POINTER`. If multiple are provided, attempt to fetch each per the pointer-fetch policy and journal each outcome separately. Do not invent a UI for adding-one-by-one — that defeats 60 seconds. Keep the data shape simple (a list) and the prompt minimal.
-
-**Owner.** Decided at execution time of T-01.
+Each pointer is fetched per the §4 pointer-fetch policy; each outcome (success / failure with chosen disposition) is journaled separately. No special UI for adding-one-by-one. Recorded in SKILL.md INPUTS block and Phase 3 step 4. Decided: 2026-05-17 (T-01 execution).
 
 ## 14. References
 

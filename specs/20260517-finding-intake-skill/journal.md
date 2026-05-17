@@ -29,3 +29,40 @@
 - Discovery confirmed sibling skill patterns (six existing skills at 200–225 lines each, frontmatter + ROLE + OPERATING PRINCIPLES + INPUTS + phased workflow) — Phase B SKILL.md targets ≤220 lines for consistency.
 
 **Next task pointer:** Execute T-01 (`.agents/skills/finding-intake/SKILL.md`) via `/spec-execute`. Dependencies satisfied (Phase A schema artifacts are committed and stable). No `[blocker]` open questions; ready to proceed.
+
+## 2026-05-17 — T-01: Author `.agents/skills/finding-intake/SKILL.md`
+
+**Status:** done
+**Commits:** to-be-attached at closeout commit
+**Files touched:**
+- New: `.agents/skills/finding-intake/SKILL.md` (149 lines)
+- Edited: `specs/20260517-finding-intake-skill/feature.md` — T-01 marked done; §13 OQs collapsed to decisions D-1/D-2/D-3 in new §13a
+- Edited: `specs/20260517-finding-intake-skill/journal.md` — this entry
+
+**Tests added:** None (inspection-based per §8 Test Strategy). Inspection evidence:
+- `wc -l`: 149 (under 220 ceiling; below 180 soft floor — flagged as deviation, see below).
+- Twelve §5.1 structural sections present and in declared order (frontmatter, title, opening paragraphs, How this skill works, INPUTS, ROLE, OPERATING PRINCIPLES, Phase 1, Phase 2, Phase 3, OUTPUT FORMAT, WHAT NOT TO DO).
+- INPUTS coverage: all 9 fields from §4 present (TITLE, SUMMARY, EXTERNAL_POINTER, REPORTED_BY, REPORTED_VIA, CAPTURED_BY, DOMAIN, SHORT_NAME, DATE).
+- WHAT NOT TO DO covers all 4 anti-goals: no triage-phase prompts; no silent fetch failures; no dedup scan; no template rewrite.
+- Cross-reference paths (`../../../specs/...`) verified to resolve from `.agents/skills/finding-intake/`.
+
+**DoD verification:**
+- File written: `.agents/skills/finding-intake/SKILL.md` exists.
+- Under 220 lines: 149 ✓.
+- Committed: at this closeout commit (paired with feature.md + journal.md updates).
+
+**Decisions made:**
+- **D-1 (was OQ-1):** Working-tree-leave, not auto-commit. Skill returns suggested commit message; operator commits when ready. Recorded in SKILL.md OP #7 and Phase 3 step 5.
+- **D-2 (was OQ-2):** `Captured by` defaults to git `user.name` only (no email). Fallback "unknown" when `user.name` is unset. Recorded in SKILL.md Phase 2 "Captured by" derivation.
+- **D-3 (was OQ-3):** `EXTERNAL_POINTER` accepts comma- or newline-separated list; each fetched per policy; each outcome journaled separately. Recorded in SKILL.md INPUTS and Phase 3 step 4.
+
+All three were marked decidable-at-T-01 in the spec; all three resolved per their leanings. None required upstream amendment.
+
+**Spec amendments:** None. Feature spec §7 task statement was followed; one minor deviation noted below.
+
+**Surprises and learnings:**
+- **Line-count deviation.** Spec §7 sets "target length 180–220 lines"; §6 NFR ceiling is "≤220 lines"; T-01 DoD requires "under 220 lines." Final SKILL.md is 149 — below the soft floor, well within the ceiling. The skill is structurally complete (all 12 sections present, all anti-goals stated, all INPUTS covered) and the deficit reflects this skill being inherently simpler than peer skills (no multi-class diagnostic logic à la `spec-amend`, no governance phases à la `spec-execute`, no discovery/clarify phases à la `spec-write`). Treating the 180 floor as advisory and the 220 ceiling as the hard rule. Reviewer at RC-3a can revisit if the skill feels under-specified during T-02 / T-03 exercises.
+- **Pointer-fetch policy emerged as the load-bearing complexity.** Most of Phase 3's specificity goes to the URL-fetch surface (success → snapshot; failure → surface to operator with 3 choices; no fetch capability → fall back to manual paste). This was the operator's Phase 2 directive in spec-write; the SKILL.md gives it explicit step-by-step in Phase 3 step 4 plus a dedicated WHAT NOT TO DO clause.
+- **Persona-frame fixity.** SKILL.md OP #6 explicitly forbids asking the operator to pick a persona-frame at intake. This is the codification of design-spec §5.6 amendment sub-change F (intake's persona-frame is "anyone"). One sentence in the spec, one principle in the skill.
+
+**Next task pointer:** T-02 — Synthetic validation exercise. Dependencies (T-01) satisfied. No new blockers surfaced.
