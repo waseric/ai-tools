@@ -79,7 +79,7 @@ Derive the missing fields and produce the artifact-shape preview.
 - Lowercase.
 - Strip punctuation except hyphens.
 - Replace whitespace with hyphens.
-- Drop common stop words (`the`, `a`, `an`, `of`, `is`, `are`, `and`, `or`, `to`, `for`, `in`, `on`, `with`) when the resulting slug still has ≥3 word-pieces.
+- Drop common stop words (`the`, `a`, `an`, `of`, `is`, `are`, `and`, `or`, `to`, `for`, `in`, `on`, `with`) when the resulting slug still has ≥3 word-pieces. Also drop validation/test-context boilerplate (`test`, `test-only`, `signal`, `fixture`, `sample`, `example`) when the slug retains ≥3 signal-bearing word-pieces — these add length without distinguishing meaning.
 - Truncate to ≤40 characters, ending on a word boundary.
 - Resulting slug shape: 3–5 word-pieces.
 
@@ -103,16 +103,19 @@ Create the artifact:
 
 1. **Make the directory** `specs/findings/<DATE>-<SHORT_NAME>/`. If a directory at that path already exists, surface the collision to the operator and offer either (a) a disambiguating suffix (`-2`, `-alt`) or (b) cancellation.
 2. **Write `finding.md`** by copying [`_template/finding.md`](../../../specs/findings/_template/finding.md) verbatim, then editing only:
+   - **Strip the leading HTML comment block** (template lines 1–22) — it is operator-facing scaffolding for filling the template, not artifact content.
    - The status banner: `Status: intake`; `Domain: <DOMAIN or "unknown">`; `Date opened` / `Last transition` to `DATE`.
    - The Intake section (all five fields).
    - **Leave Triage / Investigation / Route sections in `<placeholder>` form unchanged.**
 3. **Write `journal.md`** by copying [`_template/journal.md`](../../../specs/findings/_template/journal.md) verbatim, then editing only:
+   - **Strip the leading HTML comment block** (template lines 1–18) — operator-facing scaffolding, not artifact content.
    - The title heading.
    - The starter Intake entry (date, summary line, all four fields).
-   - **Leave the commented skeletons for later transitions in place.**
+   - **Strip the closing commented-out skeleton block** (template lines 29–84). These are operator-facing scaffolds for *future* status transitions — they will be added back, uncommented and filled, by downstream skills (triage, investigation, route) at the moment of each transition. Including them at intake conflates "this phase has not started" with "here is a pre-filled template of what this phase will look like."
 4. **External-pointer handling.** When `EXTERNAL_POINTER` is supplied (one or more pointers):
    - Require `SUMMARY` to be supplied as well. If the operator provided a pointer but no summary, prompt once for a one-paragraph summary before proceeding — the summary is the load-bearing capture; the URL is durability convenience.
-   - If the invoking agent has URL-fetching capability, **attempt** a fetch on each pointer in turn.
+   - **If the operator pre-supplied a snapshot at session intake** (a PDF, screenshot, copy-pasted content, or other inline capture of the URL's content): treat the operator-supplied snapshot as the snapshot for the `External references` field. Prefix it `<!-- fetched <DATE> (via operator-supplied snapshot) -->` and quote the load-bearing portion verbatim. Do **not** attempt a redundant live fetch unless the operator explicitly requests one — but per OP #3, journal the no-live-fetch decision with rationale (the policy applies to *every* fetch decision, including the decision not to fetch).
+   - If the invoking agent has URL-fetching capability and no operator-supplied snapshot exists, **attempt** a fetch on each pointer in turn.
    - On success: snapshot the relevant content into the `External references` field of the Intake section, prefixed `<!-- fetched <DATE> -->`. Keep snapshots reasonable in size — quote the load-bearing portion, not the whole page.
    - On failure: **do not silently proceed.** Surface the failure (URL, status code or error) to the operator and present three choices: **retry**, **proceed without snapshot** (acknowledging reduced durability), **cancel**. Record the chosen outcome in the journal entry regardless of which is chosen.
    - If the invoking agent has no fetch capability (pure-human path), instruct the operator to either paste relevant content from the URL into the Summary field manually or journal the absence of snapshot.
@@ -142,7 +145,7 @@ If multiple external pointers were attempted, one line per pointer.
 - **Do not prompt for triage-phase fields.** Reproducibility, scope, severity confirmation, triage notes — all left in `<placeholder>` form. Asking at intake is a 60-second-target violation and bleeds Phase C into Phase B.
 - **Do not silently swallow a URL-fetch failure.** When the operator supplied a pointer and a fetch was attempted, the outcome must be visible to the operator before the artifact is finalized. "Proceed without snapshot" is an acceptable choice; *silently* proceeding without snapshot is not.
 - **Do not run a deduplication scan against existing findings.** Adds ceremony that defeats the 60-second target. Deduplication is triage's responsibility.
-- **Do not rewrite or paraphrase the templates.** The produced `finding.md` and `journal.md` match the canonical templates byte-for-byte at every position not occupied by operator input. Field names, section headings, ordering, and the commented skeletons are preserved verbatim.
+- **Do not rewrite or paraphrase the templates.** The produced `finding.md` and `journal.md` match the canonical templates byte-for-byte at every *artifact-bearing* position not occupied by operator input — field names, section headings, ordering, status-banner shape, and the `<placeholder>` form of phases that have not started are preserved verbatim. Template *scaffolding* (the leading HTML comment in `_template/finding.md` lines 1–22; the leading HTML comment in `_template/journal.md` lines 1–18; the closing commented-out skeleton block in `_template/journal.md` lines 29–84) is operator-facing instruction for filling the template and is stripped from produced artifacts per Phase 3 steps 2–3.
 - **Do not pre-fill later-phase fields with `unknown`.** `<placeholder>` means "this phase has not started"; `unknown` means "we looked, we couldn't tell." Conflating them corrupts the schema's information content.
 - **Do not auto-commit.** The skill produces files; the operator decides when to commit. The skill's responsibility ends at returning a suggested commit message.
 - **Do not ask the operator which persona-frame they're in.** Intake's persona-frame is fixed to `intake` regardless of who the operator is.

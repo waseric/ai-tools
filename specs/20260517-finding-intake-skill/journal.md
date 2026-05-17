@@ -302,3 +302,102 @@ RC-3a closes. Work may proceed past Phase B.
 1. **`/spec-amend` against [.agents/skills/finding-intake/SKILL.md](../../.agents/skills/finding-intake/SKILL.md)** bundling advisories A1 + A2 + A3. A1 is the load-bearing one — resolve before Phase C authoring so the new `finding-triage` skill adopts the corrected template-handling pattern from the start rather than replicating the contradiction.
 2. **`/spec-amend` against [the findings-pipeline-schema feature spec](../20260517-findings-pipeline-schema/feature.md)** for A5 — can be deferred without Phase C friction; batch with A1+A2+A3 only if convenient.
 3. **`/spec-write` for Phase C — `finding-triage` skill** against the upstream design spec. RC-3 (design-spec joint checkpoint Phase B + Phase C) remains open and triggers when Phase C completes; this RC-3a closeout contributes Phase B's evidence to that future review.
+
+## 2026-05-17 — Amendment 2026-05-17-1
+
+**Section amended:** [.agents/skills/finding-intake/SKILL.md](../../.agents/skills/finding-intake/SKILL.md) Phase 3 steps 2 & 3 + WHAT NOT TO DO "Do not rewrite or paraphrase the templates" bullet
+**Trigger:** RC-3a review (commit 7ba74ba) advisory A1 — template-scaffolding "copy verbatim" prose drift; SKILL.md prose contradicted three living examples that all strip template scaffolding (T-05, T-02, T-03).
+**Reason:** Empirical pattern across three findings (strip scaffolding) was correct; SKILL.md prose (preserve scaffolding) was wrong. Pre-Phase-C is the right moment to land the correction so the downstream `finding-triage` skill inherits the right pattern.
+**Impact summary:** No tasks affected (T-02/T-03 ratified, not invalidated); no checkpoints reopened; no completed work invalidated; A5 (schema-spec amendment, separate /spec-amend cycle) is the cross-side companion.
+**Approver:** waseric
+**Approved on:** 2026-05-17
+**Status implication:** SKILL.md has no Status banner (skill artifact, not spec); no change. Feature spec stays at "Draft — Open for Review."
+**Commit:** this amendment closeout commit
+
+### Full record
+
+**Trigger.** RC-3a review (commit 7ba74ba) advisory A1, surfaced first at T-02 closeout (journal.md:111) and reaffirmed by T-03's identical handling. SKILL.md prose prescribed preserving template scaffolding ("Leave the commented skeletons for later transitions in place"; produced artifacts match canonical templates "byte-for-byte at every position not occupied by operator input" including "the commented skeletons preserved verbatim"). Three living examples (T-05 `tab-display-issues`, T-02 synthetic, T-03 dogfood) all strip the leading HTML comment in `_template/finding.md` (lines 1–22) and the closing commented-out skeleton block in `_template/journal.md` (lines 29–84) on the empirical reading that those are *operator-facing scaffolding* (instructions for filling the template), not artifact content.
+
+**Section.** SKILL.md Phase 3 step 2 ("Write `finding.md`"); Phase 3 step 3 ("Write `journal.md`"); WHAT NOT TO DO "Do not rewrite or paraphrase the templates" bullet.
+
+**Change.**
+
+Phase 3 step 2 — added bullet: `**Strip the leading HTML comment block** (template lines 1–22) — it is operator-facing scaffolding for filling the template, not artifact content.`
+
+Phase 3 step 3 — added bullet for the leading comment (`Strip the leading HTML comment block` for template lines 1–18); replaced "Leave the commented skeletons for later transitions in place" with `**Strip the closing commented-out skeleton block** (template lines 29–84). These are operator-facing scaffolds for *future* status transitions — they will be added back, uncommented and filled, by downstream skills (triage, investigation, route) at the moment of each transition. Including them at intake conflates "this phase has not started" with "here is a pre-filled template of what this phase will look like."`
+
+WHAT NOT TO DO templates bullet refined: "byte-for-byte at every position not occupied by operator input" → "byte-for-byte at every *artifact-bearing* position not occupied by operator input"; added explicit enumeration of which template ranges are scaffolding vs. content.
+
+**Reason.** The prose contradicted three living examples (T-05, T-02, T-03) which had all converged on the same reading: template scaffolding is operator-facing instruction, not artifact content, and gets stripped. The empirical pattern is correct (artifacts shouldn't carry "fill this in" comments meant for the template-user); the prose should match. Pre-Phase-C is the right moment to land this so the new `finding-triage` skill inherits the corrected pattern from the start.
+
+**Impact.**
+- **Affected tasks:** None. T-02 and T-03 already executed under the empirical interpretation.
+- **Affected checkpoints:** RC-3a (closed by this remediation); RC-3 (still open; amendment improves Phase B's contribution).
+- **Completed work invalidated:** None.
+- **Cross-references requiring follow-up:** A5 (schema-spec amendment, separate /spec-amend cycle) is the cross-side companion.
+
+**Status implication.** No status change.
+
+**Approver.** waseric (2026-05-17).
+
+## 2026-05-17 — Amendment 2026-05-17-2
+
+**Section amended:** [.agents/skills/finding-intake/SKILL.md](../../.agents/skills/finding-intake/SKILL.md) Phase 3 step 4 (External-pointer handling)
+**Trigger:** RC-3a review advisory A2 — Phase 3 step 4 enumerates fetch-success / fetch-failure / no-fetch-capability branches but does not contemplate "operator pre-supplied a snapshot at session intake."
+**Reason:** T-03 surfaced the case fresh (operator attached an auth-walled forum PDF). T-03 made the right call (treat the snapshot as the snapshot; do not redundantly fetch) but the contract gave no explicit guidance. Adding the branch converts good-judgment behavior into contracted behavior.
+**Impact summary:** No tasks affected; no checkpoints reopened; no completed work invalidated. T-03's pointer-fetch handling is ratified, not changed.
+**Approver:** waseric
+**Approved on:** 2026-05-17
+**Status implication:** No change.
+**Commit:** this amendment closeout commit
+
+### Full record
+
+**Trigger.** RC-3a review (commit 7ba74ba) advisory A2, surfaced fresh at T-03 dogfood. T-03 operator pre-supplied a PDF snapshot of an auth-walled forum thread at session intake. Current Phase 3 step 4 enumerated three branches (fetch-success / fetch-failure / no-fetch-capability) but none contemplated the "operator pre-supplied a snapshot" case. T-03 took the correct judgement call (treat the supplied snapshot as the snapshot; do not attempt redundant live fetch; journal the no-live-fetch rationale per OP #3) but the policy text gave no explicit guidance.
+
+**Section.** SKILL.md Phase 3 step 4 (External-pointer handling).
+
+**Change.** Added a new branch (the second sub-bullet, after the "Require SUMMARY" bullet and before the "If the invoking agent has URL-fetching capability" bullet): "**If the operator pre-supplied a snapshot at session intake** (a PDF, screenshot, copy-pasted content, or other inline capture of the URL's content): treat the operator-supplied snapshot as the snapshot for the `External references` field. Prefix it `<!-- fetched <DATE> (via operator-supplied snapshot) -->` and quote the load-bearing portion verbatim. Do **not** attempt a redundant live fetch unless the operator explicitly requests one — but per OP #3, journal the no-live-fetch decision with rationale (the policy applies to *every* fetch decision, including the decision not to fetch)." Reordered the subsequent fetch-capability bullet to say "if the invoking agent has URL-fetching capability **and no operator-supplied snapshot exists**, attempt a fetch on each pointer in turn" — making the precedence explicit.
+
+**Reason.** Operator-pre-supplied snapshots are a meaningful path the original policy didn't anticipate. T-03's case (auth-walled forum, operator already logged in, PDF on desktop) is not edge — it's a common operational shape. Adding the branch explicitly converts good-judgment behavior into contracted behavior, makes the right answer obvious to future operators and agents, and avoids the antipattern of attempting a redundant live fetch that will probably fail (the URL was auth-walled precisely so the agent couldn't reach it).
+
+**Impact.**
+- **Affected tasks:** None. T-03 already executed under the correct interpretation.
+- **Affected checkpoints:** RC-3a (closed); RC-3 (still open).
+- **Completed work invalidated:** None.
+- **Cross-references requiring follow-up:** None. WHAT NOT TO DO bullet on silent fetch failures (SKILL.md:143) already covers "journal the decision" in its general form; the amendment makes the specific operator-supplied case explicit without contradicting it.
+
+**Status implication.** No status change.
+
+**Approver.** waseric (2026-05-17).
+
+## 2026-05-17 — Amendment 2026-05-17-3
+
+**Section amended:** [.agents/skills/finding-intake/SKILL.md](../../.agents/skills/finding-intake/SKILL.md) Phase 2 (Short-name derivation — stop-words bullet)
+**Trigger:** RC-3a review advisory A3 — stop-word list could grow with validation/test-context boilerplate ("test", "test-only", "signal", "fixture", "sample", "example") surfaced empirically at T-02.
+**Reason:** T-02's synthetic slug `test-only-signal-synthetic-fixture` (33 chars) carried three boilerplate tokens that the operator would naturally have dropped given a one-step accept/edit. Codifying them lets the agent produce the right slug on first proposal. Cosmetic improvement.
+**Impact summary:** No tasks affected; no checkpoints reopened; T-02's existing slug not retroactively renamed (retain-vs-rename decided at T-02 closeout in favor of retain).
+**Approver:** waseric
+**Approved on:** 2026-05-17
+**Status implication:** No change.
+**Commit:** this amendment closeout commit
+
+### Full record
+
+**Trigger.** RC-3a review advisory A3, surfaced at T-02 closeout. T-02 produced the slug `test-only-signal-synthetic-fixture` (33 characters — within the ≤40 budget but compressible). The leading `test-only-signal-` is validation/test-context boilerplate that adds no distinguishing meaning to a slug. T-03's signal-bearing slug `easy-survival-shelves-lwc-error` did not surface the same need. Cosmetic — recoverable via rename — but accumulating these in the stop-word list is cheaper than fixing slugs case-by-case.
+
+**Section.** SKILL.md Phase 2 short-name derivation, stop-words bullet.
+
+**Change.** Extended the bullet's parenthetical list. Before: only common English stop words (`the`, `a`, `an`, etc.). After: appended sentence "Also drop validation/test-context boilerplate (`test`, `test-only`, `signal`, `fixture`, `sample`, `example`) when the slug retains ≥3 signal-bearing word-pieces — these add length without distinguishing meaning."
+
+**Reason.** Empirical: T-02's synthetic slug carried three boilerplate tokens that the operator would naturally have dropped given a one-step accept/edit prompt. Codifying them as stop words lets the agent produce the right slug on first proposal. The "≥3 signal-bearing word-pieces" guard prevents pathological over-compression on findings that legitimately have only test-related content.
+
+**Impact.**
+- **Affected tasks:** None. T-02's existing slug is not retroactively renamed.
+- **Affected checkpoints:** None.
+- **Completed work invalidated:** None.
+- **Cross-references requiring follow-up:** [feature.md §5.2 "Short-name derivation"](feature.md#L168) mirrors the stop-word list in its design-rationale text. **Flagging as a downstream follow-up** — the feature spec section is the design rationale and SKILL.md is the operative artifact, so they can drift slightly, but a one-line "see SKILL.md for the canonical stop-word list" or matching update in §5.2 would close the loop. Not bundled into this amendment per spec-amend's surgical-not-sprawling principle.
+
+**Status implication.** No status change.
+
+**Approver.** waseric (2026-05-17).
