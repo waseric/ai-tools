@@ -115,3 +115,56 @@ All three were marked decidable-at-T-01 in the spec; all three resolved per thei
 3. **Template scaffolding observation applies upstream to the schema spec, not just SKILL.md.** If the SKILL.md's "copy verbatim" clarification lands as an amendment, the schema spec's `_template/*.md` files could *also* benefit from a short comment in their leading scaffolding saying "this comment is for the operator filling the template; strip it from the produced artifact." That's an `[advisory]` upstream finding the T-02 exercise surfaced. Routes via `spec-amend` against the schema spec (not this spec) post-RC-3a.
 
 **Next task pointer:** T-03 — Real-signal dogfood exercise. Dependencies (T-01, T-02) satisfied. T-03 needs a real new signal selected at execution time by the operator (must not be the T-02 fabricated case; must not be the T-05 schema-spec example).
+
+## 2026-05-17 — T-03: Real-signal dogfood exercise
+
+**Status:** done
+**Commits:** 2a6bcc3 (finding artifact, `find:` prefix per skill suggestion) + this closeout commit (spec/journal updates)
+**Files touched:**
+- New: `specs/findings/20260517-easy-survival-shelves-lwc-error/finding.md` (51 lines)
+- New: `specs/findings/20260517-easy-survival-shelves-lwc-error/journal.md` (12 lines)
+- Edited: `specs/20260517-finding-intake-skill/feature.md` — T-03 marked done; T-02 status line backfilled with commit SHA `e7630c9` per drift signal noted at this session's orientation (T-02 closeout commit 206df55 backfilled the SHA into the journal but missed the §7 T-02 status line — fixed in passing during this closeout, scope-honest since it is a one-character-class consistency fix observed by spec-execute's pre-flight verify).
+- Edited: `specs/20260517-finding-intake-skill/journal.md` — this entry.
+
+**Tests added:** None (inspection-based per §8 Test Strategy; the exercise itself is the test). Inspection evidence:
+
+*Template-fidelity verification:*
+- Title heading shape matches template: `# <Short title> — Finding` → produced `# LWC "Missing API" error on shelves in Easy Survival — Finding`.
+- Status banner: all 6 lines present in declared order. Intake-set fields (Status, Domain, Date opened, Last transition) populated; triage-phase fields (Severity, Operational urgency) left in `<…|…>` enum-placeholder form.
+- Intake section: all 5 fields populated (Reported by, Reported via, Captured by, Summary, External references) in declared order.
+- Triage / Investigation / Route sections: **byte-for-byte identical to template** via `diff` (exit-clean). Verified with `diff /tmp/tpl_phases.txt /tmp/finding_phases.txt` on Template lines 41–69 vs. Finding lines 24–52 — empty diff output.
+- Journal Intake entry: all 4 fields populated (Captured by, Signal source, New status, Notes). Commented-out skeletons for later transitions stripped per the T-02 / T-05 living-example precedent.
+
+*Behavioral verification:*
+- 60-second-target plausibility: operator effort timed at ~30–60 seconds of human interaction (PDF attach + AskUserQuestion answer on signal source + AskUserQuestion answer on apply-confirmation). Agent latency was its own thing — the NFR is operator-effort-bound, not wall-clock-bound. NFR met with comfortable headroom.
+- No triage-phase prompts: skill solicited none of Reproducibility, Scope, Severity confirmation, Triage notes. Interactive mode preview showed only Intake-section content for confirmation.
+- Persona-frame label correct: `Captured by: waseric (Sandlot Administrator and operator); persona-frame: intake`. The operator's real-world role (Sandlot Administrator) is recorded for context but the persona-frame is fixed to `intake` per SKILL.md OP #6.
+- Placeholder-vs-unknown convention honored: Intake fields populated with concrete values; later-phase fields in `<placeholder>` form. The `Severity` and `Operational urgency` placeholders are intake-time-unknown by schema design (triage-phase fields).
+- `Date opened` == `Last transition` at intake: both `2026-05-17`.
+- Self-contained: Summary field carries the load-bearing capture in full; External references field carries the verbatim error text and reporter quotes from the PDF snapshot. The artifact does not require the forum URL to remain reachable or the originating PDF to be re-attached.
+- Pointer-fetch policy: outcome surfaced to operator (preview text spelled out the no-live-fetch decision and rationale) and recorded in the finding's journal Notes. Not silently swallowed.
+
+**DoD verification:** (per [feature.md §7 T-03 DoD](../20260517-finding-intake-skill/feature.md#L311))
+- Real finding artifact committed in `specs/findings/`: ✓ — commit 2a6bcc3.
+- Dogfood outcomes journaled: ✓ — this entry, plus the per-finding journal at [specs/findings/20260517-easy-survival-shelves-lwc-error/journal.md](../findings/20260517-easy-survival-shelves-lwc-error/journal.md).
+- Any surfaced gaps resolved or escalated: ✓ — one advisory observation surfaced (pointer-fetch policy operator-supplied-snapshot gap); deferred to post-RC-3a `spec-amend`. See Surprises below.
+
+**Decisions made:**
+
+- **Mode for the exercise: interactive.** T-02 already exercised structured-input mode; T-03 exercises interactive mode for orthogonal coverage. The interactive round-trip was a single confirmation question (AskUserQuestion) — measurable as one keystroke from the operator's side.
+- **Pointer-fetch: no live fetch attempt.** The forum is auth-walled (Sandlot's Bug Reports section requires member login; the PDF page header confirms operator is logged in as `waseric`). The operator pre-fetched and supplied a PDF snapshot at session intake. Per SKILL.md OP #3, *every* fetch decision must be surfaced — including the decision *not* to fetch. The interactive preview explicitly stated "live URL not attempted" with rationale; the finding's journal records it; this entry records it. This is the deviation the policy is designed to permit: the snapshot exists in a durable form, so a redundant live fetch would only burn time. Reviewers at RC-3a can challenge.
+- **Backfill T-02 SHA in §7.** Noted as a drift signal in orientation; fixed in-line during closeout rather than a separate housekeeping commit. Scope is a one-token addition (`commit e7630c9`); it brings T-02's status line into the same shape as T-01's status line; not a content change.
+
+**Spec amendments:** None. Two observations parked for post-RC-3a treatment (see below).
+
+**Surprises and learnings:**
+
+1. **Pointer-fetch policy gap: operator-supplied snapshot vs. attempt-live-fetch.** SKILL.md Phase 3 step 4 prescribes "if the invoking agent has URL-fetching capability, **attempt** a fetch on each pointer in turn" → on success snapshot, on failure surface and choose. The policy does not anticipate the case where the operator has already pre-fetched the snapshot and supplied it at session intake — common when the source is auth-walled, behind a CAPTCHA, or otherwise not agent-reachable. In this case, attempting a live fetch is redundant at best, fails at worst. The right interpretation (taken in this exercise): treat the operator-supplied snapshot as the snapshot, journal the no-live-fetch decision with rationale, do not attempt a redundant fetch. **Park as advisory** for post-RC-3a `spec-amend` against SKILL.md — proposed change: add a fourth bullet to Phase 3 step 4 explicitly handling "operator-supplied snapshot pre-exists" as a first-class branch. Not blocking T-04 (T-04 is README primary-path flip).
+
+2. **Two-reporter pattern continues to surface the `Reported by` single-field constraint.** Same observation as the T-05 example finding's journal: when a forum thread has an initial reporter + subsequent confirmers, the schema's single `Reported by` field is overloaded. T-05 documented this as a friction observation; this T-03 reuses the same inline-list convention. Two findings now exhibit the pattern — strengthens the case for revisiting the schema's `Reported by` field shape, but not in scope for Phase B. Routes via `spec-amend` against the schema spec when accumulated evidence warrants.
+
+3. **PDF-as-snapshot is a meaningful auxiliary path.** The 60-second target was easily met *partly because* the operator supplied a PDF instead of a URL alone. The PDF reduced agent latency (no fetch wait), reduced fetch-failure surface (no auth wall to navigate), and produced a richer verbatim snapshot than a typical headless-browser fetch would have. This is not a SKILL.md change — it's an empirical observation about operator workflow. Worth surfacing at the design-spec level if the pipeline ever formalizes "snapshot-supplied-at-intake" as a first-class signal type.
+
+4. **Interactive mode preview was load-bearing.** In structured-input mode (T-02), I went straight to APPLY. In interactive mode (T-03), the preview gave the operator a chance to see the Intake section + pointer-fetch decision + suggested directory path before any file was written. The operator's "Apply as drafted" confirmation took ~1 keystroke; if they had wanted edits, the preview was the cheapest moment to surface them. The preview pattern justifies its place in the skill.
+
+**Next task pointer:** T-04 — Update [specs/findings/README.md](../findings/README.md) "Creating a new finding" section to make `/finding-intake` the primary path and the manual `cp` recipe the fallback. Dependencies (T-01, T-03) satisfied. After T-04, the RC-3a checkpoint triggers (all four tasks complete) — Phase 8 session-continuity check applies at that boundary.
