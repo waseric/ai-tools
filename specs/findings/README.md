@@ -168,3 +168,23 @@ If `/finding-intake` is not available in your environment (the skill loader isn'
 2. Fill the **Intake** section of `finding.md`. Leave Triage/Investigation/Route as placeholders — later phases append, they do not require pre-filling at intake.
 3. Add an "Intake" entry to `journal.md` per the journal template's structure.
 4. Set `Status: intake`, `Date opened: <today>`, `Last transition: <today>`.
+
+## Triaging a finding
+
+Invoke the `/finding-triage` skill ([.agents/skills/finding-triage/SKILL.md](../../.agents/skills/finding-triage/SKILL.md)) against an existing finding at `status: intake`:
+
+```
+/finding-triage specs/findings/YYYYMMDD-<short-name>/
+```
+
+The skill consumes the finding at `FINDING_PATH`, populates the Triage section (reproducibility, scope, severity confirmation, domain confirmation, operational urgency when applicable, triage notes), updates the status banner to `triaged`, and appends a `Triaged` journal entry. The Intake section is preserved byte-for-byte. Like `/finding-intake`, the skill does not auto-commit — it returns a suggested commit message. AI-agent callers can populate the structured INPUTS block directly to skip the per-field prompts.
+
+**Skip-investigation surface.** Triage may end at `triaged` (default), or — when the route is obvious from the hard facts alone — skip investigation entirely and transition directly to `routed` / `closed`. The skill prompts for this decision after the Triage section is populated; when skip is chosen, the Route section is populated and a second journal entry (`Routed` or `Closed`) is appended, per the `triaged → routed` / `triaged → closed` edges in the [state machine](#state-machine) above.
+
+**Persona-frame derivation.** The skill suggests a persona-frame derived from the finding's `Domain` (`operational` → business analyst; `security` → security analyst; `testing` → QA lead; `methodology` → methodologist; `other` → operator-named). Operators may accept the suggestion or override with a free-text label that better fits their finding (e.g., `Sandlot administrator` for an operational signal about a specific service). The phase label `triage` is always recorded; only the descriptive frame varies.
+
+The skill was authored in Phase C of the findings-pipeline design; see [specs/20260517-finding-triage-skill/feature.md](../20260517-finding-triage-skill/feature.md) for its feature spec and [the design spec's §5.3 Triage phase](../20260517-findings-pipeline/architecture.md#53-triage-phase) for the interface contract.
+
+### Manual fallback (if the skill is not available)
+
+If `/finding-triage` is not available in your environment, the manual path remains valid: edit the Triage section of `finding.md` by hand per the [field reference](#field-reference) above, update the status banner to `triaged`, and append a `Triaged` journal entry per the journal template's commented-out skeleton.
