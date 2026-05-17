@@ -263,3 +263,46 @@ Inspection-based testing per task spec; all task closeout journal entries walk t
 - Multi-symptom bundling-vs-splitting guidance absent from README "Creating a new finding."
 - Retroactive-intake date semantics — possible future "Signal date" field, deferred.
 - Journal template section-header format (HTML comment) vs starter Intake entry — convention/example inconsistency.
+
+## 2026-05-17 — RC-2 remediation closeout
+
+**Status:** done
+**Remediation commit:** 71480e9
+**RC-2 verdict commit:** ccce4ce
+**Files touched:**
+- specs/findings/README.md (state diagram redrawn; terminal-state persona-frame clarified; bundle-vs-split paragraph added)
+- specs/findings/_template/finding.md (field names aligned with README; placeholder-vs-`unknown` convention formalized in HTML comment)
+- specs/findings/_template/journal.md (starter Intake header and all skeleton entries aligned with the declared `## <date> — <status>: <one-line summary>` convention)
+- specs/findings/20260517-tab-display-issues/finding.md (T-05 example brought into alignment: field names updated; Route section returned to placeholders since the phase has not started)
+- specs/findings/20260517-tab-display-issues/journal.md (header format aligned)
+
+**Per-finding disposition:**
+
+| RC-2 finding | Class | Disposition | Where in 71480e9 |
+|---|---|---|---|
+| Unauthorized `routed → closed` transition in ASCII state diagram | important | fixed — diagram redrawn with `routed`/`closed` as visibly parallel terminals; authoritative valid-transitions list added below the diagram | [README.md:16-48](../findings/README.md#L16) |
+| Field-name asymmetry README ↔ template | advisory | fixed — template now uses `Triage date`/`Triage notes`/`Investigation date`/`Route decision`/`Route date`/`Route rationale` matching the README field-reference | [_template/finding.md:38-65](../findings/_template/finding.md) |
+| Placeholder-vs-`unknown` convention | advisory | fixed — HTML comment formalizes the distinction: `<placeholder>` = phase not yet started; "unknown" = active-phase field investigated but indeterminate | [_template/finding.md:10-19](../findings/_template/finding.md) |
+| Diagram missing `triaged → routed` skip path | advisory | folded into the diagram fix — explicit `triaged → routed` and `triaged → closed` edges in the valid-transitions list | [README.md:39-40](../findings/README.md#L39) |
+| Terminal-state `Persona-frame: N/A` vs `Decided by` | advisory | fixed — per-status semantics for `routed` and `closed` now clarify that N/A applies to the terminal state itself; `Decided by` carries the deciding phase's persona-frame | [README.md:60-68](../findings/README.md#L60) |
+| Bundle-vs-split guidance absent | advisory | fixed — "Creating a new finding" gains a paragraph on the bundle-vs-split judgment | [README.md:142-144](../findings/README.md#L142) |
+| Retroactive-intake "Signal date" field | advisory | deferred per verdict — pattern has not recurred; reconsider if a second retroactive-intake finding surfaces | n/a |
+| Journal template header format vs starter Intake | advisory | fixed — starter Intake header and all skeleton-entry exemplars now follow `## <date> — <status>: <one-line summary>`; T-05 example finding's journal aligned to match | [_template/journal.md:22-83](../findings/_template/journal.md#L22), [20260517-tab-display-issues/journal.md](../findings/20260517-tab-display-issues/journal.md) |
+
+**Verification:**
+- Re-reading the verdict's Important finding: the ASCII diagram no longer shows a `routed → closed` arrow; both terminals are drawn side-by-side; the prose-form state machine and the explicit valid-transitions list are aligned. Reviewer's stated remediation criterion ("redraw so `routed` and `closed` are visibly parallel terminal states; show both skip-investigation arrows `triaged → routed` and `triaged → closed`; keep the `reopened` loop") is satisfied — the skip arrows are surfaced via the authoritative valid-transitions list rather than as additional diagram strokes, which keeps the visual topology readable.
+- Each advisory's disposition was verified against the verdict's `Summary of all findings` checklist; six addressed, one deferred per the verdict's own deferral note.
+
+**Decisions made:**
+- Adopted "diagram-topology + authoritative-transitions-list" pattern over fork-arrows-in-ASCII. The list is declared authoritative; the diagram intentionally simplifies. Trade-off: a reader scanning only the diagram still won't see `triaged → closed` or `under-investigation → routed` as edges, but the explicit list directly below catches anyone who needs the precise edge set. The earlier RC-2 verdict noted the prose form was already unambiguous; this remediation preserves that property by making the list (rather than the diagram) the authoritative reference.
+- Updated the T-05 example finding's Route section from `unknown` to `<placeholder>` form. Strictly, the T-05 example was a faithful demonstration of the pre-remediation convention; post-remediation it must instead demonstrate the new convention. Treating the example as a living demonstration of the current schema (rather than as a frozen artifact) keeps it useful as a reference for future finding-intake skill development.
+- Did not propose any further amendments to the design spec or feature spec. All RC-2 findings were schema-artifact-level cleanups within the scope of the deliverables produced under T-02/T-03/T-04 — no design substance changed.
+
+**Surprises and learnings:**
+- The "diagram shows topology; list is authoritative" pattern is a small but useful methodology contribution. ASCII state diagrams hit readability limits when transitions branch; deferring to an explicit transition list under the diagram preserves both readability and precision. Worth remembering for any future spec that needs to depict a non-linear state machine.
+- The placeholder-vs-`unknown` distinction (Adv-2) is more load-bearing than it looked at first — it changes what a reader concludes from a finding's incomplete sections. With placeholders, "the work hasn't been done yet"; with `unknown`, "the work was done and produced no answer." Conflating them would have made findings harder to triage at scale. Worth promoting from convention-in-a-comment to a documented norm in the README's "Status semantics" if the methodology grows.
+- The T-05 example's role straddles two purposes: validation-of-the-templates (its original purpose), and living-reference-for-future-consumers (an emergent purpose). RC-2 surfaced this tension implicitly: a one-shot validation artifact wouldn't need updating, but a living reference does. The methodology's existing "feature spec journals are append-only" discipline doesn't transfer cleanly to schema-deliverable example artifacts; this case sets a small precedent that example artifacts may be revised when the schema they exemplify is revised, with the revision journaled.
+
+**Feature spec status:** complete. All five tasks (T-01 through T-05) done; RC-2 verdict pass-with-comments committed at ccce4ce; remediation committed at 71480e9; all findings dispositioned. No further work in this feature spec.
+
+**Next:** Phase B — author the `finding-intake-skill` feature spec via `/spec-write`, per [design spec §7 Implementation Sequencing](../20260517-findings-pipeline/architecture.md#7-implementation-sequencing). Recommended fresh session: Phase B is a clean scope break from this feature spec, and a fresh session benefits from re-reading the now-stable schema artifacts against a clean prompt cache rather than carrying this session's context forward.
