@@ -43,3 +43,14 @@
 - Broad-scope operational confirmed: "any issue I notice at any time, including while actively working another spec." Drove the interruption-tolerance NFR.
 
 **Next task pointer:** RC-1 Design Freeze review (via `spec-review`). On pass, proceed to `spec-write` for the first downstream feature spec: `findings-pipeline-schema` (Phase A in Implementation Sequencing).
+
+## 2026-05-17 — Review of RC-1
+
+**Reviewer:** waseric (self-review via Claude)
+**Outcome:** pass with comments
+**Tasks reviewed:** N/A — design spec checkpoint
+**Blockers:** 0
+**Important:** 1 — dangling internal reference in §5.8 bullet 4 ("the `spec-execute` adoption path below" — no such section in §11). Recommend rewriting the bullet to treat spec-execute integration as a sibling future enhancement, not part of this design's scope.
+**Advisory:** 9 — topology diagram missing `reopened` back-transition; monotonicity wording; route/status mapping spread across sections; persona-frame wording drift (§5.6 vs. §6); intake-persona breadth vs. §5.6 role taxonomy; OQ-1 de-facto decided (convert to decision); OQ-5 partly answered (tighten open part to triage-time revalidation policy); `Last transition` field intent undocumented; §14 ITIL/SDLC references uncited (verification pass deferred).
+**Spec amendments proposed:** Route §5.8 important fix through `spec-amend` immediately. Batch advisories into RC-2 schema-pass amendment as part of finalizing the template + state machine.
+**Next action:** Run `spec-amend` for the §5.8 dangling-reference fix, then proceed to `spec-write` for `findings-pipeline-schema` (Phase A in §7 Implementation Sequencing).

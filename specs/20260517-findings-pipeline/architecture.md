@@ -322,6 +322,7 @@ The design is validated by:
 - **Trigger:** This architecture spec is complete and submitted for review.
 - **Review focus:** Coherence of the three-phase model; correctness of the persona-frame claim; completeness of the artifact template; soundness of the integration approach with `spec-amend` and `spec-write`; whether the open questions are correctly scoped (in-scope for follow-on, not blockers).
 - **Exit criteria:** Verdict of `pass` or `pass with comments` via `spec-review`. Open questions deferred to §13 are explicitly accepted as deferred. Any `[blocker]` finding triggers `spec-amend` before progressing.
+- **Status:** pass with comments on 2026-05-17 by waseric (self-review). 0 blockers, 1 important (dangling §5.8 reference — route through `spec-amend`), 9 advisory (batch into RC-2 schema-pass amendment).
 
 ### RC-2 — Schema Review (gates Phase A → Phase B)
 
