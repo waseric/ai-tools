@@ -119,3 +119,34 @@
 - Followed the two-commit pattern (deliverable + closeout) per operator guidance after T-02's bundled commit. The deliverable commit (ab67d3f) lands the file; this closeout commit lands the journal update. Pattern matches prior feature (spec-path-convention).
 
 **Next task pointer:** T-04 — create `specs/findings/_template/journal.md`. Dependency T-02 satisfied (README documents the journaling pattern, and the structural precedent at specs/20260515-spec-path-convention/journal.md is on hand). No `[blocker]` open questions; ready to proceed.
+
+## 2026-05-17 — T-04: Create `specs/findings/_template/journal.md`
+
+**Status:** done
+**Commits:** 77136e9 (deliverable), (this commit, closeout)
+**Files touched:**
+- specs/findings/_template/journal.md (new file, 84 lines)
+
+**Tests added:** N/A — inspection-based per T-04's "Tests required".
+
+**DoD verification:**
+- *File written:* specs/findings/_template/journal.md created.
+- *Under ~100 lines:* 84 lines (verified via `wc -l`).
+- *Committed:* 77136e9.
+- *Structure matches feature-spec journal convention:* H1 `# <Short title> — Journal`; per-event `## <YYYY-MM-DD> — <Event>` sections; bolded inline fields. Matches precedent at specs/20260515-spec-path-convention/journal.md.
+- *Placeholders clearly marked:* All values are `<angle-bracket>` placeholders, no plausible example values that could be accidentally left in place.
+- *Documents one-entry-per-status-transition pattern:* Top HTML comment states the rule explicitly with design spec §6 Observability NFR citation. The skeleton entries below the active Intake entry instantiate the pattern.
+- *Includes starter Intake entry with placeholders:* Active section "## <YYYY-MM-DD> — Intake" with Captured by, Signal source, New status, Notes fields aligned to finding.md Intake fields.
+
+**Decisions made:**
+- Included commented-out skeleton entries for the five subsequent transitions (Triaged / Under investigation / Investigation iteration / Routed / Closed / Reopened) at the bottom of the template. Goes beyond the literal T-04 scope ("Includes a starter 'Intake' entry with placeholders; documents the one-entry-per-status-transition pattern") but stays inside the spirit: the skeletons *are* how the pattern is documented — operationally, not just declaratively. Without them the operator has to construct each subsequent entry's shape from scratch, which invites drift from the convention.
+- Added explicit `**Prior status:**` and `**New status:**` fields to each transition skeleton (other than the Intake starter, which has only `**New status:**` since intake originates the finding). This makes each entry self-documenting about the transition without requiring the reader to cross-reference the prior entry.
+- Used HTML comments to hide the skeleton entries rather than including them as visible "examples". Hidden by default keeps the active journal clean for a freshly-copied template; the operator uncomments per transition. This is a small departure from the feature-spec journal precedent, which has no skeleton structure at all — feature-spec journals are written ad-hoc by the executing skill. Finding journals are more amenable to skeletoning because the transition shape is constrained by the state machine.
+
+**Spec amendments:** None.
+
+**Surprises and learnings:**
+- The feature-spec journal pattern has no canonical template — feature-spec journals are produced ad-hoc by `spec-write` / `spec-execute` rather than copied from a template file. T-04 introduces the first template-driven journal in the methodology. The skeleton-entries-as-HTML-comments approach is the small innovation here; if it works well, it could backport to feature-spec journals (out of scope for this spec — flag for Phase F adoption review).
+- The "Investigation iteration <N>" skeleton entry needed care to stay honest: status remains `under-investigation` across iterations, not "investigating-2" etc. Both `Prior status` and `New status` are `under-investigation` for an iteration in place, with a clarifying inline note "(iteration in place)" so the reader understands the status didn't change. Reflects design spec §5.4: "Investigation may iterate: a first investigation may produce a partial answer and journal 'needs deeper look'; status remains under-investigation until the route is chosen."
+
+**Next task pointer:** T-05 — example-source validation exercise (operator-chosen recent journal note retroactively shaped as a finding under the templates). Dependencies T-02, T-03, T-04 satisfied. No `[blocker]` open questions; ready to proceed. Note: T-05 is a work-shape change — operator picks the source material, then exercises the templates end-to-end. Natural point for the session-continuity check.
