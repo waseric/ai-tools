@@ -222,7 +222,7 @@ T-04 (below) flips the section so the `/finding-intake` invocation is the primar
 
 ### T-01 — Author `.agents/skills/finding-intake/SKILL.md`
 
-**Status:** done — 2026-05-17 — see journal entry. SKILL.md written at 149 lines (below §7 soft target of 180–220, within §6 NFR ceiling of ≤220); all 12 §5.1 structural sections present; all 9 INPUTS fields covered; all 4 anti-goals enumerated in WHAT NOT TO DO. The three internal OQs from §13 (auto-commit, captured-by, multi-pointer) were decided at execution time per their leanings — see §13 for the decisions.
+**Status:** done — 2026-05-17 — commit 1e640c7 — see journal entry. SKILL.md written at 149 lines (below §7 soft target of 180–220, within §6 NFR ceiling of ≤220); all 12 §5.1 structural sections present; all 9 INPUTS fields covered; all 4 anti-goals enumerated in WHAT NOT TO DO. The three internal OQs from §13 (auto-commit, captured-by, multi-pointer) were decided at execution time per their leanings — see §13 for the decisions.
 
 **Scope:**
 

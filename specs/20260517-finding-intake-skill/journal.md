@@ -33,7 +33,7 @@
 ## 2026-05-17 — T-01: Author `.agents/skills/finding-intake/SKILL.md`
 
 **Status:** done
-**Commits:** to-be-attached at closeout commit
+**Commits:** 1e640c7
 **Files touched:**
 - New: `.agents/skills/finding-intake/SKILL.md` (149 lines)
 - Edited: `specs/20260517-finding-intake-skill/feature.md` — T-01 marked done; §13 OQs collapsed to decisions D-1/D-2/D-3 in new §13a
