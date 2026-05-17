@@ -229,3 +229,76 @@ Three advisory observations queued for post-RC-3a `spec-amend` against SKILL.md 
 4. **Schema spec (from T-02):** the template scaffolding observation applies upstream too — `_template/*.md` could carry a short note in their leading comments saying "this comment is for the operator filling the template; strip it from the produced artifact."
 
 Per [spec-execute Phase 7](../../.agents/skills/spec-execute/SKILL.md) — stop here, do not proceed past RC-3a without explicit user confirmation.
+
+## 2026-05-17 — Review of RC-3a
+
+**Reviewer:** Claude (AI agent, reviewing on behalf of waseric)
+**Outcome:** pass with comments
+**Tasks reviewed:** T-01, T-02, T-03, T-04
+**Diff range:** `1e640c7^..HEAD` (7 commits)
+
+**Blockers:** 0
+**Important:** 0
+**Advisory:** 5
+
+### Phase 1 — Orient
+
+Checkpoint contract quoted verbatim from [feature.md §9 RC-3a](feature.md#L356-L369). Review focus: schema fidelity, 60-second NFR, pointer-fetch policy, peer-skill conventions, README flip. Exit criteria: 5 items spanning SKILL.md shape, T-02 byte-for-byte match, T-03 real finding + timing + fetch outcome, T-04 manual-fallback preservation, no blockers/importants.
+
+Tasks-in-scope status (per [§7 task statuses](feature.md#L221-L347)): all four done; commits 1e640c7 (T-01), e7630c9+fe923e8 (T-02 + SHA backfill), 2a6bcc3+88d9b0a (T-03 work + closeout), 9f7a6d3 (T-04 combined).
+
+Diff shape: 8 files; +499 / −22. One new SKILL.md (149 lines); two new finding directories (synthetic + dogfood); README delta 159→170 lines; spec + journal updates.
+
+Initial drift signals: (1) SKILL.md Phase 3 step 3 + WHAT NOT TO DO both prescribe "leave/preserve commented skeletons" — produced artifacts strip them per T-05 precedent. (2) T-03 closeout commit (88d9b0a) bundled a T-02 SHA backfill; acknowledged in journal as a one-token consistency fix.
+
+### Phase 2 — Scope verification
+
+All four tasks stayed within declared scope. T-01 produced exactly the declared file. T-02 and T-03 produced their declared finding directories (paired `finding.md` + `journal.md`). T-04 edited only the "Creating a new finding" section of the schema README. No undeclared files touched; no new dependencies, frameworks, or top-level abstractions introduced.
+
+Scope observation `[advisory]`: T-03 closeout (88d9b0a) bundled T-02 status-line SHA backfill alongside T-03 closeout work. Acknowledged in journal as scope-honest, but cleaner pattern is a dedicated housekeeping commit. Logged as advisory A4.
+
+### Phase 3 — Review focus walk
+
+1. **Schema fidelity:** Triage/Investigation/Route sections of both produced findings byte-for-byte identical to template (verified via `diff`). Status banner shape, field ordering, persona-frame labels, placeholder-vs-unknown convention honored. **Drift surfaced:** SKILL.md prose ("leave commented skeletons in place" / "skeletons preserved verbatim") contradicts produced artifacts (skeletons stripped per T-05 precedent). Logged as advisory A1. Verdict on focus item: pass with comments.
+
+2. **60-second NFR plausibility in T-03 dogfood:** ~30–60s operator effort timed. NFR honored with comfortable headroom. Journal correctly distinguishes operator effort (NFR-bound) from agent latency (not NFR-bound). Verdict on focus item: pass.
+
+3. **Pointer-fetch policy:** Spirit honored — no-live-fetch decision surfaced in interactive preview and journaled per OP #3. Snapshot durability achieved via operator-supplied PDF. **Letter mismatch:** SKILL.md Phase 3 step 4 ("attempt a fetch on each pointer in turn") does not contemplate the "operator-supplied snapshot pre-exists" branch T-03 took. Logged as advisory A2. Verdict on focus item: pass with comments.
+
+4. **Peer-skill conventions:** All 12 required structural sections present in declared order. All 9 INPUTS fields covered. All 4 declared anti-goals enumerated in WHAT NOT TO DO (plus 4 spec-consistent additions). Line count 149 — under the 220-line ceiling; below the 180 soft floor by implementer's rationale (skill is inherently simpler than peer skills — no diagnostic logic, no governance phases, no Discovery/Clarify phases). Cross-references resolve. Verdict on focus item: pass.
+
+5. **README flip:** `/finding-intake` is the first option presented. Manual cp recipe preserved byte-identical under `### Manual fallback (if the skill is not available)`. Bundle-vs-split paragraph preserved verbatim and re-placed at parent-section level. Forward-pointer updated from forecast to present-tense cross-reference. All three new cross-references resolve. README line count 170 (≤200 inspection ceiling). Verdict on focus item: pass.
+
+### Phase 4 — Exit criteria
+
+All five met. The "byte-for-byte at non-input positions" criterion is met under the "scaffolding-is-not-artifact-content" reading the implementer adopted; the prose/artifact contradiction at scaffolding positions is logged as advisory A1.
+
+### Phase 5 — Generic quality pass
+
+Markdown-only methodology repo. Security, observability, performance, reliability, backward compatibility, configuration: all `[ok]` or N/A. Manual cp recipe preservation satisfies the backward-compatibility NFR.
+
+### Phase 6 — Tests and documentation
+
+Per [§8 Test Strategy](feature.md#L348-L354), validation is inspection-based + exercise-based. Each task's acceptance criteria has citeable inspection evidence in the corresponding closeout journal entry. SKILL.md is itself the operator-facing documentation; the schema README's "Creating a new finding" section is the consumer entry point. Both present and updated.
+
+### Advisory findings (5)
+
+- **A1 (SKILL.md):** Template-scaffolding "copy verbatim" prose drift. SKILL.md Phase 3 step 3 + WHAT NOT TO DO both prescribe leaving/preserving commented skeletons; both produced journals strip them per T-05 precedent. Resolution: `/spec-amend` against SKILL.md to align prose with established precedent. **Recommend resolving before Phase C authoring begins** so Phase C inherits the corrected pattern.
+- **A2 (SKILL.md):** Pointer-fetch policy lacks "operator-supplied snapshot pre-exists" branch in Phase 3 step 4. Resolution: `/spec-amend` adding the fourth branch explicitly.
+- **A3 (SKILL.md):** Short-name stop-word list could grow ("test-only", "signal" surfaced from T-02). Cosmetic. Resolution: `/spec-amend`, low priority.
+- **A4 (commit hygiene):** T-03 closeout commit (88d9b0a) bundled T-02 SHA backfill. Acknowledged in journal as scope-honest. Forward guidance: dedicated housekeeping commits for future drift-fix work. No re-run required for this checkpoint.
+- **A5 (schema spec — upstream):** `_template/*.md` leading scaffolding comments could carry a self-describing "strip-from-artifact" note. Routes via `/spec-amend` against the [findings-pipeline-schema feature spec](../20260517-findings-pipeline-schema/feature.md), not this spec.
+
+### Spec amendments proposed
+
+- Three SKILL.md amendments (A1, A2, A3) — recommend bundling into one `/spec-amend` cycle, with A1 prioritized before Phase C authoring.
+- One schema-spec amendment (A5) — routes against the upstream Phase A spec.
+
+### Next action
+
+RC-3a closes. Work may proceed past Phase B.
+
+**Recommended sequence:**
+1. **`/spec-amend` against [.agents/skills/finding-intake/SKILL.md](../../.agents/skills/finding-intake/SKILL.md)** bundling advisories A1 + A2 + A3. A1 is the load-bearing one — resolve before Phase C authoring so the new `finding-triage` skill adopts the corrected template-handling pattern from the start rather than replicating the contradiction.
+2. **`/spec-amend` against [the findings-pipeline-schema feature spec](../20260517-findings-pipeline-schema/feature.md)** for A5 — can be deferred without Phase C friction; batch with A1+A2+A3 only if convenient.
+3. **`/spec-write` for Phase C — `finding-triage` skill** against the upstream design spec. RC-3 (design-spec joint checkpoint Phase B + Phase C) remains open and triggers when Phase C completes; this RC-3a closeout contributes Phase B's evidence to that future review.

@@ -367,6 +367,7 @@ This is a feature-spec-level checkpoint that gates Phase B alone. The design-spe
   - T-03 dogfood produced a real finding; effort timing recorded; pointer-fetch outcome (if any) recorded.
   - T-04 README update preserves the manual fallback and updates the forward-pointer.
   - No `[blocker]` findings; `[important]` findings either resolved or escalated to amendments.
+- **Status:** pass with comments — 2026-05-17 — Claude (AI agent reviewing on behalf of waseric). 0 blockers, 0 importants, 5 advisories (all queued for post-RC-3a `spec-amend`: A1 template-scaffolding "copy verbatim" prose drift; A2 pointer-fetch policy operator-supplied-snapshot branch missing; A3 stop-word list cosmetics; A4 commit-hygiene note; A5 upstream schema-spec scaffolding self-description). Checkpoint closes. Phase C (`finding-triage`) authoring may begin; recommend A1 resolved via `/spec-amend` before Phase C authoring starts. See [journal RC-3a review entry](journal.md#2026-05-17--review-of-rc-3a) for the full verdict.
 
 ### RC-3 — Intake & Triage Skill Review (design-spec checkpoint, not closed by this spec alone)
 
