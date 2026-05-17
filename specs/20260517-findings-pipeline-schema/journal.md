@@ -150,3 +150,48 @@
 - The "Investigation iteration <N>" skeleton entry needed care to stay honest: status remains `under-investigation` across iterations, not "investigating-2" etc. Both `Prior status` and `New status` are `under-investigation` for an iteration in place, with a clarifying inline note "(iteration in place)" so the reader understands the status didn't change. Reflects design spec §5.4: "Investigation may iterate: a first investigation may produce a partial answer and journal 'needs deeper look'; status remains under-investigation until the route is chosen."
 
 **Next task pointer:** T-05 — example-source validation exercise (operator-chosen recent journal note retroactively shaped as a finding under the templates). Dependencies T-02, T-03, T-04 satisfied. No `[blocker]` open questions; ready to proceed. Note: T-05 is a work-shape change — operator picks the source material, then exercises the templates end-to-end. Natural point for the session-continuity check.
+
+## 2026-05-17 — T-05: Example-source validation exercise
+
+**Status:** done
+**Commits:** 9113c92 (deliverable), (this commit, closeout)
+**Files touched:**
+- specs/findings/20260517-tab-display-issues/finding.md (new file, 62 lines)
+- specs/findings/20260517-tab-display-issues/journal.md (new file, 29 lines)
+
+**Tests added:** N/A — the exercise itself is the test, per T-05's "Tests required". Success criteria: template absorbed the content; state machine accommodated the example; no shape mismatch requiring a schema change.
+
+**Source material:** Operator-supplied real-world signal — the Sandlot Minecraft community forum thread "All Servers - Tab Screen" at https://www.sandlotminecraft.com/threads/tab-screen.39849/, started Tuesday 2026-05-12 by NeonLights10927, with confirmations and additional symptoms from five other community members across the week. The thread captures a multi-faceted TAB-display bug with iterative in-band fixes — the kind of operational-domain signal the pipeline is designed to absorb. Stronger fit than the alternative candidates from internal feature-spec journals because it is genuinely external, multi-reporter, and mid-investigation.
+
+**DoD verification:**
+- *Real finding file exists in `specs/findings/`:* specs/findings/20260517-tab-display-issues/finding.md (62 lines) and journal.md (29 lines), both committed at 9113c92.
+- *Validation outcome recorded in this feature spec's journal:* this entry. See "Validation observations" below.
+- *Any schema gaps surfaced as findings or RC-2 amendments before checkpoint close:* No `[blocker]` schema gaps surfaced. Minor friction observations recorded below as journal observations for RC-2 reviewer attention, per T-05's "or as a journal observation for RC-2" allowance.
+- *Acceptance criteria walked:* every section of finding.md populated, with honest `unknown` markers in fields where information was genuinely unknown (most of Investigation; all of Route). State machine accommodated intake → triaged → under-investigation in one session without distortion. No schema-change-requiring shape mismatch.
+
+**Validation observations (what the exercise revealed):**
+
+1. **Multi-reporter handling — friction, no schema change.** The template has a single `Reported by` field. The source had ~6 distinct reporters over a week. Workaround used: list initial reporter, list confirmers inline. The friction is real but mild; a schema change would over-specify (a "confirmers" field would be empty for most findings). Adequate as-is; consider documenting the convention in the README's "Creating a new finding" section if the pattern recurs.
+
+2. **Multiple coupled symptoms in one finding — judgment call surfaced, no schema change.** The source documents four coupled visual bugs (rank icons, mod colors, AFK tags, Bedrock scoping). Whether to bundle them or split them into separate findings is a judgment the template does not guide. Bundling preserves iteration coherence but risks blurring distinct causes if investigation reveals them. Suggestion for RC-2 reviewer: a single-paragraph "when to bundle vs. split" guideline in the README would lower the cognitive load for the next intake.
+
+3. **In-band iteration vs. linear pipeline — known property, validated.** The source thread shows fix-attempt → new-symptom → fix-attempt in real time within the same forum thread, not the clean intake → triage → investigation linear flow. The template and state machine handled this fine because the design spec's "orientation, not handoffs" framing (§5.6) and the `reopened` back-transition (amendment 2026-05-17-2 sub-change A) explicitly cover non-linear progression. Validates the design decision.
+
+4. **Investigation-without-root-cause — `unknown` convention worked.** The source thread shows fixes applied without root-cause documentation. The finding's Investigation section landed most fields as `unknown` or hypothesis-only. The template absorbed this cleanly — `unknown` is a first-class value per design spec §5.2 and the recorded decision survives template instantiation. No schema change needed.
+
+5. **Retroactive intake date — convention worked, mildly improvable.** The artifact's "Date opened" is the capture date (today, 2026-05-17), not the signal origination date (2026-05-12). The distinction was recorded in the journal Intake Notes. Mild friction: a future reader might assume "Date opened" = signal date. Possible schema enhancement: add a "Signal date" field separate from "Date opened" — defer until pattern recurs.
+
+6. **Severity decomposition (severity vs. operational urgency) — validated.** The finding's `advisory + P3` combination accurately captures "low methodology severity, real but manageable operational urgency." Validates amendment 2026-05-17-2 sub-change H (severity-axis decoupling NFR row in design spec §6).
+
+7. **State machine accommodated multi-transition single-session capture.** The journal records `intake → triaged → under-investigation` in three separate entries on the same date — the state machine permits this and the journal convention handles it via one-entry-per-transition. No friction.
+
+**Spec amendments:** None. The schema is sufficient as-is for this example.
+
+**Surprises and learnings:**
+- The most informative validation outcome is *what didn't need to change*. The template absorbed a multi-reporter, multi-symptom, mid-investigation, externally-sourced operational signal end-to-end without requiring a schema change. This is stronger evidence of fitness than a polished example would have been — the friction points (#1, #2, #5 above) are exactly the friction points the design spec's RC-1 review anticipated, and they remain mild enough not to block adoption.
+- The "Retroactive intake" pattern (capture-after-the-fact for signals that originated days or weeks ago) is itself a real intake mode not separately called out in the design spec. The template handled it by leaning on the journal Notes to record provenance. Worth noting for RC-2 reviewer: should this pattern get a one-line acknowledgment in §5.2 (Intake behavior)?
+- All 30 README field-reference fields appeared in the finished finding artifact. Cross-check on T-02/T-03 agreement is confirmed end-to-end.
+
+**RC-2 checkpoint triggered.** T-05 was the last task in the spec. Per [feature.md §9](feature.md#L329), RC-2 ("Schema Review") triggers when all five tasks complete and commits land. The checkpoint gate is now open. Review focus per design spec §9 RC-2: "Whether the artifact template is concrete and minimal; whether the state machine is unambiguous; whether the persona-frame fields carry their weight." Additional focus per this feature spec: whether the batched amendment (T-01) cleanly resolved all nine RC-1 advisories; whether the example-source exercise (T-05) surfaced any schema gaps. Exit criteria: T-05's example-source finding successfully populates the template (✅ confirmed above); the RC-1 advisory list is fully addressed (✅ amendment 2026-05-17-2 applied); no new `[blocker]` findings (✅ none surfaced).
+
+**Next task pointer:** No further tasks in this feature spec. Awaiting RC-2 reviewer verdict via `/spec-review`. On RC-2 pass, this feature spec transitions to complete; Phase B (`finding-intake` skill) is the next phase per the design spec's §7 Implementation Sequencing.
