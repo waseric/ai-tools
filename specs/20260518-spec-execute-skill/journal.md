@@ -309,3 +309,72 @@ Spec advances out of "changes requested" into "pass with comments" — CP-1 is n
 ### Next action
 
 Per the [strategy-doc session-4 ordering](../../docs/retroactive-spec-strategy.md) and the [next-action pointer in the authoring journal entry](./journal.md), the next session is the `spec-review` retroactive spec (session 4 of the legacy quintet; N=5 in the retroactive-spec sequence). Pre-confirmed predecessor: [docs/spec-driven-development-prompts-conversation.md](../../docs/spec-driven-development-prompts-conversation.md) lines 446+. Pre-confirmed sibling design spec: [session-economy §5.4](../20260514-session-economy/architecture.md). The five "Pattern for N=5" callouts (in the authoring entry above) plus the refined Pattern-for-N=5 #1 (audit shape concretized in amendment 2026-05-18-1) and the new re-review-cycle observation above are the N=5 inputs.
+
+## 2026-05-18 — Review of CP-2
+
+**Reviewer:** Claude (AI assistant) on behalf of Eric Wasgatt
+**Outcome:** pass with comments
+**Diff range:** [.agents/skills/spec-execute/SKILL.md](../../.agents/skills/spec-execute/SKILL.md) (lastUpdated 2026-05-15) vs [architecture.md](./architecture.md) §4 / §5 / §6 / §12, post-amendment 2026-05-18-1 (commit `7fee46f`) and CP-1 re-review (commit `6723068`).
+**Tasks reviewed:** none (retroactive design spec — no atomic tasks).
+**Blockers:** 0
+**Important:** 0
+**Advisory:** 5 — D-1 through D-5 enumerated below. Three are WND-partial-home or preamble-vs-Phase-body class findings surfaced explicitly per [batch journal N=3 Pattern-for-N=4 observations (1)/(2)/(3)](../20260518-cp2-batch-audit/journal.md#L93). Two carry forward CP-1 advisories (none promoted to blocker).
+**Spec amendments proposed:** three (a)-route findings (§5.4 / §5.6 / §5.9) plus two (b)-route findings (SKILL.md preamble line 9 + line 13). Routings confirmed by operator via AskUserQuestion at audit close; amendments routed via /spec-amend in a subsequent step.
+
+### Audit context
+
+N=4 of the five-spec batched CP-2 audit driven by [docs/retroactive-spec-strategy.md](../../docs/retroactive-spec-strategy.md) "Drift mitigation"; see [batch journal](../20260518-cp2-batch-audit/journal.md) for routing tally and cross-skill pattern context. This session is the **N=3 robustness check** on the most-divergent skill shape (eight-phase iterative execution workflow vs the single-shot authoring shape of N=2/N=3). Per [batch journal N=3 Pattern-for-N=4 observations](../20260518-cp2-batch-audit/journal.md#L93): observation (1) operator (c)→(a) override; observation (2) WND partial-home as first-class step; observation (3) preamble-vs-Phase-body mirror walk in both directions.
+
+### Divergence list with operator-confirmed routings
+
+| ID | Summary | Class | Routing |
+|---|---|---|---|
+| D-1 | WND-8 ("no speculative code for the next task") lacks explicit §5/§6 carrier — §5.4 cites OP §5 "One task at a time" as Pattern invoked but does not reproduce the speculative-code prohibition | WND partial-home (observation 2) | **(a) amend spec §5.4** — confirmed |
+| D-2 | WND-9 ("amendments require diff; surgical not rewrite") only partially carried — §5.3 covers pre-execution amendments; §5.9 Amendment Protocol Behavior does not reproduce the rule for Phase 4/5 trigger sites | WND partial-home (observation 2) | **(a) amend spec §5.9** — confirmed |
+| D-3 | [SKILL.md `# Spec Execute` preamble (line 9)](../../.agents/skills/spec-execute/SKILL.md#L9) omits `spec-amend` from the pairing list — frontmatter description and AMENDMENT PROTOCOL both reference it | Preamble-vs-Phase-body mirror (observation 3) | **(b) amend SKILL.md preamble** — confirmed |
+| D-4 | [SKILL.md "How this skill works" preamble (line 13)](../../.agents/skills/spec-execute/SKILL.md#L13) does not name Phase 8 Session Continuity Check — frontmatter description and Phase 8 body both name the task-boundary pause | Preamble-vs-Phase-body mirror (observation 3) | **(b) amend SKILL.md preamble** — confirmed |
+| D-5 | [§5.6](./architecture.md) opens "**Four updates fire** before the task is declared complete" and lists **five** numbered items — CP-1 advisory (a) carry-forward | Protocol detail (carry-forward; operator (c)→(a) override candidate per observation 1) | **(a) amend spec §5.6 "Four → Five"** — confirmed |
+
+**Routing tally for N=4:** amend-spec ×3 (D-1, D-2, D-5); amend-SKILL.md ×2 (D-3, D-4); accept ×0.
+
+### Cross-spec consistency check (per [CP-2 review focus](./architecture.md#L385))
+
+- **Shape (i) §5-enumerated.** Retro [§5.1](./architecture.md) (Phase 1 multi-repo detection) ↔ [session-economy §5.2](../20260514-session-economy/architecture.md#L107) ✓. Retro [§5.8](./architecture.md) (Phase 8 token economy) ↔ [session-economy §5.1](../20260514-session-economy/architecture.md#L91) ✓.
+- **Shape (ii) narrative-sourced.** Retro [§5.4](./architecture.md) and [§5.6](./architecture.md) multi-repo paragraphs cite [session-economy §1 Overview](../20260514-session-economy/architecture.md#L8) + [§3 Background](../20260514-session-economy/architecture.md#L31) + commit `e483466`. Verified: session-economy §5 has no subsection committing to spec-execute Phase 4/6 paired-commit strengthening — session-economy §5.3 covers spec-amend, §5.4 covers spec-review, §5.5 covers spec-write+spec-design. The narrative-sourced attribution is structurally correct. §6 Multi-repo discipline NFR and §8 Validation Approach Sibling-design-spec cross-check row both carry the two-shapes framing. Amendment 2026-05-18-1 closure verified at CP-2.
+
+### Review focus walk — itemized outcomes
+
+1. Every commitment in §4/§5/§6 corresponds to behavior in SKILL.md — **pass with comments** (D-1, D-2, D-5 advisories).
+2. No commitment contradicts SKILL.md — **pass**.
+3. WND items walked against §5/§6 carriers (first-class step per observation 2) — **pass with comments** (D-1, D-2).
+4. SKILL.md preamble walked line-by-line against Phase 2 body in both directions (observation 3) — **pass with comments** (D-3, D-4).
+5. Cross-spec consistency shape (i) and shape (ii) — **pass** (amendment 2026-05-18-1 closure verified).
+6. Cross-skill drift patterns — **pass** (ASPP citation, session-economy commitment propagation, two-source structure, section-heading citation discipline, amendment-ID citation correctness all verified).
+7. §12 Out of Scope walk — **pass** (scope exclusions; no SKILL.md-behavior verification applies).
+
+### Exit criteria status
+
+- Divergence list produced: **met** (five advisory findings).
+- Routing decision per divergence: **met** (operator confirmed all five via AskUserQuestion at audit close).
+- No silent edits: **met** (this entry; spec §9 CP-2 Status line; batch journal N=4 entry).
+- Outcome recorded in this spec's journal as closing entry of retroactive-spec adoption: **met** (this entry).
+
+### Pattern observations at N=4 CP-2
+
+- **WHAT NOT TO DO partial-home class — four-data-point confirmation.** N=1 D-4, N=2 D-4, N=3 D-1, N=4 D-1+D-2. The pattern is stable across four consecutive CP-2 audits. Observation (2)'s "first-class step" protocol confirmed valuable — walking WND items against §5/§6 carriers as a discrete audit step (not absorbed into "behavioral coverage looks fine") surfaced two findings (D-1, D-2) that would otherwise have been silent.
+- **Preamble-vs-Phase-body mirror class — both directions confirmed at four data points total.** N=2 D-2 (preamble names item body omits), N=3 D-5 (body enumerates item preamble omits), N=4 D-3+D-4 (preamble omits items body and frontmatter both enumerate — same direction as N=3 D-5). Bidirectional walk per observation (3) produced both findings at N=4.
+- **Operator (c)→(a) override pattern (observation 1) applied at three findings.** D-1, D-2, D-5 all had (c) accept-as-known-minor as the conservative default; reviewer surfaced (a) explicitly per observation (1) precedent (N=3 D-4); operator confirmed (a) on all three. The pattern is now load-bearing: surfacing protocol-detail findings explicitly converts conservative-default routings to active amendments. This intentionally raises the amend-spec count at N=4 vs prior N audits.
+- **Status-banner-lifecycle finding class (N=2 D-1) did NOT fire at N=4.** spec-execute §1 banner reads `Draft — Open for Review` but no §5.x commits to a lifecycle (Draft → Approved → Superseded or similar); the lifecycle commitment shape was specific to spec-design's §5.8. The candidate finding-class for N=4 did not surface as predicted. Banner stays at Draft pending closure of routed amendments and re-verification.
+- **Robustness check on most-divergent skill shape — passed.** Per [strategy doc](../../docs/retroactive-spec-strategy.md), this session was the robustness check on the spec-design / spec-write CP-2 pattern. The eight-phase shape produces a denser §5 (eleven subsections vs N=2/N=3's eight), a sibling-design-spec source (first-of-kind), and four findings — but the audit shape (review focus walk → divergence list → routing decisions → cross-skill pattern observations) generalized cleanly. Finding classes (WND partial-home; preamble-vs-body mirror; protocol-detail surfacing) are the same as N=2/N=3.
+- **CP-2 closure compounds.** The CP-2 batch's narrowed trigger condition now reads "one sibling quintet CP-1 (`spec-review`, `spec-amend`) + project-constitution CP-2" once CP-2 closure here is committed — N=2, N=3, and N=4 CP-2s all having closed.
+- **Pattern for N=5 (spec-review at session 4).** spec-review will encounter the same session-economy spec as a sibling design spec ([session-economy §5.4](../20260514-session-economy/architecture.md#L147)); the two-shapes attribution framing from amendment 2026-05-18-1 carries verbatim where applicable. spec-review's WND items + preamble should be walked the same way (observations 2 and 3). The CP-1 re-review cycle precedent established here is the available path if N=5 CP-1 surfaces blockers collapsing to a single citation pattern.
+
+### Next action
+
+Three steps, in order:
+
+1. **Route amendments via /spec-amend** — the three (a)-route findings (D-1, D-2, D-5) and two (b)-route findings (D-3, D-4) per operator-confirmed routings. spec amendments collapse into a single /spec-amend session for the spec; SKILL.md amendments into a separate /spec-amend session for the SKILL.md preamble. Each amendment carries the trigger (CP-2 audit finding ID), proposed change, impact, and approver.
+2. **Re-verify CP-2 closure** — after amendments land, this spec's CP-2 may need a re-verification entry (parallel to the CP-1 re-review pattern) if amendments materially change the §5/§6 audit surface. For (b)-route amendments to SKILL.md preamble, no spec-side re-verification is required (preamble change does not alter Phase-body content). For (a)-route amendments to §5.4/§5.6/§5.9, a brief re-audit confirms the divergences are closed; can be a short journal entry rather than a full /spec-review session.
+3. **Resume batch audit** — proceed to N=5 (`spec-review` retroactive spec CP-2) per [strategy doc](../../docs/retroactive-spec-strategy.md) and [batch journal](../20260518-cp2-batch-audit/journal.md) ordering.
+
+CP-2 closure for spec-execute is **conditional on amendment landing**: the §9 Status line records "pass with comments" with five advisories; full closure (banner out of Draft) waits on amendments + re-verification per step 2 above.
