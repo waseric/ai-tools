@@ -61,3 +61,19 @@
 **Status implication.** Kept as Living document. The principle is additive — no existing commitment is reversed; the change extends `Tooling Conventions` rather than reopening it.
 
 **Approver.** waseric, 2026-05-17.
+
+## 2026-05-17 — Routed: spec-amend cascade across five specs implementing the Atomic-Skill Portability Principle
+
+**Decided by:** waseric; developer; persona-frame: investigation
+**Prior status:** `under-investigation`
+**New status:** `routed`
+**Route subtype:** spec-amend
+**Target spec (if amend or new-spec):** [specs/tech-stack.md](../../tech-stack.md) (primary). Cascade also amended [specs/20260517-findings-pipeline/architecture.md](../../20260517-findings-pipeline/architecture.md), [specs/20260517-findings-pipeline-schema/feature.md](../../20260517-findings-pipeline-schema/feature.md), [specs/20260517-finding-intake-skill/feature.md](../../20260517-finding-intake-skill/feature.md), [specs/20260517-finding-triage-skill/feature.md](../../20260517-finding-triage-skill/feature.md).
+**Rationale:** The investigation reframed the coupling symptoms (path resolution + line-number stripping) as effects of a missing methodology-level commitment that skills are portable atomic units. The remedy is therefore not narrow file edits but a methodology-wide commitment, with cascading implementation choices threaded through the design spec, schema feature spec, the two SKILL.md files, and the two template files. `spec-amend` is the correct route because every change is surgical against an existing spec or skill; no new feature spec is needed.
+**Cascade landed (all in-session, 2026-05-17):**
+- Amendment 1 — `tech-stack.md` 2026-05-17-1 — Atomic-Skill Portability Principle committed in §Tooling Conventions. Commit `b515c71`; SHA backfill `55c6df6`.
+- Amendment 2 — `findings-pipeline/architecture.md` 2026-05-17-5 — §6 NFR row for Skill portability + README-as-derived-projection clarification. Commit `d8d87d6`; SHA backfill `b5c4f02`.
+- Amendment 3 — `findings-pipeline-schema/feature.md` 2026-05-17-2 — schema NFR + §5.2 + §5.3 + cascading edits to `_template/finding.md` and `_template/journal.md` (scaffold-marker delimiters). Commit `38a4afb`; SHA backfill `7faeb8a`.
+- Amendment 4 — `finding-intake-skill/feature.md` 2026-05-17-4 — feature spec NFR + §5.1; cascading conformance edits to `.agents/skills/finding-intake/SKILL.md` (ORIENT, APPLY 2-3, WHAT NOT TO DO) + bundled `_template/` in skill directory. Commit `651fbd8`; SHA backfill `83bf60b`.
+- Amendment 5 — `finding-triage-skill/feature.md` 2026-05-17-2 — feature spec NFR; cascading conformance edits to `.agents/skills/finding-triage/SKILL.md` (ORIENT step 1) + bundled `_template/` in skill directory. Commit `45a81a9`; SHA backfill `19597d5`.
+**Notes:** The formal `under-investigation → routed` transition was journaled here at cascade end (rather than at cascade start) to align "route is final" with "the work the route initiates has landed" — the route's evidence is the cascade itself. Two follow-on items surfaced during execution and remain to be addressed: (1) **Audit of spec-* skills** (`spec-write`, `spec-amend`, `spec-design`, `spec-execute`, `spec-review`, `project-constitution`) for principle compliance — sibling finding per non-compliant skill, closed immediately if compliant; (2) **Constitution-amendment workflow gap** — `/spec-amend`'s documented scope names design and feature specs, not constitution docs; pragmatic resolution for this work was informal use against `tech-stack.md`; advisory finding to be filed next. Neither follow-on blocks the routing of this finding.

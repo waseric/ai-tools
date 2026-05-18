@@ -1,6 +1,6 @@
 # finding-intake skill depends on specs/findings/_template/ — breaks when installed globally — Finding
 
-> Status: under-investigation
+> Status: routed
 > Domain: methodology
 > Severity: blocker                                    ← methodology axis
 > Operational urgency (optional): <P1 | P2 | P3 | P4>  ← operational axis (typically operational findings only)
@@ -52,8 +52,8 @@
 
 ## Route
 
-**Route decision:** <spec-amend | spec-write | defer | close>
-**Decided by:** <persona-frame of the deciding phase, and operator>
-**Route date:** <YYYY-MM-DD>
-**Target spec:** <path to spec, when route is `spec-amend` or `spec-write`; e.g., specs/20260517-findings-pipeline/architecture.md>
-**Route rationale:** <one paragraph; why this route over the others. For `defer`, include watch condition: what would cause re-evaluation.>
+**Route decision:** spec-amend
+**Decided by:** waseric; developer; persona-frame: investigation
+**Route date:** 2026-05-17
+**Target spec:** [specs/tech-stack.md](../../tech-stack.md) (primary). The spec-amend route landed as a five-spec cascade — primary plus four follow-on specs: [specs/20260517-findings-pipeline/architecture.md](../../20260517-findings-pipeline/architecture.md), [specs/20260517-findings-pipeline-schema/feature.md](../../20260517-findings-pipeline-schema/feature.md), [specs/20260517-finding-intake-skill/feature.md](../../20260517-finding-intake-skill/feature.md), [specs/20260517-finding-triage-skill/feature.md](../../20260517-finding-triage-skill/feature.md). Each amendment carries its own journal entry; the originating finding's journal records the cascade-tracking summary.
+**Route rationale:** The investigation reframed the coupling symptoms (path resolution + line-number stripping) as effects of a missing methodology-level commitment that skills are portable atomic units. The remedy is therefore not narrow file edits but a methodology-wide commitment in `specs/tech-stack.md` (the **Atomic-Skill Portability Principle**), with cascading implementation choices threaded through the findings-pipeline design spec, schema feature spec, and the two existing SKILL.md files (plus bundled template copies). `spec-amend` is the correct route because every change is surgical against an existing spec or skill, not a new feature. `spec-write` was rejected because no new feature spec is needed; the cascade is multi-spec conformance work, not a new build. The five-amendment cascade landed in commits `b515c71`, `d8d87d6`, `38a4afb`, `651fbd8`, `45a81a9` (each with a follow-up SHA-backfill commit per repo convention). One follow-on advisory finding is to be filed for the constitution-amendment workflow gap surfaced during the cascade (`/spec-amend`'s documented scope names design and feature specs, not constitution docs — pragmatic resolution for this work was informal use against `tech-stack.md`).
