@@ -303,7 +303,7 @@ There is no Phase B "build the skill" — the skill is already built. There is n
 
 ### CP-2 — Drift audit complete (batched)
 
-**Status:** pass with comments on 2026-05-18 by Claude (agent reviewer). 0 blockers, 0 important, 5 advisory. See [journal.md "Review of CP-2"](./journal.md) for findings and routing. Five amendments routed: D-1, D-3, D-4 → architecture.md §6 / §5.5; D-2, D-5 → SKILL.md. CP-2 closeout entry follows once amendments apply.
+**Status:** pass with comments on 2026-05-18 by Claude (agent reviewer). 0 blockers, 0 important, 5 advisory. See [journal.md "Review of CP-2"](./journal.md) for findings and routing, and [journal.md "CP-2 closeout"](./journal.md) for the closing summary. Checkpoint closed via amendments 2026-05-18-1 (D-1, spec §6 Dependency hygiene NFR), 2026-05-18-2 (D-2, SKILL.md §14 Authoritative/Inspirational split), 2026-05-18-3 (D-3, spec §6 Markdown hygiene NFR), 2026-05-18-4 (D-4, spec §5.5 task-phrasing anti-pattern), and 2026-05-18-5 (D-5, SKILL.md preamble three-item enumeration). All five advisories resolved by amendment; none accepted.
 
 **Trigger.** CP-1 of this spec passes, AND CP-1 of the three remaining quintet specs (`spec-execute`, `spec-review`, `spec-amend`) passes, AND CP-1 of [spec-design](../20260518-spec-design-skill/architecture.md) has passed (already done — pass with comments on 2026-05-18), AND project-constitution's CP-2 has either run or been folded into the batch per [docs/retroactive-spec-strategy.md OQ-1](../../docs/retroactive-spec-strategy.md).
 

@@ -481,3 +481,23 @@ After:
 **Status implication.** Spec remains at `pass with comments` for CP-2. This amendment touches SKILL.md preamble only; spec commitments unchanged. No revert to Draft.
 
 **Approver.** Eric Wasgatt — approved 2026-05-18.
+
+### CP-2 closeout
+
+With Amendments 2026-05-18-1, 2026-05-18-2, 2026-05-18-3, 2026-05-18-4, and 2026-05-18-5 all approved and applied, CP-2 routing is complete:
+
+- D-1 → resolved via 2026-05-18-1 (route a, architecture.md §6 Dependency hygiene NFR).
+- D-2 → resolved via 2026-05-18-2 (route b, SKILL.md §14 Authoritative/Inspirational split; retires CP-1 advisory (a)).
+- D-3 → resolved via 2026-05-18-3 (route a, architecture.md §6 Markdown hygiene NFR; direct N=2 D-3 parallel, row text matches verbatim).
+- D-4 → resolved via 2026-05-18-4 (route a, architecture.md §5.5 task-phrasing anti-pattern; **operator override** of reviewer-proposed (c) accept-as-minor — protocol-detail authorship hazard surfaced explicitly).
+- D-5 → resolved via 2026-05-18-5 (route b, SKILL.md preamble three-item enumeration; mirror-class of N=2 D-2, opposite direction).
+
+The spec-write retroactive-spec adoption is **closed**. The spec is now the living contract for SKILL.md per the Amendment Protocol. The five-spec batch CP-2 at [specs/20260518-cp2-batch-audit/journal.md](../20260518-cp2-batch-audit/journal.md) advances to N=4 — `spec-execute` retroactive spec — per the batch's authoring-order default.
+
+**Pattern for N=4.** Five amendments emerged from one CP-2 verdict — one more than N=2's four, two more than N=1's three. Amendment count is trending upward as audit thoroughness increases (likely a sign the discipline is settling, not that drift is worsening). File split: D-1, D-3, D-4 against architecture.md (3); D-2, D-5 against SKILL.md (2). Three structural patterns observed across this session:
+
+1. **Operator override of (c)→(a) (D-4) is a first-of-its-kind data point.** N=1 and N=2 routed all reviewer-proposed (c) findings as accept-as-known-minor. N=3 D-4 is the first override, surfacing a protocol-detail authorship hazard that the reviewer's "accept" heuristic would have buried. Future CP-2 reviewers should surface protocol-detail findings explicitly for operator choice rather than absorbing them silently — the override pattern suggests the heuristic was occasionally wrong, not just here.
+2. **WHAT-NOT-TO-DO partial-home class confirmed at three data points.** N=1 D-4 (README-reconciliation), N=2 D-4 (Inline-citation preference), N=3 D-1 (No-bloat / no-new-deps) — stable pattern of WND commitments without explicit §5 / §6 carriers. Future CP-2 audits should walk WND items against §5 / §6 carriers as a first-class step (now documented in batch journal's cross-skill observations).
+3. **Mirror-class preamble-vs-Phase-body inconsistency at two data points.** N=2 D-2 (preamble named "format" Phase 2 body did not enumerate) and N=3 D-5 (Phase 2 body enumerates "decisions proposed-unilaterally" preamble omits) are the same class in opposite directions. Future CP-2 audits should walk preamble line-by-line against Phase 2 body for completeness in both directions.
+
+Future CP-2 batches in the quintet should expect 3–5 amendments per spec (range from N=1's 3 to N=3's 5); the file-split pattern (SKILL.md amendments vs spec amendments) and the operator-override-on-protocol-detail pattern are now both candidate recurrences.
