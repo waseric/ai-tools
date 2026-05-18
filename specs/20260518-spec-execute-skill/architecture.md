@@ -223,7 +223,7 @@ Four explicit pause points: Phase 1 (await approval of proposed next task), Phas
 
 **Purpose.** Close out the just-completed task before any next task is started. Survives end-of-session context decay by ensuring the last completed task is always clean.
 
-**Behavior.** Four updates fire before the task is declared complete:
+**Behavior.** Five updates fire before the task is declared complete:
 1. **Spec.** In the Task Breakdown section, mark the task `done`, add date and commit SHA range. Move any resolved open questions out of the OQ section into the relevant design section as decisions, with rationale.
 2. **Journal entry.** Append an entry matching the format declared in SKILL.md (Status / Commits / Files touched / Tests added / DoD verification / Decisions made / Spec amendments / Surprises and learnings / Next task pointer).
 3. **Next-task pointer.** Identified per the dependency graph; stated explicitly in the journal entry. This is the next-session handoff.
