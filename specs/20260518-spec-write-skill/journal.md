@@ -403,3 +403,42 @@ After:
 **Status implication.** Spec remains at `pass with comments` for CP-2. NFR-row addition; identical shape to N=2 D-3 which was ratified without spec-status regression. No revert to Draft.
 
 **Approver.** Eric Wasgatt — approved 2026-05-18.
+
+## 2026-05-18 — Amendment 2026-05-18-4
+
+**Section amended:** [architecture.md §5.5 Task Breakdown atomicity](./architecture.md#L172) — Behavior paragraph
+**Trigger:** CP-2 D-4 — SKILL.md WND-4 "Implement X" anti-pattern had no explicit §5.5 home. Operator override of reviewer-proposed (c) accept-as-minor.
+**Reason:** §5.5 Behavior names the wrong shape, not just the right shape; closes the protocol-detail authorship hazard.
+**Impact summary:** No tasks affected; CP-2 closing entry references this amendment; existing feature specs not back-amended (rule applies forward).
+**Approver:** Eric Wasgatt
+**Approved on:** 2026-05-18
+**Status implication:** kept (`pass with comments` on CP-2 holds; single-clause Behavior addition).
+**Commit:** 0cd3518
+
+### Full record
+
+## Amendment 2026-05-18-4 — specs/20260518-spec-write-skill/architecture.md §5.5
+
+**Trigger.** During the N=3 CP-2 drift audit of `spec-write` (2026-05-18, Claude as agent reviewer), the auditor surfaced [SKILL.md WHAT NOT TO DO WND-4 (line 198)](../../.agents/skills/spec-write/SKILL.md#L198): *"Do not write task descriptions in the form 'Implement X.' Write them in the form 'Add `<file>` exposing `<function>` such that `<acceptance criteria>`.'"* Spec §5.5 declares the positive form (Scope, AC) but does not name the anti-pattern. Reviewer proposed (c) accept-as-known-minor on protocol-detail grounds (mirror of N=2 D-5 precedent); operator overrode to (a) amend spec — task phrasing is a real anti-pattern worth surfacing in the spec's Behavior contract, not absorbed silently.
+
+**Section.** [specs/20260518-spec-write-skill/architecture.md §5.5 Task Breakdown atomicity](./architecture.md#L172), **Behavior** paragraph (line 176). The change appends one sentence to the existing paragraph.
+
+**Change.**
+
+Before:
+> **Behavior.** Every task in the breakdown declares: Task ID (e.g., `T-01`), Title, Scope (files to create/modify; function or class names), Acceptance criteria (Given/When/Then or equivalent, objectively verifiable), Tests required (named test files; unit / integration / manual), Definition of Done (code merged, tests passing in CI, docs updated, observability in place, no new lint or type errors, peer reviewed), Dependencies (other task IDs), Estimated size (S/M/L; L tasks must be split before implementation). Tasks are sequenced so the branch is in a deployable or revertible state at each task boundary.
+
+After:
+> **Behavior.** Every task in the breakdown declares: Task ID (e.g., `T-01`), Title, Scope (files to create/modify; function or class names), Acceptance criteria (Given/When/Then or equivalent, objectively verifiable), Tests required (named test files; unit / integration / manual), Definition of Done (code merged, tests passing in CI, docs updated, observability in place, no new lint or type errors, peer reviewed), Dependencies (other task IDs), Estimated size (S/M/L; L tasks must be split before implementation). Tasks are sequenced so the branch is in a deployable or revertible state at each task boundary. Task descriptions take the form *"Add `<file>` exposing `<function>` such that `<acceptance criteria>`"* — not the form *"Implement X"*; the latter under-specifies scope and AC.
+
+**Reason.** SKILL.md WND-4 names a real anti-pattern: tasks phrased as "Implement X" omit the scope (which file? which function?) and the acceptance criteria (what does done look like?) that make a task atomically reviewable. The spec's positive-form declaration (Scope, AC) implies the right shape but does not name the wrong shape. CP-2 future audits will keep re-finding the gap unless the §5.5 Behavior contract surfaces the anti-pattern directly. The operator override of the reviewer's accept-as-minor heuristic is intentional: this is a protocol detail that is also a real authorship hazard, not a procedural footnote.
+
+**Impact.**
+- **Affected tasks:** none (retroactive design spec; no §7 Task Breakdown).
+- **Affected checkpoints:** [CP-2](./architecture.md#L302) — closing entry references this amendment.
+- **Completed work invalidated:** none. Existing feature specs produced before this amendment may have under-specified task descriptions; not required to be back-amended.
+- **Cross-references requiring follow-up:** none. §5.5 Why-this-design (line 180) cites the "code is written, just need to add tests later" anti-pattern; the new clause is adjacent but distinct. §6 Atomicity NFR (line 247) already cites WND-4 by reference and needs no change.
+
+**Status implication.** Spec remains at `pass with comments` for CP-2. Single-clause addition to existing Behavior paragraph; does not change the positive contract preceding it. No revert to Draft.
+
+**Approver.** Eric Wasgatt — approved 2026-05-18.
