@@ -239,3 +239,60 @@ No `[blocker]` open questions; the spec is ready for CP-1.
 1. Operator invokes `/spec-amend` for D-1 (SKILL.md lifecycle declaration), D-2 (SKILL.md Phase 2 format-bullet elevation), D-3 (spec markdown-hygiene addition), and D-4 (spec §6 inline-citation NFR row). Amendments may be bundled or sequential per operator preference; note D-1 and D-2 both touch SKILL.md (potential bundle), D-3 and D-4 both touch architecture.md (potential bundle).
 2. Cross-skill pattern observations queued for the batch journal closing summary at [specs/20260518-cp2-batch-audit/journal.md](../20260518-cp2-batch-audit/journal.md) (entry appended this session, summary written after all five complete).
 3. After amendments commit, the spec-design retroactive-spec adoption is **closed for this session's CP-2 routing**. The next per-spec CP-2 (N=3) is `spec-write` per the batch audit's authoring-order default.
+
+## 2026-05-18 — Amendment 2026-05-18-1
+
+**Section amended:** [.agents/skills/spec-design/SKILL.md](../../.agents/skills/spec-design/SKILL.md) — frontmatter `lastUpdated`, Phase 3 → Section content block (new "Status banner" entry prepended before §1 Overview).
+**Trigger:** CP-2 drift audit finding D-1: spec §5.8 commits the Status banner lifecycle `Draft — Open for Review` → `Approved` → `Superseded`; SKILL.md template initialized the value but did not declare the lifecycle. Operator selected routing option (b) — amend SKILL.md.
+**Reason:** The Status banner lifecycle is a real commitment in architecture.md §5.8 that SKILL.md did not surface. Adding a "Status banner" Section content entry aligns the shipping skill with the spec's contract.
+**Impact summary:** No tasks (design spec). CP-2 D-1 closed. No completed work invalidated. No cross-reference follow-up needed (architecture.md §5.8 and §6 NFR Format fidelity row cite SKILL.md by section name, not line number).
+**Approver:** Eric Wasgatt
+**Approved on:** 2026-05-18
+**Status implication:** SKILL.md has no Status banner; frontmatter `lastUpdated` advanced from 2026-05-15 to 2026-05-18.
+**Commit:** e93057b
+
+### Full record
+
+#### Amendment 2026-05-18-1 — SKILL.md declares Status banner lifecycle
+
+**Trigger.** CP-2 drift audit (2026-05-18, this journal) finding D-1: architecture.md §5.8 commits "The Status banner uses the lifecycle `Draft — Open for Review` → `Approved` → `Superseded`." SKILL.md template (line 86) only initializes Status to `Draft — Open for Review`; lifecycle states beyond initial value are not declared. Operator selected routing (b) — amend SKILL.md.
+
+**Section.** Two coordinated edits in the same SKILL.md file:
+- Frontmatter `lastUpdated` field — advanced.
+- Phase 3 → Section content block — prepended a new "Status banner" entry before the §1 Overview entry.
+
+**Change.**
+
+*Frontmatter*
+
+Before:
+> lastUpdated: 2026-05-15
+
+After:
+> lastUpdated: 2026-05-18
+
+*Section content — insert new entry before §1 Overview*
+
+Before:
+> ### Section content
+>
+> **§1 Overview.** Two paragraphs. What this is, who it is for, what architectural commitment it makes. No marketing language.
+
+After:
+> ### Section content
+>
+> **Status banner.** Lifecycle: `Draft — Open for Review` → `Approved` → `Superseded`. Initial value `Draft — Open for Review`; advance to `Approved` after the spec's CP-1 (or equivalent approval gate) closes; advance to `Superseded` when a new spec replaces this one.
+>
+> **§1 Overview.** Two paragraphs. What this is, who it is for, what architectural commitment it makes. No marketing language.
+
+**Reason.** SKILL.md template initialized Status to `Draft — Open for Review` but did not declare the lifecycle states beyond initial value (`Approved`, `Superseded`). architecture.md §5.8 already commits the lifecycle; CP-2 routing (b) lands the declaration in SKILL.md so spec and shipping skill agree. Parallels N=1 amendment 2026-05-18-1 in project-constitution (SKILL.md catches up to spec via Phase-2 bullet elevation); structural pattern is the same — SKILL.md adopts a commitment already present in the spec.
+
+**Impact.**
+- Affected tasks: none.
+- Affected checkpoints: CP-2 D-1 closed.
+- Completed work invalidated: none.
+- Cross-references requiring follow-up: architecture.md §5.8 cites SKILL.md PHASE 3 — SPEC DOCUMENT by section name; remains valid. §6 NFR Format fidelity row cites the same section name; remains valid. No follow-up edits required.
+
+**Status implication.** SKILL.md has no Status banner. Frontmatter `lastUpdated` advanced from 2026-05-15 to 2026-05-18.
+
+**Approver.** Eric Wasgatt — approved 2026-05-18.
