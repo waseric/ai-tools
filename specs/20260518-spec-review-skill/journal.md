@@ -284,7 +284,7 @@ This amendment is the **second consecutive citation-error amendment in the retro
 **Approver:** Eric Wasgatt
 **Approved on:** 2026-05-18
 **Status implication:** kept (Draft — Open for Review post-CP-1); §9 Status line "pass with comments on 2026-05-18 by Claude (AI assistant) on behalf of Eric Wasgatt — one [important] citation error in §5.10 (Voice-discipline lineage cites nonexistent N=3 §5.X) proposed for amendment via `/spec-amend`; see [journal](./journal.md) entry of same date. Verdict commit: `e8193a8`." remains as the contemporary record; this amendment is appended below per the N=5 amendment 2026-05-18-2 convention (do not mutate historical verdict text; append new amendment as a separate durable artifact).
-**Commit:** `7a33abe` (architecture edit); journal-entry commit SHA backfilled below
+**Commit:** `7a33abe` (architecture edit); `c01488a` (journal entries)
 
 ### Full record
 

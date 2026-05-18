@@ -205,7 +205,7 @@ No `[blocker]` open questions; the spec is ready for CP-1.
 **Approver:** Eric Wasgatt
 **Approved on:** 2026-05-18
 **Status implication:** kept for both specs (Draft — Open for Review post-CP-1)
-**Commit:** `7a33abe` (architecture edits); journal-entry commit SHA backfilled below
+**Commit:** `7a33abe` (architecture edits); `c01488a` (journal entries)
 
 ### Full record
 
