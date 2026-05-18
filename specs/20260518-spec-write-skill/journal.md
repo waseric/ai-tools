@@ -276,3 +276,45 @@ The two advisory findings are non-blocking. They may be folded into a future ame
 1. Operator invokes `/spec-amend` for each of the five amendments. Amendments may be bundled or sequential per operator preference; natural bundles: (a) D-1 + D-3 + D-4 all touch architecture.md (one paired bundle or three surgical commits), (b) D-2 + D-5 both touch SKILL.md (potential bundle).
 2. Cross-skill pattern observations queued for the [batch journal closing summary](../20260518-cp2-batch-audit/journal.md); the N=3 per-spec entry is appended to the batch journal in the same shape as N=2's entry.
 3. After amendments commit, the spec-write retroactive-spec adoption is **closed for this session's CP-2 routing**. The next per-spec CP-2 (N=4) is `spec-execute` per the batch audit's authoring-order default.
+
+## 2026-05-18 — Amendment 2026-05-18-1
+
+**Section amended:** [architecture.md §6 Non-functional Requirements](./architecture.md#L239)
+**Trigger:** CP-2 D-1 — SKILL.md OP-7 "No bloat" + WND-3 no-new-dependency rule have no §5/§6 carrier.
+**Reason:** Adds explicit Dependency hygiene NFR row so the §6 catalog is faithful to SKILL.md's binding commitments.
+**Impact summary:** No tasks affected (retroactive design spec); CP-2 closing entry references this amendment; no completed work invalidated.
+**Approver:** Eric Wasgatt
+**Approved on:** 2026-05-18
+**Status implication:** kept (`pass with comments` on CP-2 holds; missing-NFR-carrier fill, same shape as N=1 D-4 and N=2 D-4 precedents).
+**Commit:** 2c416fc
+
+### Full record
+
+## Amendment 2026-05-18-1 — specs/20260518-spec-write-skill/architecture.md §6
+
+**Trigger.** During the N=3 CP-2 drift audit of `spec-write` (2026-05-18, Claude as agent reviewer), a line-by-line walk of [SKILL.md OPERATING PRINCIPLES OP-7 (line 52)](../../.agents/skills/spec-write/SKILL.md#L52) and [SKILL.md WHAT NOT TO DO WND-3 (line 197)](../../.agents/skills/spec-write/SKILL.md#L197) against the spec's §5 and §6 showed both commitments — the no-bloat principle and the no-new-dependency-without-Alternatives-Considered prohibition — name the same rule, yet the spec has no §5 subsection and no §6 NFR row carrying it. Same finding class as N=1 D-4 (README-reconciliation NFR) and N=2 D-4 (Inline-citation preference NFR): a WHAT NOT TO DO commitment without an explicit §5 / §6 carrier.
+
+**Section.** [specs/20260518-spec-write-skill/architecture.md §6 Non-functional Requirements](./architecture.md#L239), table rows after the Multi-repo awareness row (line 254). The table grows from twelve rows to thirteen.
+
+**Change.**
+
+Before:
+> | **Multi-repo awareness** | If the spec lives in a different repo than the codebase it describes, §3 Background notes this and the spec includes `SPEC_REPO_ROOT` / `SPEC_TARGET_BRANCH` for downstream `spec-execute` sessions. | [SKILL.md OUTPUT FORMAT](../../.agents/skills/spec-write/SKILL.md) |
+>
+> (end of table)
+
+After:
+> | **Multi-repo awareness** | If the spec lives in a different repo than the codebase it describes, §3 Background notes this and the spec includes `SPEC_REPO_ROOT` / `SPEC_TARGET_BRANCH` for downstream `spec-execute` sessions. | [SKILL.md OUTPUT FORMAT](../../.agents/skills/spec-write/SKILL.md) |
+> | **Dependency hygiene** | Specs do not introduce new frameworks, ORMs, or major dependencies without an explicit "Alternatives considered" subsection justifying the addition. Default is to match existing codebase conventions; deviation requires written rationale. | [SKILL.md OPERATING PRINCIPLES §7 + WHAT NOT TO DO](../../.agents/skills/spec-write/SKILL.md) |
+
+**Reason.** SKILL.md commits OP-7 ("No bloat") and WND-3 (the no-new-dependency-without-Alternatives-Considered prohibition) — both binding rules on every feature spec the skill produces. The shipping behavior is correct; the spec's §6 catalog is incomplete. Without an explicit NFR row, CP-2 future audits will keep re-discovering the same gap, and downstream `spec-review` runs of feature specs the skill produces have no §6-anchor for verifying the rule was applied. Adding the row makes the spec's §6 catalog faithful to SKILL.md's binding commitments.
+
+**Impact.**
+- **Affected tasks:** none (spec-write-skill is a retroactive design spec with no §7 Task Breakdown — see [§7 Implementation Sequencing](./architecture.md#L256)).
+- **Affected checkpoints:** [CP-2](./architecture.md#L302) — closing entry of CP-2 references this amendment.
+- **Completed work invalidated:** none.
+- **Cross-references requiring follow-up:** none (the new row is self-contained; §5 makes no claim about a dependency-hygiene subsection that would need updating).
+
+**Status implication.** Spec remains at `pass with comments` for CP-2. The amendment is a missing-NFR-carrier fill; identical in shape to N=1 D-4 and N=2 D-4 NFR additions, both of which were ratified without spec-status regression. No revert to Draft.
+
+**Approver.** Eric Wasgatt — approved 2026-05-18.
