@@ -177,3 +177,44 @@ Three steps, in order:
 3. **Session 3 — `spec-execute` retroactive spec.** N=4 in retroactive-spec sequence; **N=3 robustness check** per [strategy doc ordering](../../docs/retroactive-spec-strategy.md) — most divergent shape (iterative, multi-task, branch-state-aware, paired-commit-aware vs. single-shot authoring). The four "Pattern for N=4" callouts above are inputs.
 
 No `[blocker]` open questions; the spec is ready for CP-1.
+
+## 2026-05-18 — Review of CP-1
+
+**Reviewer:** Claude (AI assistant) on behalf of Eric Wasgatt
+**Outcome:** pass with comments
+**Diff range:** `a753259` (paired commit introducing [architecture.md](./architecture.md) and this journal)
+**Tasks reviewed:** none (retroactive design spec — no atomic tasks)
+**Blockers:** 0
+**Important:** 0
+**Advisory:** 2 — (a) [§5.7](./architecture.md) commits "§14 References distinguishes Authoritative (binding) from Inspirational (prior art)" but [spec-write SKILL.md PHASE 3 §14](../../.agents/skills/spec-write/SKILL.md) does not require the split; useful formalization imported from `spec-design`, not a contradiction. Mirrors [N=2 advisory (a)](../20260518-spec-design-skill/journal.md). (b) [§3 Background](./architecture.md) and [§8 Validation Approach](./architecture.md) lean on chains of references to N=1 / N=2 journal callouts; coherent for the named audience, dense for an outside adopter. Carry-forward of [N=2 advisory (d)](../20260518-spec-design-skill/journal.md).
+**Spec amendments proposed:** none
+
+### Review focus walk — itemized outcomes
+
+1. Every commitment in §4/§5/§6 corresponds to behavior present in SKILL.md — **pass with comments** (one advisory on §5.7's authoritative/inspirational claim).
+2. No commitment contradicts the shipping SKILL.md — **pass**.
+3. ASPP correctly characterized as binding (§3, §6) including absent-input behavior (§5.4) — **pass**. Citation to [tech-stack.md §21-33](../tech-stack.md#L21-L33) is on the heading line; N=2 off-by-one carry-forward fully resolved.
+4. Predecessor doc distinguished as authoritative-for-design-rationale-not-current-behavior (§3, §14) — **pass**. The three evolution-explaining commits (`49c15f0`, `e483466`, `6d158fb`) all verified to have touched [.agents/skills/spec-write/SKILL.md](../../.agents/skills/spec-write/SKILL.md).
+5. §13 "none surfaced" is honest reporting backed by triage table — **pass**. First exercise of N=3 candidate Pattern-for-N=4 #1; recommend carrying forward to sessions 3 and 4.
+6. Self-contained per Operating Principles — **pass with comments** (advisory on recursive-session framing density for outside readers; carry-forward from N=2).
+7. Section-heading citation discipline — **pass**. All four §3 citations to tech-stack.md (`§21-33`, `§44`, `§48`, `§51`) point to the heading/section-start line.
+
+### Exit criteria status
+
+- Reviewer verdict issued in structured Phase 7 format: **met**.
+- All blocker findings resolved or escalated to `/spec-amend`: **met** (zero blockers).
+- Verdict written back to spec §9 status line and journal: **met** (this entry; spec [§9 CP-1 Status](./architecture.md#cp-1--retroactive-spec-faithfully-describes-the-shipping-skill) updated in same change).
+
+### Pattern observation at N=3 CP-1
+
+[N=2's Pattern-for-N=3 callout on CP-1 reviews](../20260518-spec-design-skill/journal.md) said retroactive-spec CP-1 reviews are primarily verification of citations and traceability, with the natural failure mode being broken or wrong references. **Validated again at N=3.** The CP-1 walk surfaced zero concrete-evidence findings; the two advisories are interpretive (over-commitment that imports a sibling-spec convention; density of recursive-session framing). Pattern stable across N=1, N=2, N=3: keep citation-walking as the primary discipline.
+
+### Pattern observation: Pattern-for-N=4 #1 first-exercise
+
+Pattern-for-N=4 #1 from the [N=3 journal](./journal.md) (*"None surfaced" §13 reporting with triage table*) was the load-bearing N=3 addition under review. CP-1 verified it passes the honesty check: §13's "none surfaced" claim is backed by an explicit triage row per candidate. **Carry-forward to N=4 confirmed at review time, not just at authoring time** — the pattern is now corroborated by two data points (authored at N=3, reviewed-as-honest at N=3 CP-1). N=4 and N=5 sessions may invoke this pattern with reduced friction.
+
+### Next action
+
+[§11 Adoption Path step 2](./architecture.md) is now closed. Step 3 (batched CP-2 drift audit) remains pending its declared trigger: three remaining quintet CP-1s pass + project-constitution CP-2 disposition. Per [docs/retroactive-spec-strategy.md](../../docs/retroactive-spec-strategy.md) session ordering, the next session is session 3 — `spec-execute` retroactive spec (N=4 in retroactive-spec sequence; the robustness check on the most-divergent skill shape).
+
+The two advisory findings are non-blocking. They may be folded into a future amendment if other §3 or §5.7 edits are queued; otherwise they are simply recorded here.
