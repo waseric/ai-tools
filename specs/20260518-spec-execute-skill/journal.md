@@ -256,3 +256,56 @@ The amendment is the first instance of an amendment to a retroactive design spec
 ### Refined Pattern-for-N=5 #1 — concrete shape now visible
 
 The CP-1 verdict refined Pattern-for-N=5 #1 (audit every §5 subsection's sibling-design-spec citation at authoring time). The amendment makes the audit's *output shape* concrete: when a sibling-design-spec source applies to a retro §5 subsection, the retro spec must declare whether the citation is **§5-enumerated** (the sibling spec has a §5 subsection committing to the behavior) or **narrative-sourced** (the sibling spec acknowledges the behavior in §1 / §3 / similar but does not enumerate it). The two-shapes framing in retro §8 / §9 carries forward to sessions 4–5 verbatim if they encounter the same session-economy spec attribution pattern.
+
+## 2026-05-18 — Re-review of CP-1 (post-amendment)
+
+**Reviewer:** Claude (AI assistant) on behalf of Eric Wasgatt
+**Outcome:** pass with comments
+**Verdict commit:** TBD (backfilled after commit per [N=2/N=3 verdict-commit-SHA pattern](../20260518-spec-write-skill/journal.md))
+**Diff range:** `7fee46f` (amendment edits to [architecture.md](./architecture.md) §5.4, §5.6, §6, §8, §9) + `94f5658` (this journal's amendment entry) layered on `b8536aa` (original paired commit)
+**Tasks reviewed:** none (retroactive design spec — no atomic tasks)
+**Blockers:** 0 — the four blocker findings from the [original CP-1 verdict](./journal.md) (citation pattern at four sites) were escalated to [amendment 2026-05-18-1](./journal.md) (commit `7fee46f`), which corrected six sites total. Verified against [session-economy/architecture.md §5](../20260514-session-economy/architecture.md): only §5.1 (Phase 8 token economy) and §5.2 (Phase 1 multi-repo detection) architecturally commit to `spec-execute` behavior; §5.3 / §5.4 / §5.5 commit to sibling skills; no §5 subsection enumerates Phase 4/6 paired-commit strengthening. The amendment's two-attribution-shapes framing is consistent with this structure.
+**Important:** 0
+**Advisory:** 3 (all carried forward unchanged from the original CP-1 verdict; none introduced or resolved by the amendment, which was scoped to blockers only).
+**Spec amendments proposed:** none — the citation-pattern amendment (2026-05-18-1) is already applied; this re-review confirms it is correct.
+
+### Review focus walk — itemized outcomes (re-review)
+
+1. Every commitment in §4/§5/§6 corresponds to behavior in SKILL.md — **pass with comments** (advisory (a) carried forward).
+2. No commitment contradicts the shipping SKILL.md — **pass**. Amendment was citation-only; behavioral descriptions unchanged.
+3. ASPP correctly characterized as binding — **pass** (unchanged from prior verdict).
+4. Predecessor doc distinguished as authoritative-for-rationale-not-current-behavior — **pass** (unchanged).
+5. Session-economy spec distinguished as sibling-authoritative; two attribution shapes hold — **pass**. Shape (i) §5-enumerated: retro [§5.1](./architecture.md) → session-economy [§5.2](../20260514-session-economy/architecture.md) ✓; retro [§5.8](./architecture.md) → session-economy [§5.1](../20260514-session-economy/architecture.md) ✓. Shape (ii) narrative-sourced: session-economy [§1 line 10](../20260514-session-economy/architecture.md) + [§3 lines 37–39](../20260514-session-economy/architecture.md) establish pre-existence and strengthening-intent; commit `e483466` is the implementation event. The CP-1 review focus bullet at [§9](./architecture.md) now declares its own check correctly — the spec's own check no longer fails on itself.
+6. Eight phases + Amendment Protocol match SKILL.md — **pass** (folded into #1).
+7. §13 OQ-1 and OQ-2 named with full structure — **pass** (unchanged).
+8. Self-contained — **pass with comments** (advisory (c) carried forward).
+9. Section-heading citation discipline — **pass** (unchanged).
+10. Portability rule for links honored — **pass** (unchanged).
+
+### Advisory carry-forward
+
+- (a) [§5.6](./architecture.md) Behavior opens "Four updates fire" then lists five numbered items. Not addressed by the amendment (which was blocker-scoped); trivially correctable in a future amendment or accepted as inconsequential.
+- (b) [§5.10](./architecture.md) and [§5.11](./architecture.md) describe disciplines applied to this spec's own prose rather than commitments of the shipping SKILL.md. Carried forward; mirrors [N=2 advisory (a)](../20260518-spec-design-skill/journal.md) and [N=3 advisory (a)](../20260518-spec-write-skill/journal.md).
+- (c) [§3 Background](./architecture.md) and [§8 Validation Approach](./architecture.md) cross-reference density. Carried forward from [N=2 advisory (d)](../20260518-spec-design-skill/journal.md) / [N=3 advisory (b)](../20260518-spec-write-skill/journal.md).
+
+### Exit criteria status
+
+- Reviewer verdict in structured format: **met** (this entry).
+- All blocker findings resolved or escalated to /spec-amend: **met** (amendment 2026-05-18-1, commit `7fee46f`).
+- Verdict written back to spec §9 status line and journal: **met** ([§9 CP-1 Status](./architecture.md) updated in same change; this entry).
+
+### Pattern observation at N=4 re-review
+
+This is the first /spec-review → /spec-amend → /spec-review (re-review) cycle in the retroactive-spec sequence — N=1 / N=2 / N=3 all reached "pass with comments" on first review with no amendment. The cycle works as documented: the re-review verifies the amendment's scope (six sites touched, all correctly attributed) and confirms the amendment's two-shapes framing now stands up to the CP-1 review focus bullet that originally fell through. **Pattern for N=5:** the re-review cycle is a viable path for any future CP-1 "changes requested" verdict whose blockers collapse to a single citation pattern fixable by /spec-amend without disturbing behavioral descriptions. The amendment-then-re-review pattern adds one commit pair (amendment + journal) and one verdict; the cost is bounded and the trail is fully visible.
+
+### Pattern observation: the refined Pattern-for-N=5 #1 audit shape held
+
+The [refined Pattern-for-N=5 #1](./journal.md) (audit every §5 subsection's sibling-design-spec citation at authoring time, with §5-enumerated vs narrative-sourced as the two output shapes) was tested by this re-review and held — the amendment's six-site framing is internally consistent, externally verified against session-economy §5, and symmetrical across §5.4 / §5.6 / §6 NFR / §8 / §9 CP-1 / §9 CP-2. Sessions 4 and 5 inherit this audit shape if they encounter the same session-economy spec attribution pattern (`spec-review` will; `spec-amend` will).
+
+### Status implication
+
+Spec advances out of "changes requested" into "pass with comments" — CP-1 is now **closed**. The spec's [§1 banner](./architecture.md) still reads `Draft — Open for Review`; per N=1 / N=2 / N=3 precedent, the Draft banner remains until CP-2 (drift audit, batched) runs. CP-2's trigger ([§9](./architecture.md)) now narrows further: the remaining condition is "two sibling quintet CP-1s (`spec-review`, `spec-amend`) + project-constitution CP-2" — `spec-execute`'s CP-1 has joined N=2 and N=3 as a passed predecessor.
+
+### Next action
+
+Per the [strategy-doc session-4 ordering](../../docs/retroactive-spec-strategy.md) and the [next-action pointer in the authoring journal entry](./journal.md), the next session is the `spec-review` retroactive spec (session 4 of the legacy quintet; N=5 in the retroactive-spec sequence). Pre-confirmed predecessor: [docs/spec-driven-development-prompts-conversation.md](../../docs/spec-driven-development-prompts-conversation.md) lines 446+. Pre-confirmed sibling design spec: [session-economy §5.4](../20260514-session-economy/architecture.md). The five "Pattern for N=5" callouts (in the authoring entry above) plus the refined Pattern-for-N=5 #1 (audit shape concretized in amendment 2026-05-18-1) and the new re-review-cycle observation above are the N=5 inputs.
