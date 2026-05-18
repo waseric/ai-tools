@@ -357,7 +357,7 @@ There is no Phase B "build the skill" — the skill is already built. There is n
 
 ### CP-1 — Retroactive spec faithfully describes the shipping skill
 
-**Status:** draft — awaiting review.
+**Status:** changes requested on 2026-05-18 by Claude (AI assistant) on behalf of Eric Wasgatt — see [journal entry](./journal.md). Open pending /spec-amend on the four blocker findings.
 
 **Trigger.** This spec and its journal are committed; the operator invokes `/spec-review` against this spec's CP-1 in a fresh session.
 
