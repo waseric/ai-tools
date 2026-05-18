@@ -438,7 +438,7 @@ WHAT NOT TO DO templates bullet refined: "byte-for-byte at every position not oc
 **Approver:** waseric
 **Approved on:** 2026-05-17
 **Status implication:** kept at `Complete`. The amendment reverses no design decision, re-opens no §7 task. Explicit operator confirmation captured during the amendment session.
-**Commit:** `<pending — backfill in follow-up commit per repo convention>`
+**Commit:** `651fbd8`
 
 ### Full record
 
