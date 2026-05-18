@@ -152,3 +152,35 @@ Three steps, in order:
 3. **Session 2 — `spec-write` retroactive spec.** The N=2 inflection point governs the `docs/retroactive-spec-pattern.md` decision; this journal's "Pattern for N=3" callouts are inputs to that decision.
 
 No `[blocker]` open questions; the spec is ready for CP-1.
+
+## 2026-05-18 — Review of CP-1
+
+**Reviewer:** Claude (agent reviewer)
+**Outcome:** pass with comments
+**Diff range:** commit `989fdf3` (specs/20260518-spec-design-skill/{architecture.md, journal.md})
+**Tasks reviewed:** none — retroactive design spec; CP-1 reviews spec-vs-SKILL.md faithfulness
+**Blockers:** 0
+**Important:** 0
+**Advisory:** 4 — (a) §5.5 introduces light/heavy verification labels not used in SKILL.md itself (accurate description, useful formalization). (b) §5.3 + §4 use framing ("ASPP justifies the inline template", "the pause is load-bearing") that goes slightly beyond SKILL.md's own emphasis — interpretation, not contradiction. (c) §3 citation reads `tech-stack.md §21-33` but the section heading is at line 20; minor off-by-one. (d) §3 Background's recursive-session framing is self-contained for methodology-literate readers but slightly opaque for an outside reader.
+
+**Spec amendments proposed:** none. The four advisories are not material to faithfulness; candidates for folding into a future amendment if/when other §3 or §5 edits are queued, but no Amendment Protocol invocation required by this verdict.
+
+**Findings against CP-1 review focus (all seven items):**
+1. Every commitment in §4/§5/§6 corresponds to behavior present in SKILL.md — **pass** (one advisory on the light/heavy labels formalization).
+2. No commitment contradicts the shipping SKILL.md — **pass** (one advisory on spec-side interpretive framing).
+3. ASPP correctly characterized as binding (§3, §6) consistent with tech-stack.md §21-33 — **pass** (one advisory on off-by-one citation start).
+4. Format-question-prompt gap named at first-class detail without silent resolution — **pass** (OQ-1 has Question, Analysis with 4-option table, explicit no-leaning, Owner, Watch items, Anti-goals).
+5. Recommendations doc bounded as authoritative-for-design-rationale not authoritative-for-behavior — **pass** (§3 makes the distinction explicit; §14 places it under Inspirational with annotation).
+6. Self-contained per Operating Principles — **pass** (one advisory on recursive-session framing clarity for outside readers).
+7. Portability rule honored — **pass** (no `~/.claude/skills/...` references; the two `.claude/skills` matches are meta-references to the N=1 amendment and to the review-focus criterion itself).
+
+**Exit criteria status:**
+- Structured verdict issued — met.
+- Zero blockers — met.
+- Verdict written back to §9 status line + journal — met (this entry).
+
+**Pattern observed at N=2 CP-1.** N=1's "Pattern for N=2" callout said retroactive-spec CP-1 reviews are mostly verification of *citations and traceability*, not behavioral judgment, with the natural failure mode being broken or wrong references. **Validated at N=2.** The CP-1 walk surfaced one off-by-one citation start (§3 → tech-stack.md §21-33 should be §20-33) as the only concrete-evidence finding; everything else was interpretive framing. N=3+ retroactive-spec CP-1 reviews should keep citation-walking as the primary discipline.
+
+**Pattern for N=3.** Off-by-one section-heading citations (`§N-M` where N should be the heading line, not the body's first line) recurred at N=2 — minor but worth flagging. Future spec authors: cite the heading line as the section start.
+
+**Next action:** Adoption Path step 2 closed. §11 step 3 — CP-2 (batched drift audit) — remains pending its declared trigger: all five quintet CP-1s plus project-constitution CP-2. The next session is session 2 of the legacy quintet — `spec-write` retroactive spec — per [docs/retroactive-spec-strategy.md](../../docs/retroactive-spec-strategy.md). The four advisory findings above are non-blocking and may be folded into a future amendment if other §3 or §5 edits are queued.

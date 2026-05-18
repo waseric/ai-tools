@@ -296,7 +296,7 @@ There is no Phase B "build the skill" — the skill is already built. There is n
 
 ### CP-1 — Retroactive spec faithfully describes the shipping skill
 
-**Status:** pending — to be triggered in a separate session per the sequenced authorship-vs-review pattern (N=1 precedent).
+**Status:** pass with comments on 2026-05-18 by Claude (agent reviewer). 0 blockers, 0 important, 4 advisory. See [journal.md "Review of CP-1"](./journal.md) for findings and recommendation. Checkpoint closed.
 
 **Trigger.** This spec and its journal are committed; the operator invokes `/spec-review` against this spec's CP-1 in a fresh session.
 
