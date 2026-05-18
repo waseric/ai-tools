@@ -12,7 +12,7 @@ A design spec commits to a shape, vocabulary, and adoption path. A feature spec 
 
 ## How this skill works
 
-When invoked, you act as the agent. Gather the INPUTS below from the user — many can be inferred from the working directory and recent conversation; ask explicitly only for what is missing or ambiguous. Then run Phase 1 (Discovery), pause at Phase 2 for user input on assumptions and open questions, and produce the Phase 3 spec document. The spec is the contract — iterate on it before any implementation begins.
+When invoked, you act as the agent. Gather the INPUTS below from the user — many can be inferred from the working directory and recent conversation; ask explicitly only for what is missing or ambiguous. Then run Phase 1 (Discovery), pause at Phase 2 for user input on assumptions, open questions, and decisions proposed unilaterally, and produce the Phase 3 spec document. The spec is the contract — iterate on it before any implementation begins.
 
 ## INPUTS
 
