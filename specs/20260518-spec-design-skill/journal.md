@@ -350,3 +350,45 @@ After:
 **Status implication.** SKILL.md has no Status banner; frontmatter `lastUpdated` already at 2026-05-18 from amendment 2026-05-18-1 (same-day); no additional advance. architecture.md spec status remains `Draft — Open for Review` — surgical addition, no commitment in §3, §4, §5, §10, §11, §12 changed.
 
 **Approver.** Eric Wasgatt — approved 2026-05-18 with Phrasing X selected.
+
+## 2026-05-18 — Amendment 2026-05-18-3
+
+**Section amended:** [architecture.md §6 Non-functional Requirements table](./architecture.md#L256-L268) — new "Markdown hygiene" row inserted between "Format fidelity" and "Pairing".
+**Trigger:** CP-2 drift audit finding D-3: SKILL.md OUTPUT FORMAT line 183 commits "All code blocks specify a language." Spec §6 NFR table and §5.8 Section template did not surface this. Operator selected routing option (a) — amend spec.
+**Reason:** SKILL.md OUTPUT FORMAT carries the rule as a behavioral commitment; spec §6 did not reflect it. New row preserves Format fidelity's scope (template structure) while giving output-rendering hygiene a natural home.
+**Impact summary:** No tasks (design spec). CP-2 D-3 closed. No completed work invalidated. No cross-reference follow-up needed.
+**Approver:** Eric Wasgatt
+**Approved on:** 2026-05-18
+**Status implication:** kept (`Draft — Open for Review`)
+**Commit:** 4b0b9c8
+
+### Full record
+
+#### Amendment 2026-05-18-3 — architecture.md §6 adds Markdown hygiene NFR
+
+**Trigger.** CP-2 drift audit (2026-05-18, this journal) finding D-3: SKILL.md OUTPUT FORMAT line 183 commits "All code blocks specify a language." Spec §6 NFR table and §5.8 Section template did not surface this commitment. Operator selected routing (a) — amend spec.
+
+**Section.** architecture.md §6 NFR table — insert one new row after the existing "Format fidelity" row.
+
+**Change.**
+
+Before (table includes Format fidelity, followed by Pairing):
+> | **Format fidelity** | Output conforms to the 14-section template with exact headings and declared order. §7/§8/§11 use design-spec form, not feature-spec form. | [SKILL.md PHASE 3 — SPEC DOCUMENT](../../.agents/skills/spec-design/SKILL.md) |
+> | **Pairing** | Every design spec is accompanied by a journal at the same directory. The pair is the output; architecture.md alone is incomplete. | [SKILL.md OUTPUT FORMAT](../../.agents/skills/spec-design/SKILL.md) |
+
+After (new Markdown hygiene row inserted between Format fidelity and Pairing):
+> | **Format fidelity** | Output conforms to the 14-section template with exact headings and declared order. §7/§8/§11 use design-spec form, not feature-spec form. | [SKILL.md PHASE 3 — SPEC DOCUMENT](../../.agents/skills/spec-design/SKILL.md) |
+> | **Markdown hygiene** | All code blocks specify a language. Tables and lists conform to GitHub-flavored markdown rendering conventions. | [SKILL.md OUTPUT FORMAT](../../.agents/skills/spec-design/SKILL.md) |
+> | **Pairing** | Every design spec is accompanied by a journal at the same directory. The pair is the output; architecture.md alone is incomplete. | [SKILL.md OUTPUT FORMAT](../../.agents/skills/spec-design/SKILL.md) |
+
+**Reason.** SKILL.md OUTPUT FORMAT carries "All code blocks specify a language" as a behavioral commitment; spec §6 did not reflect it. New "Markdown hygiene" NFR row preserves Format fidelity's clean scope (template structure) while giving output-rendering hygiene a natural home. Parallels project-constitution N=1 amendment 2026-05-18-3 (README-reconciliation NFR row — same shape, different finding).
+
+**Impact.**
+- Affected tasks: none.
+- Affected checkpoints: CP-2 D-3 closed.
+- Completed work invalidated: none.
+- Cross-references requiring follow-up: none.
+
+**Status implication.** Kept (`Draft — Open for Review`). Surgical addition to NFR table.
+
+**Approver.** Eric Wasgatt — approved 2026-05-18.
