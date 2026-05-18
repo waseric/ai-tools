@@ -296,3 +296,57 @@ After:
 **Status implication.** SKILL.md has no Status banner. Frontmatter `lastUpdated` advanced from 2026-05-15 to 2026-05-18.
 
 **Approver.** Eric Wasgatt — approved 2026-05-18.
+
+## 2026-05-18 — Amendment 2026-05-18-2
+
+**Section amended:** [.agents/skills/spec-design/SKILL.md](../../.agents/skills/spec-design/SKILL.md) — Phase 2 bullet list (new `Format confirmation` bullet); [specs/20260518-spec-design-skill/architecture.md](./architecture.md) §13 OQ-1 Question text (one-sentence update).
+**Trigger:** CP-2 drift audit finding D-2: "format" appears in SKILL.md preamble line 15 but is not enumerated in Phase 2 bullets. §13 OQ-1 claimed the prompt was "undocumented in SKILL.md" — partially imprecise. Operator selected routing option (b) — amend SKILL.md — and Phrasing X (route-elsewhere flavor, least commitment to OQ-1 content options).
+**Reason:** Closes the internal SKILL.md inconsistency by enumerating Format confirmation as a Phase 2 bullet. Phrasing X commits to *where* the format question lives (Phase 2) but stays neutral on *what* the prompt asks beyond a route-elsewhere convention, preserving OQ-1's four-option content question.
+**Impact summary:** No tasks (design spec). CP-2 D-2 closed; §13 OQ-1 "strict claim" partially closed; OQ-1 four-option content question remains open. No completed work invalidated. OQ-1 Question text updated in same amendment per cross-reference follow-up rule.
+**Approver:** Eric Wasgatt
+**Approved on:** 2026-05-18
+**Status implication:** SKILL.md has no Status banner; frontmatter `lastUpdated` already at 2026-05-18 from amendment 2026-05-18-1 (same-day); no additional advance. architecture.md spec status remains `Draft — Open for Review`.
+**Commit:** 018df38
+
+### Full record
+
+#### Amendment 2026-05-18-2 — SKILL.md Phase 2 enumerates Format confirmation + architecture.md §13 OQ-1 Question update
+
+**Trigger.** CP-2 drift audit (2026-05-18, this journal) finding D-2: SKILL.md preamble line 15 ("pause at Phase 2 for user input on naming, audience, **format**, and verification commitment") commits to Phase 2 asking about format, but Phase 2 itself (lines 68-76) does not enumerate it. architecture.md §13 OQ-1 Question text said "This recommendation did **not** land in the shipping SKILL.md" — imprecise (preamble does mention format). Operator selected routing option (b) — amend SKILL.md Phase 2 to enumerate format. Phrasing X chosen from three alternatives (route-elsewhere; minimal; predecessor-faithful) for least commitment to OQ-1's four-option content question.
+
+**Section.** Two coordinated edits across two files:
+- SKILL.md Phase 2 bullet list (lines 68-76) — insert new `Format confirmation` bullet between `Audience confirmation` and `Verification commitment`, matching the preamble's slot order at line 15.
+- architecture.md §13 OQ-1 Question text — update the "did not land in the shipping SKILL.md" sentence to reflect the structural-level landing, preserving the four-option content question as still open.
+
+**Change.**
+
+*SKILL.md Phase 2 bullet list — insert new bullet between Audience and Verification*
+
+Before:
+> - **Audience confirmation.** Confirm `TARGET_AUDIENCE`. Name the broadest member explicitly — that is who the spec is written for.
+> - **Verification commitment.** "What external claims will this spec make? Are you willing to take a verification pass against canonical sources before publishing? (Recommended: yes.)" Capture the answer; in Phase 3, this determines how aggressive the inline citation discipline is.
+
+After:
+> - **Audience confirmation.** Confirm `TARGET_AUDIENCE`. Name the broadest member explicitly — that is who the spec is written for.
+> - **Format confirmation.** Confirm the design-spec format (14-section template) fits the artifact being produced. If the artifact is implementation work (atomic tasks, tests, rollout), route to `/spec-write` instead. If the artifact is hybrid or non-conformant, surface to the operator before proceeding to Phase 3.
+> - **Verification commitment.** "What external claims will this spec make? Are you willing to take a verification pass against canonical sources before publishing? (Recommended: yes.)" Capture the answer; in Phase 3, this determines how aggressive the inline citation discipline is.
+
+*architecture.md §13 OQ-1 Question text — update one sentence*
+
+Before:
+> "This recommendation did **not** land in the shipping SKILL.md."
+
+After:
+> "This recommendation landed at the *structural* level via amendment 2026-05-18-2 (SKILL.md Phase 2 now enumerates a `Format confirmation` bullet that routes to `/spec-write` when the artifact is implementation work). The *content* of the prompt — specifically OQ-1 options (a)/(b)/(c)/(d) below — remains open."
+
+**Reason.** SKILL.md preamble line 15 promised Phase 2 would ask about format; the Phase 2 enumeration did not include it (an internal inconsistency). architecture.md §13 OQ-1 named the gap but slightly overstated it ("undocumented" — when in fact the preamble does mention format). The amendment closes both by enumerating Format confirmation as a Phase 2 bullet (Phrasing X — route-elsewhere flavor, picked over Phrasings Y (predecessor-faithful, which would commit to non-default shapes within spec-design) and Z (minimal)). Phrasing X commits to *where* the format question lives (Phase 2) but stays neutral on *what* the prompt should ask beyond the route-elsewhere convention, preserving OQ-1's four-option resolution as genuinely open. OQ-1 Question text is updated in the same amendment per the spec-amend cross-reference follow-up rule.
+
+**Impact.**
+- Affected tasks: none.
+- Affected checkpoints: CP-2 D-2 closed; §13 OQ-1 "strict claim" (undocumented in SKILL.md) closed; OQ-1 four-option content question remains open and routes through its existing watch-items machinery.
+- Completed work invalidated: none.
+- Cross-references requiring follow-up: OQ-1 Question text updated in this amendment. §13 OQ-1 Leaning section ("option (c) is the de facto status quo") becomes mildly stale post-amendment but is bounded by the phrase "at spec time" and accepted as historical record. OQ-1 Owner, Watch items, and Anti-goals remain valid.
+
+**Status implication.** SKILL.md has no Status banner; frontmatter `lastUpdated` already at 2026-05-18 from amendment 2026-05-18-1 (same-day); no additional advance. architecture.md spec status remains `Draft — Open for Review` — surgical addition, no commitment in §3, §4, §5, §10, §11, §12 changed.
+
+**Approver.** Eric Wasgatt — approved 2026-05-18 with Phrasing X selected.
