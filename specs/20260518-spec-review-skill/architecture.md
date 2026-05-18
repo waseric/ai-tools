@@ -301,7 +301,7 @@ After step 3, the spec moves out of `Draft — Open for Review` to its post-CP-2
 
 ### CP-1 — Retroactive spec faithfully describes the shipping skill
 
-**Status:** pass with comments on 2026-05-18 by Claude (AI assistant) on behalf of Eric Wasgatt — one [important] citation error in §5.10 (Voice-discipline lineage cites nonexistent N=3 §5.X) proposed for amendment via `/spec-amend`; see [journal](./journal.md) entry of same date. Verdict commit SHA to be backfilled.
+**Status:** pass with comments on 2026-05-18 by Claude (AI assistant) on behalf of Eric Wasgatt — one [important] citation error in §5.10 (Voice-discipline lineage cites nonexistent N=3 §5.X) proposed for amendment via `/spec-amend`; see [journal](./journal.md) entry of same date. Verdict commit: `e8193a8`.
 
 **Trigger.** This spec and its journal are committed; the operator invokes `/spec-review` against this spec's CP-1 in a fresh session.
 
