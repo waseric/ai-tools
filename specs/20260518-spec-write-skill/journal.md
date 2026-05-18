@@ -318,3 +318,46 @@ After:
 **Status implication.** Spec remains at `pass with comments` for CP-2. The amendment is a missing-NFR-carrier fill; identical in shape to N=1 D-4 and N=2 D-4 NFR additions, both of which were ratified without spec-status regression. No revert to Draft.
 
 **Approver.** Eric Wasgatt — approved 2026-05-18.
+
+## 2026-05-18 — Amendment 2026-05-18-2
+
+**Section amended:** [.agents/skills/spec-write/SKILL.md §14 References](../../.agents/skills/spec-write/SKILL.md#L180)
+**Trigger:** CP-2 D-2 — spec §4 + §5.7 commit Authoritative/Inspirational §14 split; SKILL.md §14 had single undifferentiated bucket.
+**Reason:** Brings SKILL.md into alignment with the spec; retires CP-1 advisory (a).
+**Impact summary:** No tasks affected; CP-2 closing entry references this amendment; existing feature specs not back-amended (rule applies forward).
+**Approver:** Eric Wasgatt
+**Approved on:** 2026-05-18
+**Status implication:** kept (`pass with comments` on CP-2 holds; SKILL.md edit not spec edit).
+**Commit:** 85907c1
+
+### Full record
+
+## Amendment 2026-05-18-2 — .agents/skills/spec-write/SKILL.md §14
+
+**Trigger.** During the N=3 CP-2 drift audit of `spec-write` (2026-05-18, Claude as agent reviewer), a walk of [architecture.md §5.7 Citation discipline (line 200)](./architecture.md#L200) and [§4 Vocabulary (line 87)](./architecture.md#L87) showed both commit to a §14 Authoritative/Inspirational split that SKILL.md's §14 description does not require. Same shape as the N=2 spec-design amendment 2026-05-18-1 (SKILL.md catches up to spec by adding a discipline the spec already commits to). Carry-forward from CP-1 advisory (a).
+
+**Section.** [.agents/skills/spec-write/SKILL.md §14 References (line 180)](../../.agents/skills/spec-write/SKILL.md#L180). Single-paragraph section; the change appends discipline to it.
+
+**Change.**
+
+Before:
+> ## 14. References
+>
+> Links to the patterns, RFCs, library docs, internal docs, and prior code that informed the design.
+
+After:
+> ## 14. References
+>
+> Links to the patterns, RFCs, library docs, internal docs, and prior code that informed the design. Distinguish **Authoritative** references (binding — the spec's commitments must match these) from **Inspirational** references (prior art that informed the design but does not bind it). Use two sub-headings — `### Authoritative` and `### Inspirational` — when both classes are present.
+
+**Reason.** Feature specs the skill produces should make the distinction visible: a reviewer reading §14 needs to know which references are binding contracts (e.g., RFC 7807 if the spec invokes it as a pattern) versus which are merely informative (e.g., "we looked at how library X does this"). Without the split, every §14 entry reads as equally weighted. The spec-write retroactive spec already commits to the discipline; this brings the shipping SKILL.md into alignment with the spec.
+
+**Impact.**
+- **Affected tasks:** none (spec-write-skill is a retroactive design spec with no §7 Task Breakdown).
+- **Affected checkpoints:** [CP-2](./architecture.md#L302) — closing entry references this amendment. CP-1 advisory (a) explicitly retired by this amendment.
+- **Completed work invalidated:** none. Existing feature specs produced before this amendment may have undifferentiated §14 sections; they are not required to be back-amended (the rule applies to specs authored after this commit).
+- **Cross-references requiring follow-up:** none. [architecture.md §4 Vocabulary](./architecture.md#L87) and [§5.7](./architecture.md#L200) continue to commit the discipline — they describe the rule that SKILL.md now enforces.
+
+**Status implication.** Spec remains at `pass with comments` for CP-2. This amendment touches SKILL.md, not the spec — the spec's §14 commitment is unchanged. No revert to Draft.
+
+**Approver.** Eric Wasgatt — approved 2026-05-18.
