@@ -59,11 +59,10 @@ Regardless of who is invoking the skill — a developer mid-feature, a service-d
 
 Read, in order:
 
-1. The schema artifacts, if not already loaded in this session:
-   - [specs/findings/README.md](../../../specs/findings/README.md) — field reference, state machine, status semantics, persona-frame taxonomy.
-   - [specs/findings/_template/finding.md](../../../specs/findings/_template/finding.md) — canonical artifact template.
-   - [specs/findings/_template/journal.md](../../../specs/findings/_template/journal.md) — canonical journal template with starter Intake entry.
+1. The operational templates for this skill. **Resolution policy:** if the host project has `specs/findings/_template/finding.md` and `specs/findings/_template/journal.md`, use the host's copies (they override). Otherwise use the skill's bundled defaults at `./_template/finding.md` and `./_template/journal.md` (relative to this SKILL.md). Both pairs are byte-for-byte equivalent at the canonical state; the host override exists to support host-specific customization of scaffolding wording or field placeholders without forcing a skill re-install.
 2. The operator's signal: whatever was supplied in INPUTS, or the conversation context in interactive mode.
+
+Schema knowledge — field reference, state machine, status semantics, persona-frame taxonomy — is embedded in this skill's prose below; no runtime read of `specs/findings/README.md` is required. A host project's `README.md` (when present) is documentation for human readers, not a runtime input for this skill. The canonical schema reference is [specs/20260517-findings-pipeline-schema/feature.md](../../../specs/20260517-findings-pipeline-schema/feature.md) (and its upstream design spec at [specs/20260517-findings-pipeline/architecture.md](../../../specs/20260517-findings-pipeline/architecture.md)); these are documentation pointers, not runtime reads.
 
 In interactive mode, confirm intent with one round-trip:
 
@@ -102,16 +101,15 @@ Pause for one-step confirm/edit. In structured-input mode, proceed without confi
 Create the artifact:
 
 1. **Make the directory** `specs/findings/<DATE>-<SHORT_NAME>/`. If a directory at that path already exists, surface the collision to the operator and offer either (a) a disambiguating suffix (`-2`, `-alt`) or (b) cancellation.
-2. **Write `finding.md`** by copying [`_template/finding.md`](../../../specs/findings/_template/finding.md) verbatim, then editing only:
-   - **Strip the leading HTML comment block** (template lines 1–22) — it is operator-facing scaffolding for filling the template, not artifact content.
+2. **Write `finding.md`** by copying the resolved template (host's `specs/findings/_template/finding.md` when present, otherwise the skill's bundled `./_template/finding.md`) verbatim, then editing only:
+   - **Strip every scaffold-marker-delimited block** — any content between `<!-- scaffold-start -->` and `<!-- scaffold-end -->` markers, inclusive of the markers themselves, is template scaffolding intended only for template authors and human readers. Marker pairs may appear anywhere in the template; strip every occurrence.
    - The status banner: `Status: intake`; `Domain: <DOMAIN or "unknown">`; `Date opened` / `Last transition` to `DATE`.
    - The Intake section (all five fields).
    - **Leave Triage / Investigation / Route sections in `<placeholder>` form unchanged.**
-3. **Write `journal.md`** by copying [`_template/journal.md`](../../../specs/findings/_template/journal.md) verbatim, then editing only:
-   - **Strip the leading HTML comment block** (template lines 1–18) — operator-facing scaffolding, not artifact content.
+3. **Write `journal.md`** by copying the resolved template (host's `specs/findings/_template/journal.md` when present, otherwise the skill's bundled `./_template/journal.md`) verbatim, then editing only:
+   - **Strip every scaffold-marker-delimited block** (content between `<!-- scaffold-start -->` and `<!-- scaffold-end -->` markers, inclusive of the markers themselves). The journal template carries two such blocks: the leading scaffolding block at the top of the file, and the closing block containing commented-out skeleton entries for downstream transitions (Triaged, Under-investigation, Routed, Closed, Reopened). Strip both. The closing skeletons' entries are re-added (uncommented and filled) by downstream skills (triage, investigation, route) at the moment of each transition; including them at intake conflates "this phase has not started" with "here is a pre-filled template of what this phase will look like."
    - The title heading.
    - The starter Intake entry (date, summary line, all four fields).
-   - **Strip the closing commented-out skeleton block** (template lines 29–84). These are operator-facing scaffolds for *future* status transitions — they will be added back, uncommented and filled, by downstream skills (triage, investigation, route) at the moment of each transition. Including them at intake conflates "this phase has not started" with "here is a pre-filled template of what this phase will look like."
 4. **External-pointer handling.** When `EXTERNAL_POINTER` is supplied (one or more pointers):
    - Require `SUMMARY` to be supplied as well. If the operator provided a pointer but no summary, prompt once for a one-paragraph summary before proceeding — the summary is the load-bearing capture; the URL is durability convenience.
    - **If the operator pre-supplied a snapshot at session intake** (a PDF, screenshot, copy-pasted content, or other inline capture of the URL's content): treat the operator-supplied snapshot as the snapshot for the `External references` field. Prefix it `<!-- fetched <DATE> (via operator-supplied snapshot) -->` and quote the load-bearing portion verbatim. Do **not** attempt a redundant live fetch unless the operator explicitly requests one — but per OP #3, journal the no-live-fetch decision with rationale (the policy applies to *every* fetch decision, including the decision not to fetch).
@@ -145,7 +143,7 @@ If multiple external pointers were attempted, one line per pointer.
 - **Do not prompt for triage-phase fields.** Reproducibility, scope, severity confirmation, triage notes — all left in `<placeholder>` form. Asking at intake is a 60-second-target violation and bleeds Phase C into Phase B.
 - **Do not silently swallow a URL-fetch failure.** When the operator supplied a pointer and a fetch was attempted, the outcome must be visible to the operator before the artifact is finalized. "Proceed without snapshot" is an acceptable choice; *silently* proceeding without snapshot is not.
 - **Do not run a deduplication scan against existing findings.** Adds ceremony that defeats the 60-second target. Deduplication is triage's responsibility.
-- **Do not rewrite or paraphrase the templates.** The produced `finding.md` and `journal.md` match the canonical templates byte-for-byte at every *artifact-bearing* position not occupied by operator input — field names, section headings, ordering, status-banner shape, and the `<placeholder>` form of phases that have not started are preserved verbatim. Template *scaffolding* (the leading HTML comment in `_template/finding.md` lines 1–22; the leading HTML comment in `_template/journal.md` lines 1–18; the closing commented-out skeleton block in `_template/journal.md` lines 29–84) is operator-facing instruction for filling the template and is stripped from produced artifacts per Phase 3 steps 2–3.
+- **Do not rewrite or paraphrase the templates.** The produced `finding.md` and `journal.md` match the canonical templates byte-for-byte at every *artifact-bearing* position not occupied by operator input — field names, section headings, ordering, status-banner shape, and the `<placeholder>` form of phases that have not started are preserved verbatim. Template *scaffolding* (every block delimited by `<!-- scaffold-start -->` / `<!-- scaffold-end -->` markers in both `_template/finding.md` and `_template/journal.md`) is operator-facing instruction for filling the template and is stripped from produced artifacts per Phase 3 steps 2–3.
 - **Do not pre-fill later-phase fields with `unknown`.** `<placeholder>` means "this phase has not started"; `unknown` means "we looked, we couldn't tell." Conflating them corrupts the schema's information content.
 - **Do not auto-commit.** The skill produces files; the operator decides when to commit. The skill's responsibility ends at returning a suggested commit message.
 - **Do not ask the operator which persona-frame they're in.** Intake's persona-frame is fixed to `intake` regardless of who the operator is.

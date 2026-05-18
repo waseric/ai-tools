@@ -428,3 +428,40 @@ WHAT NOT TO DO templates bullet refined: "byte-for-byte at every position not oc
 - Closing out the spec with a dedicated journal entry (rather than rolling it into the last amendment closeout) preserves the convention that *spec state changes* — including reaching the terminal `Complete` state — are first-class journal events.
 
 **Next pointer:** **Outside this spec.** Per [RC-3a review's recommended sequence](#next-action), the natural next step is `/spec-write` for Phase C — the `finding-triage` skill — against the upstream [findings-pipeline design spec](../20260517-findings-pipeline/architecture.md). Phase B's contribution to the design-spec RC-3 (joint Phase B + Phase C review) is now sealed.
+
+## 2026-05-17 — Amendment 2026-05-17-4
+
+**Section amended:** specs/20260517-finding-intake-skill/feature.md §6 NFRs (appended new `Skill portability` row; replaced `Context economy` row); §5.1 SKILL.md shape L152 (rewrote Phase 1 ORIENT description). Cascading file changes: new bundled template files at [.agents/skills/finding-intake/_template/finding.md](../../.agents/skills/finding-intake/_template/finding.md) and [.agents/skills/finding-intake/_template/journal.md](../../.agents/skills/finding-intake/_template/journal.md); SKILL.md updates to Phase 1 ORIENT (template/README reads), Phase 3 APPLY steps 2–3 (line-range strips → marker strips; host-or-bundled source), and WHAT NOT TO DO section (strip mechanism references).
+**Trigger:** Cascading from Amendment 2026-05-17-2 to schema spec (commit `38a4afb`), which committed scaffold-marker delimiters as the strip mechanism and templates as skill-bundled-with-host-override. This amendment brings `finding-intake` into conformance. Originating finding: [intake-template-folder-dependency](../findings/20260517-intake-template-folder-dependency/finding.md).
+**Reason:** The path-coupling and line-number-coupling identified in the originating finding both manifest in `finding-intake/SKILL.md` (host-relative `../../../specs/findings/_template/...` paths break under global skill install; hardcoded line ranges couple the skill to template line layout). Both are fixed by bundling templates inside the skill directory with host-override semantics and using scaffold markers carried by the templates themselves. The schema is no longer resolved from a host README at runtime — the skill's own prose carries the operational schema knowledge it needs.
+**Impact summary:** No tasks re-opened (T-01 through T-04 stay closed); no checkpoints re-opened (RC-3 and RC-3a stay closed). RC-3 advisory A-3 (portability liability flag) is satisfied by this amendment. Cross-reference: Amendment 5 ([finding-triage-skill](../20260517-finding-triage-skill/feature.md) + [.agents/skills/finding-triage/SKILL.md](../../.agents/skills/finding-triage/SKILL.md)) applies the same conformance pattern to the triage skill.
+**Approver:** waseric
+**Approved on:** 2026-05-17
+**Status implication:** kept at `Complete`. The amendment reverses no design decision, re-opens no §7 task. Explicit operator confirmation captured during the amendment session.
+**Commit:** `<pending — backfill in follow-up commit per repo convention>`
+
+### Full record
+
+**Trigger.** Cascading from Amendment 2026-05-17-2 to [specs/20260517-findings-pipeline-schema/feature.md](../20260517-findings-pipeline-schema/feature.md) (commit `38a4afb`), which committed scaffold-marker delimiters as the strip mechanism and templates as skill-bundled-with-host-override at the schema level. The `finding-intake` skill is the principal consumer of those templates; bringing it into conformance is the next cascade step.
+
+**Section(s) and files.** Feature spec §6 NFR (append) + §6 `Context economy` row (replace) + §5.1 SKILL.md shape L152 (replace); plus new files `.agents/skills/finding-intake/_template/finding.md` and `.agents/skills/finding-intake/_template/journal.md`; plus edits to `.agents/skills/finding-intake/SKILL.md` Phase 1 ORIENT, Phase 3 APPLY steps 2–3, and WHAT NOT TO DO section. Six changes bundled. Full before/after diffs are in the Phase 2 draft of this amendment in the calling session; the After blocks have been applied verbatim.
+
+**Change summary.**
+1. feature.md §6 NFR — appended `Skill portability` row referencing the [Atomic-Skill Portability Principle](../tech-stack.md#atomic-skill-portability-principle).
+2. feature.md §6 NFR — replaced `Context economy` row to remove the "loads from `specs/findings/`" wording (replaced with bundled-template/host-override wording).
+3. feature.md §5.1 L152 — rewrote Phase 1 ORIENT description to reference bundled-template + host-override mechanism and embedded schema knowledge.
+4. `.agents/skills/finding-intake/_template/finding.md` (new) — verbatim copy of [specs/findings/_template/finding.md](../findings/_template/finding.md) in its post-amendment-3 scaffold-marker form.
+5. `.agents/skills/finding-intake/_template/journal.md` (new) — verbatim copy of [specs/findings/_template/journal.md](../findings/_template/journal.md) in its post-amendment-3 scaffold-marker form.
+6. `.agents/skills/finding-intake/SKILL.md` — Phase 1 ORIENT rewritten to use bundled-with-host-override + embedded schema; Phase 3 APPLY step 2 rewritten to strip by scaffold markers from resolved-template source; Phase 3 APPLY step 3 rewritten to strip both scaffold-marker blocks (leading + closing skeletons); WHAT NOT TO DO L148 rewritten to reference marker mechanism.
+
+**Reason.** The originating finding's path-coupling and line-number-coupling both manifest in `finding-intake/SKILL.md`: host-relative `../../../specs/findings/_template/...` paths break under global skill install; hardcoded line ranges (`finding.md` 1–22; `journal.md` 1–18 and 29–84) couple the skill to template line layout. Both are fixed by this conformance amendment: templates are bundled in the skill directory (with host-override semantics for host customization); strips use scaffold markers carried by the templates themselves. The schema is no longer resolved from a host README at runtime — the skill's own prose carries the operational schema knowledge it needs.
+
+**Impact.**
+- **Affected tasks:** T-01 in §7 (authored SKILL.md) is already done. This amendment retroactively brings SKILL.md into conformance with a methodology-level principle just committed; T-01 stays marked done.
+- **Affected checkpoints:** RC-3 (Intake & Triage Skill Review) and RC-3a (Phase B SKILL.md self-review) both already closed. The conformance amendment was explicitly flagged in RC-3 advisory A-3 as a portability liability to address before out-of-repo adoption; this amendment satisfies that advisory.
+- **Completed work invalidated:** No. The skill's behavior is operationally equivalent at the canonical state (same templates, same strip outcome); the change is in *where* the templates come from and *how* the strip is identified.
+- **Cross-references requiring follow-up:** Amendment 5 ([finding-triage-skill/feature.md](../20260517-finding-triage-skill/feature.md) + [.agents/skills/finding-triage/SKILL.md](../../.agents/skills/finding-triage/SKILL.md)) — the same conformance pattern applied to the triage skill.
+
+**Status implication.** Spec stays at `Status: Complete`. The amendment reverses no design decision, re-opens no §7 task, and is cascading conformance work flowing from the principle committed in tech-stack.md and cascaded through the design spec and schema spec.
+
+**Approver.** waseric — approved as drafted on 2026-05-17, with explicit confirmation to keep the spec at `Complete`.

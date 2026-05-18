@@ -149,7 +149,7 @@ The Intake `Captured by` field carries the persona-frame label `intake`. The ski
 5. **INPUTS block:** the table from §4 above, transcribed into the skill's input contract.
 6. **ROLE:** short statement that the skill is the lowest-ceremony entry to the pipeline and that the operator/agent is acting in the *intake* persona-frame regardless of who they are.
 7. **OPERATING PRINCIPLES:** 5–7 numbered principles (capture-rate over capture-quality; "unknown" is first-class; never silently accept a fetch failure; never prompt for triage-phase fields; the artifact is self-contained — never references the originating conversation; placeholder vs. unknown distinction).
-8. **Phase 1 — ORIENT:** read the schema artifacts ([README](../findings/README.md), [template](../findings/_template/finding.md)) if not loaded; verify the operator's intent (signal source, working title) in one round-trip if interactive.
+8. **Phase 1 — ORIENT:** resolve the operational templates (host's `specs/findings/_template/` when present, otherwise the skill's bundled `./_template/`); verify the operator's intent (signal source, working title) in one round-trip if interactive. Schema knowledge (field reference, state machine, persona-frame taxonomy) is embedded in SKILL.md prose; no runtime read of `specs/findings/README.md` is required.
 9. **Phase 2 — DRAFT:** propose `SHORT_NAME` from `TITLE`; show the operator the proposed directory path and the Intake section to be written; pause for confirmation.
 10. **Phase 3 — APPLY:** create the directory; copy the templates; populate the Intake section and starter Intake journal entry; on URL pointer, attempt fetch per §4 pointer-fetch policy; commit if the operator's session is in a commit-friendly state, otherwise leave as a working-tree change.
 11. **OUTPUT FORMAT:** the path string returned to the caller; the journal entry summary.
@@ -216,7 +216,8 @@ T-04 (below) flips the section so the `/finding-intake` invocation is the primar
 | **Persona-frame honesty** | `Captured by` field is labeled `intake` regardless of who the operator is or which agent invoked the skill. Triage-phase fields are not pre-filled at intake; they are left in `<placeholder>` form. |
 | **No new dependencies** | Pure markdown deliverable. No new runtime, library, or build step. |
 | **Backward compatibility** | The manual-copy path documented in the Phase A README remains valid as a fallback. Operators or contexts where the skill isn't available continue to work unchanged. |
-| **Context economy** | SKILL.md ≤220 lines (peer-skill ceiling). The skill loads only what it needs from `specs/findings/` (`README.md`, `_template/finding.md`, `_template/journal.md`) — not the full pipeline. |
+| **Context economy** | SKILL.md ≤220 lines (peer-skill ceiling). The skill loads only its bundled `_template/finding.md` and `_template/journal.md` (or the host's `specs/findings/_template/` override when present) — not the full pipeline. Schema knowledge is embedded in SKILL.md prose, not resolved at runtime from the host's `README.md`. |
+| **Skill portability** | This skill conforms to the [Atomic-Skill Portability Principle](../tech-stack.md#atomic-skill-portability-principle): it ships its own bundled `_template/finding.md` and `_template/journal.md` as defaults inside [`.agents/skills/finding-intake/`](../../.agents/skills/finding-intake/), and uses a host project's `specs/findings/_template/` (when present) as an override. Schema knowledge (field reference, state machine, persona-frame taxonomy) is embedded in SKILL.md prose; no runtime read of `specs/findings/README.md` is required. Scaffolding is stripped by `<!-- scaffold-start -->` / `<!-- scaffold-end -->` markers, not by line number. |
 
 ## 7. Task Breakdown
 
