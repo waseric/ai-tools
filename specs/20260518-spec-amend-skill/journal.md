@@ -290,3 +290,42 @@ This worked example anchors §13 OQ-4 to evidence rather than hypothesis. The ho
 ### Cross-skill note — codification candidate for SKILL.md
 
 Option (c) from §13 OQ-4 ("Document the convention in a §-of-spec-amend addition: 'Cross-skill case.'") is a candidate for a future amendment to spec-amend SKILL.md once this evidence base accumulates a second cycle. One worked example is enough to anchor the watch item; codifying convention on one cycle would over-fit. The watch item for OQ-4 stays open with this entry as its first observation.
+
+## 2026-05-18 — Review of CP-1
+
+**Reviewer:** Claude (AI assistant) on behalf of Eric Wasgatt
+**Outcome:** pass with comments
+**Tasks reviewed:** none (design spec, no atomic tasks); artifacts under review were [architecture.md](./architecture.md) and [journal.md](./journal.md) at commit `3390688`
+**Blockers:** 0
+**Important:** 1 — I1: §5.9 "Pattern invoked" cited `docs/retroactive-spec-strategy.md` as holder of Amendment 2026-05-17-1; actual amendment lives at [specs/20260517-project-constitution-skill/journal.md:163](../20260517-project-constitution-skill/journal.md#L163). Form inherited verbatim from N=5 [spec-review architecture.md:259](../20260518-spec-review-skill/architecture.md#L259). Structurally identical to the citation-error failure mode that drove N=4 amendment 2026-05-18-1 and N=5 amendment 2026-05-18-2.
+**Advisory:** 2 — A1: §5.3 cites "Phase 7 — Checkpoint Gate" (capital G); actual heading "Phase 7 — Checkpoint gate" (lowercase). A2: per-citation walk discipline scope at N=6 was §-heading paraphrases against sibling-spec §5 subsections; did not cover amendment-ID citations against their cited records. Journal "zero-error outcome" claim is incorrect under the broader scope. Refinement signal for the pattern doc; not a spec defect.
+**Spec amendments proposed:** Amendment to §5.9 "Pattern invoked" retargeting citation from `docs/retroactive-spec-strategy.md` to `specs/20260517-project-constitution-skill/journal.md`; companion correction to journal table row at [journal.md:42](./journal.md#L42); paired upstream fix to N=5 [spec-review architecture.md:259](../20260518-spec-review-skill/architecture.md#L259) per operator scope decision Q2. Applied as amendment 2026-05-18-3 (commits `7a33abe` + `c01488a`).
+**Next action:** Verdict written back to §9 Status line (this commit) and recorded in this journal entry. CP-1 closed at "pass with comments." Next checkpoint is CP-2 (batched drift audit per §9); remaining trigger condition reduces to "project-constitution CP-2 only" with this spec's CP-1 close. CP-2 happens in a separate session per [docs/retroactive-spec-strategy.md](../../docs/retroactive-spec-strategy.md). Also queued (separate session): authoring `docs/retroactive-spec-pattern.md` post-CP-2, per §11 closing-of-the-series step.
+
+### Review focus walk — per-item findings
+
+| Focus item (from §9 CP-1) | Verdict | Notes |
+|---|---|---|
+| Every commitment in §4/§5/§6 corresponds to behavior in shipping SKILL.md | pass | All six phases + change classification + voice + portability verified against SKILL.md. §6 NFR rows each map to an OP or Phase commitment. |
+| No commitment contradicts shipping SKILL.md | pass | No contradictions surfaced. |
+| ASPP correctly characterized in §3, §6 | pass | Degradation paths for `SPEC_REPO_ROOT` absent AND design-spec target both named. |
+| Predecessor distinguished as inline-not-standalone | pass | AMENDMENT PROTOCOL block at predecessor lines 391–403 + line 414 design-note paragraph verified verbatim against [docs/spec-driven-development-prompts-conversation.md](../../docs/spec-driven-development-prompts-conversation.md). Trilogy commit `49c15f0` extraction story recorded faithfully. Three independent citations across §2/§3/§14. |
+| Session-economy as sibling design spec; shape (i) §5-enumerated, three additions | pass | Mapping retro §5.4 + §5.5 + INPUTS contract ↔ session-economy §5.3 verified. Three SKILL.md additions confirmed at session-economy §5.3 lines 123–145. N=5-prediction refinement (two → three additions) recorded explicitly. |
+| Six phases in §5 match shipping SKILL.md; §5.7 change classification matches ROLE block | pass | §5.1–§5.6 match SKILL.md Phase 1–6. §5.7 trichotomy matches SKILL.md ROLE block lines 37–41. |
+| §13 OQs structurally complete | pass | OQ-1, OQ-2, OQ-3, OQ-4 each with Question / Analysis / Leaning / Owner / Watch items / Anti-goals. |
+| Spec self-contained per OP | pass | Vocabulary block (§4) defines load-bearing terms inline; each §5 subsection independently readable. |
+| Section-heading citations point to heading line | pass | Sampled. |
+| Authoring-time per-citation walk discipline (verify a sample) | pass with comments | §5.6 (the celebrated pre-commit catch) verified; §5.8 Voice-discipline lineage verified; §5.3 surfaced A1 (capitalization); §5.9 surfaced I1 (wrong file). Discipline worked for §-heading citations; missed amendment-ID citations and single-letter capitalization. |
+| Portability rule honored | pass | No `~/.claude/skills/...` references; no absolute paths. |
+
+### Exit criteria status
+
+- **Reviewer issues a verdict per the structured format declared in spec-review SKILL.md.** met — verdict block above.
+- **All [blocker] findings resolved or escalated to /spec-amend.** met — zero blockers; the [important] finding routed to /spec-amend and applied as amendment 2026-05-18-3.
+- **Verdict written back to §9 (status line) and to the journal.** met — this commit closes CP-1.
+
+### Recommendation
+
+Pass with comments. The retro spec faithfully describes the shipping SKILL.md across all phases, OPs, NFRs, and the change-classification trichotomy. The two N=5-prediction refinements (inline predecessor; three SKILL.md additions) are recorded with explicit prediction-vs-reality framing across §2, §3, §8, and §14. The four §13 OQs are well-structured and honestly framed (especially OQ-4's refusal to codify on pre-trilogy-commit evidence — a position which this same session then unblocked by triggering the first post-trilogy cross-skill amendment cycle). The single [important] finding is a §5.9 cross-spec lineage-citation error inherited verbatim from N=5 — exactly the failure mode the authoring-time per-citation walk discipline was designed to head off; the discipline caught one such error (§5.6 Phase 6) but missed one (§5.9) because its declared scope was §-heading citations, not amendment-ID citations. Resolution: amendment 2026-05-18-3 (applied this session, commits `7a33abe` + `c01488a`) fixed the inherited form at its upstream source forward and established the first post-trilogy cross-skill amendment cycle's mechanics as worked-example evidence for §13 OQ-4. Work may proceed past CP-1; CP-2 batch audit remains open per §9 trigger ("project-constitution CP-2 only" condition).
+
+**Verdict commit SHA backfilled in §9 Status line below.**
