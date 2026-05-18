@@ -223,7 +223,7 @@ There is no Phase B "build the skill" — the skill is already built. There is n
 
 ### CP-2 — Drift audit complete
 
-**Status:** pass with comments on 2026-05-18 by Claude (agent reviewer). 0 blockers, 0 important, 4 advisory (D-1 §5.2 count; D-2 layout-question phase; D-3 INPUTS catalog; D-4 README-reconciliation commitment). Routing: D-1 and D-4 → /spec-amend (spec-side); D-2 → /spec-amend (SKILL.md-side) or accept-as-minor; D-3 → accept-as-minor. Full verdict in [journal.md](./journal.md#2026-05-18--review-of-cp-2).
+**Status:** pass with comments on 2026-05-18 by Claude (agent reviewer); routing closed 2026-05-18. 0 blockers, 0 important, 4 advisory — D-1 resolved via amendment 2026-05-18-2 (commit 88ae5c6); D-2 resolved via amendment 2026-05-18-1 (commit c764e78, option b — SKILL.md amended); D-3 accepted as known minor (rationale in journal); D-4 resolved via amendment 2026-05-18-3 (commit a611e45). Retroactive-spec adoption (§11) **closed**. Full verdict in [journal.md](./journal.md#2026-05-18--review-of-cp-2).
 
 **Trigger.** CP-1 passes.
 

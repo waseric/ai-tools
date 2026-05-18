@@ -298,7 +298,7 @@ After:
 **Approver:** Eric Wasgatt
 **Approved on:** 2026-05-18
 **Status implication:** SKILL.md has no Status banner; frontmatter `lastUpdated` advanced from 2026-05-15 to 2026-05-18.
-**Commit:** TBD
+**Commit:** c764e78
 
 ### Full record
 
@@ -361,7 +361,7 @@ After:
 **Approver:** Eric Wasgatt
 **Approved on:** 2026-05-18
 **Status implication:** kept (Draft — Open for Review)
-**Commit:** TBD
+**Commit:** 88ae5c6
 
 ### Full record
 
@@ -400,7 +400,7 @@ After:
 **Approver:** Eric Wasgatt
 **Approved on:** 2026-05-18
 **Status implication:** kept (Draft — Open for Review)
-**Commit:** TBD
+**Commit:** a611e45
 
 ### Full record
 
