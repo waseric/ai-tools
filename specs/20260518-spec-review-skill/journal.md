@@ -167,3 +167,32 @@ Three steps, in order:
 3. **Session 5 — `spec-amend` retroactive spec.** N=6 in retroactive-spec sequence; final session of the legacy quintet. The six "Pattern for N=6" callouts above are inputs. Pre-confirmed predecessor scope: the [shared doc](../../docs/spec-driven-development-prompts-conversation.md) has **no** `spec-amend-prompt.md` artifact (spec-amend was added at trilogy commit `49c15f0` without a predecessor artifact per the [N=3 journal](../20260518-spec-write-skill/journal.md) prediction). Pre-confirmed sibling design spec: [session-economy §5.3](../20260514-session-economy/architecture.md) (analogous to spec-review's §5.4 — `SPEC_REPO_ROOT` INPUTS entry + Phase 8 multi-repo paragraph). **Structural simplification:** spec-amend will have **one** session-economy §5-enumerated mapping (same as N=5) and **zero** predecessor-rationale source (different from N=2/N=3/N=4/N=5 — N=6 is the first quintet retroactive spec with no predecessor doc to cite Inspirational). The §14 Inspirational categorization will adapt; §3 Background will note the absence explicitly.
 
 No `[blocker]` open questions; the spec is ready for CP-1.
+
+## 2026-05-18 — Review of CP-1
+
+**Reviewer:** Claude (AI assistant) on behalf of Eric Wasgatt
+**Outcome:** pass with comments
+**Tasks reviewed:** N/A (design spec; no atomic Task Breakdown — design-spec adaptation per §5.2/§5.6 applied)
+**Blockers:** 0
+**Important:** 1 — §5.10 line 247 cites "[N=3 §5.X](../20260518-spec-write-skill/architecture.md)" as a Voice-discipline source; N=3 (spec-write) has no Voice-discipline subsection. `§5.X` is an unresolved placeholder for a section that does not exist. Voice discipline appeared at N=2 §5.6 and N=4 §5.10; N=3 omitted it. The "carried forward verbatim" lineage claim is overstated.
+**Advisory:** 3 — (A1) `§5.8 + INPUTS contract` mapping label is consistent though the INPUTS entry itself lives in §4/§6 rather than §5.8 (informational only); (A2) §4 Vocabulary defines `[important]` tag semantics that SKILL.md leaves implicit (faithful gloss, future-SKILL.md-amendment candidate); (A3) SKILL.md Design Notes line 209 says "Amendment Protocol from `spec-execute`" while body line 181 routes to `spec-amend` — internal SKILL.md inconsistency surfaced for the batched quintet CP-2.
+**Spec amendments proposed:** Amend §5.10 to either drop the [N=3 §5.X] citation entirely (revising lineage to "N=2 §5.6 and N=4 §5.10; N=3 omitted") or — preferred — to make the gap explicit. Route through `/spec-amend`. Severity proportionally lower than the N=4 amendment cycle (lineage citation, not architectural source citation).
+**Next action:** Operator decides whether to apply the §5.10 amendment now (`/spec-amend`) or defer. Either way, CP-1 is closed (`pass with comments`) and the spec exits "Draft — Open for Review". Session 5 (spec-amend retroactive spec, N=6) may proceed per the journal's Next action pointer. CP-2 batched audit awaits one remaining sibling quintet CP-1 (spec-amend) + project-constitution CP-2 per the spec's §9 narrowed trigger.
+
+### Verification trail
+
+Per-claim verification walked at review time:
+
+- SKILL.md structure: 217 lines, 8 numbered phases (lines 44/62/75/88/98/111/117/161), Reviewer Notes (line 195), Design Notes (line 203). Verified.
+- Session-economy §5.4 (lines 147–165): prescribes exactly two `spec-review` SKILL.md additions — `SPEC_REPO_ROOT` INPUTS entry and Phase 8 "Multi-repo case" paragraph. Both present in SKILL.md (INPUTS line 24; Phase 8 paragraph line 179). Verified.
+- Predecessor doc line range: `## Assistant` at line 446; `### Artifact: spec-review-prompt.md` at line 448; opening 4-backticks at line 450; closing 4-backticks at line 645; `### Design notes on the review prompt` at line 647; last paragraph ends line 663. Split accurate.
+- Commit SHAs: `49c15f0` (trilogy), `e483466` (session-economy), `d9a0002` (lastUpdated), `6d158fb` (path convention) — all verified against `git log`.
+- Tech-stack.md citations: `#L21-L33` → "Atomic-Skill Portability Principle" heading; `#L44` → "AI context window limits"; `#L48` → "Repository layout"; `#L51` → "Spec-driven development". All four point to heading lines (section-heading citation discipline honored).
+- Portability rule: three `~/.claude/skills/...` occurrences in architecture.md (lines 257, 259, 316) are all meta-references inside backticks describing the prohibited pattern. No occurrences as actual link targets.
+- §13 OQ-1 and OQ-2: both include all six headed sub-blocks (Question / Analysis-table / Leaning / Owner / Watch items / Anti-goals). Verified.
+- Sibling-spec voice-discipline lineage: N=2 §5.6 = "Voice discipline" ✓; N=4 §5.10 = "Voice discipline" ✓; N=3 §5 subsections enumerated (5.1 Discovery, 5.2 Clarify, 5.3 Spec Document, 5.4 Upstream-spec orientation, 5.5 Task Breakdown atomicity, 5.6 Test Strategy as first-class, 5.7 Citation discipline, 5.8 Section template) — **no Voice-discipline subsection**. This is the basis of the [important] finding.
+
+### Pattern observation for N=6
+
+The [important] finding I1 (citation to nonexistent N=3 §5.X) shares structural shape with the N=4 amendment cycle (commits `57bb671` → `7fee46f` → `6723068`): a citation error caught at CP-1, routed to `/spec-amend`, re-reviewed if material. Two retro-spec CP-1s in a row have surfaced citation-discipline findings on **lineage/architectural-source attribution**. Pattern for N=6: the spec-amend retroactive spec should perform an explicit lineage-citation audit at authoring time, walking each "Pattern invoked" reference against the actual cited subsection. The shape of the N=4 amendment plus the present finding suggests this is a recurring failure mode of the cross-spec lineage narrative under the journal-mining pattern; codifying the authoring-time check would head it off at N=6 rather than catching it at CP-1.
+
