@@ -244,7 +244,7 @@ Two conditional updates:
 
 **Behavior.** Imperative for review rules ("the reviewer must…", "do not begin reviewing the diff before reading the checkpoint definition"). First-person plural for design intent ("we chose…"). Plain declarative for observations. No marketing language ("elegant," "robust," "scalable").
 
-**Pattern invoked.** Same voice discipline declared at [N=2 §5.6](../20260518-spec-design-skill/architecture.md), [N=3 §5.X](../20260518-spec-write-skill/architecture.md), and [N=4 §5.10](../20260518-spec-execute-skill/architecture.md). Carried forward verbatim as a spec-side discipline.
+**Pattern invoked.** Voice discipline was declared at [N=2 §5.6](../20260518-spec-design-skill/architecture.md), omitted at [N=3](../20260518-spec-write-skill/architecture.md) (whose §5 covered phases + upstream-spec orientation + atomicity + test strategy + citation discipline + section template, with no Voice-discipline subsection), and reintroduced at [N=4 §5.10](../20260518-spec-execute-skill/architecture.md). Carried forward at N=5 as a spec-side discipline. The gap at N=3 is surfaced explicitly rather than papered over as continuous lineage.
 
 **Why this design.** The voice signals what kind of statement the reader is parsing — rule, intent, or observation. Mixed voice produces ambiguous prose that LLM readers misinterpret.
 
