@@ -288,7 +288,7 @@ After step 3, this spec moves out of `Draft — Open for Review` to its post-CP-
 - All `[blocker]` findings (if any) are resolved or escalated to `/spec-amend`.
 - Verdict is written back to this spec's §9 (status line) and to the journal.
 
-**Status:** pass with comments on 2026-05-18 by Claude (AI assistant) on behalf of Eric Wasgatt — one [important] citation error in §5.9 (Portability rule "Pattern invoked" cited `docs/retroactive-spec-strategy.md` as holder of Amendment 2026-05-17-1; actual location is `specs/20260517-project-constitution-skill/journal.md`) resolved via amendment 2026-05-18-3 (commits `7a33abe` + `c01488a`); two advisories (A1 §5.3 "Phase 7 — Checkpoint Gate" → "gate" capitalization bundled into the same amendment per operator scope decision Q1; A2 per-citation walk scope refinement carried forward to the pattern doc post-CP-2). See [journal](./journal.md) entry of same date. Verdict commit: SHA backfilled below.
+**Status:** pass with comments on 2026-05-18 by Claude (AI assistant) on behalf of Eric Wasgatt — one [important] citation error in §5.9 (Portability rule "Pattern invoked" cited `docs/retroactive-spec-strategy.md` as holder of Amendment 2026-05-17-1; actual location is `specs/20260517-project-constitution-skill/journal.md`) resolved via amendment 2026-05-18-3 (commits `7a33abe` + `c01488a`); two advisories (A1 §5.3 "Phase 7 — Checkpoint Gate" → "gate" capitalization bundled into the same amendment per operator scope decision Q1; A2 per-citation walk scope refinement carried forward to the pattern doc post-CP-2). See [journal](./journal.md) entry of same date. Verdict commit: `61b2a28`.
 
 ### CP-2 — Drift audit complete (batched)
 
