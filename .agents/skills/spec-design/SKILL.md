@@ -1,6 +1,6 @@
 ---
 name: spec-design
-lastUpdated: 2026-05-15
+lastUpdated: 2026-05-18
 description: Author an architecture or protocol design spec — earlier in the lifecycle than a feature spec. Runs Discovery → Clarify → Spec Document phases, producing a self-contained design document with status banner, named audience, overview, goals, architecture, detailed design, NFRs, implementation sequencing (not atomic tasks), validation approach, review checkpoints, risks, adoption path, and a structured Open Questions section with analysis + leaning + owner per question. Treats conversation as authoritative input rather than restarting an interview. Use when the user wants to design a system, protocol, or architecture before any feature spec is written. Pairs with `project-constitution` (upstream), `spec-write` (downstream — consumes the design spec), and `spec-review` (reviews design checkpoints).
 ---
 
@@ -105,6 +105,8 @@ Produce a single markdown document with the structure below. Use the exact secti
 ```
 
 ### Section content
+
+**Status banner.** Lifecycle: `Draft — Open for Review` → `Approved` → `Superseded`. Initial value `Draft — Open for Review`; advance to `Approved` after the spec's CP-1 (or equivalent approval gate) closes; advance to `Superseded` when a new spec replaces this one.
 
 **§1 Overview.** Two paragraphs. What this is, who it is for, what architectural commitment it makes. No marketing language.
 
