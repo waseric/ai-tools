@@ -301,6 +301,8 @@ There is no Phase B "build the skill" — the skill is already built. There is n
 
 ### CP-2 — Drift audit complete (batched)
 
+**Status:** pass with comments on 2026-05-18 by Claude (agent reviewer). 0 blockers, 0 important, 5 advisory. See [journal.md "Review of CP-2"](./journal.md) for findings and routing. Five amendments routed: D-1, D-3, D-4 → architecture.md §6 / §5.5; D-2, D-5 → SKILL.md. CP-2 closeout entry follows once amendments apply.
+
 **Trigger.** CP-1 of this spec passes, AND CP-1 of the three remaining quintet specs (`spec-execute`, `spec-review`, `spec-amend`) passes, AND CP-1 of [spec-design](../20260518-spec-design-skill/architecture.md) has passed (already done — pass with comments on 2026-05-18), AND project-constitution's CP-2 has either run or been folded into the batch per [docs/retroactive-spec-strategy.md OQ-1](../../docs/retroactive-spec-strategy.md).
 
 **Review focus.** A line-by-line audit of [.agents/skills/spec-write/SKILL.md](../../.agents/skills/spec-write/SKILL.md) against this spec's §4, §5, §6, and §12. The auditor enumerates each divergence: a behavior present in SKILL.md but not committed in the spec, or a commitment in the spec absent from SKILL.md. Cross-skill drift patterns (e.g., four skills citing the Atomic-Skill Portability Principle correctly and one quietly not) are explicitly in scope by virtue of the batch context.

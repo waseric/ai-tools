@@ -67,6 +67,38 @@ Entries appended per-spec audit, in audit order. Each entry includes: spec audit
 
 **Routing tally so far (N=2):** amend-SKILL.md ×2, amend-spec ×2, accept ×1. Tally accumulates across the five sessions; the closing summary reads this column to surface cross-cutting amendment opportunities per [docs/retroactive-spec-strategy.md](../../docs/retroactive-spec-strategy.md) OQ-3.
 
+### N=3 — 2026-05-18 — spec-write CP-2
+
+**Spec audited:** [specs/20260518-spec-write-skill/architecture.md](../20260518-spec-write-skill/architecture.md) §4, §5, §6, §12 against [.agents/skills/spec-write/SKILL.md](../../.agents/skills/spec-write/SKILL.md).
+**Per-spec verdict:** pass with comments. See [specs/20260518-spec-write-skill/journal.md "Review of CP-2"](../20260518-spec-write-skill/journal.md) for the full entry.
+**Auditor:** Claude (agent reviewer).
+**Audit order position:** session 2 of 5 in the batch; default authoring order followed.
+
+**Divergences and routing (5 advisory, 0 important, 0 blocker):**
+
+| ID | Summary | Routing |
+|---|---|---|
+| D-1 | OP-7 "No bloat" + WND-3 "no new deps without Alternatives Considered" lacks explicit §5/§6 home | (a) amend spec §6 |
+| D-2 | §5.7 + §4 Vocabulary commit Authoritative/Inspirational §14 split; SKILL.md §14 does not require (CP-1 advisory (a) carry-forward) | (b) amend SKILL.md §14 |
+| D-3 | SKILL.md OUTPUT FORMAT "All code blocks must specify a language" absent from spec §6 (direct N=2 D-3 parallel) | (a) amend spec §6 |
+| D-4 | SKILL.md WND-4 task-phrasing rule has no explicit §5.5 home — operator overrode proposed (c) | (a) amend spec §5.5 |
+| D-5 | SKILL.md preamble line 15 omits "decisions proposed-unilaterally" from Phase 2 description; Phase 2 body enumerates it. Internal SKILL.md inconsistency (mirror-class of N=2 D-2) | (b) amend SKILL.md preamble |
+
+**Cross-skill pattern observations (queued for closing summary):**
+
+- **ASPP citation discipline (N=3 confirmation).** spec-write §3 cites [tech-stack.md §21-33](../tech-stack.md#L21-L33) correctly (heading line for ASPP); §6 Portability NFR also cites correctly. N=1 / N=2 baseline pattern (correct citation) holds at N=3.
+- **Two-source structure — shape (i) only.** spec-write has shape (i) predecessor cross-check ([docs/spec-driven-development-prompts-conversation.md](../../docs/spec-driven-development-prompts-conversation.md) lines 17–225); no sibling design spec it cites architecturally. §8 has "Predecessor cross-check" row; no "Sibling design-spec cross-check" row, matching the batch journal's expected shape for non-spec-execute quintet members.
+- **Section-heading citation discipline.** spec-write §3 citations (`§21-33`, `§44`, `§48`, `§51`) point at correct content. §21 is the ASPP heading line; §44/§48/§51 are bullet-start lines under sub-section headings (Constraints, Conventions Outside the Stack) — they cite the correct content even when not at top-level heading lines. CP-1 reviewer's "heading/section-start line" claim accurate. N=5 corrective established at N=1 baseline holds.
+- **Amendment-ID citation correctness.** §11 cites N=1 amendment 2026-05-17-1 (the `.claude/skills/...` removal) correctly. The N=5 amendment-ID-error class does not surface here.
+- **"WHAT NOT TO DO partial home" finding class — three data points.** N=1 D-4 (README-reconciliation), N=2 D-4 (Inline-citation preference), N=3 D-1 (No-bloat / no-new-deps). Three CP-2 audits in a row have surfaced a WND item lacking explicit §5/§6 carrier. Stable cross-skill pattern; closing-summary candidate for cross-cutting observation per [strategy OQ-3](../../docs/retroactive-spec-strategy.md). Future CP-2 audits should walk WHAT NOT TO DO items against §5/§6 carriers as a first-class step.
+- **SKILL.md preamble-vs-Phase-body inconsistency class confirmed (D-5).** N=2 D-2 had preamble naming "format" that Phase 2 body did not enumerate. N=3 D-5 is the mirror direction: Phase 2 body includes "decisions proposed-unilaterally" that preamble omits. Two directions of the same class across two consecutive sessions; finding class is real and recurring.
+- **CP-1 reviewer-error pattern (N=3 callout iii) did NOT fire at N=3.** spec-write CP-1 explicitly elevated section-heading citation discipline to a review-focus check item; the §3 citations were correct and CP-2 confirms. Pattern: when CP-1 elevates a discipline to explicit check, CP-2 does not re-find it. Suggests CP-1 review-focus item elevation is the right intervention.
+- **Phrasing-decision matrix (N=3 callout iv) did NOT fire** — spec §13 reports "none surfaced" with triage table; no open OQs to interact with. D-2 (b) and D-5 (b) routings touch SKILL.md without any OQ interaction. Matrix remains a candidate pattern awaiting first exercise.
+- **Status-banner-lifecycle finding class (N=3 callout i) did NOT fire** — spec-write produces feature specs (no Status banner in 14-section template); finding class is design-spec-specific. Future quintet specs (spec-execute, spec-review, spec-amend retroactive specs — all design-spec form) may surface this class.
+- **D-4 operator override (proposed (c) → routed (a)).** Reviewer proposed accept-as-known-minor on protocol-detail grounds (mirror of N=2 D-5 disposition); operator chose to amend spec §5.5. Pattern: reviewers should surface protocol-detail findings explicitly for operator choice rather than absorbing them silently into (c). Note this is a deviation from the N=2 D-5 precedent and worth flagging in the closing summary.
+
+**Routing tally so far (N=2 + N=3):** amend-SKILL.md ×4 (N=2's D-1+D-2, N=3's D-2+D-5), amend-spec ×5 (N=2's D-3+D-4, N=3's D-1+D-3+D-4), accept ×1 (N=2's D-5). Running tally accumulates across remaining sessions; the closing summary reads this column to surface cross-cutting amendment opportunities per [docs/retroactive-spec-strategy.md](../../docs/retroactive-spec-strategy.md) OQ-3.
+
 ## Closing summary
 
 Written after all five audits complete. Captures the cross-skill divergence list, any cross-cutting amendments proposed (per [strategy OQ-3](../../docs/retroactive-spec-strategy.md)), and the readiness verdict for `docs/retroactive-spec-pattern.md` per [spec-amend §11 step 4](../20260518-spec-amend-skill/architecture.md).
