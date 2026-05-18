@@ -392,3 +392,63 @@ After (new Markdown hygiene row inserted between Format fidelity and Pairing):
 **Status implication.** Kept (`Draft — Open for Review`). Surgical addition to NFR table.
 
 **Approver.** Eric Wasgatt — approved 2026-05-18.
+
+## 2026-05-18 — Amendment 2026-05-18-4
+
+**Section amended:** [architecture.md §6 Non-functional Requirements table](./architecture.md#L256-L270) — new "Inline citation preference" row inserted between "Citation discipline" and "Self-containment".
+**Trigger:** CP-2 drift audit finding D-4: SKILL.md WHAT NOT TO DO item 3 ("Do not bury authoritative URLs in §14 when they belong inline at the point of claim") and the reinforcing §14 References preamble had no explicit §5/§6 home in the spec. Operator selected routing option (a) — amend spec §6.
+**Reason:** SKILL.md commits the skill to inline-citation-over-bibliography behavior at two locations (WND-3 + §14 preamble); spec §6 did not reflect this. New row pulls the rule into a first-class NFR. WND-4 (Risks/OQ distinction) deferred — already encoded in spec-template §10 vs §13 sectional separation.
+**Impact summary:** No tasks (design spec). CP-2 D-4 closed. No completed work invalidated. No cross-reference follow-up needed.
+**Approver:** Eric Wasgatt
+**Approved on:** 2026-05-18
+**Status implication:** kept (`Draft — Open for Review`)
+**Commit:** 5d10679
+
+### Full record
+
+#### Amendment 2026-05-18-4 — architecture.md §6 adds Inline citation preference NFR
+
+**Trigger.** CP-2 drift audit (2026-05-18, this journal) finding D-4: SKILL.md WHAT NOT TO DO item 3 ("Do not bury authoritative URLs in §14 when they belong inline at the point of claim") and the reinforcing §14 References preamble ("Inline citations at the point of claim are preferred over a bibliography-at-the-bottom. §14 is for sources too cross-cutting to inline.") commit the skill to inline-citation-over-bibliography behavior. Spec §6 NFRs and §5 Detailed Design did not surface this commitment. Operator selected routing option (a) — amend spec §6.
+
+**Section.** architecture.md §6 NFR table — insert one new row after the existing "Citation discipline" row (logical grouping: both rows govern citation behavior).
+
+**Change.**
+
+Before (table includes Citation discipline, followed by Self-containment):
+> | **Citation discipline** | External claims verified at canonical sources (heavy verification) or limited to repo-internal sources (light verification). Soft hedges (`[needs verification]`, `[unclear]`, `[TBD]`) prohibited in published spec content. | [SKILL.md Notes on the standing disciplines](../../.agents/skills/spec-design/SKILL.md) |
+> | **Self-containment** | Each produced design spec opens with Status / Date / Author / Audience banner and reads independently of the originating chat. No "as we discussed"; every named system, role, or pattern defined or linked. | [SKILL.md OPERATING PRINCIPLES](../../.agents/skills/spec-design/SKILL.md) |
+
+After (new Inline citation preference row inserted between Citation discipline and Self-containment):
+> | **Citation discipline** | External claims verified at canonical sources (heavy verification) or limited to repo-internal sources (light verification). Soft hedges (`[needs verification]`, `[unclear]`, `[TBD]`) prohibited in published spec content. | [SKILL.md Notes on the standing disciplines](../../.agents/skills/spec-design/SKILL.md) |
+> | **Inline citation preference** | Authoritative URLs and source references appear inline at the point of claim. §14 References is reserved for cross-cutting sources too broad to inline; it is not a bibliography catch-all. | [SKILL.md WHAT NOT TO DO + §14 References preamble](../../.agents/skills/spec-design/SKILL.md) |
+> | **Self-containment** | Each produced design spec opens with Status / Date / Author / Audience banner and reads independently of the originating chat. No "as we discussed"; every named system, role, or pattern defined or linked. | [SKILL.md OPERATING PRINCIPLES](../../.agents/skills/spec-design/SKILL.md) |
+
+**Reason.** SKILL.md commits the skill to inline-citation-over-bibliography behavior at two locations (WHAT NOT TO DO item 3 + §14 References preamble); spec §6 did not reflect this commitment. The new "Inline citation preference" row covers WND-3 directly and pulls the §14 preamble's rule into a first-class NFR. WND-4 (Risks/OQ distinction) was not included in this amendment because the §10 Risks vs §13 Open Questions sectional separation in the spec template already encodes the distinction at structural level — an NFR row for it would be redundant prose.
+
+**Impact.**
+- Affected tasks: none.
+- Affected checkpoints: CP-2 D-4 closed.
+- Completed work invalidated: none.
+- Cross-references requiring follow-up: none.
+
+**Status implication.** Kept (`Draft — Open for Review`). Surgical addition to NFR table.
+
+**Approver.** Eric Wasgatt — approved 2026-05-18.
+
+### CP-2 closeout
+
+With Amendments 2026-05-18-1, 2026-05-18-2, 2026-05-18-3, and 2026-05-18-4 all approved and applied, CP-2 routing is complete:
+
+- D-1 → resolved via 2026-05-18-1 (route b, SKILL.md lifecycle declaration).
+- D-2 → resolved via 2026-05-18-2 (route b, SKILL.md Phase 2 Format confirmation bullet; OQ-1 Question text updated in same amendment).
+- D-3 → resolved via 2026-05-18-3 (route a, architecture.md §6 Markdown hygiene NFR).
+- D-4 → resolved via 2026-05-18-4 (route a, architecture.md §6 Inline citation preference NFR; WND-4 Risks/OQ distinction deferred as redundant with spec-template sectioning).
+- D-5 → accepted as known minor discrepancy (rationale in CP-2 verdict above: protocol detail vs principle distinction).
+
+The spec-design retroactive-spec adoption is **closed**. The spec is now the living contract for SKILL.md per the Amendment Protocol. The five-spec batch CP-2 at [specs/20260518-cp2-batch-audit/journal.md](../20260518-cp2-batch-audit/journal.md) advances to N=3 — `spec-write` retroactive spec — per the batch's authoring-order default.
+
+**Pattern for N=3.** Four amendments emerged from one CP-2 verdict — one more than N=1's three. The amendments split cleanly by file (D-1, D-2 against SKILL.md; D-3, D-4 against architecture.md). D-2 was the only amendment requiring a cross-reference follow-up (OQ-1 Question text update), applied in the same amendment per spec-amend's coherent-unit rule. The four amendments interacted in two ways:
+1. **Sequencing — D-1 then D-2 against SKILL.md.** Both touched SKILL.md; D-1 advanced frontmatter `lastUpdated`, D-2 same-day so no further advance. Same-day amendment sequencing avoids frontmatter churn.
+2. **Content-decision interaction — D-2 phrasing partially binds OQ-1.** Phrasing X (route-elsewhere) was chosen to close the structural gap without pre-empting OQ-1's four-option content question. The "Phrasing X/Y/Z + OQ-1 update Yes/No" decision matrix is a pattern for future amendments where a SKILL.md edit interacts with an open OQ; future CP-2 amendments touching OQs should surface the matrix explicitly rather than silently pick a phrasing.
+
+Future CP-2 batches in the quintet should expect 2–5 amendments per spec (N=1 had 3, N=2 had 4); the file-split pattern (SKILL.md amendments vs spec amendments) and the same-day sequencing rule will likely recur.
