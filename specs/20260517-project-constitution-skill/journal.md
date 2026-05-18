@@ -169,7 +169,7 @@ No `[blocker]` open questions; the spec is ready for CP-1 either way.
 **Approver:** Eric Wasgatt
 **Approved on:** 2026-05-17
 **Status implication:** kept (Draft — Open for Review)
-**Commit:** *(pending — to be backfilled)*
+**Commit:** 9d5263f
 
 ### Full record
 
