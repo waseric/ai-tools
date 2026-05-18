@@ -33,13 +33,13 @@ Per [N=5 journal §"Pattern observation for N=6"](../20260518-spec-review-skill/
 |---|---|---|
 | §5.1 Phase 1 Orient | spec-review §5.1 + spec-execute §5.1 (both "Phase 1 Orient"); SKILL.md Phase 1 | Both sibling §5.1 subsections exist and are titled "Phase 1 — Orient" (verified). SKILL.md Phase 1 at line 53–68 verified. |
 | §5.2 Phase 2 Draft | spec-review §5.7 ("Phase 7 — Verdict") for structured-artifact pattern; SKILL.md Phase 2 lines 74–100 | spec-review §5.7 verified as "Phase 7 — Verdict" with structured-format discussion. SKILL.md Phase 2 verified at lines 74–100. |
-| §5.3 Phase 3 Approval | spec-execute §5.7 ("Phase 7 — Checkpoint Gate"); SKILL.md Phase 3 | spec-execute §5.7 verified as "Phase 7 — Checkpoint Gate" (verified to exist; explicit-approval discipline matches). SKILL.md Phase 3 lines 102–111 verified. |
+| §5.3 Phase 3 Approval | spec-execute §5.7 ("Phase 7 — Checkpoint gate"); SKILL.md Phase 3 | spec-execute §5.7 verified as "Phase 7 — Checkpoint gate" (verified to exist; explicit-approval discipline matches). SKILL.md Phase 3 lines 102–111 verified. Capitalization corrected post-CP-1 via amendment 2026-05-18-3. |
 | §5.4 Phase 4 Apply | session-economy §5.3 (Phase 4 paragraph); SKILL.md Phase 4 + Multi-repo block | session-economy §5.3 verified at lines 123–145; Phase 4 paragraph at line 141 verified verbatim. SKILL.md Phase 4 at lines 113–130; Multi-repo block at line 130 verified. |
 | §5.5 Phase 5 Journal | session-economy §5.3 (Phase 5 note); SKILL.md Phase 5 lines 136–149 + multi-repo at 152 | session-economy §5.3 Phase 5 note verified at lines 143–145 verbatim. SKILL.md Phase 5 + multi-repo verified. |
 | §5.6 Phase 6 Downstream Handoff | spec-execute §5.6; spec-review §5.8; SKILL.md Phase 6 lines 156–164 | **Citation error caught at walk:** original draft cited spec-execute §5.6 as "Phase 6 — Closeout" — verification against the actual heading showed it is **"Phase 6 — Update artifacts"** (closeout is the *purpose*; "Update artifacts" is the heading). Same correction for spec-review §5.8: actual heading is "Phase 8 — Update artifacts" (not "Update Artifacts"). Functional characterization (end-of-flow phase naming next actor) verified: spec-execute §5.6 Behavior point 3 = "Next-task pointer"; spec-review §5.8 conditional update 4 = "state the next task ID per the dependency graph." Spec body corrected before commit. **This is the per-citation walk discipline working as designed — catching the error at authoring time rather than at CP-1.** SKILL.md Phase 6 lines 156–164 verified. |
 | §5.7 Change Classification | SKILL.md ROLE block lines 37–41 | Verified: lines 37–41 contain the trichotomy (amendment / in-flight edit / rewrite). |
 | §5.8 Voice discipline | N=2 §5.6; N=3 (omitted); N=4 §5.10; N=5 §5.10 + amendment 2026-05-18-2 commit `85821ca` | All verified at authoring time. N=2 §5.6 = "Voice discipline" ✓; N=3 §5 has no Voice-discipline subsection ✓; N=4 §5.10 = "Voice discipline" ✓; N=5 §5.10 = "Voice discipline" (post-amendment) ✓; commit `85821ca` is the amendment commit ✓. |
-| §5.9 Portability rule for links | Strategy-doc Amendment 2026-05-17-1; .agents/skills/spec-amend/SKILL.md path | Strategy-doc amendment verified. SKILL.md path verified. |
+| §5.9 Portability rule for links | project-constitution-skill Amendment 2026-05-17-1; .agents/skills/spec-amend/SKILL.md path | Citation file corrected post-CP-1 via amendment 2026-05-18-3 (original draft cited the strategy doc; actual amendment lives in project-constitution-skill journal). SKILL.md path verified at authoring time. |
 
 **Outcome.** **One citation error caught and fixed at authoring time** (the §5.6 "Phase 6 — Closeout" → "Phase 6 — Update artifacts" correction, plus the sibling spec-review §5.8 capitalization). Spec body corrected before commit; both the spec and this journal table now reflect the verified-correct citation. The discipline applied at N=6 worked as designed — the same failure mode that surfaced at N=4 CP-1 (amendment 2026-05-18-1) and N=5 CP-1 (amendment 2026-05-18-2) was caught one inflection point earlier, at authoring time, **before** commit. If CP-1 surfaces additional citation findings regardless, the discipline needs refinement; if CP-1 finds zero or only-non-citation findings, the discipline is validated as effective at the authoring-time inflection point. Either outcome is data for the pattern doc.
 
@@ -195,3 +195,98 @@ Three steps for this spec, plus one closing-of-the-series step:
    - **N=4 amendment 2026-05-18-1 + N=5 amendment 2026-05-18-2** — the two amendment cycles in the retroactive-spec series; structural evidence base for the citation-error failure mode the per-citation walk discipline mitigates.
 
 No `[blocker]` open questions; the spec is ready for CP-1.
+
+## 2026-05-18 — Amendment 2026-05-18-3
+
+**Section amended:** [specs/20260518-spec-amend-skill/architecture.md](./architecture.md) §5.3 (Pattern invoked sub-block), §5.9 (Pattern invoked sub-block); [specs/20260518-spec-amend-skill/journal.md](./journal.md) "Pre-commit per-citation walk" rows §5.3 and §5.9; [specs/20260518-spec-review-skill/architecture.md](../20260518-spec-review-skill/architecture.md) §5.11 (Pattern invoked sub-block — upstream source of inherited error)
+**Trigger:** CP-1 review verdict (this session, pre-commit) raised [important] finding I1 — §5.9 cites `docs/retroactive-spec-strategy.md` as holder of Amendment 2026-05-17-1; actual amendment lives in [project-constitution-skill journal.md:163](../20260517-project-constitution-skill/journal.md#L163). Sampling §5.3 surfaced advisory A1 (Phase 7 — Checkpoint gate capitalization).
+**Reason:** Two citation errors point to files that do not contain the cited records. The per-citation walk discipline applied at authoring time scoped to §-heading paraphrases against sibling specs and did not extend to amendment-ID citations against their cited records, nor catch the single-letter capitalization difference. Fix the inherited form at its upstream source forward.
+**Impact summary:** No tasks; spec-amend CP-1 verdict closes "pass with comments" on application; spec-review CP-1 remains "pass with comments" (post-CP-1 citation correction, same shape as N=5 amendment 2026-05-18-2). No completed work invalidated.
+**Approver:** Eric Wasgatt
+**Approved on:** 2026-05-18
+**Status implication:** kept for both specs (Draft — Open for Review post-CP-1)
+**Commit:** `7a33abe` (architecture edits); journal-entry commit SHA backfilled below
+
+### Full record
+
+## Amendment 2026-05-18-3 — spec-amend §5.3 + §5.9 + journal rows 36, 42; spec-review §5.11 (cross-skill)
+
+**Trigger.** CP-1 review of spec-amend-skill (this session, pre-commit) raised [important] finding I1: §5.9 "Pattern invoked" cites `docs/retroactive-spec-strategy.md` for "Amendment 2026-05-17-1"; the cited file contains no such record. The actual Amendment 2026-05-17-1 lives at `specs/20260517-project-constitution-skill/journal.md` line 163 and amends the project-constitution-skill spec. The N=6 §5.9 citation was inherited verbatim from N=5 spec-review-skill `architecture.md:259`, which holds the same incorrect form. Sampling the §5.3 citation under the per-citation walk surfaced advisory A1: §5.3 cites "Phase 7 — Checkpoint Gate" (capital G) where the actual heading is "Phase 7 — Checkpoint gate" (lowercase). Operator chose to bundle A1 + I1 as a coherent §5 citation-accuracy fix (Q1 scope) and to pair with the upstream N=5 source (Q2 scope) — making this the first post-trilogy cross-skill amendment cycle, directly relevant evidence for §13 OQ-4.
+
+**Section.** Five edits across two specs and two journals — same coherent change (§5 citation accuracy, including upstream source of inherited error):
+
+- spec-amend `architecture.md:141` (§5.3 Phase 3 Approval, "Pattern invoked" sub-block)
+- spec-amend `architecture.md:225` (§5.9 Portability rule for links, "Pattern invoked" sub-block)
+- spec-amend `journal.md:36` (§5.3 row in "Pre-commit per-citation walk" table)
+- spec-amend `journal.md:42` (§5.9 row in "Pre-commit per-citation walk" table)
+- spec-review `architecture.md:259` (§5.11 Portability rule for links, "Pattern invoked" sub-block — same incorrect citation)
+
+**Change.**
+
+*Edit 1 — spec-amend architecture.md §5.3 line 141:*
+
+Before:
+> **Pattern invoked.** "Explicit approval is a hard stop." Same discipline as [spec-execute §5.7 Phase 7 Checkpoint Gate](../20260518-spec-execute-skill/architecture.md) — the skill structurally enforces the pause so the operator cannot accidentally implicitly approve by inaction. Verified against [SKILL.md Phase 3](../../.agents/skills/spec-amend/SKILL.md) at the date of this spec.
+
+After:
+> **Pattern invoked.** "Explicit approval is a hard stop." Same discipline as [spec-execute §5.7 Phase 7 Checkpoint gate](../20260518-spec-execute-skill/architecture.md) — the skill structurally enforces the pause so the operator cannot accidentally implicitly approve by inaction. Verified against [SKILL.md Phase 3](../../.agents/skills/spec-amend/SKILL.md) at the date of this spec.
+
+*Edit 2 — spec-amend architecture.md §5.9 line 225:*
+
+Before:
+> **Pattern invoked.** [Strategy-doc Amendment 2026-05-17-1](../../docs/retroactive-spec-strategy.md) (drop `~/.claude/skills/` references). Carried forward at every N≥2; carried forward at N=6.
+
+After:
+> **Pattern invoked.** [project-constitution-skill Amendment 2026-05-17-1](../20260517-project-constitution-skill/journal.md) (drop `~/.claude/skills/` references). Carried forward at every N≥2; carried forward at N=6.
+
+*Edit 3 — spec-amend journal.md line 36 (§5.3 row in walk table):*
+
+Before:
+> | §5.3 Phase 3 Approval | spec-execute §5.7 ("Phase 7 — Checkpoint Gate"); SKILL.md Phase 3 | spec-execute §5.7 verified as "Phase 7 — Checkpoint Gate" (verified to exist; explicit-approval discipline matches). SKILL.md Phase 3 lines 102–111 verified. |
+
+After:
+> | §5.3 Phase 3 Approval | spec-execute §5.7 ("Phase 7 — Checkpoint gate"); SKILL.md Phase 3 | spec-execute §5.7 verified as "Phase 7 — Checkpoint gate" (verified to exist; explicit-approval discipline matches). SKILL.md Phase 3 lines 102–111 verified. Capitalization corrected post-CP-1 via amendment 2026-05-18-3. |
+
+*Edit 4 — spec-amend journal.md line 42 (§5.9 row in walk table):*
+
+Before:
+> | §5.9 Portability rule for links | Strategy-doc Amendment 2026-05-17-1; .agents/skills/spec-amend/SKILL.md path | Strategy-doc amendment verified. SKILL.md path verified. |
+
+After:
+> | §5.9 Portability rule for links | project-constitution-skill Amendment 2026-05-17-1; .agents/skills/spec-amend/SKILL.md path | Citation file corrected post-CP-1 via amendment 2026-05-18-3 (original draft cited the strategy doc; actual amendment lives in project-constitution-skill journal). SKILL.md path verified at authoring time. |
+
+*Edit 5 — spec-review architecture.md §5.11 line 259 (upstream source of inherited error):*
+
+Before:
+> **Pattern invoked.** [Strategy-doc Amendment 2026-05-17-1](../../docs/retroactive-spec-strategy.md) (drop `~/.claude/skills/` references). Carried forward at every N≥2.
+
+After:
+> **Pattern invoked.** [project-constitution-skill Amendment 2026-05-17-1](../20260517-project-constitution-skill/journal.md) (drop `~/.claude/skills/` references). Carried forward at every N≥2.
+
+**Reason.** Both citation errors point readers to files that do not contain the cited records: §5.9 (and N=5 §5.11) names the strategy doc as holder of Amendment 2026-05-17-1, but the amendment lives in the project-constitution-skill journal; §5.3 capitalizes "Gate" where the actual heading uses lowercase "gate". The per-citation walk discipline applied at authoring time caught the §5.6 paraphrase but did not extend its scope to amendment-ID citations against their cited records, nor catch the single-letter capitalization difference. Fixing both errors at once across both specs makes the inherited form correct from its upstream source forward and produces the first post-trilogy cross-skill amendment evidence point — directly relevant to §13 OQ-4.
+
+**Impact.**
+- **Affected tasks:** none (design specs, no atomic tasks).
+- **Affected checkpoints:** spec-amend CP-1 (this session's verdict closes "pass with comments" upon application); spec-review CP-1 (already closed at "pass with comments" on 2026-05-18 via verdict commit `e8193a8`; amendment to §5.11 is post-CP-1, same shape as N=5 amendment 2026-05-18-2 which itself was post-CP-1 to §5.10).
+- **Completed work invalidated:** No. spec-review's CP-1 verdict remains "pass with comments"; the §5.11 citation was not among the [important] findings at the time of that verdict (it was inherited from a prior N≥2 spec and propagated without challenge).
+- **Cross-references requiring follow-up:** None. §11 of spec-amend already cites the amendment correctly; no other §5.X "Pattern invoked" rows reference this same amendment.
+
+**Status implication.** **kept** for both specs. spec-amend: `Draft — Open for Review` post-CP-1, pending the §9 Status line backfill that will be applied as part of the verdict-application sequence. spec-review: `Draft — Open for Review` post-CP-1 (status already at this state per its §9 Status line on 2026-05-18, verdict commit `e8193a8`). Surfacing per the auto-memory directive on status-implication explicitness: amendment is a citation correction, not a structural change to the skill design; neither spec needs to revert to pre-Draft for re-approval. N=5 amendment 2026-05-18-2 (commit `85821ca`) is the precedent for kept-status post-CP-1 citation corrections; this amendment follows the same shape across two specs simultaneously.
+
+**Approver.** Eric Wasgatt, 2026-05-18.
+
+### Cross-skill note (first post-trilogy cycle — §13 OQ-4 evidence)
+
+This is the **first post-trilogy-commit cross-skill amendment cycle**. The two pre-trilogy cross-skill changes (`e483466`, `6d158fb`) used a different model (single commit touching multiple skills directly) that the trilogy commit was designed to deprecate. Mechanics applied at this cycle, recorded as worked-example evidence for §13 OQ-4:
+
+- **Single amendment ID** (`2026-05-18-3`) shared across two specs (N=5 spec-review + N=6 spec-amend). No "shared prefix" needed — the ID itself is shared because the change is the same.
+- **One spec-edit commit** (`7a33abe`) touching both specs' `architecture.md` files (three edits total).
+- **One journal commit** touching both specs' `journal.md` files (two existing-row corrections in spec-amend's per-citation walk table; one new amendment entry in each spec's journal).
+- **Primary record lives in spec-amend journal** (this entry) with the structured Phase 2 amendment block. **Companion record in spec-review journal** references the primary by amendment ID without duplicating the structured block.
+- **Status implication kept for both specs.** No re-approval cycle triggered.
+
+This worked example anchors §13 OQ-4 to evidence rather than hypothesis. The honest leaning "(d) defer until first observed post-trilogy cycle" → now (d) is satisfied; the future amendment session that takes up OQ-4 has this entry as its anchor for codifying option (a) ("N independent amendments with a shared amendment-ID prefix") — with the simplification that no prefix is needed when there is only one cross-skill change at a time. The pattern doc (post-CP-2) will consume this entry alongside the OQ-4 watch-item description.
+
+### Cross-skill note — codification candidate for SKILL.md
+
+Option (c) from §13 OQ-4 ("Document the convention in a §-of-spec-amend addition: 'Cross-skill case.'") is a candidate for a future amendment to spec-amend SKILL.md once this evidence base accumulates a second cycle. One worked example is enough to anchor the watch item; codifying convention on one cycle would over-fit. The watch item for OQ-4 stays open with this entry as its first observation.

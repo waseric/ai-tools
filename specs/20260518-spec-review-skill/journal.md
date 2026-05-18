@@ -275,3 +275,29 @@ the amendment record as separate durable artifacts.
 
 This amendment is the **second consecutive citation-error amendment in the retro-spec series** (N=4 amendment 2026-05-18-1 was the first). Both targeted "Pattern invoked" / architectural-source lineage citations, not SKILL.md mapping commitments. Two cycles is now the evidence base. **Pattern for N=6:** the journal-mining authoring pattern reliably introduces citation errors in cross-spec lineage prose; spec-amend's retroactive spec should perform an authoring-time per-citation walk against actual cited subsections (heading-text and content match, not just heading-line target). If a third consecutive CP-1 surfaces the same failure mode at N=6, codifying the check as a SKILL.md-level discipline (in spec-design or spec-write) becomes warranted; until then, per-spec mitigation in each retro spec's CP-1 review focus suffices.
 
+## 2026-05-18 — Amendment 2026-05-18-3 (cross-skill — paired with spec-amend)
+
+**Section amended:** [specs/20260518-spec-review-skill/architecture.md](./architecture.md) §5.11 (Pattern invoked sub-block)
+**Trigger:** Inherited from spec-amend CP-1 verdict (this session) — [important] finding I1 traced N=6 §5.9's citation error to its upstream source, N=5 §5.11 (same incorrect form: "[Strategy-doc Amendment 2026-05-17-1](../../docs/retroactive-spec-strategy.md)"). Operator paired the upstream fix into the same amendment cycle (Q2 of spec-amend amendment 2026-05-18-3).
+**Reason:** §5.11 cited `docs/retroactive-spec-strategy.md` as the holder of Amendment 2026-05-17-1; the strategy doc contains no such record. The actual amendment lives in [specs/20260517-project-constitution-skill/journal.md:163](../20260517-project-constitution-skill/journal.md#L163).
+**Impact summary:** No tasks; spec-review CP-1 verdict remains "pass with comments" (post-CP-1 citation correction, same shape as the prior amendment 2026-05-18-2 to §5.10). No completed work invalidated.
+**Approver:** Eric Wasgatt
+**Approved on:** 2026-05-18
+**Status implication:** kept (Draft — Open for Review post-CP-1); §9 Status line "pass with comments on 2026-05-18 by Claude (AI assistant) on behalf of Eric Wasgatt — one [important] citation error in §5.10 (Voice-discipline lineage cites nonexistent N=3 §5.X) proposed for amendment via `/spec-amend`; see [journal](./journal.md) entry of same date. Verdict commit: `e8193a8`." remains as the contemporary record; this amendment is appended below per the N=5 amendment 2026-05-18-2 convention (do not mutate historical verdict text; append new amendment as a separate durable artifact).
+**Commit:** `7a33abe` (architecture edit); journal-entry commit SHA backfilled below
+
+### Full record
+
+See [specs/20260518-spec-amend-skill/journal.md](../20260518-spec-amend-skill/journal.md) amendment 2026-05-18-3 for the full structured Phase 2 amendment record. This is the **cross-skill companion entry**; the spec-amend journal holds the primary record because spec-amend is where the originating CP-1 verdict was issued. Pasting the structured block here would duplicate the durable record; cross-reference by amendment ID preserves a single source of truth.
+
+### Cross-skill note (first post-trilogy cycle — §13 OQ-4 evidence)
+
+This is the **first post-trilogy-commit cross-skill amendment cycle**. The two pre-trilogy cross-skill changes (`e483466`, `6d158fb`) used a different model (single commit touching multiple skills directly) that the trilogy commit was designed to deprecate. Mechanics applied — recorded in full in the spec-amend journal entry; summarized here so a reader of N=5's journal can navigate without round-tripping:
+
+- Single amendment ID (`2026-05-18-3`) shared across both specs.
+- One spec-edit commit (`7a33abe`) touching both `architecture.md` files.
+- One journal commit touching both `journal.md` files.
+- Primary record in spec-amend journal; companion record (this entry) in spec-review journal.
+
+The pattern doc (post-CP-2) will consume the two amendment entries together as the first worked example of post-trilogy cross-skill amendment mechanics, anchoring §13 OQ-4 to evidence.
+
