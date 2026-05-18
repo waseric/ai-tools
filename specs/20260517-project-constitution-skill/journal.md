@@ -390,3 +390,56 @@ After:
 **Status implication.** Kept (Draft — Open for Review). Surgical text fix.
 
 **Approver.** Eric Wasgatt — approved 2026-05-18.
+
+## 2026-05-18 — Amendment 2026-05-18-3
+
+**Section amended:** [architecture.md §6 Non-functional Requirements](./architecture.md#L167-L179) — new "README reconciliation" row appended to the NFR table.
+**Trigger:** CP-2 drift audit finding D-4: SKILL.md WHAT NOT TO DO commits "Do not duplicate or contradict existing READMEs without addressing them. If a README is stale, either update it as part of this work or note that the constitution supersedes it." Spec §6 NFRs and §5.3 had no parallel commitment.
+**Reason:** The README-reconciliation rule is a real SKILL.md behavioral commitment that the spec failed to reflect. Adding the row makes §6 faithful to SKILL.md's contract and matches the table's pattern for SKILL.md-derived behavioral constraints (e.g., "No proliferation," "Forward orientation").
+**Impact summary:** No tasks (design spec). CP-2 D-4 closed. No completed work invalidated. No cross-reference follow-up needed.
+**Approver:** Eric Wasgatt
+**Approved on:** 2026-05-18
+**Status implication:** kept (Draft — Open for Review)
+**Commit:** TBD
+
+### Full record
+
+#### Amendment 2026-05-18-3 — architecture.md §6 adds README-reconciliation NFR
+
+**Trigger.** CP-2 drift audit (2026-05-18, this journal) finding D-4: SKILL.md WHAT NOT TO DO line at [.agents/skills/project-constitution/SKILL.md](../../.agents/skills/project-constitution/SKILL.md) commits "Do not duplicate or contradict existing READMEs without addressing them. If a README is stale, either update it as part of this work or note that the constitution supersedes it." Spec §6 NFRs and §5.3 Phase 3 behavior did not surface this commitment.
+
+**Section.** [architecture.md §6 NFR table](./architecture.md#L169-L179) — append one new row after the "Layout neutrality" row.
+
+**Change.**
+
+Before (table ended with):
+> | **Layout neutrality** | The skill detects and respects non-default authoritative-artifacts directories. Layout choice is surfaced as a Phase 2 question, not assumed.                                                                                                | [SKILL.md Phase 3 preface](../../.agents/skills/project-constitution/SKILL.md#L78) |
+
+After (Layout neutrality row preserved; new README reconciliation row appended):
+> | **Layout neutrality** | The skill detects and respects non-default authoritative-artifacts directories. Layout choice is surfaced as a Phase 2 question, not assumed.                                                                                                | [SKILL.md Phase 3 preface](../../.agents/skills/project-constitution/SKILL.md#L78) |
+> | **README reconciliation** | The skill does not duplicate or contradict existing READMEs. When a relevant README is present, the operator is asked whether to update it as part of the constitution work or to note that the constitution supersedes it. Silent duplication is prohibited. | [SKILL.md WHAT NOT TO DO](../../.agents/skills/project-constitution/SKILL.md) |
+
+**Reason.** The README-reconciliation rule is a real SKILL.md behavioral commitment (WHAT NOT TO DO line plus Phase 1 "existing docs" scan target) that the spec did not reflect in §6 NFRs or §5.3 Phase 3 behavior. Adding the row makes the spec faithful to SKILL.md and matches the table's existing pattern for SKILL.md-derived behavioral constraints (e.g., "No proliferation" cites WHAT NOT TO DO; "Forward orientation" cites Operating Principle 7).
+
+**Impact.**
+- Affected tasks: none.
+- Affected checkpoints: CP-2 D-4 closed.
+- Completed work invalidated: none.
+- Cross-references requiring follow-up: none.
+
+**Status implication.** Kept (Draft — Open for Review). Surgical addition.
+
+**Approver.** Eric Wasgatt — approved 2026-05-18.
+
+### CP-2 closeout
+
+With Amendments 2026-05-18-1, 2026-05-18-2, and 2026-05-18-3 all approved and applied, CP-2 routing is complete:
+
+- D-1 → resolved via 2026-05-18-2.
+- D-2 → resolved via 2026-05-18-1 (option b).
+- D-3 → accepted as known minor discrepancy (rationale in the CP-2 verdict above).
+- D-4 → resolved via 2026-05-18-3.
+
+The project-constitution retroactive-spec adoption (§11) is **closed**. The spec is now the living contract for SKILL.md per the Amendment Protocol. The five-spec batch CP-2 in [specs/20260518-cp2-batch-audit/journal.md](../20260518-cp2-batch-audit/journal.md) may proceed using this audit as the N=1 baseline pattern.
+
+**Pattern for N=2.** Three surgical amendments emerged from one CP-2 verdict, sequenced to avoid count-churn (D-2-b first elevated SKILL.md to 8 Phase 2 bullets, then D-1 updated spec to "Eight topics" matching). Future CP-2 batches should screen for amendments that interact (one's "after" text depends on another's "after" state) and sequence accordingly. Three separate commits with three separate amendment IDs is appropriate when the findings share only a triggering verdict, not a policy theme (contrast 2026-05-17-1, which bundled five edits sharing the `.claude/skills/...` removal policy).

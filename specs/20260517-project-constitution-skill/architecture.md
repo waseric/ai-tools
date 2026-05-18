@@ -175,6 +175,7 @@ Exactly one third document is produced. Producing both is explicitly prohibited 
 | **No proliferation** | Three documents only. The skill explicitly excludes CONTRIBUTING, CODE_OF_CONDUCT, SECURITY, governance docs.                                                                                                                                  | [SKILL.md WHAT NOT TO DO](../../.agents/skills/project-constitution/SKILL.md) |
 | **Forward orientation** | The skill does not narrate the repo's history unless the operator supplies it. The constitution is forward-orienting, not biographical.                                                                                                     | [SKILL.md OPERATING PRINCIPLES](../../.agents/skills/project-constitution/SKILL.md) |
 | **Layout neutrality** | The skill detects and respects non-default authoritative-artifacts directories. Layout choice is surfaced as a Phase 2 question, not assumed.                                                                                                | [SKILL.md Phase 3 preface](../../.agents/skills/project-constitution/SKILL.md#L78) |
+| **README reconciliation** | The skill does not duplicate or contradict existing READMEs. When a relevant README is present, the operator is asked whether to update it as part of the constitution work or to note that the constitution supersedes it. Silent duplication is prohibited. | [SKILL.md WHAT NOT TO DO](../../.agents/skills/project-constitution/SKILL.md) |
 
 ## 7. Implementation Sequencing
 
