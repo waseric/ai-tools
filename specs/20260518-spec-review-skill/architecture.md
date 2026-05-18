@@ -256,7 +256,7 @@ Two conditional updates:
 
 **Behavior.** Committed prose contains no absolute filesystem paths and no machine-specific paths. Order of preference for links: published URL → repo-relative path → sibling-relative description → bare name + host description. No `~/.claude/skills/...` references; the canonical path is [.agents/skills/...](../../.agents/skills/spec-review/SKILL.md).
 
-**Pattern invoked.** [Strategy-doc Amendment 2026-05-17-1](../../docs/retroactive-spec-strategy.md) (drop `~/.claude/skills/` references). Carried forward at every N≥2.
+**Pattern invoked.** [project-constitution-skill Amendment 2026-05-17-1](../20260517-project-constitution-skill/journal.md) (drop `~/.claude/skills/` references). Carried forward at every N≥2.
 
 **Why this design.** A spec is read on machines other than the author's. Absolute paths break for every other reader. The `.agents/skills/` path is the authoritative location in this repo; cloned/forked copies inherit it.
 

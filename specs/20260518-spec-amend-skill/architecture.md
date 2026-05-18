@@ -138,7 +138,7 @@ The skill reads the section verbatim and its cross-references (Phase 1), drafts 
 
 **Behavior.** The agent presents the Phase 2 record and waits for one of four responses: **Approved as drafted** (proceed to Phase 4); **Approved with revisions** (capture revisions, update draft, re-present, iterate until approved); **Rejected** (capture rejection rationale in the journal as a *non-amendment*, so the discussion is recoverable next time the same issue surfaces; do not modify the spec; end); **Reclassified as rewrite** (stop; route to a new `spec-write` or `spec-design` session; end). The agent does not proceed to Phase 4 without explicit approval; silence is not approval.
 
-**Pattern invoked.** "Explicit approval is a hard stop." Same discipline as [spec-execute §5.7 Phase 7 Checkpoint Gate](../20260518-spec-execute-skill/architecture.md) — the skill structurally enforces the pause so the operator cannot accidentally implicitly approve by inaction. Verified against [SKILL.md Phase 3](../../.agents/skills/spec-amend/SKILL.md) at the date of this spec.
+**Pattern invoked.** "Explicit approval is a hard stop." Same discipline as [spec-execute §5.7 Phase 7 Checkpoint gate](../20260518-spec-execute-skill/architecture.md) — the skill structurally enforces the pause so the operator cannot accidentally implicitly approve by inaction. Verified against [SKILL.md Phase 3](../../.agents/skills/spec-amend/SKILL.md) at the date of this spec.
 
 **Why this design.** Approval-by-silence is the failure mode that corrodes the spec contract over time. Each "amendment that nobody objected to" individually looks fine; the aggregate is a spec that drifted without any single visible decision. The phase boundary stops drift at the moment of decision rather than three months later when the drift becomes load-bearing. The four explicit outcome paths (including "rejected as non-amendment journal entry") prevent the "we discussed this and decided not to" pattern from being lost.
 
@@ -222,7 +222,7 @@ The boundary between *in-flight edit* and *amendment* is the spec having been **
 
 **Behavior.** Committed prose contains no absolute filesystem paths and no machine-specific paths. Order of preference for links: published URL → repo-relative path → sibling-relative description → bare name + host description. No `~/.claude/skills/...` references; the canonical path is [.agents/skills/...](../../.agents/skills/spec-amend/SKILL.md).
 
-**Pattern invoked.** [Strategy-doc Amendment 2026-05-17-1](../../docs/retroactive-spec-strategy.md) (drop `~/.claude/skills/` references). Carried forward at every N≥2; carried forward at N=6.
+**Pattern invoked.** [project-constitution-skill Amendment 2026-05-17-1](../20260517-project-constitution-skill/journal.md) (drop `~/.claude/skills/` references). Carried forward at every N≥2; carried forward at N=6.
 
 **Why this design.** A spec is read on machines other than the author's. Absolute paths break for every other reader. The `.agents/skills/` path is the authoritative location in this repo; cloned/forked copies inherit it.
 
