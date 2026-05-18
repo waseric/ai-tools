@@ -159,3 +159,88 @@ No `[blocker]` open questions; the spec is ready for CP-1 either way.
 1. Operator invokes `/spec-amend` against §1 and §14 to fix the broken `.claude/skills/...` link target.
 2. Commit the spec + journal + this CP-1 verdict + the amendment as a paired commit set, closing §11 Adoption Path step 1.
 3. Trigger CP-2 (drift audit) per §9. CP-1 closure unblocks CP-2 per its declared trigger.
+
+## 2026-05-17 — Amendment 2026-05-17-1
+
+**Section amended:** specs/20260517-project-constitution-skill/architecture.md §1, §6, §9 (CP-1 review focus, fifth bullet), §14 (Authoritative + Inspirational subsections)
+**Trigger:** CP-1 review (2026-05-17) flagged broken `.claude/skills/project-constitution/...` link target in §1 and §14 as `[important]`; operator established broader policy that the spec must contain no `~/.claude/skills/...` references at all.
+**Reason:** Project's authoritative version of skills exists only under `.agents/skills/`. Spec must cite only `.agents/skills/...` locations; global-install paths managed by host tooling are not the spec's concern.
+**Impact summary:** No tasks, no checkpoints invalidated. CP-1's `[important]` finding resolved (proposed-amendment route closed). CP-2 unaffected as a checkpoint; will see the amended text. No completed work affected.
+**Approver:** Eric Wasgatt
+**Approved on:** 2026-05-17
+**Status implication:** kept (Draft — Open for Review)
+**Commit:** *(pending — to be backfilled)*
+
+### Full record
+
+#### Amendment 2026-05-17-1 — architecture.md §1, §6, §9, §14
+
+**Trigger.** CP-1 review of this spec (2026-05-17) identified a broken in-repo link target in §1 and §14 (`.claude/skills/project-constitution/SKILL.md` does not exist in the repo). The operator subsequently established a broader policy: the spec must contain **no** references to `~/.claude/skills/...` paths (whether absolute, repo-relative, or as parenthetical examples). The project's authoritative version of skills exists only under `.agents/skills/`. Phase 4 verification grep surfaced two additional violations referencing `.claude/skills/spec-design/SKILL.md`; the operator approved extending the amendment scope (option a) to cover them as the same coherent change.
+
+**Section.** Five coherent edits across the same policy:
+- §1 Overview ([architecture.md:12](./architecture.md#L12)) — removed byte-identical-mirror clause.
+- §6 NFR Portability row ([architecture.md:171](./architecture.md#L171)) — rephrased to omit `~/.claude/skills/...` global-install example.
+- §9 CP-1 review focus, fifth bullet ([architecture.md:216](./architecture.md#L216)) — swapped `.claude/skills/spec-design/...` → `.agents/skills/spec-design/...`.
+- §14 Authoritative, second bullet ([architecture.md:304-305](./architecture.md#L304-L305)) — removed `.claude/skills/project-constitution/...` mirror entry.
+- §14 Inspirational, first bullet ([architecture.md:313](./architecture.md#L313)) — swapped `.claude/skills/spec-design/...` → `.agents/skills/spec-design/...`.
+
+**Change.**
+
+*§1 Overview*
+
+Before:
+> This document is a **retroactive design specification**: the skill already ships at [.agents/skills/project-constitution/SKILL.md](../../.agents/skills/project-constitution/SKILL.md) and is mirrored byte-identical to [.claude/skills/project-constitution/SKILL.md](../../.claude/skills/project-constitution/SKILL.md). The spec describes what the skill *is* and what it *commits to*…
+
+After:
+> This document is a **retroactive design specification**: the skill already ships at [.agents/skills/project-constitution/SKILL.md](../../.agents/skills/project-constitution/SKILL.md), which is authoritative for the skill's behavior. The spec describes what the skill *is* and what it *commits to*…
+
+*§6 NFR Portability row*
+
+Before:
+> | **Portability** | Skill functions installed globally (e.g. `~/.claude/skills/project-constitution/`) and in-repo (`.agents/skills/`). No runtime dependency on host-repo files for the skill itself to function. Schema and templates are bundled in SKILL.md. | [Atomic-Skill Portability Principle](../tech-stack.md#L21-L33) |
+
+After:
+> | **Portability** | Skill functions when installed at `.agents/skills/project-constitution/` and works against unrelated host repos that lack methodology-specific siblings (degrades cleanly). No runtime dependency on host-repo files for the skill itself to function. Schema and templates are bundled in SKILL.md. | [Atomic-Skill Portability Principle](../tech-stack.md#L21-L33) |
+
+*§9 CP-1 review focus, fifth bullet*
+
+Before:
+> - The spec is self-contained per the Operating Principles in [.claude/skills/spec-design/SKILL.md](../../.claude/skills/spec-design/SKILL.md).
+
+After:
+> - The spec is self-contained per the Operating Principles in [.agents/skills/spec-design/SKILL.md](../../.agents/skills/spec-design/SKILL.md).
+
+*§14 Authoritative, second bullet*
+
+Before:
+> - [.agents/skills/project-constitution/SKILL.md](../../.agents/skills/project-constitution/SKILL.md) — the shipping skill. Authoritative for behavior.
+> - [.claude/skills/project-constitution/SKILL.md](../../.claude/skills/project-constitution/SKILL.md) — global-install mirror; byte-identical to the in-repo copy.
+
+After:
+> - [.agents/skills/project-constitution/SKILL.md](../../.agents/skills/project-constitution/SKILL.md) — the shipping skill. Authoritative for behavior.
+
+*§14 Inspirational, first bullet*
+
+Before:
+> - [.claude/skills/spec-design/SKILL.md](../../.claude/skills/spec-design/SKILL.md) — the skill that authored this spec; its OUTPUT FORMAT and OPERATING PRINCIPLES are the structural source.
+
+After:
+> - [.agents/skills/spec-design/SKILL.md](../../.agents/skills/spec-design/SKILL.md) — the skill that authored this spec; its OUTPUT FORMAT and OPERATING PRINCIPLES are the structural source.
+
+**Reason.** The original §1 and §14 Authoritative text introduced two problems: (a) a broken in-repo link target (`.claude/skills/project-constitution/` does not exist in this repo — only `.agents/skills/project-constitution/` does), and (b) confusion of methodology-canonical paths with deployment artifacts. The §6 NFR named a specific global-install path that conflicts with operator policy. The §9 and §14 Inspirational spec-design references were broken in the same way and required swap-to-canonical paths. Per operator policy, the spec references only the project-canonical `.agents/skills/...` location; global-install paths managed by host tooling are not the spec's concern. The portability NFR is preserved by stating the functional commitment (works against unrelated host repos, degrades cleanly) without naming a specific install path.
+
+**Impact.**
+- **Affected tasks:** none (design spec, no atomic task breakdown).
+- **Affected checkpoints:**
+  - **CP-1.** The `[important]` finding that drove this amendment is resolved. CP-1's `pass with comments` verdict stands; the proposed-amendment route is now closed.
+  - **CP-2.** Unaffected as a checkpoint — drift audit's scope is unchanged. Audit will see the amended text; this is the intended state.
+- **Completed work invalidated:** none.
+- **Cross-references requiring follow-up:** none in this spec. **[separately tracked, not part of this amendment]** [specs/tech-stack.md §21-33](../tech-stack.md#L21-L33) (cited by this spec) still names `~/.claude/skills/<name>/` as an AS-PP example at [tech-stack.md:27](../tech-stack.md#L27); applying the same policy to tech-stack.md would be a separate amendment against a different artifact.
+
+**Status implication.** Spec remains `Draft — Open for Review`. The amendment is surgical (five localized text replacements addressing one policy), does not modify any commitment in §3, §4, §5, §10, §11, §12, or §13, and does not change the spec's substance — only its choice of cited paths. No revert to Draft is needed.
+
+**Approver.** Eric Wasgatt — approved initial three-section scope (§1, §6, §14 Authoritative) as drafted 2026-05-17; approved scope extension (option a) covering §9 and §14 Inspirational locations 2026-05-17.
+
+### N=2 mining note
+
+**Pattern for N=2.** When a retroactive-spec amendment removes a class of references (here: `.claude/skills/...`), Phase 1 Orient must scan the *entire spec* for all instances of the class, not just the locations called out by the triggering finding. The CP-1 finding here named §1 and §14, but two more instances (§9, §14 Inspirational) referenced a different skill via the same path pattern and were missed in Orient. Caught at Phase 4 verification grep. Future retroactive-spec amendments touching path/citation classes should add a pre-draft `grep` step to Phase 1 to surface all instances before scope is locked.

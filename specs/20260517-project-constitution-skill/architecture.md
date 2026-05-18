@@ -9,7 +9,7 @@
 
 The `project-constitution` skill bootstraps a repository with a small, durable set of foundation documents — a *constitution* — that orients every contributor (human or AI) on what the repo is for, what it is built with, and where it is heading. It is the upstream input to every design and feature spec written under the `ai-tools` methodology.
 
-This document is a **retroactive design specification**: the skill already ships at [.agents/skills/project-constitution/SKILL.md](../../.agents/skills/project-constitution/SKILL.md) and is mirrored byte-identical to [.claude/skills/project-constitution/SKILL.md](../../.claude/skills/project-constitution/SKILL.md). The spec describes what the skill *is* and what it *commits to*, so the methodology can be reviewed, amended, and adopted on the same footing as the artifacts it produces. The spec does not redesign the skill; any divergence the spec exposes between its commitments and the shipping SKILL.md is routed to `/spec-amend`, not silently corrected.
+This document is a **retroactive design specification**: the skill already ships at [.agents/skills/project-constitution/SKILL.md](../../.agents/skills/project-constitution/SKILL.md), which is authoritative for the skill's behavior. The spec describes what the skill *is* and what it *commits to*, so the methodology can be reviewed, amended, and adopted on the same footing as the artifacts it produces. The spec does not redesign the skill; any divergence the spec exposes between its commitments and the shipping SKILL.md is routed to `/spec-amend`, not silently corrected.
 
 ## 2. Goals and Non-goals
 
@@ -168,7 +168,7 @@ Exactly one third document is produced. Producing both is explicitly prohibited 
 
 | NFR                  | Requirement                                                                                                          | Source                                                                                  |
 |----------------------|----------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------|
-| **Portability**      | Skill functions installed globally (e.g. `~/.claude/skills/project-constitution/`) and in-repo (`.agents/skills/`). No runtime dependency on host-repo files for the skill itself to function. Schema and templates are bundled in SKILL.md. | [Atomic-Skill Portability Principle](../tech-stack.md#L21-L33) |
+| **Portability**      | Skill functions when installed at `.agents/skills/project-constitution/` and works against unrelated host repos that lack methodology-specific siblings (degrades cleanly). No runtime dependency on host-repo files for the skill itself to function. Schema and templates are bundled in SKILL.md. | [Atomic-Skill Portability Principle](../tech-stack.md#L21-L33) |
 | **Conciseness**      | Produced documents respect line caps: mission ≤30, tech-stack ≤60, roadmap/validation ≤80. Soft caps; operator may override with rationale.                                            | [SKILL.md OPERATING PRINCIPLES](../../.agents/skills/project-constitution/SKILL.md) |
 | **Citation discipline** | Stack claims are backed by an actual file in the repo. The skill must not assert a stack a manifest does not support. If `package.json` exists but the project is Python, the skill asks before writing `tech-stack.md`.                      | [SKILL.md OPERATING PRINCIPLES](../../.agents/skills/project-constitution/SKILL.md) |
 | **Self-containment** | Each produced document opens with an Audience line and reads independently. No "as we discussed"; no implicit shared vocabulary.                                                                                                              | [SKILL.md OUTPUT FORMAT](../../.agents/skills/project-constitution/SKILL.md) |
@@ -213,7 +213,7 @@ There is no Phase B "build the skill" — the skill is already built. There is n
 - No commitment in this spec contradicts the shipping SKILL.md.
 - The Atomic-Skill Portability Principle is correctly characterized as a binding constraint (§3, §6) consistent with [specs/tech-stack.md §21-33](../tech-stack.md#L21-L33).
 - The constitution-amendment gap (§13 OQ-1) is named, not silently resolved or omitted.
-- The spec is self-contained per the Operating Principles in [.claude/skills/spec-design/SKILL.md](../../.claude/skills/spec-design/SKILL.md).
+- The spec is self-contained per the Operating Principles in [.agents/skills/spec-design/SKILL.md](../../.agents/skills/spec-design/SKILL.md).
 
 **Exit criteria.**
 - Reviewer issues a verdict of `pass` or `pass with comments` per the structured format declared in the `spec-review` skill.
@@ -304,14 +304,13 @@ Full context, including the cascade history and pre-intake notes, is captured in
 ### Authoritative
 
 - [.agents/skills/project-constitution/SKILL.md](../../.agents/skills/project-constitution/SKILL.md) — the shipping skill. Authoritative for behavior.
-- [.claude/skills/project-constitution/SKILL.md](../../.claude/skills/project-constitution/SKILL.md) — global-install mirror; byte-identical to the in-repo copy.
 - [specs/tech-stack.md](../tech-stack.md) — methodology constraints, including the Atomic-Skill Portability Principle binding on this skill.
 - [specs/mission.md](../mission.md) — `ai-tools` mission; defines audience and in/out of scope for the methodology.
 - [specs/roadmap.md](../roadmap.md) — `ai-tools` roadmap; lists `project-constitution` as a Phase 1 deliverable ([line 13](../roadmap.md#L13)).
 
 ### Inspirational
 
-- [.claude/skills/spec-design/SKILL.md](../../.claude/skills/spec-design/SKILL.md) — the skill that authored this spec; its OUTPUT FORMAT and OPERATING PRINCIPLES are the structural source.
+- [.agents/skills/spec-design/SKILL.md](../../.agents/skills/spec-design/SKILL.md) — the skill that authored this spec; its OUTPUT FORMAT and OPERATING PRINCIPLES are the structural source.
 - [specs/20260517-finding-intake-skill/feature.md](../20260517-finding-intake-skill/feature.md) and [specs/20260517-finding-triage-skill/feature.md](../20260517-finding-triage-skill/feature.md) — sibling skills with their own specs; provided naming-pattern prior art (`<skill-name>-skill` directory suffix) and journal-structure prior art.
 - [docs/constitution-amendment-gap-intake-prep.md](../../docs/constitution-amendment-gap-intake-prep.md) — the pre-intake notes for the OQ-1 finding.
 - [specs/20260514-session-economy/architecture.md](../20260514-session-economy/architecture.md) — concurrent architectural work that explicitly listed this skill as out-of-scope, confirming the absence of prior architectural specification.
