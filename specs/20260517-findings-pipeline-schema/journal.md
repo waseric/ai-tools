@@ -398,7 +398,7 @@ The journal.md note is longer than the finding.md note because journal.md has *t
 **Approver:** waseric
 **Approved on:** 2026-05-17
 **Status implication:** kept at `Complete`. The amendment reverses no design decision, re-opens no §7 task, and is cascading conformance work flowing from a higher-level methodology principle just committed in tech-stack.md. Explicit operator confirmation captured during the amendment session: "concur. Keep at complete."
-**Commit:** `<pending — backfill in follow-up commit per repo convention>`
+**Commit:** `38a4afb`
 
 ### Full record
 
