@@ -168,7 +168,7 @@ No `[blocker]` open questions; the spec is ready for CP-1.
 
 **Reviewer:** Claude (AI assistant) on behalf of Eric Wasgatt
 **Outcome:** changes requested
-**Verdict commit:** _to be backfilled_
+**Verdict commit:** `57bb671`
 **Diff range:** `b8536aa` (paired commit introducing [architecture.md](./architecture.md) and this journal)
 **Tasks reviewed:** none (retroactive design spec — no atomic tasks)
 **Blockers:** 4 — one underlying citation pattern (session-economy §5.3 / §5.5 cited as architectural source for spec-execute Phase 4/6 paired-commit discipline) surfaced at four sites: [§5.4](./architecture.md), [§5.6](./architecture.md), [§6 Multi-repo discipline NFR row](./architecture.md), and the [§9 CP-1 / CP-2 review-focus assertions](./architecture.md). Verified against [session-economy/architecture.md §5](../20260514-session-economy/architecture.md): §5.3 covers `spec-amend`, §5.5 covers `spec-write`/`spec-design` — neither is about spec-execute Phase 4/6. Session-economy spec has no §5 subsection that architecturally commits to spec-execute Phase 4/6 paired-commit prose; its §3 Background acknowledges the prose pre-existed, and commit `e483466` added new multi-repo paragraphs to Phases 4 and 6 without a corresponding session-economy §5 specification. The CP-1 review-focus assertion ("retro §5.1/§5.4/§5.6/§5.8 ↔ session-economy §5.1/§5.2/§5.3/§5.5") fails on two of four mappings — the spec's CP-1 contract literally fails its own check.
