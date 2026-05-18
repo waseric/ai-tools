@@ -185,3 +185,57 @@ No `[blocker]` open questions; the spec is ready for CP-1.
 **Pattern for N=3.** Off-by-one section-heading citations (`§N-M` where N should be the heading line, not the body's first line) recurred at N=2 — minor but worth flagging. Future spec authors: cite the heading line as the section start.
 
 **Next action:** Adoption Path step 2 closed. §11 step 3 — CP-2 (batched drift audit) — remains pending its declared trigger: all five quintet CP-1s plus project-constitution CP-2. The next session is session 2 of the legacy quintet — `spec-write` retroactive spec — per [docs/retroactive-spec-strategy.md](../../docs/retroactive-spec-strategy.md). The four advisory findings above are non-blocking and may be folded into a future amendment if other §3 or §5 edits are queued.
+
+## 2026-05-18 — Review of CP-2
+
+**Reviewer:** Claude (agent reviewer)
+**Outcome:** pass with comments
+**Tasks reviewed:** N/A — retroactive design spec; CP-2 audit scope was architecture.md §4, §5, §6, §12 against shipping [.agents/skills/spec-design/SKILL.md](../../.agents/skills/spec-design/SKILL.md).
+**Blockers:** 0
+**Important:** 0
+**Advisory:** 5 — D-1 §5.8 Status-banner lifecycle commitment not declared in SKILL.md; D-2 SKILL.md preamble line 15 mentions "format" but Phase 2 enumeration omits it, and §13 OQ-1 phrasing slightly overstates the gap; D-3 SKILL.md OUTPUT FORMAT "All code blocks specify a language" absent from spec §6/§5.8; D-4 SKILL.md WHAT NOT TO DO items have partial home in spec (WND-3 inline-citation rule, WND-4 Risks/OQ distinction, WND-7 rejected-governance rule lack explicit §5/§6 carriers); D-5 "Verification pass as a discrete step" post-draft-walk protocol not captured in spec §5.5.
+**Spec amendments proposed:** 4 — D-1 → (b) amend SKILL.md; D-2 → (b) amend SKILL.md; D-3 → (a) amend spec; D-4 → (a) amend spec §6; D-5 → (c) accept as known minor.
+
+**Findings against CP-2 review focus (line-by-line audit of SKILL.md against spec §4, §5, §6, §12):**
+
+| ID | Where | Divergence | Routing |
+|---|---|---|---|
+| D-1 | [architecture.md §5.8:248](./architecture.md#L248) vs [SKILL.md template line 86](../../.agents/skills/spec-design/SKILL.md#L86) | Spec §5.8 commits "The Status banner uses the lifecycle `Draft — Open for Review` → `Approved` → `Superseded`." SKILL.md template only initializes Status to `Draft — Open for Review`; lifecycle states beyond initial value are not declared in SKILL.md. Spec adds a forward-looking commitment SKILL.md is silent on. | **(b) amend SKILL.md** to declare the lifecycle. Parallels N=1 amendment 2026-05-18-1 (layout-question elevation) — SKILL.md catches up to the spec's tighter contract. |
+| D-2 | [SKILL.md preamble line 15](../../.agents/skills/spec-design/SKILL.md#L15) vs [SKILL.md Phase 2 lines 66-77](../../.agents/skills/spec-design/SKILL.md#L66-L77), and [spec §13 OQ-1:374](./architecture.md#L374) | "Format" appears in SKILL.md preamble ("pause at Phase 2 for user input on naming, audience, **format**, and verification commitment") but is **not enumerated** in Phase 2 bullets. Spec §13 OQ-1 says the format-question prompt is "undocumented in SKILL.md" — partly correct (not in Phase 2 enumeration) but partly imprecise (preamble does mention format). Internal SKILL.md inconsistency. | **(b) amend SKILL.md Phase 2** to enumerate `format` as a Phase 2 bullet, parallel to N=1 amendment 2026-05-18-1 elevating `layout`. Partially resolves OQ-1's substance — OQ-1's strict claim ("undocumented") closes, but the four-option resolution (a/b/c/d) for the *content* of the prompt remains open and routes through the OQ's existing watch-items machinery. |
+| D-3 | [SKILL.md OUTPUT FORMAT line 183](../../.agents/skills/spec-design/SKILL.md#L183) — no parallel in spec | SKILL.md commits "All code blocks specify a language." Spec §6 NFRs and §5.8 Section template don't carry this. | **(a) amend spec** to add a brief NFR row to §6 or a line to §5.8 Behavior. Generic markdown hygiene; surgical addition. |
+| D-4 | [SKILL.md WHAT NOT TO DO lines 187-196](../../.agents/skills/spec-design/SKILL.md#L187-L196) — partial home in spec | WND-1, WND-5, WND-6, WND-8 covered in §5.1/§5.5/§5.3/§5.8. WND-2 (don't pretend implementation-ready) implicit in §5.4. **WND-3** (inline authoritative URLs at point of claim) has no explicit §5/§6 home — only reinforced by §14 References' own preamble. **WND-4** (don't conflate Risks/OQs) and **WND-7** (no rejected governance) lack explicit homes. | **(a) amend spec §6** to add NFR row(s) — at minimum an "Inline citation preference" row covering WND-3; optionally a "Risks vs Open Questions distinction" row covering WND-4. WND-2/7 remain accept-as-minor (implicit / content-specific). |
+| D-5 | [SKILL.md standing disciplines lines 224-225](../../.agents/skills/spec-design/SKILL.md#L224-L225) vs [spec §5.5:182-192](./architecture.md#L182-L192) | SKILL.md describes "Verification pass as a discrete step" with specific protocol ("After §1–§14 are drafted, walk the spec and identify every external claim. Verify each against canonical sources. Cite inline."). Spec §5.5 captures the light/heavy formalization (a useful summary beyond SKILL.md's vocabulary) but not the post-draft-walk protocol. | **(c) accept as known minor.** Spec captures the principle; the post-draft-walk procedure is protocol detail, not a load-bearing commitment. |
+
+**Verification performed:**
+- Walked SKILL.md INPUTS block (lines 21-30) against spec §5.1 Inputs — all 8 inputs present, ordering matches.
+- Walked SKILL.md OPERATING PRINCIPLES (9 items, lines 42-52) against spec §5 + §6 NFR table — items 1-9 each mapped to a §5 subsection or §6 NFR row. OP-9 (link portability) is in §5.7 rather than §6 NFR table; vocabulary collision with §6 "Portability" NFR (which is ASPP/skill-installation portability, not link portability) is structural choice, not drift.
+- Walked SKILL.md Phase 1 (lines 54-64) against spec §5.1 — Discovery Report contents match; "no test-infrastructure / no touch-surface" exclusion present in spec.
+- Walked SKILL.md Phase 2 (lines 66-77) against spec §5.2 — six enumerated Phase 2 items match; D-2 surfaces the preamble vs body inconsistency on "format."
+- Walked SKILL.md Phase 3 (lines 79-176) against spec §5.3 + §5.8 — 14-section template matches verbatim; §1-§6 share-with-feature-spec / §7/§8/§11 design-spec-specific commitment matches SKILL.md's section-content notes.
+- Walked SKILL.md OUTPUT FORMAT (lines 178-186) against spec §6 NFRs — Pairing, Multi-repo awareness, Voice fidelity (marketing language), Format fidelity rows present; D-3 surfaces the code-block-language gap.
+- Walked SKILL.md WHAT NOT TO DO (lines 187-196) against spec §5/§6 — D-4 details partial coverage.
+- Walked SKILL.md HANDOFF NOTES (lines 198-203) against spec §3 Dependencies — upstream/downstream/lateral coverage matches.
+- Walked SKILL.md "Notes on the standing disciplines" (lines 207-225) against spec §5 — Anti-confabulation in §5.5; Self-contained rule in §6; Naming-bootstrapper-early in §5.1 placeholder language; D-5 surfaces the verification-pass-as-discrete-step protocol gap.
+- Walked spec §12 Out of Scope (9 bullets) — five are spec-level deferrals (no SKILL.md mirror expected); four are inheritances from N=1 / strategy doc OQs and correctly cite their sources.
+- Cross-checked CP-1 advisories: (a) light/heavy verification labels — accepted, formalization beyond SKILL.md; not drift. (b) interpretive framing in §4/§5.3 — accepted, interpretation; not drift. (c) off-by-one §3 citation `tech-stack.md §21-33` — **closure by verification**: heading `### Atomic-Skill Portability Principle` is at [tech-stack.md:21](../tech-stack.md#L21), content runs through [line 33](../tech-stack.md#L33); the citation is correct. The CP-1 advisory was the reviewer's error, not the spec's. Spec §6 row 1 also uses `#L21-L33` correctly. (d) §3 recursive framing — outside CP-2 surface (§3 not in audit scope); passes through.
+- Verified [specs/tech-stack.md §21-33](../tech-stack.md#L21-L33) (Atomic-Skill Portability Principle) source matches §3 and §6 NFR Portability characterizations.
+- Verified amendment-ID citations: §5.7 cites N=1 amendment 2026-05-17-1 (the `.claude/skills/...` removal); §11 cites the same amendment's N=2 mining note. Both correct.
+
+**Exit criteria status:**
+- Divergence list produced (possibly empty): met — five advisory divergences.
+- Each divergence has a routing decision: met — D-1 (b), D-2 (b), D-3 (a), D-4 (a), D-5 (c).
+- No silent edits to either artifact: met — this entry and the §9 Status line are the only writes; routing decisions await operator-invoked `/spec-amend`.
+- Outcome recorded as closing entry of retroactive-spec adoption: met — this entry.
+
+**Pattern for N=3 — CP-2 audit shape.** The N=1 baseline noted CP-2 finds 2–5 advisory divergences of shapes "enumeration miscounts, missing NFR rows, missing INPUTS catalogs, phase-positioning differences." N=2 confirms the range (5 findings) but extends the shape catalog with two new categories:
+- **Status-banner lifecycle commitment** (D-1) — a forward-looking lifecycle the spec declares beyond SKILL.md's template initialization. Watch for analogous lifecycle commitments in §5.x of sibling specs (spec-write, spec-execute, spec-review, spec-amend).
+- **SKILL.md preamble vs Phase enumeration inconsistency** (D-2) — the preamble may name items the Phase protocol doesn't enumerate (or vice versa). Walk SKILL.md preambles in sibling specs against their phase-body enumerations as a first-class CP-2 step.
+
+**Pattern for N=3 — CP-1 reviewer error pattern.** N=2 CP-1 produced one off-by-one citation advisory (c) that CP-2 verification has now shown was the *reviewer's* error, not the spec's. Future retroactive-spec CP-1 reviewers should verify section-heading line numbers (and section endings) before flagging citations as off-by-one. CP-2 audits should add explicit citation-position verification when inheriting CP-1 advisories on citations.
+
+**Pattern for N=3 — Two-source structure (shape variant).** spec-design has only shape (i) predecessor cross-check (`docs/spec-design-recommendations.md`) — no sibling design spec. §8 "Predecessor cross-check" row present; no "Sibling design-spec cross-check" row, matching expected shape per batch journal. Future specs that *do* have sibling design-spec dependencies (e.g., spec-execute citing session-economy) carry both rows.
+
+**Next action:**
+1. Operator invokes `/spec-amend` for D-1 (SKILL.md lifecycle declaration), D-2 (SKILL.md Phase 2 format-bullet elevation), D-3 (spec markdown-hygiene addition), and D-4 (spec §6 inline-citation NFR row). Amendments may be bundled or sequential per operator preference; note D-1 and D-2 both touch SKILL.md (potential bundle), D-3 and D-4 both touch architecture.md (potential bundle).
+2. Cross-skill pattern observations queued for the batch journal closing summary at [specs/20260518-cp2-batch-audit/journal.md](../20260518-cp2-batch-audit/journal.md) (entry appended this session, summary written after all five complete).
+3. After amendments commit, the spec-design retroactive-spec adoption is **closed for this session's CP-2 routing**. The next per-spec CP-2 (N=3) is `spec-write` per the batch audit's authoring-order default.

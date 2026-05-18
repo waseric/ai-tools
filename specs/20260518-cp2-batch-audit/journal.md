@@ -37,6 +37,36 @@ Each spec's §9 CP-2 review focus calls these out explicitly; the batch session 
 
 Entries appended per-spec audit, in audit order. Each entry includes: spec audited, divergences found, routing decision per divergence (amend spec / amend SKILL.md / accept as known minor), cross-skill pattern observations.
 
+### N=2 — 2026-05-18 — spec-design CP-2
+
+**Spec audited:** [specs/20260518-spec-design-skill/architecture.md](../20260518-spec-design-skill/architecture.md) §4, §5, §6, §12 against [.agents/skills/spec-design/SKILL.md](../../.agents/skills/spec-design/SKILL.md).
+**Per-spec verdict:** pass with comments. See [specs/20260518-spec-design-skill/journal.md "Review of CP-2"](../20260518-spec-design-skill/journal.md) for the full entry.
+**Auditor:** Claude (agent reviewer).
+**Audit order position:** session 1 of 5 in the batch; default authoring order followed.
+
+**Divergences and routing (5 advisory, 0 important, 0 blocker):**
+
+| ID | Summary | Routing |
+|---|---|---|
+| D-1 | §5.8 Status-banner lifecycle (`Draft → Approved → Superseded`) commitment not declared in SKILL.md | (b) amend SKILL.md |
+| D-2 | "Format" in SKILL.md preamble but not Phase 2 enumeration; §13 OQ-1 phrasing slightly overstates the gap | (b) amend SKILL.md Phase 2 (parallel to N=1 amendment 2026-05-18-1's layout elevation) |
+| D-3 | SKILL.md OUTPUT FORMAT "All code blocks specify a language" absent from spec | (a) amend spec |
+| D-4 | SKILL.md WHAT NOT TO DO items partial home in spec; WND-3 inline-citation rule lacks explicit §5/§6 carrier | (a) amend spec §6 |
+| D-5 | "Verification pass as a discrete step" post-draft-walk protocol not in §5.5 | (c) accept as known minor |
+
+**Cross-skill pattern observations (queued for closing summary):**
+
+- **ASPP citation discipline (N=2 confirmation).** spec-design cites `tech-stack.md §21-33` correctly in both §3 Background and §6 NFR Portability. N=1 baseline pattern (correct citation) holds. The discipline does not appear broken here.
+- **Two-source structure — shape variant.** spec-design carries shape (i) predecessor cross-check (recommendations doc) but no shape (ii) sibling design spec. §8 has "Predecessor cross-check" row; no "Sibling design-spec cross-check" row, matching the batch journal's expected shape (shape ii is introduced at spec-execute).
+- **Section-heading citation discipline.** spec-design §6 NFR Source column uses section-name citations without line numbers (e.g., `SKILL.md OPERATING PRINCIPLES`, `SKILL.md PHASE 3 — SPEC DOCUMENT`). Consistent and follows the N=5 corrective established in N=1 baseline.
+- **Amendment-ID citation correctness.** §5.7 cites N=1 amendment 2026-05-17-1 correctly; §11 cites the same amendment's N=2 mining note correctly. The N=5 amendment-ID-error class does not surface here.
+- **New finding class: Status-banner lifecycle (D-1).** A forward-looking lifecycle commitment that goes beyond SKILL.md's template-initialization-only stance. Watch for analogous lifecycle commitments in §5.x of the remaining quintet specs.
+- **New finding class: SKILL.md preamble vs Phase-body enumeration inconsistency (D-2).** SKILL.md preambles may name items the Phase protocol does not enumerate (or vice versa). Add a first-class CP-2 step: walk preamble vs phase-body for each sibling SKILL.md.
+- **CP-1 reviewer-error pattern.** spec-design CP-1 produced one off-by-one citation advisory (c) that CP-2 verification has shown was the reviewer's error, not the spec's. Future retroactive-spec CP-1 reviewers should verify section-heading line numbers before flagging citations as off-by-one; CP-2 audits should add explicit citation-position verification when inheriting CP-1 advisories on citations.
+- **D-2 partial-resolution interaction with §13 OQ-1.** Operator chose routing (b) amend SKILL.md — partially resolves OQ-1's strict claim ("undocumented") but the four-option (a/b/c/d) resolution for the *content* of the format-question prompt remains open and routes through OQ-1's existing watch-items machinery. The D-2 amendment does not close OQ-1; it tightens its scope. Sibling specs should watch for the same closure-vs-tightening distinction in their own OQs.
+
+**Routing tally so far (N=2):** amend-SKILL.md ×2, amend-spec ×2, accept ×1. Tally accumulates across the five sessions; the closing summary reads this column to surface cross-cutting amendment opportunities per [docs/retroactive-spec-strategy.md](../../docs/retroactive-spec-strategy.md) OQ-3.
+
 ## Closing summary
 
 Written after all five audits complete. Captures the cross-skill divergence list, any cross-cutting amendments proposed (per [strategy OQ-3](../../docs/retroactive-spec-strategy.md)), and the readiness verdict for `docs/retroactive-spec-pattern.md` per [spec-amend §11 step 4](../20260518-spec-amend-skill/architecture.md).
