@@ -361,3 +361,45 @@ After:
 **Status implication.** Spec remains at `pass with comments` for CP-2. This amendment touches SKILL.md, not the spec — the spec's §14 commitment is unchanged. No revert to Draft.
 
 **Approver.** Eric Wasgatt — approved 2026-05-18.
+
+## 2026-05-18 — Amendment 2026-05-18-3
+
+**Section amended:** [architecture.md §6 Non-functional Requirements](./architecture.md#L239)
+**Trigger:** CP-2 D-3 — SKILL.md OUTPUT FORMAT "All code blocks must specify a language" had no §6 carrier.
+**Reason:** Adds Markdown hygiene NFR row; direct parallel of N=2 D-3 with identical row text.
+**Impact summary:** No tasks affected; CP-2 closing entry references this amendment; no completed work invalidated.
+**Approver:** Eric Wasgatt
+**Approved on:** 2026-05-18
+**Status implication:** kept (`pass with comments` on CP-2 holds; NFR-row addition matching N=2 D-3 precedent).
+**Commit:** cafaca8
+
+### Full record
+
+## Amendment 2026-05-18-3 — specs/20260518-spec-write-skill/architecture.md §6
+
+**Trigger.** During the N=3 CP-2 drift audit of `spec-write` (2026-05-18, Claude as agent reviewer), the auditor surfaced [SKILL.md OUTPUT FORMAT line 189](../../.agents/skills/spec-write/SKILL.md#L189) — "All code blocks must specify a language for syntax highlighting" — as a binding output-format commitment with no §6 NFR carrier. Direct parallel of N=2 D-3 (`spec-design` Markdown hygiene NFR addition, commit `4b0b9c8`). Same finding shape, same routing.
+
+**Section.** [specs/20260518-spec-write-skill/architecture.md §6 Non-functional Requirements](./architecture.md#L239), inserted **between** the Format fidelity row (line 250) and the Pairing row (line 251). The table grows from thirteen rows (after D-1) to fourteen.
+
+**Change.**
+
+Before:
+> | **Format fidelity** | Output conforms to the 14-section template with exact headings and declared order. §7/§8/§11 use feature-spec form, not design-spec form. | [SKILL.md PHASE 3 — SPEC DOCUMENT](../../.agents/skills/spec-write/SKILL.md) |
+> | **Pairing** | Every feature spec is accompanied by a journal at the same directory. The pair is the output. | [SKILL.md OUTPUT FORMAT](../../.agents/skills/spec-write/SKILL.md) |
+
+After:
+> | **Format fidelity** | Output conforms to the 14-section template with exact headings and declared order. §7/§8/§11 use feature-spec form, not design-spec form. | [SKILL.md PHASE 3 — SPEC DOCUMENT](../../.agents/skills/spec-write/SKILL.md) |
+> | **Markdown hygiene** | All code blocks specify a language. Tables and lists conform to GitHub-flavored markdown rendering conventions. | [SKILL.md OUTPUT FORMAT](../../.agents/skills/spec-write/SKILL.md) |
+> | **Pairing** | Every feature spec is accompanied by a journal at the same directory. The pair is the output. | [SKILL.md OUTPUT FORMAT](../../.agents/skills/spec-write/SKILL.md) |
+
+**Reason.** SKILL.md OUTPUT FORMAT binds the rule; the spec's §6 catalog should reflect every binding output-format commitment so downstream `spec-review` can verify per-NFR. Without an explicit row, downstream reviewers have no anchor for the rule. Matches N=2 D-3 precedent verbatim, keeping the quintet aligned.
+
+**Impact.**
+- **Affected tasks:** none (retroactive design spec; no §7 Task Breakdown).
+- **Affected checkpoints:** [CP-2](./architecture.md#L302) — closing entry references this amendment.
+- **Completed work invalidated:** none.
+- **Cross-references requiring follow-up:** none.
+
+**Status implication.** Spec remains at `pass with comments` for CP-2. NFR-row addition; identical shape to N=2 D-3 which was ratified without spec-status regression. No revert to Draft.
+
+**Approver.** Eric Wasgatt — approved 2026-05-18.
