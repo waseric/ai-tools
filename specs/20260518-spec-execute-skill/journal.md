@@ -213,3 +213,46 @@ The five new Pattern-for-N=5 callouts in [the authoring journal entry above](./j
 ### Next action
 
 [§11 Adoption Path step 2](./architecture.md) is **not yet closed** — CP-1 is open pending the amendment. Sequenced next action: invoke /spec-amend in this session (per operator direction) with the citation-correction batched amendment described above. After /spec-amend lands the fix, re-run /spec-review against CP-1 to capture the "pass with comments" verdict closing the checkpoint. Then resume the strategy-doc ordering toward session 4 (`spec-review` retroactive spec; N=5 in retroactive-spec sequence).
+
+## 2026-05-18 — Amendment 2026-05-18-1
+
+**Section amended:** [specs/20260518-spec-execute-skill/architecture.md](./architecture.md) §§5.4, 5.6, 6, 8, 9 (CP-1 and CP-2 review focuses)
+**Trigger:** [CP-1 review verdict](./journal.md) (changes requested) at commit `57bb671` — four blocker findings collapsed to one citation pattern.
+**Reason:** Session-economy spec §5.3 / §5.5 cited as architectural source for spec-execute Phase 4/6 paired-commit discipline, but those subsections are about `spec-amend` and `spec-write`/`spec-design` respectively. Phase 4/6 strengthening is acknowledged in session-economy §1 / §3 but not §5-enumerated; commit `e483466` is the implementation event.
+**Impact summary:** No atomic tasks. CP-1 stays open (re-review needed); CP-2 review focus updated. No completed work invalidated; behavior descriptions in §5.4 / §5.6 unchanged.
+**Approver:** Eric Wasgatt (operator)
+**Approved on:** 2026-05-18
+**Status implication:** kept at Draft — CP-1 still open with "changes requested" verdict; will be re-reviewed after this amendment.
+**Commit:** `7fee46f`
+
+### Full record
+
+**Trigger.** CP-1 review verdict (changes requested) at commit `57bb671`. Four blocker findings collapse to one underlying citation pattern. Verified against [specs/20260514-session-economy/architecture.md §5](../20260514-session-economy/architecture.md): §5.3 covers `spec-amend`, §5.4 covers `spec-review`, §5.5 covers `spec-write`/`spec-design`. The session-economy spec has no §5 subsection that architecturally commits to spec-execute Phase 4/6 paired-commit discipline — the prose pre-existed in spec-execute and was strengthened by commit `e483466` without a paired §5 specification. Session-economy [§1 Overview](../20260514-session-economy/architecture.md) and [§3 Background](../20260514-session-economy/architecture.md) acknowledge this.
+
+**Section.** Six sites total in [architecture.md](./architecture.md): §5.4 (Phase 4 multi-repo case, line 202); §5.6 (Phase 6 multi-repo case, line 233); §6 (NFR table Multi-repo discipline row, line 324); §8 (Validation Approach sibling-design-spec cross-check row, line 351); §9 (CP-1 review focus bullet, line 369); §9 (CP-2 review focus paragraph, line 385).
+
+**Change.** Replaced "session-economy spec §5.3 / §5.5" citation pattern (and the corresponding §9 mapping assertions) with a two-attribution-shapes framing:
+- **Shape (i) — §5-enumerated:** retro §5.1 ↔ session-economy §5.2 (Phase 1 multi-repo detection); retro §5.8 ↔ session-economy §5.1 (Phase 8 token economy).
+- **Shape (ii) — narrative-sourced:** retro §5.4 and §5.6 cite session-economy §1 Overview + §3 Background plus commit `e483466` (Phase 4/6 paired-commit strengthening is not enumerated in session-economy §5).
+
+Full before/after text for all six sites recorded in the amendment commit (`7fee46f`) diff.
+
+**Reason.** The original citations claimed session-economy §5.3 and §5.5 as the architectural source for spec-execute Phase 4/6 paired-commit discipline, but those subsections are about sibling skills. Phase 4/6 paired-commit prose was added to spec-execute SKILL.md by commit `e483466` (the session-economy commit) but the session-economy spec's §5 does not enumerate the change — it is acknowledged only in §1 Overview and §3 Background. The corrected citations preserve the sibling-design-spec attribution model (matching the spec's existing pattern) while honoring the actual structure: some commitments are §5-enumerated, others are narrative-sourced plus implementation commit.
+
+**Impact.**
+- **Affected tasks:** none (no atomic tasks in this design spec).
+- **Affected checkpoints:** CP-1 (still open after this amendment lands; will be re-reviewed). CP-2 (review focus updated; not yet triggered).
+- **Completed work invalidated:** none. The behavioral descriptions in §5.4 and §5.6 are unchanged; only the architectural attribution citations and §8 / §9 review-focus assertions change.
+- **Cross-references requiring follow-up:** none. §3 Background line 41 already describes commit `e483466` as having "Strengthened Phase 4 / Phase 6 paired-commit prose" — accurate, no change. §10 Risks row about "Phase 8 token-economy factor is the only quintet commitment with a *sibling design spec* as its authoritative source" — still accurate (Phase 4/6 strengthening is now framed as narrative-sourced, distinct from §5.1 / §5.2 §5-enumerated commitments). §14 References — session-economy spec under Authoritative — still correct.
+
+**Status implication.** Kept at Draft. The spec is currently at `Draft — Open for Review` per §1 banner; CP-1 is open with "changes requested" verdict. This amendment closes the citation-correction part of CP-1's blocker findings but does not advance the spec out of Draft — CP-1 must be re-run to reach a "pass with comments" verdict before the spec leaves Draft.
+
+**Approver.** Eric Wasgatt (operator), 2026-05-18.
+
+### Pattern observation at amendment time
+
+The amendment is the first instance of an amendment to a retroactive design spec (N=1 / N=2 / N=3 retroactive specs had zero amendments; their CP-1 verdicts were "pass with comments" with advisories logged but not amended). This amendment is also the first instance of a /spec-review → /spec-amend hand-off in the retroactive-spec sequence — exercising the documented hand-off pattern from `spec-amend` SKILL.md "HANDOFF NOTES → From `spec-review`". **Pattern observation:** the hand-off works as documented; the spec-review verdict's "Spec amendments proposed" section transferred cleanly to spec-amend's TRIGGER and PROPOSED_CHANGE inputs. **Pattern for N=5:** if sessions 4–5 (`spec-review` and `spec-amend` retroactive specs) surface similar cross-spec citation issues, the same /spec-review → /spec-amend hand-off applies; precedent established at N=4.
+
+### Refined Pattern-for-N=5 #1 — concrete shape now visible
+
+The CP-1 verdict refined Pattern-for-N=5 #1 (audit every §5 subsection's sibling-design-spec citation at authoring time). The amendment makes the audit's *output shape* concrete: when a sibling-design-spec source applies to a retro §5 subsection, the retro spec must declare whether the citation is **§5-enumerated** (the sibling spec has a §5 subsection committing to the behavior) or **narrative-sourced** (the sibling spec acknowledges the behavior in §1 / §3 / similar but does not enumerate it). The two-shapes framing in retro §8 / §9 carries forward to sessions 4–5 verbatim if they encounter the same session-economy spec attribution pattern.
