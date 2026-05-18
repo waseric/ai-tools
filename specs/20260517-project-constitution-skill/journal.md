@@ -351,3 +351,42 @@ After:
 **Status implication.** SKILL.md has no Status banner. Frontmatter `lastUpdated` advanced from 2026-05-15 to 2026-05-18 as part of this amendment.
 
 **Approver.** Eric Wasgatt — approved 2026-05-18.
+
+## 2026-05-18 — Amendment 2026-05-18-2
+
+**Section amended:** [architecture.md §5.2 Phase 2 — Clarify, Behavior paragraph](./architecture.md#L122)
+**Trigger:** CP-2 drift audit finding D-1 (carried from CP-1 advisory (a)): spec said "Six topics" but SKILL.md Phase 2 enumerated discrete bullets. Post-Amendment 2026-05-18-1, SKILL.md Phase 2 has eight bullets; spec count needed to match.
+**Reason:** Spec's enumeration must match SKILL.md Phase 2 (post-2026-05-18-1: eight bullets — lifecycle / purpose / audience / scope / layout / stack / assumptions / open-questions). Separating assumptions and open questions matches SKILL.md's structural distinction; including layout matches the 2026-05-18-1 elevation.
+**Impact summary:** No tasks (design spec). CP-1 advisory (a) closed; CP-2 D-1 closed. No completed work invalidated. No cross-reference follow-up needed.
+**Approver:** Eric Wasgatt
+**Approved on:** 2026-05-18
+**Status implication:** kept (Draft — Open for Review)
+**Commit:** TBD
+
+### Full record
+
+#### Amendment 2026-05-18-2 — architecture.md §5.2 "Six topics" → "Eight topics"
+
+**Trigger.** CP-2 drift audit (2026-05-18, this journal) finding D-1, carried from CP-1 advisory (a) which CP-2 routed to amendment. Spec's "Six topics" wording merged Assumptions and Open Questions into one bullet, undercounting SKILL.md's discrete enumeration. Amendment 2026-05-18-1 then added a "Layout confirmation" bullet to SKILL.md Phase 2, bringing the SKILL.md count to eight; the spec's count needs to match.
+
+**Section.** [architecture.md §5.2 Phase 2 — Clarify, "Behavior" paragraph at line 122](./architecture.md#L122).
+
+**Change.**
+
+Before:
+> **Behavior.** Six topics presented in order: lifecycle stage, purpose, audience, scope, stack confirmation, assumptions + open questions. The skill **stops and waits** for operator input. Open questions are triaged `[blocker]` / `[important]` / `[minor]`; blockers must be resolved before Phase 3.
+
+After:
+> **Behavior.** Eight topics presented in order: lifecycle stage, purpose, audience, scope, layout, stack confirmation, assumptions, open questions. The skill **stops and waits** for operator input. Open questions are triaged `[blocker]` / `[important]` / `[minor]`; blockers must be resolved before Phase 3.
+
+**Reason.** Spec enumeration must match SKILL.md Phase 2 bullet count and order. The original "Six topics" wording merged assumptions with open questions (a count mismatch) and predated the layout bullet (now present after 2026-05-18-1). Behavior is unchanged in the spec — both assumptions and open questions were already in scope; layout is a separate amendment that the spec already commits to in §5.4 and §6.
+
+**Impact.**
+- Affected tasks: none.
+- Affected checkpoints: CP-1 advisory (a) closed (was open since 2026-05-17 CP-1 verdict); CP-2 D-1 closed.
+- Completed work invalidated: none.
+- Cross-references requiring follow-up: none.
+
+**Status implication.** Kept (Draft — Open for Review). Surgical text fix.
+
+**Approver.** Eric Wasgatt — approved 2026-05-18.

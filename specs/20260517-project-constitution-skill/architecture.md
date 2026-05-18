@@ -119,7 +119,7 @@ The skill is the upstream-most node in the methodology graph. Outputs are consum
 
 **Outputs.** Confirmed lifecycle stage, purpose statement, audience, in/out of scope, stack confirmations, captured assumptions, triaged open questions.
 
-**Behavior.** Six topics presented in order: lifecycle stage, purpose, audience, scope, stack confirmation, assumptions + open questions. The skill **stops and waits** for operator input. Open questions are triaged `[blocker]` / `[important]` / `[minor]`; blockers must be resolved before Phase 3.
+**Behavior.** Eight topics presented in order: lifecycle stage, purpose, audience, scope, layout, stack confirmation, assumptions, open questions. The skill **stops and waits** for operator input. Open questions are triaged `[blocker]` / `[important]` / `[minor]`; blockers must be resolved before Phase 3.
 
 **Pattern invoked.** *Triage-by-severity*, identical to `spec-design` and `spec-write` Phase 2.
 
@@ -221,6 +221,8 @@ There is no Phase B "build the skill" — the skill is already built. There is n
 - Verdict is written back to this spec's §9 (status line) and to the journal.
 
 ### CP-2 — Drift audit complete
+
+**Status:** pass with comments on 2026-05-18 by Claude (agent reviewer). 0 blockers, 0 important, 4 advisory (D-1 §5.2 count; D-2 layout-question phase; D-3 INPUTS catalog; D-4 README-reconciliation commitment). Routing: D-1 and D-4 → /spec-amend (spec-side); D-2 → /spec-amend (SKILL.md-side) or accept-as-minor; D-3 → accept-as-minor. Full verdict in [journal.md](./journal.md#2026-05-18--review-of-cp-2).
 
 **Trigger.** CP-1 passes.
 
