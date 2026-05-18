@@ -173,7 +173,7 @@ The pause at Phase 2 is load-bearing: it is the operator's primary input channel
 
 **Purpose.** Ensure each task in §7 is independently reviewable, independently testable, and small enough to land in a single pull request.
 
-**Behavior.** Every task in the breakdown declares: Task ID (e.g., `T-01`), Title, Scope (files to create/modify; function or class names), Acceptance criteria (Given/When/Then or equivalent, objectively verifiable), Tests required (named test files; unit / integration / manual), Definition of Done (code merged, tests passing in CI, docs updated, observability in place, no new lint or type errors, peer reviewed), Dependencies (other task IDs), Estimated size (S/M/L; L tasks must be split before implementation). Tasks are sequenced so the branch is in a deployable or revertible state at each task boundary.
+**Behavior.** Every task in the breakdown declares: Task ID (e.g., `T-01`), Title, Scope (files to create/modify; function or class names), Acceptance criteria (Given/When/Then or equivalent, objectively verifiable), Tests required (named test files; unit / integration / manual), Definition of Done (code merged, tests passing in CI, docs updated, observability in place, no new lint or type errors, peer reviewed), Dependencies (other task IDs), Estimated size (S/M/L; L tasks must be split before implementation). Tasks are sequenced so the branch is in a deployable or revertible state at each task boundary. Task descriptions take the form *"Add `<file>` exposing `<function>` such that `<acceptance criteria>`"* — not the form *"Implement X"*; the latter under-specifies scope and AC.
 
 **Pattern invoked.** *Atomic, reviewable tasks* — Operating Principle 3 in the shipping SKILL.md. *Reversibility* — Operating Principle 6.
 
