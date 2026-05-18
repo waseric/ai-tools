@@ -74,6 +74,14 @@ Each retroactive spec declares two checkpoints (per the project-constitution pre
 
 CP-1 reviews remain per-session — a faithfulness review is naturally scoped to a single spec.
 
+## Decisions recorded 2026-05-18
+
+The CP-2 batch session was scoped during a `/spec-execute retroactive-spec-strategy CP-2` invocation that surfaced a skill-shape mismatch — this strategy doc is a planning record, not a feature spec with task breakdown, so `/spec-execute`'s Phase 1 cannot orient against it. The operator resolved scope and recorded the following decisions:
+
+- **CP-2 driver skill: `/spec-review` per spec, sequential.** Each retroactive spec's CP-2 is the canonical drift-audit shape, which fits [/spec-review](../.agents/skills/spec-review/SKILL.md) natively. `/spec-execute` is not used to orchestrate the batch — its task-breakdown / DoD discipline does not map onto review activities.
+- **OQ-1 resolved as (a).** Project-constitution's CP-2 runs first as its own standalone session, establishing the N=1 drift-audit baseline. The five new specs' batch CP-2 then inherits the pattern. Lean (a) was the strategy's stated preference; this records the formal resolution.
+- **Batch journal location: [specs/20260518-cp2-batch-audit/journal.md](../specs/20260518-cp2-batch-audit/journal.md).** A standalone journal for the five-spec batch session, scaffolded in the same session that recorded these decisions. Each spec's own journal still gets its CP-2 closeout entry; the batch journal captures the *cross-spec* layer (drift patterns visible only when audited together). Project-constitution's CP-2 journal entry lives in [its own existing journal](../specs/20260517-project-constitution-skill/journal.md) per the standalone-session shape.
+
 ## Session shape (per retroactive spec)
 
 Each session follows this rough shape. It is not a binding template — adapt as conditions warrant.
@@ -94,7 +102,7 @@ Project-constitution's CP-2 drift audit is still pending ([journal.md](../specs/
 - (a) Run project-constitution's CP-2 first as its own session, establish N=1 baseline for what a drift audit looks like, *then* the five new specs' batch CP-2 inherits the pattern.
 - (b) Fold project-constitution into the six-spec batch CP-2 audit at the end.
 
-Leaning: (a) — gives the batch audit a worked example to model against. Decided at the operator's discretion when CP-2 work begins.
+Leaning: (a) — gives the batch audit a worked example to model against. **Resolved 2026-05-18 as (a)** — see ["Decisions recorded 2026-05-18"](#decisions-recorded-2026-05-18) section above.
 
 ### OQ-2 — Skill-spec ordering if downstream specs need upstream spec citations
 
