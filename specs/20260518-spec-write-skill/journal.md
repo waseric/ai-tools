@@ -442,3 +442,42 @@ After:
 **Status implication.** Spec remains at `pass with comments` for CP-2. Single-clause addition to existing Behavior paragraph; does not change the positive contract preceding it. No revert to Draft.
 
 **Approver.** Eric Wasgatt — approved 2026-05-18.
+
+## 2026-05-18 — Amendment 2026-05-18-5
+
+**Section amended:** [.agents/skills/spec-write/SKILL.md preamble — "How this skill works" (line 15)](../../.agents/skills/spec-write/SKILL.md#L15)
+**Trigger:** CP-2 D-5 — preamble described Phase 2 pause as "assumptions and open questions"; Phase 2 body and spec §5.2 enumerate three items including "decisions proposed unilaterally."
+**Reason:** Aligns SKILL.md preamble to its own Phase 2 body and to spec §5.2's three-item Outputs declaration.
+**Impact summary:** No tasks affected; CP-2 closing entry references this amendment; no completed work invalidated.
+**Approver:** Eric Wasgatt
+**Approved on:** 2026-05-18
+**Status implication:** kept (`pass with comments` on CP-2 holds; SKILL.md preamble edit only).
+**Commit:** bbd4c4c
+
+### Full record
+
+## Amendment 2026-05-18-5 — .agents/skills/spec-write/SKILL.md preamble
+
+**Trigger.** During the N=3 CP-2 drift audit of `spec-write` (2026-05-18, Claude as agent reviewer), the auditor surfaced an internal SKILL.md inconsistency: [preamble line 15](../../.agents/skills/spec-write/SKILL.md#L15) describes Phase 2 as a pause "for user input on **assumptions and open questions**," but [Phase 2 body (lines 75-79)](../../.agents/skills/spec-write/SKILL.md#L75) enumerates three items — Assumptions, Open questions, and Decisions proposed-unilaterally. Preamble omits the third item. Mirror-class of N=2 D-2 (preamble named a "format" the Phase 2 body did not enumerate) — same finding class, opposite direction.
+
+**Section.** [.agents/skills/spec-write/SKILL.md preamble — "How this skill works" paragraph (line 15)](../../.agents/skills/spec-write/SKILL.md#L15). Single-paragraph section; the change replaces one clause.
+
+**Change.**
+
+Before:
+> When invoked, you act as the agent. Gather the INPUTS below from the user — many can be inferred from the working directory and recent conversation; ask explicitly only for what is missing or ambiguous. Then run Phase 1 (Discovery), pause at Phase 2 for user input on **assumptions and open questions**, and produce the Phase 3 spec document. The spec is the contract — iterate on it before any implementation begins.
+
+After:
+> When invoked, you act as the agent. Gather the INPUTS below from the user — many can be inferred from the working directory and recent conversation; ask explicitly only for what is missing or ambiguous. Then run Phase 1 (Discovery), pause at Phase 2 for user input on **assumptions, open questions, and decisions proposed unilaterally**, and produce the Phase 3 spec document. The spec is the contract — iterate on it before any implementation begins.
+
+**Reason.** The preamble is a contract summary; readers (operators and review skills) rely on it to know what to expect from each phase. Omitting "decisions proposed unilaterally" understates what the operator must respond to during the pause and creates ambiguity about whether the third item is a real commitment or an after-thought of the Phase 2 body. Spec §5.2 already commits the three-item list correctly; this amendment aligns SKILL.md's preamble with its own Phase 2 body and with the spec.
+
+**Impact.**
+- **Affected tasks:** none (retroactive design spec; no §7 Task Breakdown).
+- **Affected checkpoints:** [CP-2](./architecture.md#L302) — closing entry references this amendment.
+- **Completed work invalidated:** none.
+- **Cross-references requiring follow-up:** none. Spec §5.2 already enumerates the three items in declared order; no spec-side edit needed.
+
+**Status implication.** Spec remains at `pass with comments` for CP-2. This amendment touches SKILL.md preamble only; spec commitments unchanged. No revert to Draft.
+
+**Approver.** Eric Wasgatt — approved 2026-05-18.
