@@ -275,14 +275,14 @@ Four explicit pause points: Phase 1 (await approval of proposed next task), Phas
 2. Capture the trigger: file path, test output, contradiction, or other evidence from the current task.
 3. State which section of the spec needs amending and a one-line description of the proposed change.
 4. State the impact on the current task: blocked entirely, partially blocked, or proceedable-with-a-note.
-5. Hand off to `spec-amend`, passing `SECTION`, `TRIGGER`, and any `PROPOSED_CHANGE` text.
+5. Hand off to `spec-amend`, passing `SECTION`, `TRIGGER`, and any `PROPOSED_CHANGE` text. Any `PROPOSED_CHANGE` carried forward must be expressible as a diff against the existing section — surgical, not a rewrite. If the change cannot be expressed surgically, route as a rewrite candidate (`spec-write` re-decomposition) rather than as an amendment.
 6. Wait for the amendment to be applied (or rejected) before resuming.
 
 **On amendment applied.** Re-orient via Phase 1 against the *amended* spec — do not rely on memory of the pre-amendment text.
 
 **On amendment rejected.** Reconsider whether the task can complete as written. If not, the task may need re-decomposition via `spec-write`, or pulled back to the design level via `spec-design`.
 
-**Pattern invoked.** *Separation of proposing from applying* — added at trilogy commit `49c15f0`, distinct from the predecessor's inline Amendment Protocol (predecessor lines 391–403 applied amendments within the execution session). The current routing is the methodology's commitment that amendments are first-class events.
+**Pattern invoked.** *Separation of proposing from applying* — added at trilogy commit `49c15f0`, distinct from the predecessor's inline Amendment Protocol (predecessor lines 391–403 applied amendments within the execution session). The current routing is the methodology's commitment that amendments are first-class events. *Diff required; surgical not rewrite* — [SKILL.md WHAT NOT TO DO](../../.agents/skills/spec-execute/SKILL.md); the proposing side carries the obligation by ensuring `PROPOSED_CHANGE` is expressible as a diff against the existing section.
 
 **Why this design.** Inline amendments collapse the visibility of "what changed in the spec, when, and why." Routed amendments produce a discoverable trail (commit, journal entry, spec edit) that survives session boundaries.
 
