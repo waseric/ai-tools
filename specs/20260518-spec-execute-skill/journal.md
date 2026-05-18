@@ -261,7 +261,7 @@ The CP-1 verdict refined Pattern-for-N=5 #1 (audit every §5 subsection's siblin
 
 **Reviewer:** Claude (AI assistant) on behalf of Eric Wasgatt
 **Outcome:** pass with comments
-**Verdict commit:** TBD (backfilled after commit per [N=2/N=3 verdict-commit-SHA pattern](../20260518-spec-write-skill/journal.md))
+**Verdict commit:** `6723068`
 **Diff range:** `7fee46f` (amendment edits to [architecture.md](./architecture.md) §5.4, §5.6, §6, §8, §9) + `94f5658` (this journal's amendment entry) layered on `b8536aa` (original paired commit)
 **Tasks reviewed:** none (retroactive design spec — no atomic tasks)
 **Blockers:** 0 — the four blocker findings from the [original CP-1 verdict](./journal.md) (citation pattern at four sites) were escalated to [amendment 2026-05-18-1](./journal.md) (commit `7fee46f`), which corrected six sites total. Verified against [session-economy/architecture.md §5](../20260514-session-economy/architecture.md): only §5.1 (Phase 8 token economy) and §5.2 (Phase 1 multi-repo detection) architecturally commit to `spec-execute` behavior; §5.3 / §5.4 / §5.5 commit to sibling skills; no §5 subsection enumerates Phase 4/6 paired-commit strengthening. The amendment's two-attribution-shapes framing is consistent with this structure.
