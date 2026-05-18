@@ -252,6 +252,7 @@ The pause at Phase 2 is load-bearing: it is the operator's primary input channel
 | **Pause discipline** | Phase 2 stops and waits for operator input on assumptions and open questions. No Phase-3 work with unresolved blocker OQs. | [SKILL.md PHASE 2 — CLARIFY](../../.agents/skills/spec-write/SKILL.md) |
 | **Upstream integration** | When `DESIGN_SPEC_PATH` is provided, the design spec is authoritative input. When `CONSTITUTION_PATHS` is provided, declared scope and tech-stack are binding. Both inputs are optional; absence does not block the skill. | [SKILL.md INPUTS + PHASE 1](../../.agents/skills/spec-write/SKILL.md) |
 | **Multi-repo awareness** | If the spec lives in a different repo than the codebase it describes, §3 Background notes this and the spec includes `SPEC_REPO_ROOT` / `SPEC_TARGET_BRANCH` for downstream `spec-execute` sessions. | [SKILL.md OUTPUT FORMAT](../../.agents/skills/spec-write/SKILL.md) |
+| **Dependency hygiene** | Specs do not introduce new frameworks, ORMs, or major dependencies without an explicit "Alternatives considered" subsection justifying the addition. Default is to match existing codebase conventions; deviation requires written rationale. | [SKILL.md OPERATING PRINCIPLES §7 + WHAT NOT TO DO](../../.agents/skills/spec-write/SKILL.md) |
 
 ## 7. Implementation Sequencing
 
