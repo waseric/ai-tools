@@ -179,7 +179,7 @@ Anything still unresolved at spec time. Each must have an owner and a target res
 
 ## 14. References
 
-Links to the patterns, RFCs, library docs, internal docs, and prior code that informed the design.
+Links to the patterns, RFCs, library docs, internal docs, and prior code that informed the design. Distinguish **Authoritative** references (binding — the spec's commitments must match these) from **Inspirational** references (prior art that informed the design but does not bind it). Use two sub-headings — `### Authoritative` and `### Inspirational` — when both classes are present.
 
 # OUTPUT FORMAT
 
