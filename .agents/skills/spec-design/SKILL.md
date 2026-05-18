@@ -69,6 +69,7 @@ Before writing the spec, output:
 
 - **Naming confirmation.** Confirm `ARTIFACT_NAME` (or pick from the candidates surfaced in Discovery).
 - **Audience confirmation.** Confirm `TARGET_AUDIENCE`. Name the broadest member explicitly — that is who the spec is written for.
+- **Format confirmation.** Confirm the design-spec format (14-section template) fits the artifact being produced. If the artifact is implementation work (atomic tasks, tests, rollout), route to `/spec-write` instead. If the artifact is hybrid or non-conformant, surface to the operator before proceeding to Phase 3.
 - **Verification commitment.** "What external claims will this spec make? Are you willing to take a verification pass against canonical sources before publishing? (Recommended: yes.)" Capture the answer; in Phase 3, this determines how aggressive the inline citation discipline is.
 - **Assumptions** you are making about the system, the environment, or the audience.
 - **Open questions** that materially affect the design. Group as `[blocker]`, `[important]`, `[minor]`. Blockers must be resolved before the spec is written. (Other open questions are first-class output — capture them in the spec under §13 with full analysis.)
