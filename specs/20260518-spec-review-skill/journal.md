@@ -196,3 +196,82 @@ Per-claim verification walked at review time:
 
 The [important] finding I1 (citation to nonexistent N=3 §5.X) shares structural shape with the N=4 amendment cycle (commits `57bb671` → `7fee46f` → `6723068`): a citation error caught at CP-1, routed to `/spec-amend`, re-reviewed if material. Two retro-spec CP-1s in a row have surfaced citation-discipline findings on **lineage/architectural-source attribution**. Pattern for N=6: the spec-amend retroactive spec should perform an explicit lineage-citation audit at authoring time, walking each "Pattern invoked" reference against the actual cited subsection. The shape of the N=4 amendment plus the present finding suggests this is a recurring failure mode of the cross-spec lineage narrative under the journal-mining pattern; codifying the authoring-time check would head it off at N=6 rather than catching it at CP-1.
 
+## 2026-05-18 — Amendment 2026-05-18-2
+
+**Section amended:** specs/20260518-spec-review-skill/architecture.md §5.10 (Voice discipline, "Pattern invoked" sub-block, line 247)
+**Trigger:** CP-1 review verdict (commit `e8193a8`) raised [important] finding I1 — `§5.X` placeholder unresolved AND cited pattern does not exist at N=3.
+**Reason:** "Carried forward verbatim" lineage was inaccurate on two counts: unresolved authoring placeholder, and the cited subsection does not exist at N=3 at all. Amended language matches verified facts and surfaces the N=3 gap explicitly.
+**Impact summary:** No task or checkpoint scope changed; no completed work invalidated; no cross-references require follow-up.
+**Approver:** Eric Wasgatt
+**Approved on:** 2026-05-18
+**Status implication:** No banner change (banner amends at post-CP-2 transition per N=1/N=2/N=3/N=4 convention); §9 CP-1 Status line preserved as the historical record of what CP-1 found. Honors §13 OQ-2 leaning (d) — do not codify re-review/Status-mutation mechanics on one cycle's evidence.
+**Commit:** `85821ca`
+
+### Full record
+
+```
+## Amendment 2026-05-18-2 — specs/20260518-spec-review-skill/architecture.md §5.10
+
+**Trigger.** CP-1 review (verdict commit e8193a8, SHA backfill 0ccc644)
+raised [important] finding I1: the "Pattern invoked" sub-block of §5.10
+cites "[N=3 §5.X](../20260518-spec-write-skill/architecture.md)" as a
+Voice-discipline source, but verification against N=3's architecture.md
+confirms it has no Voice-discipline subsection (N=3 §5 covers Discovery,
+Clarify, Spec Document, Upstream-spec orientation, Task Breakdown
+atomicity, Test Strategy, Citation discipline, Section template — eight
+subsections total, none Voice-discipline). The §5.X placeholder is
+unresolved AND the cited pattern does not exist at N=3. Voice discipline
+appeared at N=2 §5.6 and N=4 §5.10; N=3 omitted it.
+
+**Section.** §5.10 Voice discipline, "Pattern invoked" sub-block, line 247.
+
+**Change.**
+
+Before:
+> **Pattern invoked.** Same voice discipline declared at [N=2 §5.6](../20260518-spec-design-skill/architecture.md), [N=3 §5.X](../20260518-spec-write-skill/architecture.md), and [N=4 §5.10](../20260518-spec-execute-skill/architecture.md). Carried forward verbatim as a spec-side discipline.
+
+After:
+> **Pattern invoked.** Voice discipline was declared at [N=2 §5.6](../20260518-spec-design-skill/architecture.md), omitted at [N=3](../20260518-spec-write-skill/architecture.md) (whose §5 covered phases + upstream-spec orientation + atomicity + test strategy + citation discipline + section template, with no Voice-discipline subsection), and reintroduced at [N=4 §5.10](../20260518-spec-execute-skill/architecture.md). Carried forward at N=5 as a spec-side discipline. The gap at N=3 is surfaced explicitly rather than papered over as continuous lineage.
+
+**Reason.** The original "carried forward verbatim" lineage was inaccurate
+on two counts: (1) the §5.X placeholder for N=3 was an unresolved authoring
+artifact, and (2) the cited pattern does not exist at N=3 at all. The
+amended language matches the verified facts and makes the N=3 gap a
+recorded observation rather than an implicit (false) continuity claim.
+Pairs with the citation-discipline failure mode N=4 amendment 2026-05-18-1
+addressed (architectural-source citations) — both are evidence that
+cross-spec lineage narration is a recurring failure mode of the
+journal-mining authoring pattern.
+
+**Impact.**
+- **Affected tasks:** none (design spec; no task breakdown).
+- **Affected checkpoints:** CP-1 outcome unchanged (was "pass with
+  comments"; remains "pass with comments" — the amendment fixes the one
+  [important] finding but the verdict was already in the work-may-proceed
+  band). CP-2 unaffected (audits the spec body's faithfulness to SKILL.md;
+  this amendment does not change any SKILL.md-mapping commitment).
+- **Completed work invalidated:** none.
+- **Cross-references requiring follow-up:** none. The CP-1 journal entry
+  (already committed) accurately describes the finding; no edit needed
+  there. The §9 CP-1 Status line documents the [important] finding by
+  reference; rather than rewrite it, the post-amendment state is captured
+  in this journal entry and the §9 Status line stands as the contemporary
+  record of what CP-1 found.
+
+**Status implication.** No banner change. Spec banner remains
+"Draft — Open for Review" (the banner amends at post-CP-2 transition per
+N=1/N=2/N=3/N=4 convention; CP-2 is still pending). §9 CP-1 Status line
+remains "pass with comments on 2026-05-18" — accurate at the time of the
+verdict; the amendment that addressed the [important] is recorded in the
+journal entry below, not by mutating the historical Status line. This
+honors §13 OQ-2's leaning (d): do not codify re-review/Status-mutation
+mechanics on one cycle's evidence; preserve both the original verdict and
+the amendment record as separate durable artifacts.
+
+**Approver.** Eric Wasgatt — approved 2026-05-18.
+```
+
+### Mining note for N=6
+
+This amendment is the **second consecutive citation-error amendment in the retro-spec series** (N=4 amendment 2026-05-18-1 was the first). Both targeted "Pattern invoked" / architectural-source lineage citations, not SKILL.md mapping commitments. Two cycles is now the evidence base. **Pattern for N=6:** the journal-mining authoring pattern reliably introduces citation errors in cross-spec lineage prose; spec-amend's retroactive spec should perform an authoring-time per-citation walk against actual cited subsections (heading-text and content match, not just heading-line target). If a third consecutive CP-1 surfaces the same failure mode at N=6, codifying the check as a SKILL.md-level discipline (in spec-design or spec-write) becomes warranted; until then, per-spec mitigation in each retro spec's CP-1 review focus suffices.
+
