@@ -244,3 +244,110 @@ After:
 ### N=2 mining note
 
 **Pattern for N=2.** When a retroactive-spec amendment removes a class of references (here: `.claude/skills/...`), Phase 1 Orient must scan the *entire spec* for all instances of the class, not just the locations called out by the triggering finding. The CP-1 finding here named §1 and §14, but two more instances (§9, §14 Inspirational) referenced a different skill via the same path pattern and were missed in Orient. Caught at Phase 4 verification grep. Future retroactive-spec amendments touching path/citation classes should add a pre-draft `grep` step to Phase 1 to surface all instances before scope is locked.
+
+## 2026-05-18 — Review of CP-2
+
+**Reviewer:** Claude (agent reviewer)
+**Outcome:** pass with comments
+**Tasks reviewed:** N/A — design spec, no atomic tasks; CP-2 audit scope was architecture.md §4, §5, §6, §12 against shipping [.agents/skills/project-constitution/SKILL.md](../../.agents/skills/project-constitution/SKILL.md).
+**Blockers:** 0
+**Important:** 0
+**Advisory:** 4 — D-1 §5.2 "Six topics" miscounts SKILL.md Phase 2's seven bullets; D-2 §6 layout-question Phase-2 placement vs SKILL.md Phase-3 prose positioning; D-3 spec lacks an INPUTS catalog mirroring SKILL.md's six-field INPUTS block; D-4 SKILL.md "do not duplicate or contradict existing READMEs" commitment absent from spec §6 / §5.3.
+**Spec amendments proposed:** 2 routed to spec, 1 optionally routed to SKILL.md, 1 accept-as-minor — see below.
+
+**Findings against CP-2 review focus (line-by-line audit of SKILL.md against spec §4, §5, §6, §12):**
+
+| ID | Where | Divergence | Routing |
+|---|---|---|---|
+| D-1 | [architecture.md §5.2:122](./architecture.md#L122) vs [SKILL.md Phase 2:66-72](../../.agents/skills/project-constitution/SKILL.md#L66-L72) | Spec says "Six topics"; SKILL.md enumerates seven (Assumptions and Open questions are separate). Spec merges them. Carried forward from CP-1 advisory (a). | **(a) amend spec.** Substantive content unchanged; behavioral coverage already present in spec prose. Surgical text edit. |
+| D-2 | [architecture.md §6 NFR Layout neutrality:177](./architecture.md#L177) vs [SKILL.md:78](../../.agents/skills/project-constitution/SKILL.md#L78) | Spec commits layout choice is surfaced "as a Phase 2 question"; SKILL.md positions the layout question inside Phase 3 prose, triggered by Phase 1 detection. | **(b) amend SKILL.md** to elevate layout to a Phase 2 bullet (spec's commitment is the cleaner contract), **or (c) accept as minor** since an executor would raise the question at the Phase 2/3 boundary either way. Operator discretion. |
+| D-3 | [architecture.md §5.1:102](./architecture.md#L102) vs [SKILL.md INPUTS:21-28](../../.agents/skills/project-constitution/SKILL.md#L21-L28) | SKILL.md declares six INPUTS (REPO_ROOT, REPO_PURPOSE, TARGET_AUDIENCE, LIFECYCLE_STAGE, STACK_HINTS, SCOPE_HINTS); spec §5.1 cites only REPO_ROOT and narrates the remainder through §5.2 Phase 2 topics without cataloging them as the skill's INPUTS contract. | **(c) accept as known minor discrepancy.** Spec narrates equivalent ground; cataloging adds duplication for a descriptive retroactive spec. Rationale: the §5.2 Phase 2 walk *is* the spec's treatment of the Phase-2-supplied inputs; the SKILL.md INPUTS block is interface metadata more than behavioral commitment. |
+| D-4 | [SKILL.md:196](../../.agents/skills/project-constitution/SKILL.md#L196) — no parallel in spec §6 or §5.3 | SKILL.md commits "Do not duplicate or contradict existing READMEs without addressing them. If a README is stale, either update it as part of this work or note that the constitution supersedes it." Spec has no parallel NFR or Phase 3 behavior. | **(a) amend spec** to add a README-reconciliation NFR row in §6 or a Phase 3 behavior line in §5.3. This is a real SKILL.md commitment the spec does not reflect. |
+
+**Verification performed:**
+- Walked all five spec §5 subsections against SKILL.md Phase 1 / Phase 2 / Phase 3 sections, Operating Principles, and WHAT NOT TO DO.
+- Walked all seven §6 NFR rows against SKILL.md Operating Principles + WHAT NOT TO DO + Phase 3 preface.
+- Walked all six §12 Out of Scope bullets — five are spec-level deferrals (no SKILL.md mirror expected); one (governance docs) matches SKILL.md WHAT NOT TO DO first bullet.
+- Verified [specs/tech-stack.md §21-33](../tech-stack.md#L21-L33) (Atomic-Skill Portability Principle) source matches §3 and §6 NFR Portability characterizations.
+- Cross-checked CP-1 advisories: (a) §5.2 count → reinstated here as D-1 with explicit routing; (b) §5.3 layout-deviation split → closed (§5.3 + §5.4 together cover both journal-notation and constitution-doc documentation, matching SKILL.md:76-78); (c) §9 CP-1 trigger phrasing → CP-1 internal, not CP-2 surface.
+
+**Exit criteria status:**
+- Divergence list produced (possibly empty): met — four advisory divergences.
+- Each divergence has a routing decision: met — D-1 (a), D-2 (b)-or-(c), D-3 (c), D-4 (a).
+- No silent edits to either artifact: met — this entry and the §9 Status line are the only writes; routing decisions await operator-invoked `/spec-amend`.
+- Outcome recorded as closing entry of retroactive-spec adoption: met — this entry.
+
+**Pattern for N=2.** A retroactive-spec CP-2 drift audit is structurally different from CP-1's faithfulness review. CP-1 verifies that the spec describes the skill; CP-2 enumerates the *gaps* where the description doesn't reach (commitments in SKILL.md absent from spec, or vice versa). The natural findings tier is **advisory** — substantive drift would have been caught at CP-1; CP-2 typically surfaces enumeration miscounts, missing NFR rows, missing INPUTS catalogs, and phase-positioning differences. Future CP-2 audits in the quintet batch should expect 2–5 advisory findings each, mostly of these shapes, with routing strongly biased toward (a) amend-spec (the SKILL.md is the canonical authority).
+
+**Pattern for N=2.** CP-2 audits inherit CP-1 advisories that intersect the CP-2 surface (§4, §5, §6, §12). The CP-1 advisory may not have been acted on at CP-1 (advisories don't block); CP-2 is where the routing decision is forced. The N=5 batch should walk each prior CP-1 advisory list for items still relevant at CP-2 — they need explicit routing, not silent drop.
+
+**Pattern for N=2.** When SKILL.md ships an INPUTS block but the spec narrates inputs through Phase 2 prose, the (c) accept-as-minor route is generally appropriate for retroactive specs — duplicating the contract adds maintenance burden without behavioral gain. Forward-authored specs (where the spec precedes the SKILL.md) should instead carry the INPUTS contract in spec form.
+
+**Next action:**
+1. Operator decides routing for D-2 (option b amend SKILL.md, or option c accept-as-minor) and confirms D-1 + D-4 amendments + D-3 acceptance.
+2. Invoke `/spec-amend` for D-1 and D-4 (and D-2 if option b chosen). Each amendment is small and surgical; could be bundled or sequential per operator preference.
+3. After amendments commit, the project-constitution retroactive-spec adoption (§11) is **closed**. The spec becomes the living contract for SKILL.md per the Amendment Protocol.
+4. The five-spec batch CP-2 in [specs/20260518-cp2-batch-audit/journal.md](../20260518-cp2-batch-audit/journal.md) may now proceed using this audit as the N=1 baseline pattern.
+
+## 2026-05-18 — Amendment 2026-05-18-1
+
+**Section amended:** [.agents/skills/project-constitution/SKILL.md](../../.agents/skills/project-constitution/SKILL.md) — frontmatter `lastUpdated`, Phase 2 bullet list, Phase 3 preface paragraph
+**Trigger:** CP-2 drift audit finding D-2: spec §6 NFR Layout neutrality commits "Phase 2 question" but SKILL.md positioned the layout question in Phase 3 prose. Operator selected routing option (b) — amend SKILL.md.
+**Reason:** The layout question requires operator input before Phase 3 file placement; it is structurally a Phase 2 activity. Elevating it to a Phase 2 bullet aligns SKILL.md with the spec's contract and tightens the workflow ordering.
+**Impact summary:** No tasks (design spec). CP-2 D-2 closed. No completed work invalidated. SKILL.md cross-citation at [architecture.md §5.4:146](./architecture.md#L146) points to "SKILL.md:78" — content at that locus still exists (the constitution-documentation commitment) but the exact line number may have drifted; line-number citations into SKILL.md are inherently fragile and accepted as such here.
+**Approver:** Eric Wasgatt
+**Approved on:** 2026-05-18
+**Status implication:** SKILL.md has no Status banner; frontmatter `lastUpdated` advanced from 2026-05-15 to 2026-05-18.
+**Commit:** TBD
+
+### Full record
+
+#### Amendment 2026-05-18-1 — SKILL.md Phase 2 elevates layout to an explicit bullet
+
+**Trigger.** CP-2 drift audit (2026-05-18, this journal) enumerated four divergences between architecture.md and SKILL.md. Finding D-2: architecture.md §6 NFR Layout neutrality commits "Layout choice is surfaced as a Phase 2 question, not assumed" ([architecture.md:177](./architecture.md#L177)), but SKILL.md positioned the layout question in Phase 3 prose ([SKILL.md pre-amendment line 78](../../.agents/skills/project-constitution/SKILL.md)), not as a Phase 2 bullet. Per the spec's §11 Adoption Path, SKILL.md edits go through the Amendment Protocol; per the unresolved OQ-1 fallback, the journal entry lands in this spec's journal.
+
+**Section.** Three coordinated edits in the same SKILL.md file:
+- Frontmatter `lastUpdated` field — advanced.
+- Phase 2 bullet list — new "Layout confirmation" bullet inserted between "In-scope / out-of-scope" and "Stack confirmation."
+- Phase 3 preface paragraph — trimmed to remove the duplicated question text (which now lives in Phase 2), preserving only the constitution-document-the-exception half.
+
+**Change.**
+
+*Frontmatter*
+
+Before:
+> lastUpdated: 2026-05-15
+
+After:
+> lastUpdated: 2026-05-18
+
+*Phase 2 bullet list — insert new bullet*
+
+Before:
+> - **In-scope / out-of-scope.** The non-goals list is doing real work — it stops the repo from accreting unrelated work. Capture explicit non-goals.
+> - **Stack confirmation.** From Scan, list what was found. Ask the user to confirm or correct (occasionally a manifest is present but the actual stack is different — e.g., a `package.json` left from a prior life).
+
+After:
+> - **In-scope / out-of-scope.** The non-goals list is doing real work — it stops the repo from accreting unrelated work. Capture explicit non-goals.
+> - **Layout confirmation.** When Phase 1 detected a non-default authoritative-artifacts directory (e.g., `docs/` already contains specs, or a `specifications/` folder exists), surface the choice: "The methodology recommends `specs/` for authoritative artifacts and `docs/` for supporting material. This repo has `<detected layout>`. Should I use the methodology's convention, adapt to the existing layout, or ask you to decide per-file?" Skip when scan detected the default `specs/` shape.
+> - **Stack confirmation.** From Scan, list what was found. Ask the user to confirm or correct (occasionally a manifest is present but the actual stack is different — e.g., a `package.json` left from a prior life).
+
+*Phase 3 preface paragraph*
+
+Before:
+> When the scan detects an existing directory structure that differs from the methodology's convention (e.g., `docs/` already contains specs, or a `specifications/` folder exists), surface the layout question to the operator: "The methodology recommends `specs/` for authoritative artifacts and `docs/` for supporting material. This repo has `<detected layout>`. Should I use the methodology's convention, adapt to the existing layout, or ask you to decide per-file?" When the operator chooses a non-default layout, document the exception in the constitution.
+
+After:
+> When the operator chose a non-default authoritative-artifacts layout in Phase 2, document the exception in the constitution (in `tech-stack.md` under "Conventions Outside the Stack — Repository layout") in addition to the journal entry of the originating session.
+
+**Reason.** The layout question is a Phase 2 activity — it requires operator input before Phase 3 file placement. The pre-amendment positioning in Phase 3 prose worked but made the spec's "Phase 2 question" commitment unmappable to a specific bullet. Elevating it tightens SKILL.md's contract and aligns SKILL.md structure with the spec.
+
+**Impact.**
+- Affected tasks: none.
+- Affected checkpoints: CP-2 D-2 closed.
+- Completed work invalidated: none.
+- Cross-references requiring follow-up: architecture.md §5.4 cites "SKILL.md:78" — the cited content (constitution-document the exception) still exists post-amendment but the exact line number may have shifted slightly. Line-number citations into SKILL.md are inherently fragile; accepted as a known minor.
+
+**Status implication.** SKILL.md has no Status banner. Frontmatter `lastUpdated` advanced from 2026-05-15 to 2026-05-18 as part of this amendment.
+
+**Approver.** Eric Wasgatt — approved 2026-05-18.

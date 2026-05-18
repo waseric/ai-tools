@@ -1,6 +1,6 @@
 ---
 name: project-constitution
-lastUpdated: 2026-05-15
+lastUpdated: 2026-05-18
 description: Bootstrap a new (or recently created) repo with a constitution — the three-part shape that orients contributors, AI agents, and stakeholders before any feature or design spec is written. Produces `mission.md` (the why), `tech-stack.md` (the how), and conditionally `roadmap.md` (planned phases) or `validation.md` (done criteria), depending on the repo's lifecycle stage. Scans for existing signals (package manifests, READMEs, framework markers, CI config) before prompting for what the scan cannot determine. Use when starting a new repo, adopting an inherited repo, or formalizing a repo whose intent has drifted from its docs. Pairs with `spec-design` (downstream — references the constitution).
 ---
 
@@ -67,6 +67,7 @@ Output the following, then **stop and wait for user input**:
 - **Purpose statement.** Confirm or refine `REPO_PURPOSE`. Ideal length: one or two sentences answering "what is this repo for?"
 - **Audience confirmation.** Who will read these docs? Name the broadest member explicitly.
 - **In-scope / out-of-scope.** The non-goals list is doing real work — it stops the repo from accreting unrelated work. Capture explicit non-goals.
+- **Layout confirmation.** When Phase 1 detected a non-default authoritative-artifacts directory (e.g., `docs/` already contains specs, or a `specifications/` folder exists), surface the choice: "The methodology recommends `specs/` for authoritative artifacts and `docs/` for supporting material. This repo has `<detected layout>`. Should I use the methodology's convention, adapt to the existing layout, or ask you to decide per-file?" Skip when scan detected the default `specs/` shape.
 - **Stack confirmation.** From Scan, list what was found. Ask the user to confirm or correct (occasionally a manifest is present but the actual stack is different — e.g., a `package.json` left from a prior life).
 - **Assumptions.** Anything you intend to infer if the user doesn't respond.
 - **Open questions** with `[blocker]` / `[important]` / `[minor]` triage. Blockers must be resolved before Phase 3.
@@ -75,7 +76,7 @@ Output the following, then **stop and wait for user input**:
 
 Produce two or three small markdown documents. Use the exact headings below. Place them at `specs/mission.md`, `specs/tech-stack.md`, and either `specs/roadmap.md` or `specs/validation.md`. If the repo uses a different convention, place at the appropriate location and note in the journal.
 
-When the scan detects an existing directory structure that differs from the methodology's convention (e.g., `docs/` already contains specs, or a `specifications/` folder exists), surface the layout question to the operator: "The methodology recommends `specs/` for authoritative artifacts and `docs/` for supporting material. This repo has `<detected layout>`. Should I use the methodology's convention, adapt to the existing layout, or ask you to decide per-file?" When the operator chooses a non-default layout, document the exception in the constitution.
+When the operator chose a non-default authoritative-artifacts layout in Phase 2, document the exception in the constitution (in `tech-stack.md` under "Conventions Outside the Stack — Repository layout") in addition to the journal entry of the originating session.
 
 ## specs/mission.md
 
