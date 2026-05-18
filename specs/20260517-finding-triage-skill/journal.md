@@ -268,3 +268,39 @@ All three resolutions match the §13 leanings; no leaning was overturned at exec
 **Status implication.** Spec status banner remains `Draft — Awaiting Execution`. The banner-staleness is observed (Phase C is in fact done, RC-3b closed) but is out of scope for this amendment — flagged separately at Phase 6 handoff so the operator can decide whether to address it as a future amendment.
 
 **Approver.** waseric — approved (with bundled OQ-3/OQ-4 staleness tweak per Phase 3 question) on 2026-05-17.
+
+## 2026-05-17 — Amendment 2026-05-17-2
+
+**Section amended:** specs/20260517-finding-triage-skill/feature.md §6 NFRs (appended new `Skill portability` row; replaced `Context economy` row). Cascading file changes: new bundled template files at [.agents/skills/finding-triage/_template/finding.md](../../.agents/skills/finding-triage/_template/finding.md) and [.agents/skills/finding-triage/_template/journal.md](../../.agents/skills/finding-triage/_template/journal.md); SKILL.md Phase 1 ORIENT step 1 (L73–L75) rewritten to use bundled-with-host-override + embedded schema knowledge.
+**Trigger:** Cascading from Amendment 2026-05-17-4 to finding-intake-skill (commit `651fbd8`), which brought `finding-intake` into conformance with the Atomic-Skill Portability Principle. The triage skill carries the same host-relative-path + runtime README read pattern at SKILL.md L73–L75; this amendment closes the cascade. Originating finding: [intake-template-folder-dependency](../findings/20260517-intake-template-folder-dependency/finding.md).
+**Reason:** Same coupling pattern as finding-intake — the triage skill's ORIENT phase reads `../../../specs/findings/_template/...` and `../../../specs/findings/README.md` as runtime inputs. Both are addressed by bundling templates inside the skill directory with host-override semantics and embedding schema knowledge in SKILL.md prose. The triage skill's coupling is narrower than intake's (no line-range strip mechanism to convert) because triage edits an existing finding artifact rather than materializing a new one — so the conformance amendment is correspondingly smaller.
+**Impact summary:** No tasks re-opened (T-01 through T-04 stay closed); no checkpoints re-opened (RC-3 and RC-3b stay closed). RC-3 advisory A-3 (portability liability flag) is now satisfied for both skills (Amendments 4 and 5 together). No further cross-references in this cascade.
+**Approver:** waseric
+**Approved on:** 2026-05-17
+**Status implication:** kept at `Complete`. The amendment reverses no design decision, re-opens no §7 task. Explicit operator confirmation captured during the amendment session.
+**Commit:** `<pending — backfill in follow-up commit per repo convention>`
+
+### Full record
+
+**Trigger.** Cascading from Amendment 2026-05-17-4 to [specs/20260517-finding-intake-skill/feature.md](../20260517-finding-intake-skill/feature.md) (commit `651fbd8`), which brought the `finding-intake` skill into conformance with the Atomic-Skill Portability Principle. The triage skill carries the same coupling pattern at SKILL.md L73–L75 (host-relative `../../../specs/findings/_template/...` paths + runtime README read); this amendment closes the cascade.
+
+**Sections and files.** Feature spec §6 NFR (append `Skill portability` row + replace `Context economy` row); plus new files `.agents/skills/finding-triage/_template/finding.md` and `.agents/skills/finding-triage/_template/journal.md`; plus edits to `.agents/skills/finding-triage/SKILL.md` Phase 1 ORIENT step 1. Five changes bundled. Full before/after diffs are in the Phase 2 draft of this amendment in the calling session; the After blocks have been applied verbatim.
+
+**Change summary.**
+1. feature.md §6 NFR — appended `Skill portability` row referencing the [Atomic-Skill Portability Principle](../tech-stack.md#atomic-skill-portability-principle).
+2. feature.md §6 NFR — replaced `Context economy` row to remove the "loads from `specs/findings/`" wording (replaced with bundled-template/host-override wording).
+3. `.agents/skills/finding-triage/_template/finding.md` (new) — verbatim copy of [specs/findings/_template/finding.md](../findings/_template/finding.md) in its post-amendment-3 scaffold-marker form.
+4. `.agents/skills/finding-triage/_template/journal.md` (new) — verbatim copy of [specs/findings/_template/journal.md](../findings/_template/journal.md) in its post-amendment-3 scaffold-marker form.
+5. `.agents/skills/finding-triage/SKILL.md` — Phase 1 ORIENT step 1 rewritten to use bundled-with-host-override + embedded schema; schema-knowledge paragraph relocated to follow item 2 of the ORIENT list to preserve numbered-list continuity.
+
+**Reason.** Same as Amendment 4: path-coupling and README-runtime-read pattern from the originating finding. Bundling templates inside the skill directory with host-override semantics and embedding schema knowledge in SKILL.md prose makes the skill self-contained. The triage skill's coupling is narrower than intake's (no line-range strip mechanism to convert, because triage edits an existing finding artifact rather than materializing a new one) — but the structural fix is the same.
+
+**Impact.**
+- **Affected tasks:** T-01 (authored SKILL.md) already done. Retroactive conformance update; stays done.
+- **Affected checkpoints:** RC-3 (Intake & Triage Skill Review) and RC-3b (Phase C SKILL.md self-review) both already closed. RC-3 advisory A-3 (portability liability flag) is now fully satisfied across both skills (Amendments 4 and 5 together).
+- **Completed work invalidated:** No. Operational behavior is equivalent at canonical state.
+- **Cross-references requiring follow-up:** None — this closes the cascade. Post-cascade: route the originating finding (`under-investigation → routed`) and file the follow-on advisory finding for the constitution-amendment workflow gap.
+
+**Status implication.** Spec stays at `Status: Complete`. Same logic as Amendments 3 and 4 — no design decision reversed, no §7 task re-opened.
+
+**Approver.** waseric — approved as drafted on 2026-05-17, with explicit confirmation to keep the spec at `Complete`.

@@ -69,11 +69,10 @@ The persona-frame is *descriptive*: the skill suggests a frame derived from the 
 
 Read, in order:
 
-1. The schema artifacts, if not already loaded in this session:
-   - [specs/findings/README.md](../../../specs/findings/README.md) — field reference, state machine, status semantics, persona-frame taxonomy.
-   - [specs/findings/_template/finding.md](../../../specs/findings/_template/finding.md) — canonical template; Triage and Route sections are this skill's edit surface.
-   - [specs/findings/_template/journal.md](../../../specs/findings/_template/journal.md) — canonical journal; commented-out `Triaged` / `Routed` / `Closed` skeletons are this skill's append shape.
+1. The operational templates for this skill — shape references for the Triage and Route sections (in `finding.md`) and for the Triaged / Routed / Closed skeleton entries (in `journal.md`). **Resolution policy:** if the host project has `specs/findings/_template/finding.md` and `specs/findings/_template/journal.md`, use the host's copies (they override). Otherwise use the skill's bundled defaults at `./_template/finding.md` and `./_template/journal.md` (relative to this SKILL.md). Both pairs are byte-for-byte equivalent at the canonical state; the host override exists to support host-specific customization. The skeleton entries this skill appends (Triaged, Routed, Closed) live inside the journal template's closing scaffold-marker block — extract by reading the scaffold-marker-delimited block, uncomment the appropriate skeleton entry, and fill it.
 2. The finding at `FINDING_PATH`: read `finding.md` (the status banner; the Intake section verbatim; the existing Triage section in placeholder form) and `journal.md` (the starter Intake entry; any later entries).
+
+Schema knowledge — field reference, state machine, status semantics, persona-frame taxonomy — is embedded in this skill's prose below; no runtime read of `specs/findings/README.md` is required. A host project's `README.md` (when present) is documentation for human readers, not a runtime input for this skill. The canonical schema reference is [specs/20260517-findings-pipeline-schema/feature.md](../../../specs/20260517-findings-pipeline-schema/feature.md) (and its upstream design spec at [specs/20260517-findings-pipeline/architecture.md](../../../specs/20260517-findings-pipeline/architecture.md)); these are documentation pointers, not runtime reads.
 
 **State-machine pre-condition check.** The finding's status banner must read `Status: intake`. If it reads anything else (`triaged`, `under-investigation`, `routed`, `closed`, `reopened`), surface a clear error and **exit without artifact mutation**:
 
