@@ -1,3 +1,4 @@
+<!-- scaffold-start -->
 <!--
 This is a template. Copy this file to specs/findings/YYYYMMDD-<short-name>/finding.md
 when creating a new finding. Fill the Intake section first; later phases (Triage,
@@ -20,10 +21,13 @@ Conventions when filling this template:
   triage produces an obvious route. Journal the skip rationale in journal.md
   rather than deleting the section; leave its fields in <placeholder> form.
 
-This entire HTML comment block is template scaffolding — strip it from
-produced finding.md artifacts. See .agents/skills/finding-intake/SKILL.md
-Phase 3 step 2.
+This entire block (between the scaffold-start and scaffold-end markers wrapping
+this HTML comment) is template scaffolding — skills strip everything between
+scaffold markers, inclusive, when materializing a finding from this template.
+The scaffold-marker mechanism is committed in the schema feature spec §5.2 and
+in the Atomic-Skill Portability Principle (specs/tech-stack.md).
 -->
+<!-- scaffold-end -->
 
 # <Short title> — Finding
 

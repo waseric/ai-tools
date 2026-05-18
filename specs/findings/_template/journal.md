@@ -1,3 +1,4 @@
+<!-- scaffold-start -->
 <!--
 This is a template. Copy this file to specs/findings/YYYYMMDD-<short-name>/journal.md
 when creating a new finding. The Intake entry below is the starter; append one
@@ -16,12 +17,16 @@ Journaling convention:
 - Skeleton entries for later transitions are shown commented-out at the bottom;
   uncomment and fill as the finding progresses.
 
-This leading HTML comment block AND the closing commented-out skeleton block
-at the end of this file are template scaffolding — strip both from produced
-journal.md artifacts. The skeleton entries are re-added (uncommented and filled)
-by downstream skills at the moment of each status transition. See
-.agents/skills/finding-intake/SKILL.md Phase 3 step 3.
+This block, AND the closing scaffold-marker-delimited block at the end of this
+file, are template scaffolding — skills strip every scaffold-marker-delimited
+block (inclusive of the markers themselves) when materializing a journal from
+this template. The skeleton entries inside the closing scaffolding block are
+re-added (uncommented and filled) by downstream skills at the moment of each
+status transition. The scaffold-marker mechanism is committed in the schema
+feature spec §5.3 and in the Atomic-Skill Portability Principle
+(specs/tech-stack.md).
 -->
+<!-- scaffold-end -->
 
 # <Short title> — Journal
 
@@ -32,6 +37,7 @@ by downstream skills at the moment of each status transition. See
 **New status:** `intake`
 **Notes:** <anything relevant to the act of capture that did not fit in finding.md — context, related observations, who else might know about this signal>
 
+<!-- scaffold-start -->
 <!--
 Subsequent entries follow the one-event-per-section pattern. Uncomment and fill
 each as the corresponding transition happens. Suggested skeletons:
@@ -88,3 +94,4 @@ each as the corresponding transition happens. Suggested skeletons:
 **Trigger:** <what surfaced that warrants reopening: new signal, watch-condition met, route rejected by receiving spec>
 **Notes:** <what changed; what the next phase needs to attend to>
 -->
+<!-- scaffold-end -->

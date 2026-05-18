@@ -142,11 +142,12 @@ Detailed before/after diffs are produced at execution time via `/spec-amend`.
 
 ### 5.2 `specs/findings/_template/finding.md`
 
-**Purpose.** Canonical reference template that `finding-intake` (and the operator manually) copy when creating a new finding.
+**Purpose.** Canonical reference template for the finding artifact shape. This file ships at two locations: as the canonical reference here in the schema repo, and as a bundled default inside [`.agents/skills/finding-intake/`](../../.agents/skills/finding-intake/) (per the [Atomic-Skill Portability Principle](../tech-stack.md#atomic-skill-portability-principle)). When a host project has its own `specs/findings/_template/finding.md`, the skill uses the host's copy; otherwise the skill uses its bundled default.
 
-**Structure.** Mirrors design spec §5.1 verbatim, with placeholder values like `<short title>`, `<YYYY-MM-DD>`, `<persona-frame>`. Top-of-file comment block:
+**Structure.** Mirrors design spec §5.1 verbatim, with placeholder values like `<short title>`, `<YYYY-MM-DD>`, `<persona-frame>`. Top-of-file scaffolding block (wrapped in scaffold markers so skills can strip by marker, not by line number):
 
 ```markdown
+<!-- scaffold-start -->
 <!--
 This is a template. Copy this file to specs/findings/YYYYMMDD-<short-name>/finding.md
 when creating a new finding. Fill the Intake section first; later phases append.
@@ -154,24 +155,45 @@ when creating a new finding. Fill the Intake section first; later phases append.
 See specs/findings/README.md for the schema and state machine.
 See specs/20260517-findings-pipeline/architecture.md for the design spec.
 -->
+<!-- scaffold-end -->
 ```
+
+Skills strip everything from `<!-- scaffold-start -->` through `<!-- scaffold-end -->` inclusive when materializing a finding from this template. Template authors may add additional scaffolding blocks anywhere in the file using the same marker pair; line numbers do not need to be stable.
 
 The template includes the operational urgency field per OQ-1's leaning (which T-04 converts to a recorded decision).
 
 ### 5.3 `specs/findings/_template/journal.md`
 
-**Purpose.** Canonical reference template for a per-finding journal, following the existing feature-spec journal pattern.
+**Purpose.** Canonical reference template for a per-finding journal, following the existing feature-spec journal pattern. Ships at two locations like §5.2: the canonical reference here in the schema repo, and a bundled default inside [`.agents/skills/finding-intake/`](../../.agents/skills/finding-intake/). Host override semantics are the same.
 
-**Structure.**
+**Structure.** A leading scaffolding block + the starter `Intake` entry + a closing scaffolding block containing commented-out skeleton entries for downstream status transitions (Triaged, Under-investigation, Routed, Closed, Reopened). Both scaffolding blocks are wrapped in `<!-- scaffold-start -->` / `<!-- scaffold-end -->` markers; skills strip every marker-delimited block when materializing a journal from this template (and the downstream skills `finding-triage` etc. re-add the relevant skeleton — uncommented and filled — at the moment of each transition).
 
 ```markdown
+<!-- scaffold-start -->
+<!--
+This is a template. Copy this file to specs/findings/YYYYMMDD-<short-name>/journal.md
+when creating a new finding. The Intake entry below is the starter; append one
+new entry per status transition as the finding moves through the pipeline.
+-->
+<!-- scaffold-end -->
+
 # <Short title> — Journal
 
-## <YYYY-MM-DD> — Intake
+## <YYYY-MM-DD> — Intake: <one-line summary of the captured signal>
 
 **Captured by:** <name; persona-frame: intake>
 **Signal source:** <text / URL / system pointer>
+**New status:** `intake`
 **Notes:** <anything not captured in finding.md>
+
+<!-- scaffold-start -->
+<!--
+Subsequent entries follow the one-event-per-section pattern. Suggested skeletons for
+Triaged, Under-investigation, Routed, Closed, Reopened transitions follow here;
+downstream skills uncomment and fill the relevant skeleton at each transition.
+[skeleton content elided in this spec excerpt; see actual template file]
+-->
+<!-- scaffold-end -->
 ```
 
 Subsequent entries follow the same one-event-per-section pattern from existing journals.
@@ -194,6 +216,7 @@ Executed via `/spec-amend`. Single amendment ID `2026-05-17-2` (since `-1` was t
 | **AI-agent consumable** | The field reference table in README.md uses a regular structure (column headers, one row per field) that an agent can parse without prose interpretation. |
 | **Backward compatibility** | Adding `specs/findings/` does not affect any existing spec or skill. The `FINDING_PATH` parameter (Phase E) is additive and not introduced here. |
 | **No new dependencies** | All deliverables are markdown. No new tooling, frameworks, or config introduced. |
+| **Skill portability** | The schema artifacts (`_template/finding.md`, `_template/journal.md`, `README.md`) are the canonical reference for the finding shape but are not load-bearing runtime inputs for the `finding-{intake,triage}` skills. Per the [Atomic-Skill Portability Principle](../tech-stack.md#atomic-skill-portability-principle), skills bundle their own operational copies of these templates as defaults; a host project's `specs/findings/_template/` (when present) takes precedence as an override. Scaffolding inside the templates is delimited by `<!-- scaffold-start -->` / `<!-- scaffold-end -->` HTML-comment markers; skills strip by marker, not by line number. README.md is the schema's derived human-readable projection — useful to humans browsing `specs/findings/`, not a runtime input for skills. |
 
 ## 7. Task Breakdown
 
