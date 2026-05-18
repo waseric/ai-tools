@@ -318,7 +318,7 @@ There is no Phase B "build the skill" — the skill is already built. There is n
 
 ### CP-2 — Drift audit complete (batched)
 
-**Status:** pass with comments on 2026-05-18 by Claude (agent reviewer). 0 blockers, 0 important, 5 advisory. See [journal.md "Review of CP-2"](./journal.md) for findings, routing, and recommendation. Checkpoint closed pending operator-invoked `/spec-amend` for D-1, D-2 (SKILL.md), and D-3, D-4 (this spec).
+**Status:** pass with comments on 2026-05-18 by Claude (agent reviewer). 0 blockers, 0 important, 5 advisory. See [journal.md "Review of CP-2"](./journal.md) for findings and routing, and [journal.md "CP-2 closeout"](./journal.md) for the closing summary. Checkpoint closed via amendments 2026-05-18-1 (D-1), 2026-05-18-2 (D-2), 2026-05-18-3 (D-3), and 2026-05-18-4 (D-4); D-5 accepted as known minor.
 
 **Trigger.** CP-1 of this spec passes, AND CP-1 of the four sibling quintet specs (`spec-write`, `spec-execute`, `spec-review`, `spec-amend`) passes, AND project-constitution's CP-2 has either run or been folded into the batch per [docs/retroactive-spec-strategy.md OQ-1](../../docs/retroactive-spec-strategy.md).
 
