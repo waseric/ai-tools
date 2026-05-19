@@ -512,3 +512,21 @@ After:
 ### Cross-skill note — self-referential amendment to spec-amend SKILL.md (§11 staged-bootstrap)
 
 This amendment is the **first observed amendment to spec-amend SKILL.md itself** post-trilogy. Per §11 Adoption Path, "amendments to the amendment skill operate under the skill's *current* (pre-amendment) workflow, applied to the proposed *next* (post-amendment) state." This session realized that pattern in practice: the SKILL.md preamble correction was drafted, approved, applied, and journaled under the same six-phase workflow defined by SKILL.md (Phase 1 Orient via CP-2 audit; Phase 2 Draft via structured-amendment-record block above; Phase 3 Approval via operator's AskUserQuestion response at audit close; Phase 4 Apply via single-line edit + commit `b6fb958`; Phase 5 Journal via this entry; Phase 6 Downstream Handoff = none — the change is purely textual, no implementer / reviewer / next session impact beyond reading the corrected text). **No staged-bootstrap friction observed.** §10 risk row "Self-referential amendment paradox" anchored to first worked example.
+
+## 2026-05-18 — CP-2 re-verification (all three amendments closed)
+
+Brief post-amendment audit confirming each divergence resolved in its target artifact, per N=4/N=5 precedent (re-verification as the closing step of CP-2).
+
+| Divergence | Routing | Amendment | Closed at |
+|---|---|---|---|
+| D-1 — SKILL.md WND-8 propose/apply separation lacks §5/§6 carrier | (a) amend spec §6 | 2026-05-18-4 (commit `40527df`) | [architecture.md §6](./architecture.md) — new "Propose/apply separation discipline" NFR row sits between Multi-repo discipline and Visibility; carries the rule, names the three upstream callers, cites WND-8 + Phase 4 as primary SKILL.md sources, back-references §3 Background. |
+| D-2 — SKILL.md preamble line 15 omits spec-write | (b) amend SKILL.md preamble | 2026-05-18-6 (commit `b6fb958`) | [SKILL.md line 15](../../.agents/skills/spec-amend/SKILL.md) — preamble now reads "an in-flight `spec-design` or `spec-write` session", matching frontmatter line 4 and HANDOFF NOTES line 187. |
+| D-3 — SKILL.md OUTPUT FORMAT phase manifestation absent from spec §4 | (a) amend spec §4 | 2026-05-18-5 (commit `3ba4d77`) | [architecture.md §4](./architecture.md) — Output topology now includes a paragraph mapping the three durable artifacts to the six phases by output form (Phases 1–3 conversational; Phase 4 Edit + commit; Phase 5 Edit; Phase 6 conversational with explicit downstream actors). |
+
+**Re-verification result:** all three divergences closed in their target artifacts. CP-2 closes "pass with comments." Status banner held at `Draft — Open for Review` per N=1/N=2/N=3/N=4/N=5 precedent — the post-CP-2 successor state remains undefined across the legacy quintet plus N=1, a six-data-point disposition that the closing summary will codify. The retroactive-spec adoption arc for `spec-amend` is **complete**.
+
+**Verdict commit:** `c143136` (audit) → `40527df` (D-1) → `3ba4d77` (D-3) → `b6fb958` (D-2) → `e1a3837` (journal entries) → re-verification commit (this).
+
+### Closing observation — N=6 is the final retroactive spec
+
+This is the **terminal session** of the retroactive-spec sequence. The five-spec batch CP-2 (N=2 through N=6) and the N=1 project-constitution CP-2 are all closed. The next batch-level step is the **closing summary** in [the batch journal](../20260518-cp2-batch-audit/journal.md), which consumes the six per-spec CP-2 entries plus the consolidated routing tally (amend-SKILL.md ×10, amend-spec ×11, accept ×2) plus the three stable cross-skill finding classes (WND-partial-home ×6 sessions; preamble-vs-body mirror ×5 sessions plus the new spec-write flavor; OUTPUT-FORMAT-absent-from-spec ×3 sessions). After the closing summary, the operator authors `docs/retroactive-spec-pattern.md` per §11 step 4. **No further per-spec retroactive-spec sessions are planned.**
