@@ -1,6 +1,6 @@
 # CP-2 Batch Audit — Five-Spec Drift Review
 
-> Status: Scaffolded 2026-05-18 — awaiting project-constitution CP-2 closeout
+> Status: Closed 2026-05-19 — six-spec CP-2 sweep complete; readiness verdict issued for `docs/retroactive-spec-pattern.md` (see §"Closing summary")
 > Driver skill: [/spec-review](../../.agents/skills/spec-review/SKILL.md) (per-spec, sequential)
 > Scope: CP-2 drift audits for the five new retroactive specs in the legacy quintet
 > Out of scope: project-constitution's CP-2 (runs as a separate session per [strategy OQ-1 resolution as (a)](../../docs/retroactive-spec-strategy.md#decisions-recorded-2026-05-18); journal entry lives in [specs/20260517-project-constitution-skill/journal.md](../20260517-project-constitution-skill/journal.md))
@@ -206,17 +206,72 @@ Entries appended per-spec audit, in audit order. Each entry includes: spec audit
 
 ## Closing summary
 
-Written after all five audits complete. Captures the cross-skill divergence list, any cross-cutting amendments proposed (per [strategy OQ-3](../../docs/retroactive-spec-strategy.md)), and the readiness verdict for `docs/retroactive-spec-pattern.md` per [spec-amend §11 step 4](../20260518-spec-amend-skill/architecture.md).
+> Written 2026-05-19, after N=6 CP-2 re-verification closed (commit `fcd9c2c`) and all six per-spec CP-2 entries are complete. Captures the cross-skill layer per [strategy doc "Drift mitigation — CP-2 batch audit"](../../docs/retroactive-spec-strategy.md#drift-mitigation--cp-2-batch-audit), proposes cross-cutting codification candidates per [strategy OQ-3](../../docs/retroactive-spec-strategy.md#oq-3--cross-skill-amendment-coordination), and issues the readiness verdict for `docs/retroactive-spec-pattern.md` per [spec-amend §11 step 4](../20260518-spec-amend-skill/architecture.md#L254).
 
-**Inputs now available for the closing summary** (all five batch entries complete + N=1 project-constitution CP-2 entry in its own journal):
-- N=1 project-constitution CP-2 (separate session, its own journal entry).
-- N=2 spec-design CP-2 (this journal §"N=2 — 2026-05-18 — spec-design CP-2").
-- N=3 spec-write CP-2 (this journal §"N=3 — 2026-05-18 — spec-write CP-2").
-- N=4 spec-execute CP-2 (this journal §"N=4 — 2026-05-18 — spec-execute CP-2").
-- N=5 spec-review CP-2 (this journal §"N=5 — 2026-05-18 — spec-review CP-2").
-- N=6 spec-amend CP-2 (this journal §"N=6 — 2026-05-18 — spec-amend CP-2").
-- Six-session routing tally: amend-SKILL.md ×10, amend-spec ×11, accept ×2 (post-N=6 operator decisions).
-- Three stable finding classes (WND-partial-home ×6 sessions; preamble-vs-body mirror ×5 sessions; OUTPUT FORMAT-absent-from-spec ×3 sessions); one new class (Design Notes / load-bearing-notes stale-citation) at N=5 D-1 only — confirmed non-universal at N=6 non-fire.
-- Cross-skill amendment coordination evidence: one post-trilogy cycle (amendment 2026-05-18-3) with both endpoints verified clean.
+**Evidence base.** Six CP-2 entries: N=1 in [project-constitution journal §"Review of CP-2"](../20260517-project-constitution-skill/journal.md#L248) (standalone session, baseline); N=2 through N=6 above in this journal. Six verdicts: all `pass with comments`. Aggregate findings: **27 advisory, 0 important, 0 blocker** (4 + 5 + 5 + 5 + 5 + 3 by session). All resulting amendments have landed and CP-2 has closed on each spec.
 
-The closing summary will be authored as a separate addition to this journal after the spec-amend CP-2 amendments (2026-05-18-4 D-1 spec §6 + 2026-05-18-5 D-3 spec §4 + 2026-05-18-6 D-2 SKILL.md preamble) and re-verification land.
+### Cross-skill divergence summary
+
+**Three stable finding classes** survive at session frequencies ≥3/6:
+
+| Class | Freq. | Session evidence | Class shape |
+|---|---|---|---|
+| WND-partial-home | 6/6 | N=1 D-4, N=2 D-4, N=3 D-1, N=4 D-1+D-2, N=5 D-3, N=6 D-1 | A SKILL.md WHAT NOT TO DO item lacks an explicit §5 phase carrier or §6 NFR carrier in the spec. "Behavioral coverage is fine" silent-default produces under-coverage; the [N=3-close](#n3--2026-05-18--spec-write-cp-2) protocol ("walk WND items against §5/§6 carriers as a discrete step") fired every session it was applied. |
+| Preamble-vs-body mirror | 5/6 (absent N=1) | N=2 D-2, N=3 D-5, N=4 D-3+D-4, N=5 D-4, N=6 D-2 | SKILL.md preamble (frontmatter `description:` line or the `How this skill works` block) enumerates a different set of phase content, sibling pairings, or callers than the Phase body does. Three flavors observed: (i) preamble-omits-Phase-content; (ii) frontmatter-vs-preamble pairing-list mismatch; (iii) preamble-omits-sibling-caller while frontmatter + HANDOFF NOTES name it. |
+| OUTPUT FORMAT-absent-from-spec | 3/6 | N=2 D-3, N=3 D-3, N=6 D-3 | SKILL.md OUTPUT FORMAT block carries rules (code-block-language; per-phase manifestation) absent from spec §4/§5/§6. Two-session pause at N=4/N=5; recurs at N=6. Lower frequency than the prior two classes but real. |
+
+**Two finding classes confirmed non-universal**:
+
+- **Status-banner-lifecycle** (N=2 D-1 only). Three consecutive non-fires (N=4/N=5/N=6) confirm the class is spec-design-specific — it surfaces in design specs that *also* declare a Draft → Approved → Superseded lifecycle commitment.
+- **SKILL.md internal stale-citation** (N=5 D-1 only). N=6 non-fire confirms non-universal; class is specific to skills whose introductory section was authored pre-trilogy-commit (commit `49c15f0`) and not refactored at the commit.
+
+**Six-spec routing tally (post-operator-decision):**
+
+| Routing | N=1 | N=2 | N=3 | N=4 | N=5 | N=6 | Total |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| (a) amend-spec | 2 | 2 | 3 | 3 | 1 | 2 | **13** |
+| (b) amend-SKILL.md | 1 | 2 | 2 | 2 | 3 | 1 | **11** |
+| (c) accept | 1 | 1 | 0 | 0 | 1 | 0 | **3** |
+| Total | 4 | 5 | 5 | 5 | 5 | 3 | **27** |
+
+Notable skews: N=4 added three amend-spec via the (c)→(a) operator override (the protocol-detail-surfacing pattern, observation 1 from N=3 close); N=5 inverted with three amend-SKILL.md driven by SKILL.md internal inconsistency findings. Across the six sessions, **amend-SKILL.md and amend-spec are nearly balanced (11 vs 13)** — the SKILL.md-is-canonical bias predicted at the [N=1 Pattern-for-N=2 first paragraph](../20260517-project-constitution-skill/journal.md#L280) was countered by the (c)→(a) override pattern surfacing previously-silent protocol-detail findings as active amendments.
+
+### Cross-cutting amendments proposed
+
+Per [strategy OQ-3](../../docs/retroactive-spec-strategy.md#oq-3--cross-skill-amendment-coordination): cross-skill amendments worth proposing as a single coherent change. **All 27 per-finding amendments already landed individually**; the items below are codification candidates that would *prevent* the stable finding classes from recurring at future authoring or audit time, not retrofit the existing specs.
+
+**Codification candidate 1 — Codify the WND / preamble-vs-body / OUTPUT-FORMAT walks as first-class CP-2 audit steps in `spec-review` SKILL.md.** The three stable finding classes share a structural shape: SKILL.md content that the spec's §4/§5/§6 walk does not naturally surface unless audited explicitly. The [N=3-close](#n3--2026-05-18--spec-write-cp-2) protocol fired six-for-six when applied. Codifying the walk-protocol as named CP-2 audit steps in spec-review SKILL.md removes the need for future CP-2 audits to mine prior journals for the discipline. Proposed landing point: [.agents/skills/spec-review/SKILL.md](../../.agents/skills/spec-review/SKILL.md) drift-audit review-focus section. **Highest urgency** of the three candidates — the three classes are the most-evidenced output of the entire batch.
+
+**Codification candidate 2 — Add a `§"Cross-skill case"` section to `spec-amend` SKILL.md after a second cycle is observed.** Amendment 2026-05-18-3 (post-trilogy cross-skill amendment cycle, anchored by N=5 §5.11 + N=6 §5.9, both verified clean at CP-2) is the first worked example for [strategy OQ-3](../../docs/retroactive-spec-strategy.md#oq-3--cross-skill-amendment-coordination). Per the [N=6 amendment entry "Cross-skill note — codification candidate for SKILL.md"](../20260518-spec-amend-skill/journal.md), one cycle anchors the watch item but does not yet justify codification. **Recommendation: hold codification until a second cycle is observed**; the 2026-05-18-3 cycle stays in [spec-amend §13](../20260518-spec-amend-skill/architecture.md) as the first observation against the OQ-4 watch item.
+
+**Codification candidate 3 — Add an authoring-time per-citation walk to `spec-write` / `spec-design` SKILL.md.** The amendment-ID citation-error class surfaced at N=5 (cross-skill, traced upstream from N=6 CP-1) was caught at sibling-spec CP-1, not at the originating spec's authoring time. Per the [N=5-close](#n5--2026-05-18--spec-review-cp-2) "first evidence of upstream-traced cross-skill citation amendment," an authoring-time per-citation walk would have caught it earlier. Proposed landing point: spec-write and spec-design SKILL.md Phase 3 final-walk step. **Lower urgency** — one occurrence in six sessions; class is not yet confirmed stable.
+
+### Readiness verdict — `docs/retroactive-spec-pattern.md`
+
+**Verdict: Ready.**
+
+**Evidence sufficiency.** The six-spec CP-2 sweep produces a stable evidence base:
+
+- Six per-spec CP-2 entries, all `pass with comments`, with 27 advisory findings, 0 important, 0 blocker — no substantive drift at the spec ↔ SKILL.md boundary.
+- Three stable finding classes confirmed at frequencies 6/6, 5/6, and 3/6 across the six sessions; two finding classes confirmed non-universal by consecutive non-fires.
+- One cross-skill amendment cycle (2026-05-18-3) anchored with both endpoints CP-2-clean — mechanics verified, scope-limited.
+- Six-spec routing tally near-balanced (amend-spec ×13, amend-SKILL.md ×11, accept ×3); the (c)→(a) override pattern's effect on the SKILL.md-canonical bias is measured and named.
+- Constitutional binding ([Atomic-Skill Portability Principle](../tech-stack.md#L21-L33) citation discipline) clean across all six specs — a six-spec sweep with zero broken citations on the constitutional surface.
+- Two-source structure (predecessor + sibling design spec) reproduced across all five legacy-quintet specs with shapes (i) and (ii) differentiated; spec-amend (N=6) confirmed the inline-not-standalone predecessor variant.
+
+The evidence base is sufficient to support a pattern doc that codifies *what worked* (session shape, constitutional binding, two-source structure, the (c)→(a) override discipline, the three audit walks) and *what to watch* (cross-skill amendment cycles, authoring-time citation walks).
+
+**Pattern-doc scope leaning.** Recommended that the next session author `docs/retroactive-spec-pattern.md` covering, at minimum:
+
+1. **Session shape** — orient → Discovery → Clarify → Spec Document → CP-1 → CP-2, derived from the N=1 + N=2-N=6 actual sessions, with per-session deviations explicit.
+2. **Constitutional binding checklist** — every retroactive spec must cite (in §3 Background and §6 NFRs) the [Atomic-Skill Portability Principle](../tech-stack.md#L21-L33), [AI context window limits](../tech-stack.md#L44), and [spec-driven-development convention](../tech-stack.md#L51); audience reusable verbatim from [N=1](../20260517-project-constitution-skill/architecture.md).
+3. **Two-source structure** — predecessor doc + sibling design spec, with shape (i) §5-enumerated mappings and shape (ii) narrative-sourced mappings differentiated. Predecessor doc may be inline (extracted at trilogy commit) per N=6.
+4. **The three stable finding classes as authoring-time pre-empt protocols** — WND walk, preamble-vs-body walk, OUTPUT FORMAT walk — surfaced as authoring-time §4/§5/§6 carrier discipline, not just audit-time discovery. (Independent of, but complementary to, codification candidate 1.)
+5. **The (c)→(a) operator override pattern** — protocol-detail findings should be surfaced explicitly with Recommended option, not absorbed silently into accept-as-known-minor. Four consecutive sessions (N=3–N=6) confirm the pattern is load-bearing.
+6. **Cross-skill amendment mechanics** — anchored by the 2026-05-18-3 cycle; framed as a watch item until a second cycle is observed (per codification candidate 2 above).
+
+The pattern doc is the next-action handoff per [spec-amend §11 step 4](../20260518-spec-amend-skill/architecture.md#L254) and the [N=6 next-action](../20260518-spec-amend-skill/journal.md). This Closing summary closes the batched CP-2 audit; the pattern doc is its own session.
+
+### Status
+
+**Batch CP-2 audit: closed 2026-05-19.** All six per-spec CP-2 entries complete; cross-skill synthesis recorded; readiness verdict issued. No further entries against this journal — successor work is `docs/retroactive-spec-pattern.md` in a fresh session.
