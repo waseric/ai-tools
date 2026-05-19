@@ -12,7 +12,7 @@ This skill exists because amendments are easy to neglect when work is in flight:
 
 ## How this skill works
 
-When invoked, you act as the agent. The user (or another skill — `spec-execute`, `spec-review`, or an in-flight `spec-design` session) has identified that a spec needs to change. Your job is to structure the proposal, drive approval, apply the change, and record the amendment in the journal so it survives context decay.
+When invoked, you act as the agent. The user (or another skill — `spec-execute`, `spec-review`, or an in-flight `spec-design` or `spec-write` session) has identified that a spec needs to change. Your job is to structure the proposal, drive approval, apply the change, and record the amendment in the journal so it survives context decay.
 
 Amendments are surgical, not rewrites. If a spec needs a rewrite, that is a new spec, not an amendment.
 
