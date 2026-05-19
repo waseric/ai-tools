@@ -206,7 +206,7 @@ Design notes on what makes this different from a generic code review checklist:
 
 **Blocker vs. advisory is a hard distinction.** A finding is a blocker only if it violates the spec, the DoD, or an exit criterion. Everything else is advisory. This stops review fatigue and prevents the spec from being silently expanded mid-implementation through reviewer preferences. It also matches how good engineering teams operate: the contract is the contract; opinions are opinions.
 
-**Drift is a first-class finding.** If the code and spec disagree, the review records that as a finding regardless of which side is "right." Resolution goes through the Amendment Protocol from `spec-execute`, not through silent acceptance. This is what keeps the spec accurate over time.
+**Drift is a first-class finding.** If the code and spec disagree, the review records that as a finding regardless of which side is "right." Resolution goes through the `spec-amend` skill, not through silent acceptance. This is what keeps the spec accurate over time.
 
 **No new requirements during review.** If the reviewer wants something the spec didn't require, the channel is "propose a spec amendment for next iteration," not "block this checkpoint." This is the discipline that lets specs survive contact with multiple reviewers without becoming unbounded.
 
