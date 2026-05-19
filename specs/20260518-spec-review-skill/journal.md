@@ -359,3 +359,159 @@ Summarized at audit close; full detail in the batch journal N=5 entry.
 - Spec-amend has no predecessor doc — N=6 will be the first quintet retroactive spec with zero "Inspirational" predecessor source; §3 Background will note the absence explicitly.
 - The new D-1 finding class (Design Notes stale-citation) is worth elevating to a first-class CP-2 audit step at N=6: walk Design Notes section against Phase body for stale pre-trilogy phrasing.
 
+## 2026-05-18 — Amendment 2026-05-18-4
+
+**Section amended:** [specs/20260518-spec-review-skill/architecture.md §5.1 Phase 1 — Orient, "Behavior" sub-block (line 113)](./architecture.md#L113)
+**Trigger:** N=5 CP-2 audit finding D-3 ([batch journal N=5 entry](../20260518-cp2-batch-audit/journal.md), [spec journal "Review of CP-2"](#L304)) — SKILL.md WND-5 "Do not rubber-stamp based on the journal entry alone. The journal is the implementer's claim; the diff is the evidence" lacks an explicit §5/§6 carrier in the spec body. WND-partial-home class, 5th data point (N=1/N=2/N=3/N=4/N=5).
+**Reason:** Carries WND-5's rubber-stamp prohibition into Phase 1's Behavior sub-block as an explicit discipline, closing the partial-home gap that has accumulated five data points across the retro-spec series.
+**Impact summary:** No tasks affected; CP-2 D-3 resolved; no completed work invalidated; no cross-reference follow-up.
+**Approver:** Eric Wasgatt (operator)
+**Approved on:** 2026-05-18
+**Status implication:** kept at `Draft — Open for Review` (matches N=1/N=2/N=3/N=4 precedent — no defined successor state; closure recorded via §9 CP-2 Status line, not via banner advancement). Explicitly operator-confirmed via AskUserQuestion at Phase 1 of this /spec-amend session, surfacing the divergence between the original invocation's premise ("banner exits Draft") and the N=4 journal's documented precedent ("banner stays at Draft").
+**Commit:** `3bbc45d`
+
+### Full record
+
+**Trigger.** N=5 CP-2 audit (commit `d6aa584`) finding D-3 — SKILL.md WND-5 (lines 190–191: "Do not rubber-stamp based on the journal entry alone. The journal is the implementer's claim; the diff is the evidence. Verify against the diff.") was walked against §5/§6 of this spec and found to have no explicit carrier. CP-2 audit logged this as the 5th data point in the WND-partial-home class (N=1/N=2/N=3/N=4/N=5 consecutive sessions). Operator chose route (a) — amend spec to carry the discipline — over reviewer-default (c) — accept as known minor — at audit close per AskUserQuestion.
+
+**Section.** [architecture.md §5.1 Phase 1 — Orient, "Behavior" sub-block (line 113)](./architecture.md#L113). The Behavior paragraph already enumerates the read-order; adding the rubber-stamp prohibition immediately before the "Then the reviewer emits an Orientation Report" closing sentence places the discipline in the cycle where it matters — between consuming the journal (step 4) and constructing the Orientation Report.
+
+**Change.**
+
+Before:
+> **Behavior.** The reviewer reads, in order: (1) the spec's §9 Review Checkpoints entry matching `CHECKPOINT_ID`, noting `trigger` / `review focus` / `exit criteria` verbatim; (2) the spec's §7 Task Breakdown entries for each task in `TASK_IDS_IN_SCOPE`, noting scope / acceptance criteria / DoD; (3) the spec's §6 Non-functional Requirements section, noting items relevant to the tasks; (4) the journal entries for those tasks, noting amendments / decisions / surprises / partial-completion flags; (5) the diff in `DIFF_RANGE`, skimmed for shape and scope only. Then the reviewer emits an Orientation Report with quoted checkpoint contract, tasks-in-scope with status, diff shape, journal flags, and initial drift signals.
+
+After:
+> **Behavior.** The reviewer reads, in order: (1) the spec's §9 Review Checkpoints entry matching `CHECKPOINT_ID`, noting `trigger` / `review focus` / `exit criteria` verbatim; (2) the spec's §7 Task Breakdown entries for each task in `TASK_IDS_IN_SCOPE`, noting scope / acceptance criteria / DoD; (3) the spec's §6 Non-functional Requirements section, noting items relevant to the tasks; (4) the journal entries for those tasks, noting amendments / decisions / surprises / partial-completion flags; (5) the diff in `DIFF_RANGE`, skimmed for shape and scope only. **The journal is read as the implementer's claim, not as verified evidence; verification is against the diff itself, never the journal narrative alone.** Then the reviewer emits an Orientation Report with quoted checkpoint contract, tasks-in-scope with status, diff shape, journal flags, and initial drift signals.
+
+**Reason.** SKILL.md WND-5 has carried this discipline since the trilogy commit (`49c15f0`); the spec body has been silent on it through five retroactive sessions. The CP-2 audit treats this absence as a partial-home gap rather than a faithfulness failure (the SKILL.md commitment is still authoritative; the spec just doesn't echo it), but five data points is enough evidence to close the gap. The carrier sentence is placed at the natural site — Phase 1, where the journal is consumed — and uses the same verbal frame as SKILL.md WND-5 ("the implementer's claim" / "the diff is the evidence") so future drift between the two sites is mechanically detectable.
+
+**Impact.**
+- **Affected tasks:** none (retroactive design spec; no §7 Task Breakdown).
+- **Affected checkpoints:** [CP-2](./architecture.md#L325) — closing entry references this amendment; D-3 resolved.
+- **Completed work invalidated:** none.
+- **Cross-references requiring follow-up:** none. §5.2 / §5.6 design-spec adaptation paragraphs do not interact with WND-5 (they address Scope and Test/Doc adaptation, not journal-vs-diff evidence weight). §13 OQ-2 (amendment-then-re-review cycle) is structurally orthogonal.
+
+**Status implication.** Kept at `Draft — Open for Review`. The spec lifecycle has no defined successor state to advance to (matches N=1 / N=2 / N=3 / N=4 precedent — see [N=4 spec-execute journal CP-2 re-verification](../20260518-spec-execute-skill/journal.md): *"§1 banner stays at `Draft — Open for Review`. The spec lifecycle has no defined successor state to advance to … A defined post-Draft state would be a methodology-level decision, not a per-spec one"*). The §9 CP-2 Status line plus a brief re-verification entry below carry the closure record. Operator-confirmed via AskUserQuestion at Phase 1 of this /spec-amend session — the original invocation premise ("banner exits Draft per N=1–N=4 convention") was the inverse of the actual N=1–N=4 precedent; the divergence was surfaced, the precedent was reconciled, and "keep at Draft" was chosen explicitly.
+
+**Approver.** Eric Wasgatt (operator), 2026-05-18.
+
+## 2026-05-18 — Amendment 2026-05-18-5
+
+**Section amended:** [.agents/skills/spec-review/SKILL.md Design Notes — "Drift is a first-class finding" sub-block (line 209)](../../.agents/skills/spec-review/SKILL.md#L209)
+**Trigger:** N=5 CP-2 audit finding D-1 ([spec journal "Review of CP-2"](#L304)) — Design Notes line 209 carries pre-trilogy-commit phrasing "Amendment Protocol from `spec-execute`"; Phase 8 body line 181 correctly routes to `spec-amend`. Internal SKILL.md inconsistency between Design Notes (rationale prose) and Phase body (procedural prose). First instance of the new **"SKILL.md internal stale-citation"** finding class (CP-1 advisory A3 → CP-2 D-1 elevation path).
+**Reason:** Aligns Design Notes rationale prose with Phase 8 body procedural prose; closes the pre-trilogy phrasing that survived commit `49c15f0`'s Phase-body update without a parallel Design Notes refactor.
+**Impact summary:** No tasks affected; CP-2 D-1 resolved; no completed work invalidated; no cross-reference follow-up.
+**Approver:** Eric Wasgatt (operator)
+**Approved on:** 2026-05-18
+**Status implication:** kept at `Draft — Open for Review` (SKILL.md-only edit; spec commitments unchanged)
+**Commit:** `2949906`
+
+### Full record
+
+**Trigger.** N=5 CP-2 audit finding D-1 — Design Notes "Drift is a first-class finding" sub-block (line 209) reads: *"Resolution goes through the Amendment Protocol from `spec-execute`, not through silent acceptance."* The phrasing predates trilogy commit `49c15f0` (2026-05-14), which extracted the Amendment Protocol from spec-execute into the new `spec-amend` skill. Phase 8 body line 181 was correctly updated at that commit (*"route them through the `spec-amend` skill"*), but the Design Notes prose was not refactored — a documentation drift from the spec-driven-development-prompts predecessor's pre-trilogy phrasing. The CP-1 audit (commit `e8193a8`) surfaced this as advisory A3; the CP-2 audit (commit `d6aa584`) elevated it to D-1 with route (b) — amend SKILL.md. First-of-kind for the quintet retro-spec series; CP-2 audit logged the new finding class.
+
+**Section.** [.agents/skills/spec-review/SKILL.md Design Notes "Drift is a first-class finding" sub-block (line 209)](../../.agents/skills/spec-review/SKILL.md#L209). Surgical single-sentence edit; surrounding sub-block prose unchanged.
+
+**Change.**
+
+Before:
+> **Drift is a first-class finding.** If the code and spec disagree, the review records that as a finding regardless of which side is "right." Resolution goes through the Amendment Protocol from `spec-execute`, not through silent acceptance. This is what keeps the spec accurate over time.
+
+After:
+> **Drift is a first-class finding.** If the code and spec disagree, the review records that as a finding regardless of which side is "right." Resolution goes through the `spec-amend` skill, not through silent acceptance. This is what keeps the spec accurate over time.
+
+**Reason.** Phase 8 body line 181 already routes drift resolution to `spec-amend`; frontmatter line 4 names spec-amend as a sibling skill; spec §4 Vocabulary commits to spec-amend routing. Design Notes line 209 was the lone holdout carrying the pre-trilogy phrasing. The amendment removes the inconsistency without rewriting the sub-block's design rationale.
+
+**Impact.**
+- **Affected tasks:** none.
+- **Affected checkpoints:** CP-2 D-1 resolved.
+- **Completed work invalidated:** none.
+- **Cross-references requiring follow-up:** none — Phase 8 body line 181 already routes correctly; frontmatter line 4 already pairs with spec-amend; spec §4 Vocabulary already commits to spec-amend resolution.
+
+**Status implication.** Kept at `Draft — Open for Review`. SKILL.md-only edit; spec commitments unchanged.
+
+**Approver.** Eric Wasgatt (operator), 2026-05-18.
+
+## 2026-05-18 — Amendment 2026-05-18-6
+
+**Section amended:** [.agents/skills/spec-review/SKILL.md OPERATING PRINCIPLES §3 (line 39)](../../.agents/skills/spec-review/SKILL.md#L39)
+**Trigger:** N=5 CP-2 audit finding D-2 ([spec journal "Review of CP-2"](#L304)) — SKILL.md uses `[important]` tag at Phase 3 line 83, Phase 7 line 132, and Phase 7 line 138, but defines no semantics for it (only `[blocker]` and `[advisory]` are characterized in OP §3). Spec §4 Vocabulary defines `[important]` as "middle tag between blocker and advisory: not a spec violation but a quality concern serious enough to warrant attention before the next task." CP-1 advisory A2 carry-forward. Operator chose route (b) — amend SKILL.md — over reviewer-default (c) at audit close per AskUserQuestion (N=3/N=4/N=5 operator override pattern).
+**Reason:** Defines `[important]` semantics in the principle that already governs the blocker/advisory distinction, so all three tag levels live in one place.
+**Impact summary:** No tasks affected; CP-2 D-2 resolved; no completed work invalidated; no cross-reference follow-up.
+**Approver:** Eric Wasgatt (operator)
+**Approved on:** 2026-05-18
+**Status implication:** kept at `Draft — Open for Review` (SKILL.md-only edit; spec commitments unchanged)
+**Commit:** `bbdf95f`
+
+### Full record
+
+**Trigger.** N=5 CP-2 audit finding D-2 — SKILL.md OP §3 (line 39) characterizes `[blocker]` and `[advisory]` but is silent on `[important]`, even though `[important]` appears in Phase 3 line 83 (as one of four allowable tags), Phase 7 line 132 (as a count slot in the verdict template), and Phase 7 line 138 (as a findings section in the verdict template). Spec §4 Vocabulary defines `[important]` as: *"a middle tag between blocker and advisory: not a spec violation but a quality concern serious enough to warrant attention before the next task. Tagged `[important]`. Surfaced as comments; does not block the verdict."* CP-1 surfaced this as advisory A2 (*"§4 Vocabulary defines `[important]` tag semantics that SKILL.md leaves implicit (faithful gloss, future-SKILL.md-amendment candidate)"*); CP-2 elevated it to D-2 with the reviewer's default routing of (c) — accept as known minor — but the operator overrode to (b) — amend SKILL.md — per the N=3/N=4/N=5 (c)→(a/b) override pattern.
+
+**Section.** [.agents/skills/spec-review/SKILL.md OPERATING PRINCIPLES §3 (line 39)](../../.agents/skills/spec-review/SKILL.md#L39). Placement chosen at the natural site where the blocker/advisory distinction is already defined, so the three-tag vocabulary lives in one place rather than scattered across Phase 3 (where the tag is first used) and Phase 7 (where it appears as a count slot). Phase 3 / Phase 7 placement would have produced a second source-of-truth for the definition; OP §3 placement keeps the principle and the vocabulary co-located.
+
+**Change.**
+
+Before:
+> 3. **Compliance vs. advisory.** A finding is `[blocker]` only if it violates the spec, the Definition of Done, or the checkpoint's exit criteria. Style preferences, refactoring ideas, and "I would have done it differently" are `[advisory]`.
+
+After:
+> 3. **Compliance vs. advisory.** A finding is `[blocker]` only if it violates the spec, the Definition of Done, or the checkpoint's exit criteria. Style preferences, refactoring ideas, and "I would have done it differently" are `[advisory]`. The middle tag `[important]` denotes a quality concern that is not a spec violation but is serious enough to warrant attention before the next task — surfaced as a comment, does not block the verdict, and exists to distinguish "you should fix this before moving on" from "I'd have done it differently."
+
+**Reason.** The added sentence tracks spec §4 Vocabulary's load-bearing clause ("middle tag … not a spec violation but a quality concern serious enough to warrant attention before the next task") verbatim, with a phrasing extension that names the operational distinction ("you should fix this before moving on" vs. "I'd have done it differently"). Aligning SKILL.md OP §3 with spec §4 Vocabulary closes the implicit-definition gap; future readers of SKILL.md no longer need to cross-reference the spec to know what `[important]` means.
+
+**Impact.**
+- **Affected tasks:** none.
+- **Affected checkpoints:** CP-2 D-2 resolved.
+- **Completed work invalidated:** none.
+- **Cross-references requiring follow-up:** none — Phase 3 line 83 / Phase 7 lines 132, 138 already use the tag; spec §4 Vocabulary already defines it identically.
+
+**Status implication.** Kept at `Draft — Open for Review`. SKILL.md-only edit; spec commitments unchanged.
+
+**Approver.** Eric Wasgatt (operator), 2026-05-18.
+
+## 2026-05-18 — Amendment 2026-05-18-7
+
+**Section amended:** [.agents/skills/spec-review/SKILL.md preamble — paragraph following "# Spec Review" (line 9)](../../.agents/skills/spec-review/SKILL.md#L9)
+**Trigger:** N=5 CP-2 audit finding D-4 ([spec journal "Review of CP-2"](#L304)) — preamble line 9 reads "Third in the trilogy with `spec-write` and `spec-execute`", omitting spec-design + spec-amend; frontmatter description line 4 names all four siblings. Preamble-vs-body mirror class, 5th data point (N=2/N=3/N=4 ×2/N=5).
+**Reason:** Replaces stale pre-`spec-design`-lift, pre-`spec-amend`-extraction "trilogy" framing with the four-sibling pairing list that matches frontmatter line 4 verbatim.
+**Impact summary:** No tasks affected; CP-2 D-4 resolved; no completed work invalidated; no cross-reference follow-up.
+**Approver:** Eric Wasgatt (operator)
+**Approved on:** 2026-05-18
+**Status implication:** kept at `Draft — Open for Review` (SKILL.md-only edit; spec commitments unchanged)
+**Commit:** `313874f`
+
+### Full record
+
+**Trigger.** N=5 CP-2 audit finding D-4 — SKILL.md preamble line 9 carries pre-trilogy-commit framing (*"Third in the trilogy with `spec-write` and `spec-execute`"*), omitting both `spec-design` (lifted to first-class in commit `49c15f0`, 2026-05-14) and `spec-amend` (extracted from spec-execute in the same commit). The frontmatter description (line 4) names all four siblings explicitly: *"Pairs with `spec-design` and `spec-write` (which declare checkpoints), `spec-execute` (which produces the work being reviewed), and `spec-amend` (which applies spec changes when the review surfaces them)."* Preamble-vs-body mirror class, 5th consecutive data point (N=2 D-1 / N=3 D-5 / N=4 D-3 / N=4 D-4 / N=5 D-4).
+
+**Section.** [.agents/skills/spec-review/SKILL.md preamble — paragraph following "# Spec Review" (line 9)](../../.agents/skills/spec-review/SKILL.md#L9). Same shape as spec-execute amendment [2026-05-18-5](../20260518-spec-execute-skill/journal.md) (commit `92c573a`): replace trilogy-framing clause with the four-sibling pairing list reusing frontmatter line 4 phrasing verbatim.
+
+**Change.**
+
+Before:
+> Third in the trilogy with `spec-write` and `spec-execute`. Use when a Review Checkpoint defined in a spec has been triggered. Walks the diff against the checkpoint's declared review focus and exit criteria, produces a structured verdict, and records the outcome back into the spec and journal.
+
+After:
+> Use when a Review Checkpoint defined in a spec has been triggered. Pairs with `spec-design` and `spec-write` (which declare checkpoints), `spec-execute` (which produces the work being reviewed), and `spec-amend` (which applies spec changes when the review surfaces them). Walks the diff against the checkpoint's declared review focus and exit criteria, produces a structured verdict, and records the outcome back into the spec and journal.
+
+**Reason.** Reuses frontmatter line 4 phrasing verbatim so the two sites cannot drift independently. Closes the preamble-vs-frontmatter inconsistency that has accumulated five data points across the retro-spec series — the load-bearing observation is that consecutive sessions surface the same finding class, so codifying the four-sibling pairing as the canonical preamble phrasing (rather than the pre-trilogy "Nth in the trilogy" framing) keeps the convention stable through N=6.
+
+**Impact.**
+- **Affected tasks:** none.
+- **Affected checkpoints:** CP-2 D-4 resolved.
+- **Completed work invalidated:** none.
+- **Cross-references requiring follow-up:** none — frontmatter line 4 already pairs with all four siblings; spec §3 Dependencies already commits to the quintet pairing.
+
+**Status implication.** Kept at `Draft — Open for Review`. SKILL.md-only edit; spec commitments unchanged.
+
+**Approver.** Eric Wasgatt (operator), 2026-05-18.
+
+### Pattern observation at four-amendment close
+
+This /spec-amend session bundled four amendments (one spec edit, three SKILL.md edits) into a single invocation, paired against the N=5 CP-2 audit (commit `d6aa584`). Differs from N=4's two-invocation split (one (a)-route session, one (b)-route session): N=5's smaller (a)-route count (one amendment vs. N=4's three) and the operator's framing of the four CP-2 amendments as "post-CP-2 closeout artifacts" supported the bundle. The invocation-shape discriminator from [N=4 pattern observation](../20260518-spec-execute-skill/journal.md) — *"the invocation-split discriminator is target artifact, not amendment count"* — generalizes: when the (a)-route count is small (one amendment) the split is unnecessary because there is no Orientation-Report coherence cost to bundling target artifacts within one invocation. **Pattern for N=6:** if spec-amend's CP-2 produces a mix of (a) and (b) routes with small (a) count, bundling is acceptable; if (a) count is ≥2 (matching N=4), splitting preserves Orientation coherence.
+
+### Pattern observation — divergent-framing surfacing at Phase 1
+
+The operator's invocation framed the four amendments as preceding a banner exit from `Draft — Open for Review` ("per N=1/N=2/N=3/N=4 convention"). N=4's CP-2 re-verification journal explicitly recorded the inverse precedent (*"§1 banner stays at `Draft — Open for Review`. The spec lifecycle has no defined successor state to advance to"*). The /spec-amend skill's discipline of surfacing status implications explicitly (per [feedback-spec-amend-status-implication memory](file:///Users/eric/.claude/projects/-Users-eric-scm-github-waseric-ai-tools/memory/feedback-spec-amend-status-implication.md), recorded 2026-05-17) caught the divergence at Phase 1; the operator confirmed via AskUserQuestion that the banner stays at Draft. **Pattern for N=6:** the feedback-memory-driven Phase 1 surfacing discipline is load-bearing — without it, the original framing would have produced a silent banner advancement contrary to N=1–N=4 precedent. Worth carrying forward to spec-amend's eventual amendment cycle.
+
