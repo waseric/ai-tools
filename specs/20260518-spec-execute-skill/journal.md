@@ -640,3 +640,20 @@ This entry is the artifact form of the audit's step-2 conditional ("a brief re-a
 ### Next action
 
 Banner advancement deferred (no successor state defined; matches precedent). Resume batch audit at N=5 (`spec-review` retroactive spec CP-2) per [strategy doc](../../docs/retroactive-spec-strategy.md) and [batch journal](../20260518-cp2-batch-audit/journal.md) ordering.
+
+> Update 2026-05-19: the banner advancement deferred above is **resolved** by amendment 2026-05-19-1 (this journal's next entry); the successor state was defined methodology-wide at that amendment.
+
+## 2026-05-19 — Amendment 2026-05-19-1 (cross-skill — post-CP-2 banner advancement)
+
+**Section amended:** [architecture.md:3](./architecture.md#L3) §1 Status banner
+**Trigger:** First execution of the post-CP-2 banner transition; methodology-level decision defining `Approved — CP-2 closed YYYY-MM-DD` as the post-`Draft — Open for Review` successor state, applied retroactively across N=1..N=6. Directly resolves the "Banner advancement deferred (no successor state defined)" line at the end of the [CP-2 re-verification entry above](#L640).
+**Reason:** Banner advances from `Draft — Open for Review` to `Approved — CP-2 closed 2026-05-18` per the methodology-level decision recorded in the cross-skill anchor. The N=4 re-verification framing (*"§1 banner stays at `Draft — Open for Review`. The spec lifecycle has no defined successor state to advance to … A defined post-Draft state would be a methodology-level decision, not a per-spec one"*) anticipated exactly this resolution path: a methodology-level decision lands the successor state, then the banner advances. That happens here.
+**Impact summary:** No tasks; CP-2 already closed (commit `48b701f` 2026-05-18 20:17:38); no completed work invalidated.
+**Approver:** Eric Wasgatt
+**Approved on:** 2026-05-19
+**Status implication:** **forward advancement** — first instance in the methodology. Draft → Approved.
+**Commit:** `e18de97` (six architecture.md banner edits); journal-commit SHA backfilled in commit B.
+
+### Full record
+
+See [specs/20260518-cp2-batch-audit/journal.md](../20260518-cp2-batch-audit/journal.md) amendment 2026-05-19-1 for the full structured Phase 2 amendment record. This is the **cross-skill companion entry**; the batch journal holds the primary record because the amendment is methodology-level (defines the post-CP-2 successor state across N=1..N=6). Pasting the structured block here would duplicate the durable record.

@@ -443,3 +443,18 @@ With Amendments 2026-05-18-1, 2026-05-18-2, and 2026-05-18-3 all approved and ap
 The project-constitution retroactive-spec adoption (§11) is **closed**. The spec is now the living contract for SKILL.md per the Amendment Protocol. The five-spec batch CP-2 in [specs/20260518-cp2-batch-audit/journal.md](../20260518-cp2-batch-audit/journal.md) may proceed using this audit as the N=1 baseline pattern.
 
 **Pattern for N=2.** Three surgical amendments emerged from one CP-2 verdict, sequenced to avoid count-churn (D-2-b first elevated SKILL.md to 8 Phase 2 bullets, then D-1 updated spec to "Eight topics" matching). Future CP-2 batches should screen for amendments that interact (one's "after" text depends on another's "after" state) and sequence accordingly. Three separate commits with three separate amendment IDs is appropriate when the findings share only a triggering verdict, not a policy theme (contrast 2026-05-17-1, which bundled five edits sharing the `.claude/skills/...` removal policy).
+
+## 2026-05-19 — Amendment 2026-05-19-1 (cross-skill — post-CP-2 banner advancement)
+
+**Section amended:** [architecture.md:3](./architecture.md#L3) §1 Status banner
+**Trigger:** First execution of the post-CP-2 banner transition; methodology-level decision defining `Approved — CP-2 closed YYYY-MM-DD` as the post-`Draft — Open for Review` successor state, applied retroactively across N=1..N=6. N=1 closed CP-2 standalone (not in the five-spec batch) per [strategy OQ-1 resolution (a)](../../docs/retroactive-spec-strategy.md#decisions-recorded-2026-05-18); this amendment includes N=1 in the cross-skill cycle because the successor state is methodology-level.
+**Reason:** Banner advances from `Draft — Open for Review` to `Approved — CP-2 closed 2026-05-18` per the methodology-level decision recorded in the cross-skill anchor.
+**Impact summary:** No tasks; CP-2 already closed (commit `106f006` 2026-05-18 11:20:52); no completed work invalidated.
+**Approver:** Eric Wasgatt
+**Approved on:** 2026-05-19
+**Status implication:** **forward advancement** — first instance in the methodology. Draft → Approved.
+**Commit:** `e18de97` (six architecture.md banner edits); journal-commit SHA backfilled in commit B.
+
+### Full record
+
+See [specs/20260518-cp2-batch-audit/journal.md](../20260518-cp2-batch-audit/journal.md) amendment 2026-05-19-1 for the full structured Phase 2 amendment record. This is the **cross-skill companion entry**; the batch journal holds the primary record because the amendment is methodology-level (defines the post-CP-2 successor state across N=1..N=6). Pasting the structured block here would duplicate the durable record.

@@ -501,3 +501,18 @@ The spec-write retroactive-spec adoption is **closed**. The spec is now the livi
 3. **Mirror-class preamble-vs-Phase-body inconsistency at two data points.** N=2 D-2 (preamble named "format" Phase 2 body did not enumerate) and N=3 D-5 (Phase 2 body enumerates "decisions proposed-unilaterally" preamble omits) are the same class in opposite directions. Future CP-2 audits should walk preamble line-by-line against Phase 2 body for completeness in both directions.
 
 Future CP-2 batches in the quintet should expect 3–5 amendments per spec (range from N=1's 3 to N=3's 5); the file-split pattern (SKILL.md amendments vs spec amendments) and the operator-override-on-protocol-detail pattern are now both candidate recurrences.
+
+## 2026-05-19 — Amendment 2026-05-19-1 (cross-skill — post-CP-2 banner advancement)
+
+**Section amended:** [architecture.md:3](./architecture.md#L3) §1 Status banner
+**Trigger:** First execution of the post-CP-2 banner transition; methodology-level decision defining `Approved — CP-2 closed YYYY-MM-DD` as the post-`Draft — Open for Review` successor state, applied retroactively across N=1..N=6.
+**Reason:** Banner advances from `Draft — Open for Review` to `Approved — CP-2 closed 2026-05-18` per the methodology-level decision recorded in the cross-skill anchor.
+**Impact summary:** No tasks; CP-2 already closed (commit `bd44041` 2026-05-18 19:29:23); no completed work invalidated.
+**Approver:** Eric Wasgatt
+**Approved on:** 2026-05-19
+**Status implication:** **forward advancement** — first instance in the methodology. Draft → Approved.
+**Commit:** `e18de97` (six architecture.md banner edits); journal-commit SHA backfilled in commit B.
+
+### Full record
+
+See [specs/20260518-cp2-batch-audit/journal.md](../20260518-cp2-batch-audit/journal.md) amendment 2026-05-19-1 for the full structured Phase 2 amendment record. This is the **cross-skill companion entry**; the batch journal holds the primary record because the amendment is methodology-level (defines the post-CP-2 successor state across N=1..N=6). Pasting the structured block here would duplicate the durable record.

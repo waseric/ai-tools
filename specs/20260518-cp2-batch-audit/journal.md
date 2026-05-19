@@ -275,3 +275,112 @@ The pattern doc is the next-action handoff per [spec-amend §11 step 4](../20260
 ### Status
 
 **Batch CP-2 audit: closed 2026-05-19.** All six per-spec CP-2 entries complete; cross-skill synthesis recorded; readiness verdict issued. No further entries against this journal — successor work is `docs/retroactive-spec-pattern.md` in a fresh session.
+
+> Coda update 2026-05-19: this journal carries one further entry below — amendment 2026-05-19-1, the methodology-level post-CP-2 banner transition that the closing summary anticipated. The "no further entries" line above is preserved as the closing statement at batch-CP-2 closure; the amendment is documented here because the batch journal is its natural anchor (W-1 second cycle, codification candidate 2 satisfied). No per-spec CP-2 entries are added.
+
+## 2026-05-19 — Amendment 2026-05-19-1 (cross-skill — first execution of post-CP-2 banner transition)
+
+**Section amended:** §1 Status banner across six retroactive design specs — [N=1 project-constitution](../20260517-project-constitution-skill/architecture.md#L3), [N=2 spec-design](../20260518-spec-design-skill/architecture.md#L3), [N=3 spec-write](../20260518-spec-write-skill/architecture.md#L3), [N=4 spec-execute](../20260518-spec-execute-skill/architecture.md#L3), [N=5 spec-review](../20260518-spec-review-skill/architecture.md#L3), [N=6 spec-amend](../20260518-spec-amend-skill/architecture.md#L3). All six at `architecture.md:3`.
+**Trigger:** First execution of the post-CP-2 banner transition promised in N=5/N=6 "Review of CP-2" entries and deferred at N=4/N=5/N=6 CP-2 re-verification entries for want of a methodology-level decision defining the successor state.
+**Reason:** Six consecutive retroactive-spec sessions documented the open question; this amendment is itself the methodology-level decision, defining `Approved — CP-2 closed YYYY-MM-DD` as the post-`Draft — Open for Review` successor state and applying it retroactively across all six specs.
+**Impact summary:** No tasks (design specs); no checkpoints re-opened; no completed work invalidated. Two adjacent codification triggers fire (W-1, codification candidate 2 — both "second cycle observed" conditions met) but codification itself is out of scope.
+**Approver:** Eric Wasgatt
+**Approved on:** 2026-05-19
+**Status implication:** **forward advancement** (Draft → Approved). First instance of forward status advancement in the methodology — the prior nine /spec-amend invocations (2026-05-17-1 through 2026-05-18-6 across N=1..N=6) all carried `Status implication: kept`. Surfaced explicitly via AskUserQuestion at Phase 2 per [feedback-spec-amend-status-implication memory](file:///Users/eric/.claude/projects/-Users-eric-scm-github-waseric-ai-tools/memory/feedback-spec-amend-status-implication.md) — the journals' "banner amendment to follow" promise (Review-of-CP-2 entries) and "banner stays at Draft, successor state undefined" precedent (subsequent CP-2 re-verification entries) were both shown to the operator alongside the proposed forward advancement. Operator confirmed.
+**Commit:** `e18de97` (six architecture.md banner edits); journal-commit SHA backfilled in commit B.
+
+### Full record
+
+## Amendment 2026-05-19-1 — §1 Status banner across N=1..N=6 retroactive design specs (cross-skill)
+
+**Trigger.** Six retroactive design specs (N=1 project-constitution through N=6 spec-amend) each carry `> Status: Draft — Open for Review` despite all six having closed CP-2 across 2026-05-18 → 2026-05-19 (per [Closing summary](#closing-summary) above). The post-CP-2 transition was named as a "banner amendment to follow" in [N=5 "Review of CP-2":314](../20260518-spec-review-skill/journal.md#L314) and [N=6 "Review of CP-2":343](../20260518-spec-amend-skill/journal.md#L343), but each successive CP-2 re-verification entry (N=4 commit `48b701f`, N=5 commit `3d5d4dc`, N=6 commit `fcd9c2c`) deferred the transition on the grounds that no methodology-level decision had defined the successor state. The user's invocation of /spec-amend on 2026-05-19 defined the successor state — `Approved — CP-2 closed YYYY-MM-DD` — and applied it as a single cross-skill amendment to all six specs.
+
+**Section.** Six edits, one per spec, all at architecture.md line 3 (§1 frontmatter Status line):
+
+| # | Spec | File | Per-spec CP-2 closeout date | CP-2 closeout commit |
+|---|---|---|---|---|
+| N=1 | project-constitution | [architecture.md:3](../20260517-project-constitution-skill/architecture.md#L3) | 2026-05-18 | `106f006` |
+| N=2 | spec-design | [architecture.md:3](../20260518-spec-design-skill/architecture.md#L3) | 2026-05-18 | `9ed2373` |
+| N=3 | spec-write | [architecture.md:3](../20260518-spec-write-skill/architecture.md#L3) | 2026-05-18 | `bd44041` |
+| N=4 | spec-execute | [architecture.md:3](../20260518-spec-execute-skill/architecture.md#L3) | 2026-05-18 | `48b701f` |
+| N=5 | spec-review | [architecture.md:3](../20260518-spec-review-skill/architecture.md#L3) | 2026-05-18 | `3d5d4dc` |
+| N=6 | spec-amend | [architecture.md:3](../20260518-spec-amend-skill/architecture.md#L3) | 2026-05-19 | `fcd9c2c` |
+
+**Change.**
+
+Before (byte-identical across all six):
+
+> ```
+> > Status: Draft — Open for Review
+> ```
+
+After (N=1 through N=5):
+
+> ```
+> > Status: Approved — CP-2 closed 2026-05-18
+> ```
+
+After (N=6 only):
+
+> ```
+> > Status: Approved — CP-2 closed 2026-05-19
+> ```
+
+The N=6 date differs because the CP-2 re-verification commit landed on 2026-05-19 (`fcd9c2c` 2026-05-19 06:20:59 -0400); the other five closed on 2026-05-18. The journal entry text in N=6 stamps "2026-05-18" but the commit timestamp is the truth-of-closure for the banner; operator confirmed the commit-date interpretation via AskUserQuestion at Phase 2.
+
+**Reason.** Six consecutive retroactive-spec sessions deferred the post-CP-2 banner transition because no methodology-level decision had defined a successor state. The "Review of CP-2" entries promised a banner amendment to follow; the subsequent CP-2 re-verification entries documented the deferral, explicitly framing it as a methodology-level open question (verbatim from [N=6 CP-2 re-verification:526](../20260518-spec-amend-skill/journal.md#L526): *"the post-CP-2 successor state remains undefined across the legacy quintet plus N=1, a six-data-point disposition that the closing summary will codify"*). This amendment closes the question by defining `Approved — CP-2 closed YYYY-MM-DD` as the successor state and applying it retroactively across all six specs in a single coherent change. The successor state name `Approved` matches the lifecycle term [spec-design's §5.8](../20260518-spec-design-skill/architecture.md) commits to (`Draft — Open for Review → Approved → Superseded`), unifying the methodology's lifecycle vocabulary. The `— CP-2 closed YYYY-MM-DD` suffix preserves the per-spec closure record in the banner itself, complementing each spec's §9 CP-2 Status line.
+
+**Impact.**
+- **Affected tasks:** none (six design specs, no atomic tasks).
+- **Affected checkpoints:** none re-opened. Each spec's CP-2 is already closed; the banner edit reflects the closure that was deferred for want of a defined successor state.
+- **Completed work invalidated:** none.
+- **Cross-references requiring follow-up:** none required for the spec-level transition. Adjacent observations recorded as cross-skill notes below (not blocking):
+  - [docs/retroactive-spec-pattern.md §W-1](../../docs/retroactive-spec-pattern.md) — this amendment is the second cross-skill amendment cycle; W-1's "Current state: One cycle observed" line is now stale; W-1's codification trigger is satisfied.
+  - [Codification candidate 2](#cross-cutting-amendments-proposed) (above) — "Recommendation: hold codification until a second cycle is observed" condition met.
+  - [.agents/skills/spec-amend/SKILL.md](../../.agents/skills/spec-amend/SKILL.md) — has no §"Cross-skill case" section yet. Codification is **out of scope for this amendment**; per W-1's "do not codify until N events fire" discipline, the trigger lands here and the codification is the next-action handoff.
+
+**Status implication.** **Forward advancement.** Each affected spec advances from `Draft — Open for Review` to `Approved — CP-2 closed <date>`. This is the **first instance of forward status advancement in the methodology** — the prior nine /spec-amend invocations all carried `Status implication: kept`. Surfaced explicitly per the [feedback-spec-amend-status-implication memory](file:///Users/eric/.claude/projects/-Users-eric-scm-github-waseric-ai-tools/memory/feedback-spec-amend-status-implication.md): the journals' two competing precedents ("banner amendment to follow" promise vs. "banner stays at Draft, successor state undefined") were surfaced to the operator via AskUserQuestion at Phase 2 of this skill session along with two adjacent choices (N=6 date interpretation; cross-skill bundling). Operator confirmed all three: define successor as Approved, use 2026-05-19 for N=6, bundle as single ID 2026-05-19-1.
+
+**Approver.** Eric Wasgatt, 2026-05-19.
+
+### Cross-skill notes (second post-trilogy cycle — W-1 anchor evidence)
+
+This is the **second post-trilogy cross-skill amendment cycle**, mirroring the [2026-05-18-3 cycle](../20260518-spec-amend-skill/journal.md#L199) but with broader scope (six specs vs. two) and a different originating trigger (methodology-level decision vs. CP-1 finding). The two cycles together anchor W-1 with two data points across distinct trigger classes, which is the codification-readiness signal.
+
+| W-1 four-step mechanic | 2026-05-18-3 (first cycle) | 2026-05-19-1 (second cycle, this amendment) |
+|---|---|---|
+| 1. Surface | N=6 CP-1 found §5.9 citation error | Methodology-level open question documented across N=4/N=5/N=6 re-verifications |
+| 2. Trace upstream | N=5 §5.11 carried same error | All six specs share the §1 banner state and the same deferred transition |
+| 3. Apply as single amendment ID | `2026-05-18-3` across 2 specs in two-commit shape (architecture + journals) | `2026-05-19-1` across 6 specs in same two-commit shape |
+| 4. Verify at both endpoints | N=5 §5.11 + N=6 §5.9 verified clean at CP-2 | Six banners verified post-edit (`grep ^> Status:` after commit `e18de97` confirms all six show `Approved — CP-2 closed <date>`) |
+
+The mechanics generalize cleanly from N=2 to N=6 scope. The two-commit shape (`spec-edit commit` + `journal commit`, both citing the amendment ID) holds. The primary-record + companion-record discipline holds, with the primary record migrating from the originating spec's journal (2026-05-18-3 in spec-amend journal) to the methodology-level journal that anchors the cycle (2026-05-19-1 in this batch journal) — a refinement of the convention, not a contradiction. Refinement worth codifying: the primary record lives at the cycle's natural anchor — the originating CP-1 verdict's spec journal when the trigger is a per-spec finding, the batch journal when the trigger is a methodology-level decision.
+
+### W-1 codification trigger satisfied — next-action handoff
+
+Per [retroactive-spec-pattern.md §W-1](../../docs/retroactive-spec-pattern.md):
+
+> **Codification trigger.** Add a §"Cross-skill case" section to [.agents/skills/spec-amend/SKILL.md](../../.agents/skills/spec-amend/SKILL.md) prescribing the four-step mechanics (surface → trace upstream → apply as single amendment ID → verify at both endpoints) once a second cycle anchors the convention as load-bearing.
+
+The second cycle is now observed. The codification is the next-action handoff out of this amendment. It is **deliberately out of scope** for the amendment itself (W-1's "do not codify until N events fire" discipline is about *what triggers codification*, not *whether codification happens in the same session*). The next session — either a fresh /spec-amend invocation against the spec-amend SKILL.md as the target artifact, or a /spec-design session re-opening the spec-amend spec to amend the SKILL.md spec-side first — adds the §"Cross-skill case" section to spec-amend SKILL.md. The codification should reflect the two-cycle refinement of the primary-record location rule (per the table above).
+
+### Methodology-level decision recorded — post-`Draft` successor state defined
+
+The amendment carries an embedded methodology-level decision: `Approved — CP-2 closed YYYY-MM-DD` is now the defined post-`Draft — Open for Review` successor state for retroactive design specs (and, by extension via [spec-design §5.8](../20260518-spec-design-skill/architecture.md)'s lifecycle declaration `Draft — Open for Review → Approved → Superseded`, for design specs in general). The decision is recorded here because:
+
+- The successor-state question was repeatedly framed in the journals as methodology-level (N=4 / N=5 / N=6 re-verification entries).
+- No prior methodology artifact (constitution, strategy doc, pattern doc) names the successor state.
+- The batch journal is the natural anchor — its closing summary already named "post-CP-2 banner transition" as forward-looking work tied to the readiness verdict.
+
+A future session may elevate the decision to a methodology-level artifact — e.g., adding a "Status lifecycle" subsection to [docs/retroactive-spec-pattern.md](../../docs/retroactive-spec-pattern.md), or strengthening [.agents/skills/spec-design/SKILL.md](../../.agents/skills/spec-design/SKILL.md) Phase 3's status-banner-template prescription with the successor states. The pattern doc maintenance trigger W-3 names on-demand maintenance for such decisions.
+
+### Companion records
+
+The six per-spec journals carry **companion entries** that reference this primary record by amendment ID without duplicating the structured block. Per the 2026-05-18-3 precedent: cross-reference by amendment ID preserves a single source of truth. The companion entries land in:
+
+- [specs/20260517-project-constitution-skill/journal.md](../20260517-project-constitution-skill/journal.md) (N=1)
+- [specs/20260518-spec-design-skill/journal.md](../20260518-spec-design-skill/journal.md) (N=2)
+- [specs/20260518-spec-write-skill/journal.md](../20260518-spec-write-skill/journal.md) (N=3)
+- [specs/20260518-spec-execute-skill/journal.md](../20260518-spec-execute-skill/journal.md) (N=4)
+- [specs/20260518-spec-review-skill/journal.md](../20260518-spec-review-skill/journal.md) (N=5)
+- [specs/20260518-spec-amend-skill/journal.md](../20260518-spec-amend-skill/journal.md) (N=6)
