@@ -6,7 +6,7 @@ description: Review a body of work against a specific Review Checkpoint declared
 
 # Spec Review
 
-Third in the trilogy with `spec-write` and `spec-execute`. Use when a Review Checkpoint defined in a spec has been triggered. Walks the diff against the checkpoint's declared review focus and exit criteria, produces a structured verdict, and records the outcome back into the spec and journal.
+Use when a Review Checkpoint defined in a spec has been triggered. Pairs with `spec-design` and `spec-write` (which declare checkpoints), `spec-execute` (which produces the work being reviewed), and `spec-amend` (which applies spec changes when the review surfaces them). Walks the diff against the checkpoint's declared review focus and exit criteria, produces a structured verdict, and records the outcome back into the spec and journal.
 
 ## How this skill works
 
