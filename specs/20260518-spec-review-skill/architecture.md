@@ -1,6 +1,6 @@
 # `spec-review` Skill — Architecture and Protocol Specification
 
-> Status: Draft — Open for Review
+> Status: Approved — CP-2 closed 2026-05-18
 > Date: 2026-05-18
 > Author: Eric Wasgatt (with AI assistance)
 > Audience: Maintainers of the `ai-tools` methodology skills — Eric Wasgatt, future contributors, and future AI agents picking up the skill set.
