@@ -10,7 +10,7 @@ In-session execution against an existing spec. Pairs with `spec-write` (authors 
 
 ## How this skill works
 
-When invoked, you act as the agent. Gather the INPUTS below from the user — infer what you can from the working directory and recent conversation, ask explicitly only for what is missing or ambiguous. Then orient against the spec, verify the last task's Definition of Done, and propose the next task. Wait for approval before any new work begins. At every task completion, update the spec and the session journal. If the session ends abruptly, the last completed task is already clean.
+When invoked, you act as the agent. Gather the INPUTS below from the user — infer what you can from the working directory and recent conversation, ask explicitly only for what is missing or ambiguous. Then orient against the spec, verify the last task's Definition of Done, and propose the next task. Wait for approval before any new work begins. At every task completion, update the spec and the session journal, then pause at the task boundary for a session-continuity check (continue in this session vs. pick up fresh). If the session ends abruptly, the last completed task is already clean.
 
 ## INPUTS
 
