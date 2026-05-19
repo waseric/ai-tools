@@ -652,7 +652,7 @@ Banner advancement deferred (no successor state defined; matches precedent). Res
 **Approver:** Eric Wasgatt
 **Approved on:** 2026-05-19
 **Status implication:** **forward advancement** — first instance in the methodology. Draft → Approved.
-**Commit:** `e18de97` (six architecture.md banner edits); journal-commit SHA backfilled in commit B.
+**Commit:** `e18de97` (six architecture.md banner edits); `9adbd72` (cross-skill anchor + 6 paired companion journal entries).
 
 ### Full record
 

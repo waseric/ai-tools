@@ -287,7 +287,7 @@ The pattern doc is the next-action handoff per [spec-amend §11 step 4](../20260
 **Approver:** Eric Wasgatt
 **Approved on:** 2026-05-19
 **Status implication:** **forward advancement** (Draft → Approved). First instance of forward status advancement in the methodology — the prior nine /spec-amend invocations (2026-05-17-1 through 2026-05-18-6 across N=1..N=6) all carried `Status implication: kept`. Surfaced explicitly via AskUserQuestion at Phase 2 per [feedback-spec-amend-status-implication memory](file:///Users/eric/.claude/projects/-Users-eric-scm-github-waseric-ai-tools/memory/feedback-spec-amend-status-implication.md) — the journals' "banner amendment to follow" promise (Review-of-CP-2 entries) and "banner stays at Draft, successor state undefined" precedent (subsequent CP-2 re-verification entries) were both shown to the operator alongside the proposed forward advancement. Operator confirmed.
-**Commit:** `e18de97` (six architecture.md banner edits); journal-commit SHA backfilled in commit B.
+**Commit:** `e18de97` (six architecture.md banner edits); `9adbd72` (cross-skill anchor + 6 paired companion journal entries).
 
 ### Full record
 

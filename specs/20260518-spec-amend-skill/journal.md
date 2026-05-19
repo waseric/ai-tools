@@ -540,7 +540,7 @@ This is the **terminal session** of the retroactive-spec sequence. The five-spec
 **Approver:** Eric Wasgatt
 **Approved on:** 2026-05-19
 **Status implication:** **forward advancement** — first instance in the methodology. Draft → Approved. Surfaced explicitly per the [feedback-spec-amend-status-implication memory](file:///Users/eric/.claude/projects/-Users-eric-scm-github-waseric-ai-tools/memory/feedback-spec-amend-status-implication.md) — the journals' two competing precedents (banner-amendment-to-follow promise vs. banner-stays-at-Draft re-verifications) were shown to the operator via AskUserQuestion at Phase 2 alongside the proposed forward advancement; operator confirmed the methodology-level decision.
-**Commit:** `e18de97` (six architecture.md banner edits); journal-commit SHA backfilled in commit B.
+**Commit:** `e18de97` (six architecture.md banner edits); `9adbd72` (cross-skill anchor + 6 paired companion journal entries).
 
 ### Full record
 
