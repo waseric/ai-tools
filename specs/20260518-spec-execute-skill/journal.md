@@ -507,3 +507,95 @@ After:
 ### Pattern observation at three-amendment close
 
 This /spec-amend session bundled three amendments into one invocation — the first such instance in the retroactive-spec sequence. Prior /spec-amend sessions handled one amendment per invocation (2026-05-18-1 CP-1 citation correction at N=4; amendments 1–5 in N=3 spec-write spec each in their own session). The bundling was operator-confirmed at audit close ("spec amendments collapse into a single /spec-amend session for the spec") and worked cleanly: shared TRIGGER (CP-2 audit), shared Orientation Report, three distinct Phase 2 drafts presented together, single batch approval at Phase 3, three sequential Phase 4 commits, three sequential Phase 5 journal entries. **Pattern for N=5 and N=6:** when a CP-2 audit routes multiple (a)-route findings to the same spec, batching them in one /spec-amend session is the path of least friction. The skill's "one coherent change per amendment" rule still holds at the *amendment* level (each is surgical, each gets its own commit + journal entry + ID); it does not require one *invocation* per amendment.
+
+## 2026-05-18 — Amendment 2026-05-18-5
+
+**Section amended:** [.agents/skills/spec-execute/SKILL.md preamble — paragraph following "# Spec Execute" (line 9)](../../.agents/skills/spec-execute/SKILL.md#L9)
+**Trigger:** CP-2 audit finding D-3 — pairing list omits `spec-amend` despite frontmatter description, AMENDMENT PROTOCOL phase, and spec §4 all committing to the triad
+**Reason:** Aligns SKILL.md preamble pairing list to its own frontmatter description, AMENDMENT PROTOCOL body, and spec §4 commitments
+**Impact summary:** No tasks affected; CP-2 D-3 resolved; no completed work invalidated; no cross-reference follow-up
+**Approver:** Eric Wasgatt (operator)
+**Approved on:** 2026-05-18
+**Status implication:** kept at Draft (CP-2 already at `pass with comments`; SKILL.md preamble edit only)
+**Commit:** `92c573a`
+
+### Full record
+
+**Trigger.** N=4 CP-2 audit finding D-3 ([batch journal](../20260518-cp2-batch-audit/journal.md#L116), [spec journal "Review of CP-2"](#L334)). Preamble line 9 pairing list reads *"Pairs with `spec-write` (authors the spec) and `spec-review` (reviews checkpoint deliverables)"* — omits `spec-amend`, despite the frontmatter description naming it as the third peer and the AMENDMENT PROTOCOL phase in the body routing to it. Preamble-vs-Phase-body mirror class (N=4 observation 3); same direction as N=3 D-5.
+
+**Section.** [.agents/skills/spec-execute/SKILL.md preamble — paragraph following "# Spec Execute" (line 9)](../../.agents/skills/spec-execute/SKILL.md#L9). Single-paragraph section; the change replaces the pairing-list clause.
+
+**Change.**
+
+Before:
+> In-session execution against an existing spec. Pairs with `spec-write` (authors the spec) and `spec-review` (reviews checkpoint deliverables). Keeps the spec as the source of truth, prevents silent deviation, and survives end-of-session context decay by doing frequent small closeouts at task boundaries instead of one large one at session end.
+
+After:
+> In-session execution against an existing spec. Pairs with `spec-write` (authors the spec), `spec-review` (reviews checkpoint deliverables), and `spec-amend` (applies spec changes when execution reveals drift). Keeps the spec as the source of truth, prevents silent deviation, and survives end-of-session context decay by doing frequent small closeouts at task boundaries instead of one large one at session end.
+
+**Reason.** The preamble is a contract summary; readers (operators and review skills) rely on it to know who this skill talks to. Omitting `spec-amend` understates the AMENDMENT PROTOCOL relationship that the body, the frontmatter description, and the spec §4 all commit to. The amendment aligns the preamble with the rest of SKILL.md and with the spec.
+
+**Impact.**
+- **Affected tasks:** none (retroactive design spec; no §7 Task Breakdown).
+- **Affected checkpoints:** [CP-2](./architecture.md) — closing entry will reference this amendment.
+- **Completed work invalidated:** none.
+- **Cross-references requiring follow-up:** none. Frontmatter description (line 4) already names spec-amend as the third peer; AMENDMENT PROTOCOL phase already references it; spec §4 already commits to the triad.
+
+**Status implication.** Kept at Draft. Spec is currently at `Draft — Open for Review` per §1 banner; CP-2 §9 Status line records `pass with comments` from the N=4 audit. This amendment touches SKILL.md preamble only; spec commitments unchanged. No revert to Draft.
+
+**Approver.** Eric Wasgatt (operator), 2026-05-18.
+
+## 2026-05-18 — Amendment 2026-05-18-6
+
+**Section amended:** [.agents/skills/spec-execute/SKILL.md preamble — "How this skill works" paragraph (line 13)](../../.agents/skills/spec-execute/SKILL.md#L13)
+**Trigger:** CP-2 audit finding D-4 — preamble enumerates task-cycle moments but does not name the Phase 8 session-continuity check that frontmatter description and Phase 8 body both commit to
+**Reason:** Aligns SKILL.md preamble per-task cycle to its own frontmatter description and Phase 8 body
+**Impact summary:** No tasks affected; CP-2 D-4 resolved; no completed work invalidated; no cross-reference follow-up
+**Approver:** Eric Wasgatt (operator)
+**Approved on:** 2026-05-18
+**Status implication:** kept at Draft (CP-2 already at `pass with comments`; SKILL.md preamble edit only)
+**Commit:** `96a73cb`
+
+### Full record
+
+**Trigger.** N=4 CP-2 audit finding D-4 ([batch journal](../20260518-cp2-batch-audit/journal.md#L117), [spec journal "Review of CP-2"](#L335)). Preamble line 13 enumerates the per-task cycle (orient → propose → approve → update spec/journal) but does not name the Phase 8 Session Continuity Check, despite the frontmatter description committing to it (*"At every task boundary, pauses for a session-continuity check (continue in this session vs. pick up fresh)"*) and Phase 8 body enumerating the pause as a first-class step. Preamble-vs-Phase-body mirror class (N=4 observation 3); same direction as D-3 and N=3 D-5.
+
+**Section.** [.agents/skills/spec-execute/SKILL.md preamble — "How this skill works" paragraph (line 13)](../../.agents/skills/spec-execute/SKILL.md#L13). Single-paragraph section; the change adds one clause near the end of the per-task cycle description.
+
+**Change.**
+
+Before:
+> When invoked, you act as the agent. Gather the INPUTS below from the user — infer what you can from the working directory and recent conversation, ask explicitly only for what is missing or ambiguous. Then orient against the spec, verify the last task's Definition of Done, and propose the next task. Wait for approval before any new work begins. At every task completion, update the spec and the session journal. If the session ends abruptly, the last completed task is already clean.
+
+After:
+> When invoked, you act as the agent. Gather the INPUTS below from the user — infer what you can from the working directory and recent conversation, ask explicitly only for what is missing or ambiguous. Then orient against the spec, verify the last task's Definition of Done, and propose the next task. Wait for approval before any new work begins. At every task completion, update the spec and the session journal, then pause at the task boundary for a session-continuity check (continue in this session vs. pick up fresh). If the session ends abruptly, the last completed task is already clean.
+
+**Reason.** The preamble describes the per-task cycle as a contract summary; readers rely on it to know what fires at each task boundary. Omitting the Phase 8 session-continuity pause understates a behavior the frontmatter description and Phase 8 body both commit to, and matters operationally (operators reading only the preamble would miss the deliberate stop). The added clause is the minimum naming required to align the preamble with the frontmatter description and the Phase 8 body.
+
+**Impact.**
+- **Affected tasks:** none (retroactive design spec; no §7 Task Breakdown).
+- **Affected checkpoints:** [CP-2](./architecture.md) — closing entry will reference this amendment.
+- **Completed work invalidated:** none.
+- **Cross-references requiring follow-up:** none. Frontmatter description (line 4) already names the pause; Phase 8 body enumerates it; spec §5 carries Phase 8.
+
+**Status implication.** Kept at Draft. Spec is currently at `Draft — Open for Review` per §1 banner; CP-2 §9 Status line records `pass with comments` from the N=4 audit. Preamble-only change; spec commitments unchanged. No revert to Draft.
+
+**Approver.** Eric Wasgatt (operator), 2026-05-18.
+
+### Pattern observation at (b)-route session close
+
+This /spec-amend session was the SKILL.md-side counterpart to the (a)-route session that bundled amendments 2026-05-18-2 / -3 / -4 — first time the retroactive-spec sequence has run two /spec-amend invocations from a single CP-2 verdict, split by routing target. The split followed the audit's "Next action" step-1 phrasing verbatim (*"spec amendments collapse into a single /spec-amend session for the spec; SKILL.md amendments into a separate /spec-amend session for the SKILL.md preamble"*) and worked cleanly: two independent surgical edits to the same preamble, both in the same finding class (preamble-vs-Phase-body mirror, observation 3, same direction as N=3 D-5), each with its own ID + commit + journal entry. **Pattern for N=5 and N=6:** when a CP-2 audit routes findings to two different targets (spec body + SKILL.md), splitting into two /spec-amend invocations keeps each invocation's TRIGGER coherent (one target file, one Orientation Report) while preserving the per-amendment ID/commit/journal discipline. Confirms the rule from the prior session — *"one coherent change per amendment"* applies at the amendment level, not the invocation level; the invocation-split discriminator is *target artifact*, not *amendment count*.
+
+### CP-2 closeout (post-amendment)
+
+With amendments 2026-05-18-2, 2026-05-18-3, 2026-05-18-4, 2026-05-18-5, and 2026-05-18-6 all approved and applied, CP-2 routing is complete:
+
+- D-1 → resolved via [2026-05-18-2](#L382) (route a, architecture.md §5.4 WND-8 speculative-code prohibition).
+- D-2 → resolved via [2026-05-18-3](#L425) (route a, architecture.md §5.9 WND-9 diff-required + surgical-not-rewrite at Phase 4/5 trigger sites).
+- D-3 → resolved via 2026-05-18-5 (route b, SKILL.md preamble pairing-list adds `spec-amend`).
+- D-4 → resolved via 2026-05-18-6 (route b, SKILL.md preamble names Phase 8 session-continuity check).
+- D-5 → resolved via [2026-05-18-4](#L468) (route a, architecture.md §5.6 Four→Five count correction; CP-1 advisory (a) carry-forward + CP-2 D-5 closed; **operator override** of reviewer-proposed (c) accept-as-minor per N=4 observation 1).
+
+The N=4 audit's "Next action" step 2 conditional ("a brief re-audit confirms divergences are closed; can be a short journal entry rather than a full /spec-review session"; "for (b)-route amendments to SKILL.md preamble, no spec-side re-verification is required") is now actionable: the three (a)-route spec edits warrant a short re-verification journal entry; the two (b)-route SKILL.md edits do not. CP-2 closure for spec-execute is **conditional on the brief re-audit landing** per step 2.
+
+**Pattern for N=5.** Per [batch journal N=4 Pattern-for-N=5](../20260518-cp2-batch-audit/journal.md#L370), spec-review CP-2 will encounter the same session-economy sibling-design-spec source ([session-economy §5.4](../20260514-session-economy/architecture.md#L147)). The amendment-count tally for spec-execute (5 total) matches spec-write's tally (5 total); the file-split pattern (3 spec + 2 SKILL.md) is also identical to spec-write's pattern. Both candidates for cross-cutting observation in the batch closing summary.
