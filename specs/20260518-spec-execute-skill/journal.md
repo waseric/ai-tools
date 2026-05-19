@@ -599,3 +599,44 @@ With amendments 2026-05-18-2, 2026-05-18-3, 2026-05-18-4, 2026-05-18-5, and 2026
 The N=4 audit's "Next action" step 2 conditional ("a brief re-audit confirms divergences are closed; can be a short journal entry rather than a full /spec-review session"; "for (b)-route amendments to SKILL.md preamble, no spec-side re-verification is required") is now actionable: the three (a)-route spec edits warrant a short re-verification journal entry; the two (b)-route SKILL.md edits do not. CP-2 closure for spec-execute is **conditional on the brief re-audit landing** per step 2.
 
 **Pattern for N=5.** Per [batch journal N=4 Pattern-for-N=5](../20260518-cp2-batch-audit/journal.md#L370), spec-review CP-2 will encounter the same session-economy sibling-design-spec source ([session-economy §5.4](../20260514-session-economy/architecture.md#L147)). The amendment-count tally for spec-execute (5 total) matches spec-write's tally (5 total); the file-split pattern (3 spec + 2 SKILL.md) is also identical to spec-write's pattern. Both candidates for cross-cutting observation in the batch closing summary.
+
+## 2026-05-18 — CP-2 re-verification (post-amendment)
+
+**Reviewer:** Claude (AI assistant) on behalf of Eric Wasgatt
+**Outcome:** pass — CP-2 closed unconditionally
+**Scope:** Brief re-verification of [architecture.md](./architecture.md) §5.4, §5.6, §5.9 against the post-amendment state, per the [N=4 CP-2 audit "Next action" step 2 conditional](#L373) — short journal entry, not a full `/spec-review` session. The two (b)-route SKILL.md preamble amendments (D-3 via 2026-05-18-5, D-4 via 2026-05-18-6) require no spec-side re-verification per that same step-2 carve-out and are confirmed closed by the [CP-2 closeout (post-amendment)](#L589) block alone.
+
+### Re-verification walk
+
+| Finding | Amendment | Section | Closure evidence |
+|---|---|---|---|
+| D-1 — WND-8 speculative-code prohibition partial-home | [2026-05-18-2](#L382) (commit `301837a`) | [§5.4 Phase 4 — Execute](./architecture.md#L196) | **Behavior** paragraph now carries *"Do not write speculative code for 'the next task' while finishing the current one — pre-staging the next task's work blurs the boundary that closeout depends on."* **Pattern invoked** line now cites *"No speculative code for the next task — [SKILL.md WHAT NOT TO DO]"*. Matches SKILL.md WND-8 obligation; cite-back is correct. **Closed.** |
+| D-2 — WND-9 diff-required + surgical-not-rewrite partial-home | [2026-05-18-3](#L425) (commit `8b84eeb`) | [§5.9 Amendment Protocol — proposing vs applying](./architecture.md#L267) | Behavior step 5 now carries *"Any `PROPOSED_CHANGE` carried forward must be expressible as a diff against the existing section — surgical, not a rewrite. If the change cannot be expressed surgically, route as a rewrite candidate (`spec-write` re-decomposition) rather than as an amendment."* **Pattern invoked** line now cites *"Diff required; surgical not rewrite — [SKILL.md WHAT NOT TO DO]; the proposing side carries the obligation by ensuring `PROPOSED_CHANGE` is expressible as a diff against the existing section."* Phase 4/5 trigger sites now covered alongside §5.3's pre-execution coverage. **Closed.** |
+| D-5 — Four→Five count mismatch (CP-1 advisory (a) carry-forward + CP-2 D-5) | [2026-05-18-4](#L468) (commit `f76c796`) | [§5.6 Phase 6 — Update artifacts](./architecture.md#L222) | **Behavior** opener now reads *"Five updates fire before the task is declared complete:"*. List items 1–5 unchanged. Both the CP-1 advisory carry-forward and the CP-2 D-5 finding are **Closed.** |
+
+### Cross-spec consistency — no regressions
+
+Spot-check: §5.4 / §5.6 Multi-repo paragraphs still cite [session-economy §1 Overview](../20260514-session-economy/architecture.md#L8) + [§3 Background](../20260514-session-economy/architecture.md#L31) + commit `e483466` per the shape-(ii) narrative-sourced framing from [amendment 2026-05-18-1](#L217). None of the three (a)-route amendments touched the multi-repo paragraphs; framing intact.
+
+### Exit criteria status (CP-2 — final)
+
+- Divergence list produced: **met** (five advisories at original N=4 audit).
+- Routing decision per divergence: **met** (operator-confirmed at audit close; all five routings executed via amendments 2026-05-18-2 through 2026-05-18-6).
+- No silent edits: **met** (five amendments + this re-verification all recorded).
+- Outcome recorded in journal as closing entry of retroactive-spec adoption: **met** (the [CP-2 closeout (post-amendment)](#L589) block + this re-verification entry together close it).
+
+### Outcome
+
+**CP-2 closed unconditionally.** All three (a)-route spec amendments and both (b)-route SKILL.md amendments have landed; re-verification confirms divergences D-1 / D-2 / D-5 closed in the spec body. The "conditional on brief re-audit landing" qualifier from the [post-amendment CP-2 closeout block](#L589) is now satisfied. §9 CP-2 Status line updated to record post-amendment closure.
+
+### Status implication
+
+§1 banner stays at `Draft — Open for Review`. The spec lifecycle has no defined successor state to advance to (matches N=1 / N=2 / N=3 precedent: [project-constitution](../20260517-project-constitution-skill/architecture.md#L3), [spec-design](../20260518-spec-design-skill/architecture.md#L3), [spec-write](../20260518-spec-write-skill/architecture.md#L3) all sit at `Draft — Open for Review` post-CP-2 closure). The §9 CP-2 Status line + this re-verification entry carry the closure record. A defined post-Draft state would be a methodology-level decision, not a per-spec one; surfacing the gap here matches the [status-banner-lifecycle finding class non-fire observation](#L367) at CP-2.
+
+### Pattern observation at re-verification close
+
+This entry is the artifact form of the audit's step-2 conditional ("a brief re-audit confirms divergences are closed; can be a short journal entry rather than a full `/spec-review` session"). Shape: table-form walk per finding with section reference + after-state quote + closure verdict, no Phase 1–8 walkthrough. The discriminator from a full re-review (which N=4 used at CP-1 → `/spec-review` after blocker-class amendments — [CP-1 re-review entry](#L260)) is severity class: **blocker-class divergences warrant a full re-review; advisory-class divergences with surgical amendments warrant the short form.** Both shapes now have precedent at N=4. **Pattern for N=5 and N=6:** when a CP-2 audit routes multiple (a)-route spec amendments and the divergences are surgical (not structural), the short-form re-verification (table walk + closure outcome) is sufficient and avoids the overhead of a full `/spec-review` session.
+
+### Next action
+
+Banner advancement deferred (no successor state defined; matches precedent). Resume batch audit at N=5 (`spec-review` retroactive spec CP-2) per [strategy doc](../../docs/retroactive-spec-strategy.md) and [batch journal](../20260518-cp2-batch-audit/journal.md) ordering.
