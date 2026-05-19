@@ -378,3 +378,132 @@ Three steps, in order:
 3. **Resume batch audit** — proceed to N=5 (`spec-review` retroactive spec CP-2) per [strategy doc](../../docs/retroactive-spec-strategy.md) and [batch journal](../20260518-cp2-batch-audit/journal.md) ordering.
 
 CP-2 closure for spec-execute is **conditional on amendment landing**: the §9 Status line records "pass with comments" with five advisories; full closure (banner out of Draft) waits on amendments + re-verification per step 2 above.
+
+## 2026-05-18 — Amendment 2026-05-18-2
+
+**Section amended:** [architecture.md](./architecture.md) §5.4 Phase 4 — Execute
+**Trigger:** CP-2 audit finding D-1 — WND-8 (no speculative next-task code) lacked §5/§6 carrier
+**Reason:** WND-8 is behaviorally distinct from OP §5 "one task at a time"; the spec's Phase 4 commitments must reproduce the pre-staging prohibition the shipping SKILL.md states
+**Impact summary:** Affects no atomic tasks (retroactive design spec); closes CP-2 D-1; no completed work invalidated; no cross-reference follow-up
+**Approver:** Eric Wasgatt (operator)
+**Approved on:** 2026-05-18
+**Status implication:** kept at Draft (banner unchanged; CP-2 closure now one step closer)
+**Commit:** `301837a`
+
+### Full record
+
+**Trigger.** N=4 CP-2 audit (this journal "Review of CP-2") finding D-1: WND-8 ("Do not write speculative code for 'the next task' while finishing the current one") lacks an explicit §5/§6 carrier. §5.4 cites OP §5 "One task at a time" as Pattern invoked but does not reproduce the speculative-code prohibition. Pattern class: "WND partial-home" (N=4 observation 2 — four-data-point confirmation across N=1 D-4, N=2 D-4, N=3 D-1, N=4 D-1+D-2).
+
+**Section.** §5.4 Phase 4 — Execute, **Behavior** paragraph (line 200) and **Pattern invoked** line (line 204).
+
+**Change.**
+
+Before (Behavior):
+> **Behavior.** Match existing codebase conventions identified in the feature spec's §3 Background. Do not introduce new patterns, dependencies, or abstractions unless the task explicitly calls for them. Write tests required by the task alongside production code (tests and code land together). Keep changes scoped to the task's declared file list — touching a file outside that list requires stopping and proposing a spec amendment first. Commit at logical points within the task with messages that reference the task ID (e.g. `T-04: add validator for Foo input`). If the task as specified cannot be completed correctly, stop and propose a spec amendment — do not work around the spec.
+
+After (Behavior):
+> **Behavior.** Match existing codebase conventions identified in the feature spec's §3 Background. Do not introduce new patterns, dependencies, or abstractions unless the task explicitly calls for them. Write tests required by the task alongside production code (tests and code land together). Keep changes scoped to the task's declared file list — touching a file outside that list requires stopping and proposing a spec amendment first. Do not write speculative code for "the next task" while finishing the current one — pre-staging the next task's work blurs the boundary that closeout depends on. Commit at logical points within the task with messages that reference the task ID (e.g. `T-04: add validator for Foo input`). If the task as specified cannot be completed correctly, stop and propose a spec amendment — do not work around the spec.
+
+Before (Pattern invoked):
+> **Pattern invoked.** *No silent deviation* — OP §3 in the shipping SKILL.md. *One task at a time* — OP §5.
+
+After (Pattern invoked):
+> **Pattern invoked.** *No silent deviation* — OP §3 in the shipping SKILL.md. *One task at a time* — OP §5. *No speculative code for the next task* — [SKILL.md WHAT NOT TO DO](../../.agents/skills/spec-execute/SKILL.md).
+
+**Reason.** WND-8 is a behaviorally distinct rule from "one task at a time": OP §5 forbids *interleaving* tasks, while WND-8 forbids *pre-staging* the next task's code while the current is still in flight. The retroactive spec's §5.4 carried scope-expansion (file-list discipline) and workaround prohibition but was silent on pre-staging. The shipping SKILL.md is explicit at WND-8.
+
+**Impact.**
+- **Affected tasks:** none (retroactive design spec — no atomic tasks).
+- **Affected checkpoints:** CP-2 already at "pass with comments"; D-1 now closed.
+- **Completed work invalidated:** none.
+- **Cross-references requiring follow-up:** none. §6 NFR table cites OP-class principles, not WND items; no edit needed.
+
+**Status implication.** Kept at Draft. Spec advances toward unconditional CP-2 closure once all three (a)-route amendments + the (b)-route SKILL.md amendments land and the brief re-audit confirms closure per the audit's "Next action" step 2.
+
+**Approver.** Eric Wasgatt (operator), 2026-05-18.
+
+## 2026-05-18 — Amendment 2026-05-18-3
+
+**Section amended:** [architecture.md](./architecture.md) §5.9 Amendment Protocol — proposing vs applying
+**Trigger:** CP-2 audit finding D-2 — WND-9 (diff required; surgical not rewrite) only partially carried; §5.3 covers pre-execution amendments but §5.9 omits the rule for Phase 4/5 trigger sites
+**Reason:** The proposing skill carries an upstream obligation distinct from the applying skill's structural enforcement; without it at §5.9, rewrites get smuggled through as amendments
+**Impact summary:** Affects no atomic tasks; closes CP-2 D-2; no completed work invalidated; N=5 `spec-amend` retroactive spec may cite this section back
+**Approver:** Eric Wasgatt (operator)
+**Approved on:** 2026-05-18
+**Status implication:** kept at Draft
+**Commit:** `8b84eeb`
+
+### Full record
+
+**Trigger.** N=4 CP-2 audit finding D-2: WND-9 ("Do not produce a spec amendment without showing the diff against the existing section. Amendments are surgical, not rewrites") is only partially carried — §5.3 covers pre-execution amendments (Phase 3); §5.9 Amendment Protocol Behavior does not reproduce the diff-required + surgical-not-rewrite discipline for Phase 4/5 trigger sites. Pattern class: WND partial-home (observation 2).
+
+**Section.** §5.9 Amendment Protocol — proposing vs applying, **Behavior (the `spec-execute` side)** step 5 and **Pattern invoked** line.
+
+**Change.**
+
+Before (Behavior step 5):
+> 5. Hand off to `spec-amend`, passing `SECTION`, `TRIGGER`, and any `PROPOSED_CHANGE` text.
+
+After (Behavior step 5):
+> 5. Hand off to `spec-amend`, passing `SECTION`, `TRIGGER`, and any `PROPOSED_CHANGE` text. Any `PROPOSED_CHANGE` carried forward must be expressible as a diff against the existing section — surgical, not a rewrite. If the change cannot be expressed surgically, route as a rewrite candidate (`spec-write` re-decomposition) rather than as an amendment.
+
+Before (Pattern invoked):
+> **Pattern invoked.** *Separation of proposing from applying* — added at trilogy commit `49c15f0`, distinct from the predecessor's inline Amendment Protocol (predecessor lines 391–403 applied amendments within the execution session). The current routing is the methodology's commitment that amendments are first-class events.
+
+After (Pattern invoked):
+> **Pattern invoked.** *Separation of proposing from applying* — added at trilogy commit `49c15f0`, distinct from the predecessor's inline Amendment Protocol (predecessor lines 391–403 applied amendments within the execution session). The current routing is the methodology's commitment that amendments are first-class events. *Diff required; surgical not rewrite* — [SKILL.md WHAT NOT TO DO](../../.agents/skills/spec-execute/SKILL.md); the proposing side carries the obligation by ensuring `PROPOSED_CHANGE` is expressible as a diff against the existing section.
+
+**Reason.** WND-9 governs the *form* of the amendment artifact at the trigger site. The `spec-amend` skill enforces diff-required structurally (its Phase 2 template requires Before/After). But the *proposing* skill carries the upstream obligation: not all triggered changes are surgical, and `spec-execute` must distinguish "the spec needs a one-paragraph amendment" from "the spec needs to be re-decomposed by `spec-write`." Without that distinction at the proposing side, rewrites get smuggled through as amendments. The retroactive spec was silent on this; the shipping SKILL.md is explicit at WND-9.
+
+**Impact.**
+- **Affected tasks:** none.
+- **Affected checkpoints:** closes CP-2 finding D-2.
+- **Completed work invalidated:** none. The `spec-amend` retroactive spec at N=5 may cite this amendment as the upstream-side commitment paired with `spec-amend`'s downstream-side rewrite-reclassification step.
+- **Cross-references requiring follow-up:** none in this spec.
+
+**Status implication.** Kept at Draft.
+
+**Approver.** Eric Wasgatt (operator), 2026-05-18.
+
+## 2026-05-18 — Amendment 2026-05-18-4
+
+**Section amended:** [architecture.md](./architecture.md) §5.6 Phase 6 — Update artifacts
+**Trigger:** CP-2 audit finding D-5 (also CP-1 advisory (a) carry-forward); Behavior opener "Four updates fire" mismatched a five-item list
+**Reason:** Trivial count mismatch; CP-1 advisory (c)→(a) override per N=4 observation 1 converted the conservative default into an active amendment
+**Impact summary:** Affects no atomic tasks; closes CP-1 advisory (a) carry-forward and CP-2 D-5; no completed work invalidated; no cross-reference follow-up
+**Approver:** Eric Wasgatt (operator)
+**Approved on:** 2026-05-18
+**Status implication:** kept at Draft
+**Commit:** `f76c796`
+
+### Full record
+
+**Trigger.** N=4 CP-2 audit finding D-5 (also CP-1 advisory (a) carry-forward, escalated (c)→(a) per N=4 observation 1): §5.6 Behavior opened "**Four updates fire** before the task is declared complete" and listed five numbered items.
+
+**Section.** §5.6 Phase 6 — Update artifacts, opener of the **Behavior** block (line 226).
+
+**Change.**
+
+Before:
+> **Behavior.** Four updates fire before the task is declared complete:
+
+After:
+> **Behavior.** Five updates fire before the task is declared complete:
+
+(List items 1–5 unchanged; only the count word changed.)
+
+**Reason.** Trivial count mismatch surfaced at CP-1 (advisory (a) carry-forward) and re-surfaced at CP-2. The (c)→(a) override per N=4 observation 1 converted the conservative default ("accept as known minor") into an active amendment, consistent with the pattern applied to D-1 and D-2.
+
+**Impact.**
+- **Affected tasks:** none.
+- **Affected checkpoints:** closes CP-1 advisory (a) carry-forward and CP-2 finding D-5.
+- **Completed work invalidated:** none.
+- **Cross-references requiring follow-up:** none. §5.4's "Multi-repo case" mentions "the artifact-update commit" in singular form (item 5 in §5.6's list); still correct.
+
+**Status implication.** Kept at Draft.
+
+**Approver.** Eric Wasgatt (operator), 2026-05-18.
+
+### Pattern observation at three-amendment close
+
+This /spec-amend session bundled three amendments into one invocation — the first such instance in the retroactive-spec sequence. Prior /spec-amend sessions handled one amendment per invocation (2026-05-18-1 CP-1 citation correction at N=4; amendments 1–5 in N=3 spec-write spec each in their own session). The bundling was operator-confirmed at audit close ("spec amendments collapse into a single /spec-amend session for the spec") and worked cleanly: shared TRIGGER (CP-2 audit), shared Orientation Report, three distinct Phase 2 drafts presented together, single batch approval at Phase 3, three sequential Phase 4 commits, three sequential Phase 5 journal entries. **Pattern for N=5 and N=6:** when a CP-2 audit routes multiple (a)-route findings to the same spec, batching them in one /spec-amend session is the path of least friction. The skill's "one coherent change per amendment" rule still holds at the *amendment* level (each is surgical, each gets its own commit + journal entry + ID); it does not require one *invocation* per amendment.
