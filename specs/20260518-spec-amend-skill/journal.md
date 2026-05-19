@@ -389,3 +389,126 @@ This is the final retroactive-spec CP-2. With N=6 close, the batch journal moves
 - Cross-cutting amendment opportunities (per [strategy OQ-3](../../docs/retroactive-spec-strategy.md)) — two preamble/frontmatter-consistency edits across the quintet (N=4 D-3 + N=5 D-4 + N=6 D-2 = three SKILL.md preamble amendments across the quintet); design-notes-or-stale-citation pattern at N=5 D-1 only.
 - Final routing tally — pending application of D-1, D-2, D-3 amendments this session.
 - Readiness verdict for `docs/retroactive-spec-pattern.md` per [§11 step 4](./architecture.md).
+
+## 2026-05-18 — Amendment 2026-05-18-4
+
+**Section amended:** [specs/20260518-spec-amend-skill/architecture.md](./architecture.md) §6 (Non-functional Requirements table — new "Propose/apply separation discipline" row inserted between "Multi-repo discipline" and "Visibility").
+**Trigger:** N=6 CP-2 audit finding D-1 ([spec journal "Review of CP-2"](#L333), [batch journal N=6 entry](../20260518-cp2-batch-audit/journal.md)) — SKILL.md WND-8 "Do not let `spec-execute` or `spec-review` silently apply amendments. Both should propose; this skill applies. The separation is what makes amendments visible." lacks explicit §5/§6 carrier. WND-partial-home class 6th consecutive data point (N=1/N=2/N=3/N=4/N=5/N=6 — six-for-six). Operator chose route (a) amend spec §6 over reviewer-default (c) at audit close per N=3/N=4/N=5 (c)→(a) override pattern (Recommended selected).
+**Reason:** The propose/apply separation between upstream callers and this skill is the trilogy commit's load-bearing architectural change. It is carried in §3 Background (trilogy framing) and §3 Dependencies (the spec-review entry repeats it) but is not first-class in §5 phase rules or §6 NFRs. Landing it as a §6 NFR row matches the discipline-articulation patch shape used at N=1 D-4 / N=2 D-4 / N=3 D-1 / N=4 D-1+D-2 / N=5 D-3 — five prior data points all routed (a) amend spec §5 or §6.
+**Impact summary:** No tasks; spec-amend CP-2 verdict closes "pass with comments" on application; one of three batched amendments this session. No completed work invalidated.
+**Approver:** Eric Wasgatt
+**Approved on:** 2026-05-18
+**Status implication:** kept (`Draft — Open for Review` post-CP-1 → post-CP-2). New §6 NFR row is a discipline-articulation patch landing an existing SKILL.md WND item; not an architectural change to the skill design. Per the auto-memory directive on status-implication explicitness: this amendment does not require re-approval; same shape as N=5 amendment 2026-05-18-4 (which also landed a WND item into spec §5.1).
+**Commit:** `40527df`
+
+### Full record
+
+## Amendment 2026-05-18-4 — spec-amend §6 (new NFR row: Propose/apply separation discipline)
+
+**Trigger.** N=6 CP-2 drift audit (this session) found that SKILL.md WND-8 "Do not let `spec-execute` or `spec-review` silently apply amendments. Both should propose; this skill applies. The separation is what makes amendments visible." has no explicit §5 phase rule or §6 NFR carrier in the spec body, despite being carried in §3 Background ("The separation between *proposing* (spec-execute) and *applying* (spec-amend) is the trilogy commit's load-bearing architectural change") and §3 Dependencies (the spec-review entry: "The reviewer *proposes* amendments; this skill *applies* them. The separation is what makes amendments visible."). The WND-partial-home class is the most stable cross-skill pattern in the batch — six consecutive sessions, six findings; each previously routed (a) amend spec.
+
+**Section.** §6 Non-functional Requirements, new table row inserted between "Multi-repo discipline" and "Visibility" (approximately line 241).
+
+**Change.**
+
+Before:
+> *(no row existed; the table jumped from "Multi-repo discipline" directly to "Visibility")*
+
+After:
+> | **Propose/apply separation discipline** | Amendments are *proposed* by upstream callers ([spec-execute](../../.agents/skills/spec-execute/SKILL.md) Phase 3/4 halt; [spec-review](../../.agents/skills/spec-review/SKILL.md) Phase 7 verdict's "Spec amendments proposed" section; operator observation) and *applied* only by this skill. Sibling skills do not silently apply spec changes; the separation between *proposing* and *applying* is the trilogy commit's load-bearing architectural change (§3 Background) and is what makes amendments visible as first-class events. | [SKILL.md WND-8 + Phase 4](../../.agents/skills/spec-amend/SKILL.md); [§3 Background and Dependencies](#3-background-and-constraints) |
+
+**Reason.** WND-8 is the only WND item in spec-amend SKILL.md that lacked a §5/§6 carrier at CP-2 audit time. Landing it as a §6 NFR row matches the discipline-articulation patch shape used five times before in the batch (N=1 D-4 / N=2 D-4 / N=3 D-1 / N=4 D-1+D-2 / N=5 D-3). The row names the three upstream callers (spec-execute halt, spec-review verdict, operator observation), cites WND-8 and Phase 4 as primary SKILL.md sources, and back-references §3 for the architectural rationale.
+
+**Impact.**
+- **Affected tasks:** none (design spec, no atomic tasks).
+- **Affected checkpoints:** CP-2 (closes "pass with comments" upon application of all three batched amendments).
+- **Completed work invalidated:** No.
+- **Cross-references requiring follow-up:** None. §3 already carries the rationale; the new NFR row cross-references §3 explicitly.
+
+**Status implication.** **kept** (`Draft — Open for Review`). Discipline-articulation patch; not an architectural change. Same shape as N=5 amendment 2026-05-18-4 (WND-5 landed at §5.1) and N=4 amendments 2026-05-18-3/-4 (WND-9/§5.6 count fix).
+
+**Approver.** Eric Wasgatt, 2026-05-18.
+
+## 2026-05-18 — Amendment 2026-05-18-5
+
+**Section amended:** [specs/20260518-spec-amend-skill/architecture.md](./architecture.md) §4 Output topology — paragraph added after the three-artifact list mapping artifacts to phases by output form.
+**Trigger:** N=6 CP-2 audit finding D-3 ([spec journal "Review of CP-2"](#L333), [batch journal N=6 entry](../20260518-cp2-batch-audit/journal.md)) — SKILL.md OUTPUT FORMAT block (lines 165–170) carries per-phase manifestation rules (Phases 1–3 conversational; Phase 4 Edit + commit; Phase 5 Edit; Phase 6 conversational) absent from spec §4 Output topology. SKILL.md OUTPUT FORMAT-absent-from-spec class 3rd data point (N=2 D-3 / N=3 D-3 / N=6 D-3). Operator chose route (a) amend spec §4 over reviewer-default (c) at audit close per N=2/N=3 routing precedent for the same class (Recommended selected).
+**Reason:** Spec §4 captured the three durable artifacts but did not characterize phases-by-output-form. SKILL.md OUTPUT FORMAT block adds this characterization; the spec should match.
+**Impact summary:** No tasks; one of three batched amendments at this CP-2 close. No completed work invalidated.
+**Approver:** Eric Wasgatt
+**Approved on:** 2026-05-18
+**Status implication:** kept (`Draft — Open for Review`). Output-topology articulation patch; not an architectural change.
+**Commit:** `3ba4d77`
+
+### Full record
+
+## Amendment 2026-05-18-5 — spec-amend §4 (Output topology: per-phase manifestation paragraph)
+
+**Trigger.** N=6 CP-2 drift audit (this session) found that SKILL.md OUTPUT FORMAT block (lines 165–170) carries per-phase manifestation rules absent from spec §4 Output topology. Spec §4 enumerates 3 durable artifacts but does not characterize phase-by-phase output form. The class is the same one routed (a) at N=2 D-3 and N=3 D-3 — the third data point of the SKILL.md OUTPUT FORMAT-absent-from-spec class.
+
+**Section.** §4 Architecture, "Output topology" sub-section, paragraph added after the existing "When `SPEC_REPO_ROOT` is set..." sentence (approximately line 82).
+
+**Change.**
+
+Before:
+> When `SPEC_REPO_ROOT` is set, all three artifacts land in the spec repo, paired with whatever code-side state prompted the amendment.
+
+After:
+> When `SPEC_REPO_ROOT` is set, all three artifacts land in the spec repo, paired with whatever code-side state prompted the amendment.
+>
+> The three artifacts map onto the six phases by output form: **Phases 1–3 are conversational** (Orient produces the Orientation Report; Draft produces the structured amendment record presented to the approver; Approval produces an explicit yes/revisions/no/reclassify response). **Phase 4 produces an Edit to the spec and a commit** (artifact 2 above lands here). **Phase 5 produces an Edit to the journal** (artifact 3 above, with the structured amendment record from Phase 2 pasted into the "Full record" sub-block — artifact 1 lands here). **Phase 6 is conversational, with explicit names for downstream actors** (implementer / reviewer / next session / re-approver). The mapping makes the per-phase work shape predictable for both the agent executing the skill and the operator reviewing its outputs.
+
+**Reason.** SKILL.md OUTPUT FORMAT block is the procedural meta-commitment characterizing phase manifestation. Spec §4 needs to carry it so the spec and SKILL.md tell the same story about how phases produce outputs. The new paragraph also ties the three durable artifacts to specific phases, making the artifact-to-phase mapping unambiguous.
+
+**Impact.**
+- **Affected tasks:** none (design spec, no atomic tasks).
+- **Affected checkpoints:** CP-2 (closes "pass with comments" upon application of all three batched amendments).
+- **Completed work invalidated:** No.
+- **Cross-references requiring follow-up:** None. §5 phase subsections already describe per-phase behavior; the new §4 paragraph references them without requiring §5 edits.
+
+**Status implication.** **kept** (`Draft — Open for Review`). Output-topology articulation patch; not an architectural change. Same shape as N=2 amendment that resolved D-3 (Markdown hygiene NFR) and N=3 amendment that resolved D-3 (§6 amendment).
+
+**Approver.** Eric Wasgatt, 2026-05-18.
+
+## 2026-05-18 — Amendment 2026-05-18-6
+
+**Section amended:** [.agents/skills/spec-amend/SKILL.md](../../.agents/skills/spec-amend/SKILL.md) preamble line 15 ("How this skill works").
+**Trigger:** N=6 CP-2 audit finding D-2 ([spec journal "Review of CP-2"](#L333), [batch journal N=6 entry](../20260518-cp2-batch-audit/journal.md)) — SKILL.md preamble line 15 "another skill — `spec-execute`, `spec-review`, or an in-flight `spec-design` session" omits `spec-write` from the in-flight invocation list, while frontmatter line 4 names all four siblings and HANDOFF NOTES line 187 names spec-write explicitly. Preamble-vs-body mirror class 6th consecutive data point (N=2/N=3/N=4 ×2/N=5/N=6) — new flavor (preamble-omits-sibling-caller, third flavor of the class). Operator confirmed (b) amend SKILL.md preamble at audit close.
+**Reason:** Internal SKILL.md inconsistency. The preamble's invocation list should match the frontmatter pairing and HANDOFF NOTES caller list. Adding `spec-write` to the in-flight session list closes the gap.
+**Impact summary:** No tasks; SKILL.md preamble correction; one of three batched amendments at this CP-2 close. No completed work invalidated.
+**Approver:** Eric Wasgatt
+**Approved on:** 2026-05-18
+**Status implication:** kept (SKILL.md has no Status banner; preamble correction is internal-consistency patch). The amended skill applies the amendment to itself (self-referential per §11) under the staged-bootstrap pattern: the current (pre-amendment) workflow applied to produce the next (post-amendment) state. No re-approval cycle needed.
+**Commit:** `b6fb958`
+
+### Full record
+
+## Amendment 2026-05-18-6 — spec-amend SKILL.md preamble (line 15 invocation list)
+
+**Trigger.** N=6 CP-2 drift audit (this session) found that SKILL.md preamble line 15 ("How this skill works") omits `spec-write` from the in-flight invocation list. Frontmatter description (line 4) names all four siblings: "Pairs with `spec-write` and `spec-design` (the spec being amended), `spec-execute` (which surfaces drift), and `spec-review` (which may propose amendments rather than block)." HANDOFF NOTES (line 187) names spec-write explicitly: "From `spec-design` or `spec-write`. Once the design or feature spec leaves Draft and is committed, further changes go through this skill." Preamble was the lone outlier; preamble-vs-body mirror class 6th consecutive data point with a new flavor (preamble-omits-sibling-caller).
+
+**Section.** SKILL.md "How this skill works" sub-section, line 15.
+
+**Change.**
+
+Before:
+> When invoked, you act as the agent. The user (or another skill — `spec-execute`, `spec-review`, or an in-flight `spec-design` session) has identified that a spec needs to change. Your job is to structure the proposal, drive approval, apply the change, and record the amendment in the journal so it survives context decay.
+
+After:
+> When invoked, you act as the agent. The user (or another skill — `spec-execute`, `spec-review`, or an in-flight `spec-design` or `spec-write` session) has identified that a spec needs to change. Your job is to structure the proposal, drive approval, apply the change, and record the amendment in the journal so it survives context decay.
+
+**Reason.** The preamble's invocation list is part of the skill's "how to read this file" framing — it tells the reader who calls this skill. The frontmatter and HANDOFF NOTES already name spec-write among the callers; the preamble should match. The fix is a single-clause addition (`or spec-write`) preserving the existing rhythm of the sentence.
+
+**Impact.**
+- **Affected tasks:** none.
+- **Affected checkpoints:** N=6 CP-2 (closes "pass with comments" upon application of all three batched amendments).
+- **Completed work invalidated:** No.
+- **Cross-references requiring follow-up:** None. Frontmatter and HANDOFF NOTES already name spec-write; the preamble is the only place where the gap existed.
+
+**Status implication.** **kept** (SKILL.md has no Status banner). Self-referential amendment (the amendment skill amending its own SKILL.md) under the staged-bootstrap pattern named at §11 — the current (pre-amendment) workflow applies the amendment to produce the next (post-amendment) state. The change is small (single clause) and the workflow does not change; no re-approval cycle needed.
+
+**Approver.** Eric Wasgatt, 2026-05-18.
+
+### Cross-skill note — self-referential amendment to spec-amend SKILL.md (§11 staged-bootstrap)
+
+This amendment is the **first observed amendment to spec-amend SKILL.md itself** post-trilogy. Per §11 Adoption Path, "amendments to the amendment skill operate under the skill's *current* (pre-amendment) workflow, applied to the proposed *next* (post-amendment) state." This session realized that pattern in practice: the SKILL.md preamble correction was drafted, approved, applied, and journaled under the same six-phase workflow defined by SKILL.md (Phase 1 Orient via CP-2 audit; Phase 2 Draft via structured-amendment-record block above; Phase 3 Approval via operator's AskUserQuestion response at audit close; Phase 4 Apply via single-line edit + commit `b6fb958`; Phase 5 Journal via this entry; Phase 6 Downstream Handoff = none — the change is purely textual, no implementer / reviewer / next session impact beyond reading the corrected text). **No staged-bootstrap friction observed.** §10 risk row "Self-referential amendment paradox" anchored to first worked example.
