@@ -301,3 +301,61 @@ This is the **first post-trilogy-commit cross-skill amendment cycle**. The two p
 
 The pattern doc (post-CP-2) will consume the two amendment entries together as the first worked example of post-trilogy cross-skill amendment mechanics, anchoring §13 OQ-4 to evidence.
 
+## 2026-05-18 — Review of CP-2
+
+**Reviewer:** Claude (AI assistant) on behalf of Eric Wasgatt
+**Outcome:** pass with comments
+**Tasks reviewed:** N/A (design spec; CP-2 is a drift audit of the spec body against the shipping SKILL.md — see [architecture.md §9 CP-2](./architecture.md) review focus.)
+**Blockers:** 0
+**Important:** 0
+**Advisory:** 5 — D-1 SKILL.md Design Notes line 209 stale "Amendment Protocol from `spec-execute`" phrasing (Phase 8 body line 181 correctly routes to `spec-amend`); D-2 SKILL.md uses `[important]` tag (Phase 3:83, Phase 7:132/138) without defining semantics that spec §4 Vocabulary defines; D-3 SKILL.md WND-5 "Do not rubber-stamp based on the journal entry alone" lacks explicit §5/§6 carrier in spec; D-4 SKILL.md preamble line 9 "Third in the trilogy with `spec-write` and `spec-execute`" omits spec-design + spec-amend from pairing list (frontmatter line 4 names all four); D-5 design-spec adaptation gap (already routed via §13 OQ-1 leaning (c)).
+**Spec amendments proposed:** One — D-3 amend spec §5.1 Behavior to name the WND-5 rubber-stamp prohibition as an explicit discipline (a single sentence carrying the rule). Route through `/spec-amend`. Severity proportional to a discipline-articulation patch, not an architectural-source citation correction.
+**SKILL.md amendments proposed (post-CP-2 batched):** Three — D-1 amend SKILL.md Design Notes line 209 stale citation to point to `spec-amend`; D-2 amend SKILL.md to define `[important]` semantics inline (Phase 3 or ROLE); D-4 amend SKILL.md preamble line 9 to match frontmatter line 4 pairing list (all four siblings).
+**Next action:** Operator decides whether to apply the four amendments (one spec, three SKILL.md) now or batch with `spec-amend`'s eventual CP-2 outcome. Either way, CP-2 is closed (`pass with comments`). The retroactive-spec adoption arc for `spec-review` is complete pending operator action on amendments; the spec exits "Draft — Open for Review" at post-CP-2 transition per N=1/N=2/N=3/N=4 convention (banner amendment to follow). Cross-spec layer recorded in [batch journal N=5 entry](../20260518-cp2-batch-audit/journal.md).
+
+### Routing summary
+
+| ID | Summary | Routing |
+|---|---|---|
+| D-1 | SKILL.md Design Notes line 209 stale: "Amendment Protocol from `spec-execute`" (Phase 8 body line 181 correctly routes to `spec-amend`); internal SKILL.md inconsistency. CP-1 A3 carry-forward. | (b) amend SKILL.md Design Notes |
+| D-2 | SKILL.md uses `[important]` tag without defining semantics; spec §4 Vocabulary defines as "middle tag between blocker and advisory: not a spec violation but a quality concern serious enough to warrant attention before the next task." CP-1 A2 carry-forward. | (b) amend SKILL.md — operator (c)→(b) override per N=3/N=4 pattern |
+| D-3 | SKILL.md WND-5 "Do not rubber-stamp based on the journal entry alone. The journal is the implementer's claim; the diff is the evidence" lacks explicit §5/§6 carrier; WND-partial-home class 5th data point. | (a) amend spec §5.1 — operator (c)→(a) override per N=3/N=4 pattern |
+| D-4 | SKILL.md preamble line 9 "Third in the trilogy with `spec-write` and `spec-execute`" omits spec-design + spec-amend from pairing list; frontmatter line 4 names all four. Internal SKILL.md preamble-vs-frontmatter inconsistency; preamble-vs-body mirror class 5th data point. | (b) amend SKILL.md preamble |
+| D-5 | Spec §5.2/§5.6 Design-spec adaptation sub-blocks describe improvised mechanics; SKILL.md silent on phase mechanics for design-spec artifacts. | (c) accept — already routed via §13 OQ-1 leaning (c) |
+
+### Verification trail
+
+Per-claim verification walked at audit time:
+
+- **Session-economy §5.4 shape (i) mapping verified.** Read [specs/20260514-session-economy/architecture.md lines 147–164](../20260514-session-economy/architecture.md#L147-L164) directly. §5.4 prescribes exactly two SKILL.md additions: (1) `SPEC_REPO_ROOT` INPUTS entry; (2) Phase 8 "Multi-repo case" paragraph. Both present in SKILL.md ([line 24](../../.agents/skills/spec-review/SKILL.md#L24) and [line 179](../../.agents/skills/spec-review/SKILL.md#L179) respectively). Wording matches verbatim. Zero shape (ii) claims to verify; zero shape (ii) drift possible.
+- **ASPP citation discipline confirmed.** Spec §3 line 51 cites `tech-stack.md §21-33` correctly (heading line for Atomic-Skill Portability Principle). Spec §6 line 269 (Adoptability NFR) cites same. N=1/N=2/N=3/N=4 baseline pattern (correct citation at heading line) holds at N=5.
+- **Section-heading citation discipline confirmed.** All §3 tech-stack.md citations (§21-33, §44, §48, §51) point to heading lines per CP-1 verification trail and re-verification at this audit. N=2/N=3/N=4 corrective holds at N=5.
+- **Amendment-ID citation correctness post-amendment-2026-05-18-3 confirmed.** §5.11 line 259 now reads `[project-constitution-skill Amendment 2026-05-17-1](../20260517-project-constitution-skill/journal.md)` — correct holder. The pre-amendment citation form (strategy-doc holder) has been removed by amendment 2026-05-18-3 commit `7a33abe`. CP-2 verifies no remaining instances of the error class.
+- **Phase 8 protocol verified.** SKILL.md Phase 8 (lines 161–182) carries: (1) spec status line update; (2) journal entry with format template; (3) Multi-repo case paragraph; (4) conditional "if amendments proposed" routing through `spec-amend`; (5) conditional "if pass or pass with comments" next-task statement. Spec §5.8 carries identical "two unconditional + two conditional" structure with same content. Match.
+- **OPs and WND walked.** All six SKILL.md OPs (lines 35–42) have explicit §5/§6 carriers in spec (verified one-by-one). All eight WND items walked; WND-5 alone lacks explicit §5/§6 carrier (D-3).
+- **SKILL.md preamble walked line-by-line against frontmatter description.** Line 4 frontmatter names spec-design, spec-write, spec-execute, spec-amend (four pairings). Line 9 preamble names spec-write, spec-execute (two; omits spec-design and spec-amend; uses stale "trilogy" framing). D-4.
+- **SKILL.md Design Notes walked against Phase body.** Line 209 cites "Amendment Protocol from `spec-execute`" — stale pre-trilogy phrasing. Phase 8 body line 181 cites `spec-amend` skill — current correct routing. D-1.
+- **`[important]` tag usage walked.** Appears in Phase 3 line 83 (tagging vocabulary), Phase 7 line 132 (count slot), Phase 7 line 138 (findings section). No definition in ROLE, OP, or any phase body. D-2.
+
+### Cross-skill pattern observations (queued for closing summary)
+
+Summarized at audit close; full detail in the batch journal N=5 entry.
+
+- **ASPP citation discipline (N=5 confirmation).** Holds.
+- **Session-economy commitment propagation — simplest application validated.** Single shape (i) mapping; zero shape (ii). N=5 is the cleanest two-source application in the quintet so far.
+- **Two-source structure — shape (i) only.** Predecessor (lines 446–663) + sibling design spec (session-economy §5.4); §8 carries both cross-check rows. Pattern for N=6 (spec-amend) is the same simple shape with session-economy §5.3.
+- **Section-heading citation discipline (N=5 confirmation).** Holds.
+- **Amendment-ID citation correctness (N=5 confirmation post-amendment-2026-05-18-3).** Holds — the error introduced at §5.11 was caught at sibling-spec CP-1 (spec-amend), corrected via cross-skill amendment 2026-05-18-3, and verified at CP-2.
+- **"WHAT NOT TO DO partial home" finding class — five data points (D-3).** N=1/N=2/N=3/N=4/N=5 consecutive sessions; pattern stable.
+- **SKILL.md preamble-vs-body mirror class — five data points (D-4).** N=2/N=3/N=4 (×2)/N=5 consecutive sessions; pattern stable. N=5 D-4 introduces a frontmatter-vs-preamble flavor (similar shape).
+- **New finding class: SKILL.md internal stale-citation (D-1).** Design Notes carry pre-trilogy-commit phrasing while Phase body has been updated. First-of-kind for the quintet; worth watching at N=6 — scan spec-amend SKILL.md Design Notes for analogous stale phrasings.
+- **Operator (c)→(a/b) override pattern applied at two findings (D-2, D-3).** Both confirmed via AskUserQuestion; both Recommended (b for D-2, a for D-3) selected. N=3/N=4/N=5 — three consecutive sessions where the pattern is load-bearing.
+- **Status-banner-lifecycle finding class (N=2 D-1) did NOT fire at N=5.** Consistent with N=4 non-fire. Class remains spec-design-specific.
+- **Simplest CP-1 review focus — no re-review cycle at N=5 from CP-1.** Predicted in N=5 journal Pattern-for-N=6 #6 ("single-mapping audit case is the simplest CP-1 review focus"). One [important] (citation error in §5.10) was amendment-2026-05-18-2'd without triggering re-review.
+
+### Pattern observation for N=6 (carried forward to batch journal closing summary)
+
+- Spec-amend's session-economy contribution is also a single subsection ([session-economy §5.3](../20260514-session-economy/architecture.md)) — expect the same simple shape (i) mapping at N=6.
+- Spec-amend has no predecessor doc — N=6 will be the first quintet retroactive spec with zero "Inspirational" predecessor source; §3 Background will note the absence explicitly.
+- The new D-1 finding class (Design Notes stale-citation) is worth elevating to a first-class CP-2 audit step at N=6: walk Design Notes section against Phase body for stale pre-trilogy phrasing.
+
