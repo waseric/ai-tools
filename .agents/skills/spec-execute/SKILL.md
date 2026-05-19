@@ -6,7 +6,7 @@ description: Execute against an existing feature spec, advancing one task at a t
 
 # Spec Execute
 
-In-session execution against an existing spec. Pairs with `spec-write` (authors the spec) and `spec-review` (reviews checkpoint deliverables). Keeps the spec as the source of truth, prevents silent deviation, and survives end-of-session context decay by doing frequent small closeouts at task boundaries instead of one large one at session end.
+In-session execution against an existing spec. Pairs with `spec-write` (authors the spec), `spec-review` (reviews checkpoint deliverables), and `spec-amend` (applies spec changes when execution reveals drift). Keeps the spec as the source of truth, prevents silent deviation, and survives end-of-session context decay by doing frequent small closeouts at task boundaries instead of one large one at session end.
 
 ## How this skill works
 
