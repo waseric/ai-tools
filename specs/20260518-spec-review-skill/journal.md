@@ -515,3 +515,52 @@ This /spec-amend session bundled four amendments (one spec edit, three SKILL.md 
 
 The operator's invocation framed the four amendments as preceding a banner exit from `Draft — Open for Review` ("per N=1/N=2/N=3/N=4 convention"). N=4's CP-2 re-verification journal explicitly recorded the inverse precedent (*"§1 banner stays at `Draft — Open for Review`. The spec lifecycle has no defined successor state to advance to"*). The /spec-amend skill's discipline of surfacing status implications explicitly (per [feedback-spec-amend-status-implication memory](file:///Users/eric/.claude/projects/-Users-eric-scm-github-waseric-ai-tools/memory/feedback-spec-amend-status-implication.md), recorded 2026-05-17) caught the divergence at Phase 1; the operator confirmed via AskUserQuestion that the banner stays at Draft. **Pattern for N=6:** the feedback-memory-driven Phase 1 surfacing discipline is load-bearing — without it, the original framing would have produced a silent banner advancement contrary to N=1–N=4 precedent. Worth carrying forward to spec-amend's eventual amendment cycle.
 
+## 2026-05-18 — CP-2 re-verification (post-amendment)
+
+Brief post-amendment re-audit of the (a)-route §5.1 carrier sentence and the three (b)-route SKILL.md sites, per the N=4 CP-2 audit step-2 conditional adapted to N=5 ([batch journal](../20260518-cp2-batch-audit/journal.md) cross-spec norm: short journal entry, not full /spec-review). Confirms all four routed amendments closed. CP-2 §9 Status line updated to "Checkpoint closed." Banner held at `Draft — Open for Review` per N=1/N=2/N=3/N=4 precedent (no defined successor state; matches the [N=4 CP-2 re-verification framing](../20260518-spec-execute-skill/journal.md): *"§1 banner stays at `Draft — Open for Review`. The spec lifecycle has no defined successor state to advance to … A defined post-Draft state would be a methodology-level decision, not a per-spec one"*).
+
+### Re-verification walk
+
+| Divergence | Routing | Verification | Status |
+|---|---|---|---|
+| D-1 (SKILL.md Design Notes stale "Amendment Protocol from `spec-execute`") | (b) amend SKILL.md | [SKILL.md line 209](../../.agents/skills/spec-review/SKILL.md#L209) now reads "Resolution goes through the `spec-amend` skill, not through silent acceptance." Phase 8 body line 181 unchanged. Frontmatter line 4 unchanged. Internal consistency restored. | Closed via [amendment 2026-05-18-5](#L406) commit `2949906`. |
+| D-2 (SKILL.md uses `[important]` tag without defining semantics) | (b) amend SKILL.md | [SKILL.md OP §3 (line 39)](../../.agents/skills/spec-review/SKILL.md#L39) now defines `[important]` as middle tag with the spec §4 Vocabulary's load-bearing clause carried verbatim. Phase 3 line 83 / Phase 7 lines 132, 138 usages unchanged — they already reference the tag; the definition now lives in OP §3. | Closed via [amendment 2026-05-18-6](#L438) commit `bbdf95f`. |
+| D-3 (SKILL.md WND-5 rubber-stamp prohibition lacks §5/§6 carrier) | (a) amend spec §5.1 | [architecture.md §5.1 Behavior sub-block (line 113)](./architecture.md#L113) now carries: *"The journal is read as the implementer's claim, not as verified evidence; verification is against the diff itself, never the journal narrative alone."* SKILL.md WND-5 unchanged. Carrier discipline restored. | Closed via [amendment 2026-05-18-4](#L376) commit `3bbc45d`. |
+| D-4 (SKILL.md preamble "Third in the trilogy" omits spec-design + spec-amend) | (b) amend SKILL.md | [SKILL.md preamble line 9](../../.agents/skills/spec-review/SKILL.md#L9) now reads: *"Pairs with `spec-design` and `spec-write` (which declare checkpoints), `spec-execute` (which produces the work being reviewed), and `spec-amend` (which applies spec changes when the review surfaces them)."* Matches frontmatter line 4 verbatim. Preamble-vs-frontmatter consistency restored. | Closed via [amendment 2026-05-18-7](#L475) commit `313874f`. |
+| D-5 (design-spec adaptation gap) | (c) accept | Already routed via §13 OQ-1 leaning (c) — design-spec adaptation noted in §5.2 / §5.6; SKILL.md silent; watch items capture revisit conditions. No artifact change required. | Closed (accepted) — no amendment. |
+
+### Cross-spec consistency — no regressions
+
+Verified that the four amendments produced no new drift against the [session-economy spec §5.4](../20260514-session-economy/architecture.md) (shape (i) §5-enumerated mapping for SPEC_REPO_ROOT + Phase 8 multi-repo paragraph). None of the four amendments touched §5.8 Phase 8 Update Artifacts or the SPEC_REPO_ROOT INPUTS contract; the cross-spec mapping holds unchanged.
+
+Verified that the spec §4 Vocabulary entry for `[important]` and SKILL.md OP §3's new definition agree on the load-bearing clause ("middle tag between blocker and advisory: not a spec violation but a quality concern serious enough to warrant attention before the next task"). The SKILL.md addition extends with an operational phrasing distinction ("you should fix this before moving on" vs. "I'd have done it differently") that does not commit beyond the spec; if a future audit treats the extension as additional commitment, route to a fresh amendment.
+
+### Exit criteria status (CP-2 — final)
+
+- **Divergence list produced:** met (five divergences D-1 through D-5 in [CP-2 audit journal entry](#L304)).
+- **Routing decisions recorded:** met (one (a), three (b), one (c); operator-confirmed via AskUserQuestion at audit close).
+- **No silent edits:** met (all four amendments routed through /spec-amend with structured Phase 2 records + operator approval; D-5 routed (c) with rationale).
+- **Outcome recorded as closing entry of retroactive-spec adoption:** met (this re-verification entry + the §9 Status line update + the four amendment entries above).
+
+### Outcome
+
+**Checkpoint closed.** All four routed amendments verified at re-audit. D-5 closed (accepted) without artifact change. The retroactive-spec adoption arc for `spec-review` is complete. N=6 (spec-amend CP-2) is the only remaining batch step before the [batch journal](../20260518-cp2-batch-audit/journal.md) closing summary.
+
+### Status implication
+
+§1 banner stays at `Draft — Open for Review`. The spec lifecycle has no defined successor state to advance to (matches [N=1](../20260517-project-constitution-skill/architecture.md#L3), [N=2](../20260518-spec-design-skill/architecture.md#L3), [N=3](../20260518-spec-write-skill/architecture.md#L3), and [N=4](../20260518-spec-execute-skill/architecture.md#L3) precedent — all sit at `Draft — Open for Review` post-CP-2 closure). The §9 CP-2 Status line plus this re-verification entry carry the closure record. A defined post-Draft state remains a methodology-level open question, not a per-spec decision; the gap is surfaced here for cross-session continuity but not resolved.
+
+### Pattern observation at re-verification close
+
+The CP-2 closeout shape matches N=4 (commit `48b701f`) exactly: §9 Status line updated to list all routed amendment IDs + "Checkpoint closed", brief re-verification journal entry (this entry) with per-divergence Closed status, banner held at Draft with explicit precedent citation. **Pattern for N=6:** the closeout shape is stable from N=4 onward. Spec-amend's CP-2 closeout should reuse the same template with its own amendment-ID list. The banner-stays-at-Draft framing is now N=1/N=2/N=3/N=4/N=5 consecutive precedent — five data points are sufficient to treat the "no defined successor state" disposition as the methodology default until a future explicit decision changes it.
+
+### Pattern observation for N=6 (carried forward to batch journal closing summary)
+
+- Spec-amend's CP-2 closeout reuses this template: per-divergence Closed table, cross-spec no-regressions check (session-economy §5.3 for spec-amend), exit-criteria-status, "Checkpoint closed", banner-held-at-Draft framing.
+- N=5 single-bundle /spec-amend invocation precedent (one (a)-route + three (b)-route amendments) generalizes to "bundling acceptable when (a) count is small"; N=4 two-invocation split precedent applies when (a) count is ≥2.
+- The Phase 1 status-implication surfacing discipline ([feedback-spec-amend-status-implication](file:///Users/eric/.claude/projects/-Users-eric-scm-github-waseric-ai-tools/memory/feedback-spec-amend-status-implication.md)) is load-bearing and should be re-applied at N=6 even when the answer feels obvious — the surfacing is the point.
+
+### Next action
+
+Resume batch audit at N=6 (`spec-amend` retroactive spec CP-2) per the [batch journal](../20260518-cp2-batch-audit/journal.md) ordering. Closing summary follows N=6 CP-2 closure.
+
