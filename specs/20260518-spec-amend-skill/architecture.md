@@ -303,6 +303,8 @@ After step 3, this spec moves out of `Draft — Open for Review` to its post-CP-
 - Outcome recorded in this spec's journal as the closing entry of the retroactive-spec adoption.
 - The cross-skill drift patterns are explicitly audited as a CP-2-only check (single-spec CP-2s cannot see them); the final retroactive-spec batch is the only moment this audit is performed.
 
+**Status:** pass with comments on 2026-05-18 by Claude (AI assistant) on behalf of Eric Wasgatt — three divergences (D-1 through D-3) all advisory: D-1 (a) amend spec §6 to home WND-8 propose/apply separation; D-2 (b) amend SKILL.md preamble line 15 to name all four siblings; D-3 (a) amend spec §4 to land OUTPUT FORMAT phase-manifestation enumeration. Routings confirmed via AskUserQuestion at audit close per N=3/N=4/N=5 operator (c)→(a/b) override pattern (Recommended options selected for all three). See [journal](./journal.md) "Review of CP-2" entry and [batch journal N=6 entry](../20260518-cp2-batch-audit/journal.md) of same date. Amendments 2026-05-18-4 (D-1 → spec §6), 2026-05-18-5 (D-3 → spec §4), and 2026-05-18-6 (D-2 → SKILL.md preamble) to follow in this session. Banner held at `Draft — Open for Review` pending the brief re-verification commit closing all three; checkpoint will be marked closed at that point per N=1/N=2/N=3/N=4/N=5 precedent.
+
 ## 10. Risks and Mitigations
 
 | Risk | Likelihood | Impact | Mitigation | Owner |
