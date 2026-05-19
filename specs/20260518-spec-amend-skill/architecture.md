@@ -80,6 +80,8 @@ A single amendment session produces three durable artifacts:
 
 When `SPEC_REPO_ROOT` is set, all three artifacts land in the spec repo, paired with whatever code-side state prompted the amendment.
 
+The three artifacts map onto the six phases by output form: **Phases 1–3 are conversational** (Orient produces the Orientation Report; Draft produces the structured amendment record presented to the approver; Approval produces an explicit yes/revisions/no/reclassify response). **Phase 4 produces an Edit to the spec and a commit** (artifact 2 above lands here). **Phase 5 produces an Edit to the journal** (artifact 3 above, with the structured amendment record from Phase 2 pasted into the "Full record" sub-block — artifact 1 lands here). **Phase 6 is conversational, with explicit names for downstream actors** (implementer / reviewer / next session / re-approver). The mapping makes the per-phase work shape predictable for both the agent executing the skill and the operator reviewing its outputs.
+
 ### Vocabulary (defined here, used consistently below)
 
 - **Amendment** — a change to a Draft-or-later spec, *after* it has been committed or shared. The unit this skill produces and records. Goes through all six phases.
