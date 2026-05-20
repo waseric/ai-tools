@@ -549,3 +549,133 @@ See [specs/20260518-cp2-batch-audit/journal.md](../20260518-cp2-batch-audit/jour
 ### Self-referential observation — second amendment to spec-amend's own spec, second precedent reuse
 
 This is the **second observed amendment to spec-amend's own architecture.md banner** (first was no amendment to the banner; this is the first edit to it). Per §11 Adoption Path, "amendments to the amendment skill operate under the skill's *current* (pre-amendment) workflow, applied to the proposed *next* (post-amendment) state." The skill's current workflow drove this amendment unchanged (Phase 1 Orient via convention-mining + commit-date checks; Phase 2 Draft via structured-amendment-record block + three AskUserQuestion confirmations; Phase 3 Approval via explicit operator "approved as drafted"; Phase 4 Apply via single-line edits across six architecture.md files + commit `e18de97`; Phase 5 Journal via cross-skill anchor + six companions; Phase 6 Downstream Handoff = W-1 codification trigger satisfied, methodology lifecycle vocabulary unified). **No self-referential workflow friction observed.** §10 risk row "Self-referential amendment paradox" is now anchored to two worked examples: amendment 2026-05-18-6 (SKILL.md preamble correction, [commit `b6fb958`](#L548)) and amendment 2026-05-19-1 (banner advancement, this entry).
+
+## 2026-05-20 — Amendment 2026-05-19-2
+
+**Section amended:** [.agents/skills/spec-amend/SKILL.md](../../.agents/skills/spec-amend/SKILL.md) — new top-level §"CROSS-SKILL CASE" inserted between PHASE 6 — DOWNSTREAM HANDOFF and OUTPUT FORMAT. Three cross-reference follow-up edits ride under the same amendment ID: [docs/retroactive-spec-pattern.md §W-1 "Current state"](../../docs/retroactive-spec-pattern.md); [docs/retroactive-spec-pattern.md §"Cross-skill amendment mechanics" closing paragraph](../../docs/retroactive-spec-pattern.md); [specs/20260518-cp2-batch-audit/journal.md §"Codification candidate 2" closing sentence](../20260518-cp2-batch-audit/journal.md).
+**Trigger:** W-1's "second cycle" codification trigger fired with [amendment 2026-05-19-1](../20260518-cp2-batch-audit/journal.md#L281) (methodology-level post-CP-2 banner advancement; six specs in scope). Two cycles now observed across two distinct trigger classes (per-spec CP-1 finding at 2026-05-18-3; methodology-level decision at 2026-05-19-1). [Pattern doc §W-1](../../docs/retroactive-spec-pattern.md) and [batch journal "Codification candidate 2"](../20260518-cp2-batch-audit/journal.md#L245) both prescribed this SKILL.md as the codification target.
+**Reason:** Codify the four-step mechanics and the primary-record-vs-companion refinement now that two-cycle evidence is in hand; keep the pattern doc + batch journal internally consistent post-codification via three stale-line follow-ups.
+**Impact summary:** No tasks; no checkpoints re-opened; no completed work invalidated. Three cross-reference follow-up edits applied under the same amendment ID per Phase 4. §10 risk row "Self-referential amendment paradox" now anchored to three worked examples (2026-05-18-6 / 2026-05-19-1 / 2026-05-19-2).
+**Approver:** Eric Wasgatt
+**Approved on:** 2026-05-20
+**Status implication:** **kept** (SKILL.md has no Status banner). Third self-referential amendment under the §11 staged-bootstrap pattern. Surfaced explicitly per the [feedback-spec-amend-status-implication memory](file:///Users/eric/.claude/projects/-Users-eric-scm-github-waseric-ai-tools/memory/feedback-spec-amend-status-implication.md) — the SKILL.md-has-no-banner answer is the obvious one and was surfaced anyway at Phase 2 alongside placement and scope confirmations; operator confirmed.
+**Commit:** `e700eea` (SKILL.md primary edit + 3 cross-reference follow-ups); journal commit backfilled below.
+
+### Full record
+
+## Amendment 2026-05-19-2 — .agents/skills/spec-amend/SKILL.md §"Cross-skill case" (new top-level section) + 3 cross-reference follow-ups
+
+**Trigger.** W-1's "second cycle" codification trigger fired with [amendment 2026-05-19-1](../20260518-cp2-batch-audit/journal.md#L281) (methodology-level post-CP-2 banner advancement, 2026-05-19, six specs in scope). Two cycles now observed across two distinct trigger classes — per-spec CP-1 finding (2026-05-18-3, two specs) and methodology-level decision (2026-05-19-1, six specs). The [pattern doc §W-1 Codification trigger](../../docs/retroactive-spec-pattern.md) explicitly names this SKILL.md and prescribes the four-step mechanics + standalone section. The [batch journal "Codification candidate 2"](../20260518-cp2-batch-audit/journal.md#L245) names this SKILL.md as the codification target.
+
+**Section.** Primary edit: new top-level §"CROSS-SKILL CASE" added to [.agents/skills/spec-amend/SKILL.md](../../.agents/skills/spec-amend/SKILL.md) between PHASE 6 — DOWNSTREAM HANDOFF and OUTPUT FORMAT. Three cross-reference follow-up edits ride along under the same amendment ID:
+
+1. [docs/retroactive-spec-pattern.md](../../docs/retroactive-spec-pattern.md) — §W-1 "Current state" line.
+2. [docs/retroactive-spec-pattern.md](../../docs/retroactive-spec-pattern.md) — §"Cross-skill amendment mechanics" closing paragraph.
+3. [specs/20260518-cp2-batch-audit/journal.md](../20260518-cp2-batch-audit/journal.md) — §"Codification candidate 2" closing sentence.
+
+**Change.**
+
+### Change 1 — SKILL.md (primary): new §"CROSS-SKILL CASE" inserted between PHASE 6 and OUTPUT FORMAT
+
+Before (PHASE 6 → OUTPUT FORMAT transition):
+
+> ```
+> - **If the spec status reverted to Draft:** state who must re-approve and by when.
+>
+> # OUTPUT FORMAT
+> ```
+
+After (new section inserted between):
+
+> ```
+> - **If the spec status reverted to Draft:** state who must re-approve and by when.
+>
+> # CROSS-SKILL CASE
+>
+> When a single finding affects more than one spec — a citation that recurs across siblings, a methodology-level decision that touches every spec in a related set, a lineage error inherited from an upstream source — the amendment applies as a single coherent change across all affected artifacts under a single amendment ID. The case is a specialization of the six-phase workflow, not a replacement: Phases 1–3 run normally on the trigger artifact; Phases 4–5 apply the four-step mechanics below across every affected artifact.
+>
+> ## Four-step mechanics
+>
+> 1. **Surface.** Name where the finding originated — per-spec CP-1 verdict, batch synthesis, methodology-level open question, sibling-spec drift audit — in the structured Phase 2 Trigger field. The origin determines the primary record location (step 3).
+>
+> 2. **Trace upstream.** Identify every artifact affected by the same finding before drafting. Sibling specs sharing a citation, journals carrying the same stale claim, design specs sharing a lifecycle commitment — the traced set defines the scope of the amendment. Do not split into per-artifact amendments; do not narrow to the trigger artifact alone.
+>
+> 3. **Apply as single amendment ID.** One amendment ID (`YYYY-MM-DD-N`) spans every affected artifact. The shape is two functional commits: one spec-edit commit covering all `SPEC_PATH`-side edits across the affected set; one journal commit covering all journal entries (primary + companions). Both commits cite the amendment ID. The journal-commit SHA is backfilled into each amendment entry's `**Commit:**` field after the journal commit lands, per the standard backfill convention; the backfill is a small follow-up commit, not a third functional change.
+>
+> 4. **Verify at every endpoint.** Each affected artifact's verification record is cited explicitly in the Impact block — grep post-edit confirming the change applied, an audit closure verifying drift is closed at that endpoint, or equivalent check. Verification is per-endpoint; one passing endpoint does not stand in for the others.
+>
+> ## Primary record vs. companion records
+>
+> The structured Phase 2 amendment block lives at the cycle's natural anchor:
+>
+> - **Per-spec finding trigger** (CP-1, CP-2, in-flight authoring discovery) → the originating spec's journal holds the primary. Sibling specs' journals carry companion entries that reference the primary by amendment ID.
+> - **Methodology-level decision trigger** (batch synthesis, cross-spec lifecycle decision) → the methodology-level journal (e.g., a batch audit journal) holds the primary. Each affected spec's journal carries a companion entry that references the primary by amendment ID.
+>
+> Companion records summarize impact for their own spec and link to the primary; they do not duplicate the structured Phase 2 block. This preserves a single source of truth — readers reach the full record through one canonical entry rather than reconciling N parallel records.
+>
+> ## When the case does not apply
+>
+> - **Single-artifact amendments**, including those touching multiple sections within the same spec. Phase 4's "each follow-up is part of the same amendment" rule already covers within-spec coherence; the cross-skill case adds nothing.
+> - **Cross-reference maintenance follow-ups** — edits to other files that simply update stale lines pointing at the amended artifact. These ride under the same amendment ID per Phase 4, but the four-step mechanics do not apply (no "trace upstream," no "verify at every endpoint"); the follow-ups are bookkeeping, not parallel amendments.
+> - **Self-referential amendments to this skill.** Self-referential amendments hold their primary record in the affected skill's own retroactive-spec journal regardless of trigger origin; the skill's retroactive-spec adoption-path documents the staged-bootstrap pattern that governs the rest.
+>
+> # OUTPUT FORMAT
+> ```
+
+### Change 2 — docs/retroactive-spec-pattern.md §W-1 "Current state" line
+
+Before:
+
+> **Current state.** One cycle observed; held in [spec-amend §13 OQ-4](../specs/20260518-spec-amend-skill/architecture.md) as the first observation.
+
+After:
+
+> **Current state.** Two cycles observed (amendments [2026-05-18-3](../specs/20260518-spec-review-skill/journal.md) and [2026-05-19-1](../specs/20260518-cp2-batch-audit/journal.md)); codification trigger satisfied and applied on 2026-05-20 — see [.agents/skills/spec-amend/SKILL.md §"Cross-skill case"](../.agents/skills/spec-amend/SKILL.md) (amendment 2026-05-19-2).
+
+### Change 3 — docs/retroactive-spec-pattern.md §"Cross-skill amendment mechanics" closing paragraph
+
+Before:
+
+> The mechanics worked, but the convention is not yet codified anywhere in [.agents/skills/spec-amend/SKILL.md](../.agents/skills/spec-amend/SKILL.md). The single observed cycle anchors a watch item (W-1 below) rather than triggering immediate codification.
+
+After:
+
+> The mechanics worked at the first cycle and again at [amendment 2026-05-19-1](../specs/20260518-cp2-batch-audit/journal.md) (methodology-level decision trigger, six specs in scope). Two cycles across distinct trigger classes satisfied W-1; the convention is codified at [.agents/skills/spec-amend/SKILL.md §"Cross-skill case"](../.agents/skills/spec-amend/SKILL.md) under amendment 2026-05-19-2.
+
+### Change 4 — specs/20260518-cp2-batch-audit/journal.md §"Codification candidate 2" closing sentence
+
+Before:
+
+> **Recommendation: hold codification until a second cycle is observed**; the 2026-05-18-3 cycle stays in [spec-amend §13](../20260518-spec-amend-skill/architecture.md) as the first observation against the OQ-4 watch item.
+
+After:
+
+> **Status update 2026-05-20: codification applied.** Amendment 2026-05-19-1 provided the second cycle (six-spec methodology-level decision); codification landed at [.agents/skills/spec-amend/SKILL.md §"Cross-skill case"](../../.agents/skills/spec-amend/SKILL.md) under amendment 2026-05-19-2.
+
+**Reason.** Two cross-skill amendment cycles have now been observed across two distinct trigger classes (per-spec finding at 2026-05-18-3; methodology-level decision at 2026-05-19-1). W-1's codification trigger and batch journal "Codification candidate 2" both prescribed adding a §"Cross-skill case" section to this SKILL.md once the second-cycle condition fired. The codification preserves the four-step mechanics, the primary-record-vs-companion refinement that emerged at cycle 2, and the explicit "when not applicable" boundary (including the cross-reference maintenance carve-out the current amendment itself relies on). The three cross-reference follow-up edits keep the pattern doc and the batch journal internally consistent post-codification; without them, two documents would carry stale "single observed cycle" / "hold codification" claims contradicted by the new SKILL.md section.
+
+**Impact.**
+- **Affected tasks:** none (SKILL.md is procedural; no atomic tasks).
+- **Affected checkpoints:** none re-opened. spec-amend's CP-2 closed 2026-05-19; this is post-CP-2 codification work, not a re-audit. No retroactive-spec checkpoints are gated on the codification.
+- **Completed work invalidated:** none. The codification is additive (new section) and the three follow-up edits replace stale lines with accurate ones; no prior journal entry, amendment record, or audit verdict is invalidated.
+- **Cross-references requiring follow-up:** Three, all included in this amendment under the same ID per Phase 4's "each follow-up is part of the same amendment" rule (Changes 2/3/4 above).
+- **§10 risk row update (journal-only observation, no spec edit):** the [spec-amend retroactive-spec §10 "Self-referential amendment paradox" risk row](./architecture.md) now has three worked examples (2026-05-18-6 preamble correction; 2026-05-19-1 banner advancement; 2026-05-19-2 §"Cross-skill case" codification — this amendment). Recorded here, not as a spec edit, since the §10 wording already accommodates N worked examples.
+
+**Status implication.** **Kept** (SKILL.md has no Status banner). Self-referential amendment to the spec-amend skill itself — third such amendment after 2026-05-18-6 (preamble correction) and 2026-05-19-1 (architecture.md banner advancement). Per the §11 staged-bootstrap pattern, the skill's current (pre-amendment) workflow applies the amendment to produce the next (post-amendment) state. The change is additive and procedural; the skill's six-phase workflow is unchanged. No re-approval cycle needed. Surfaced explicitly per the [feedback-spec-amend-status-implication memory](file:///Users/eric/.claude/projects/-Users-eric-scm-github-waseric-ai-tools/memory/feedback-spec-amend-status-implication.md): the SKILL.md-has-no-banner answer is the obvious one, and surfaced anyway alongside the placement and scope confirmations.
+
+**Approver.** Eric Wasgatt, 2026-05-20.
+
+### Self-referential observation — third amendment to spec-amend's own surfaces, third precedent reuse
+
+This is the **third self-referential amendment to the spec-amend skill** after [2026-05-18-6](#L473) (SKILL.md preamble correction, commit `b6fb958`) and [2026-05-19-1](#L534) (architecture.md banner advancement, commit `e18de97`). Per §11 Adoption Path, "amendments to the amendment skill operate under the skill's *current* (pre-amendment) workflow, applied to the proposed *next* (post-amendment) state." The skill's current (pre-amendment) workflow drove this amendment unchanged across all six phases:
+
+- **Phase 1 Orient** — read SKILL.md current state; read pattern doc §W-1 + §"Cross-skill amendment mechanics"; read batch journal amendment 2026-05-19-1 full record; read prior 2026-05-18-6 precedent.
+- **Phase 2 Draft** — structured-amendment-record block with four Change diffs (one primary + three cross-reference follow-ups); three AskUserQuestion confirmations (placement / scope / status).
+- **Phase 3 Approval** — explicit operator "approved as drafted."
+- **Phase 4 Apply** — Edit tool across four files; single C1 commit `e700eea`.
+- **Phase 5 Journal** — this entry (primary, per the self-referential precedent that primary records for self-referential amendments live in the affected skill's own retroactive-spec journal); no cross-skill anchor entry (the amendment is self-amending, not cross-skill in W-1's sense — three of the four edits are cross-reference maintenance follow-ups, which the §"Cross-skill case" section's "when the case does not apply" subsection explicitly carves out).
+- **Phase 6 Downstream Handoff** — see next entry.
+
+**No self-referential workflow friction observed at the third cycle either.** §10 risk row "Self-referential amendment paradox" is now anchored to three worked examples spanning three different surfaces of the spec-amend skill: SKILL.md preamble (2026-05-18-6), architecture.md banner (2026-05-19-1), SKILL.md procedural body (this amendment). The risk row's mitigation ("staged bootstrap — apply current workflow to produce next workflow") holds across three cycles.
+
+A small meta-observation: this amendment codifies the cross-skill case *and* itself rides on the cross-reference-maintenance carve-out the codification names. The codification's "when the case does not apply" subsection includes "cross-reference maintenance follow-ups — edits to other files that simply update stale lines pointing at the amended artifact" — which exactly describes Changes 2/3/4. The carve-out is load-bearing in the same session that introduces it; the new section's coherence under self-reference is empirically confirmed by the amendment that introduces it.
