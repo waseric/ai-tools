@@ -559,7 +559,7 @@ This is the **second observed amendment to spec-amend's own architecture.md bann
 **Approver:** Eric Wasgatt
 **Approved on:** 2026-05-20
 **Status implication:** **kept** (SKILL.md has no Status banner). Third self-referential amendment under the §11 staged-bootstrap pattern. Surfaced explicitly per the [feedback-spec-amend-status-implication memory](file:///Users/eric/.claude/projects/-Users-eric-scm-github-waseric-ai-tools/memory/feedback-spec-amend-status-implication.md) — the SKILL.md-has-no-banner answer is the obvious one and was surfaced anyway at Phase 2 alongside placement and scope confirmations; operator confirmed.
-**Commit:** `e700eea` (SKILL.md primary edit + 3 cross-reference follow-ups); journal commit backfilled below.
+**Commit:** `e700eea` (SKILL.md primary edit + 3 cross-reference follow-ups); `7abb0ba` (journal entry).
 
 ### Full record
 
