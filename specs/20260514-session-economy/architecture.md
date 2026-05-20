@@ -1,6 +1,6 @@
 # Session Economy and Multi-Repo Disciplines — Architecture and Protocol Specification
 
-> Status: Draft — Open for Review
+> Status: Approved — CP-1 closed 2026-05-20
 > Date: 2026-05-14
 > Author: waseric + Copilot
 > Audience: AI agents executing the spec-driven development skills, human users invoking and reviewing them
@@ -201,6 +201,7 @@ No downstream feature spec is needed — the changes are direct edits to existin
 - **Trigger.** All five skills edited.
 - **Review focus.** Coherence within each skill; no contradictions with existing prose; no excessive length; vocabulary consistency ("paired commit," "token economy," "multi-repo" used consistently).
 - **Exit criteria.** Each skill reads as if the discipline was always part of it — no seam visible.
+- **Status.** pass with comments on 2026-05-20 by Claude (delayed formal closeout). One advisory recorded (Phase 8 rubric near-overlap at .agents/skills/spec-execute/SKILL.md:172,174 — distinct enough to keep). See journal entry of 2026-05-20.
 
 ## 10. Risks and Mitigations
 
