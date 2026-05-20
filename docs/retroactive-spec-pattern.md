@@ -123,7 +123,7 @@ When a CP-2 audit (or a sibling-spec CP-1 audit) surfaces a finding that affects
 | Apply as single amendment ID | Amendment 2026-05-18-3 spanned both `architecture.md` files (commit `7a33abe`) + both journals (commit `c01488a`), with a single amendment ID. |
 | Verify at both endpoints | N=5 §5.11 verified clean at N=5 CP-2 (session 4 of the batch); N=6 §5.9 verified clean at N=6 CP-2 (session 5 of the batch). |
 
-The mechanics worked, but the convention is not yet codified anywhere in [.agents/skills/spec-amend/SKILL.md](../.agents/skills/spec-amend/SKILL.md). The single observed cycle anchors a watch item (W-1 below) rather than triggering immediate codification.
+The mechanics worked at the first cycle and again at [amendment 2026-05-19-1](../specs/20260518-cp2-batch-audit/journal.md) (methodology-level decision trigger, six specs in scope). Two cycles across distinct trigger classes satisfied W-1; the convention is codified at [.agents/skills/spec-amend/SKILL.md §"Cross-skill case"](../.agents/skills/spec-amend/SKILL.md) under amendment 2026-05-19-2.
 
 ## Watch items
 
@@ -135,7 +135,7 @@ These are forward-looking signals named in the [batch CP-2 audit closing summary
 
 **Codification trigger.** Add a §"Cross-skill case" section to [.agents/skills/spec-amend/SKILL.md](../.agents/skills/spec-amend/SKILL.md) prescribing the four-step mechanics (surface → trace upstream → apply as single amendment ID → verify at both endpoints) once a second cycle anchors the convention as load-bearing.
 
-**Current state.** One cycle observed; held in [spec-amend §13 OQ-4](../specs/20260518-spec-amend-skill/architecture.md) as the first observation.
+**Current state.** Two cycles observed (amendments [2026-05-18-3](../specs/20260518-spec-review-skill/journal.md) and [2026-05-19-1](../specs/20260518-cp2-batch-audit/journal.md)); codification trigger satisfied and applied on 2026-05-20 — see [.agents/skills/spec-amend/SKILL.md §"Cross-skill case"](../.agents/skills/spec-amend/SKILL.md) (amendment 2026-05-19-2).
 
 ### W-2 — Authoring-time per-citation walk codification
 

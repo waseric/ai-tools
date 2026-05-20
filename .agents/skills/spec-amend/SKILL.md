@@ -162,6 +162,35 @@ State next actions explicitly:
 - **If the amendment invalidated completed work:** name the work and route to whichever skill handles the redo (usually `spec-execute` re-running a task; sometimes `spec-write` re-decomposing).
 - **If the spec status reverted to Draft:** state who must re-approve and by when.
 
+# CROSS-SKILL CASE
+
+When a single finding affects more than one spec — a citation that recurs across siblings, a methodology-level decision that touches every spec in a related set, a lineage error inherited from an upstream source — the amendment applies as a single coherent change across all affected artifacts under a single amendment ID. The case is a specialization of the six-phase workflow, not a replacement: Phases 1–3 run normally on the trigger artifact; Phases 4–5 apply the four-step mechanics below across every affected artifact.
+
+## Four-step mechanics
+
+1. **Surface.** Name where the finding originated — per-spec CP-1 verdict, batch synthesis, methodology-level open question, sibling-spec drift audit — in the structured Phase 2 Trigger field. The origin determines the primary record location (step 3).
+
+2. **Trace upstream.** Identify every artifact affected by the same finding before drafting. Sibling specs sharing a citation, journals carrying the same stale claim, design specs sharing a lifecycle commitment — the traced set defines the scope of the amendment. Do not split into per-artifact amendments; do not narrow to the trigger artifact alone.
+
+3. **Apply as single amendment ID.** One amendment ID (`YYYY-MM-DD-N`) spans every affected artifact. The shape is two functional commits: one spec-edit commit covering all `SPEC_PATH`-side edits across the affected set; one journal commit covering all journal entries (primary + companions). Both commits cite the amendment ID. The journal-commit SHA is backfilled into each amendment entry's `**Commit:**` field after the journal commit lands, per the standard backfill convention; the backfill is a small follow-up commit, not a third functional change.
+
+4. **Verify at every endpoint.** Each affected artifact's verification record is cited explicitly in the Impact block — grep post-edit confirming the change applied, an audit closure verifying drift is closed at that endpoint, or equivalent check. Verification is per-endpoint; one passing endpoint does not stand in for the others.
+
+## Primary record vs. companion records
+
+The structured Phase 2 amendment block lives at the cycle's natural anchor:
+
+- **Per-spec finding trigger** (CP-1, CP-2, in-flight authoring discovery) → the originating spec's journal holds the primary. Sibling specs' journals carry companion entries that reference the primary by amendment ID.
+- **Methodology-level decision trigger** (batch synthesis, cross-spec lifecycle decision) → the methodology-level journal (e.g., a batch audit journal) holds the primary. Each affected spec's journal carries a companion entry that references the primary by amendment ID.
+
+Companion records summarize impact for their own spec and link to the primary; they do not duplicate the structured Phase 2 block. This preserves a single source of truth — readers reach the full record through one canonical entry rather than reconciling N parallel records.
+
+## When the case does not apply
+
+- **Single-artifact amendments**, including those touching multiple sections within the same spec. Phase 4's "each follow-up is part of the same amendment" rule already covers within-spec coherence; the cross-skill case adds nothing.
+- **Cross-reference maintenance follow-ups** — edits to other files that simply update stale lines pointing at the amended artifact. These ride under the same amendment ID per Phase 4, but the four-step mechanics do not apply (no "trace upstream," no "verify at every endpoint"); the follow-ups are bookkeeping, not parallel amendments.
+- **Self-referential amendments to this skill.** Self-referential amendments hold their primary record in the affected skill's own retroactive-spec journal regardless of trigger origin; the skill's retroactive-spec adoption-path documents the staged-bootstrap pattern that governs the rest.
+
 # OUTPUT FORMAT
 
 - Phases 1–3 are conversational.
