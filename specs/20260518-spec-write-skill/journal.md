@@ -17,7 +17,7 @@ This is the load-bearing addition to the N=3 journal: each callout from the [N=2
 
 | N=2 callout | Outcome at N=3 | Notes |
 |---|---|---|
-| Predecessor-artifact distinction (authoritative for design rationale vs authoritative for current behavior) | **Validated, load-bearing** | This skill's predecessor ([docs/spec-driven-development-prompts-conversation.md](../../docs/spec-driven-development-prompts-conversation.md) lines 17–225) is the **richest predecessor in the quintet** — full prompt artifact + design-notes block (lines 207–225) where the assistant explained design choices (three-phase pause, objectively-verifiable AC, per-task DoD, deployable-state checkpoints, mandatory Out-of-Scope, "we got this design wrong" risk). §3 Background and §14 References explicitly distinguish authoritative-for-design-rationale from authoritative-for-current-behavior. §8 Validation Approach calls out the three commits (`2ef3a98`, `312453c`, `dc331f5`) that account for evolution between predecessor and shipping SKILL.md, so CP-2 reads divergences as evolution rather than drift. The N=2 prediction held exactly: without this distinction, CP-2 would have flagged every recommendation-not-in-SKILL.md as drift. |
+| Predecessor-artifact distinction (authoritative for design rationale vs authoritative for current behavior) | **Validated, load-bearing** | This skill's predecessor ([docs/spec-driven-development-prompts-conversation.md](../../docs/spec-driven-development-prompts-conversation.md) lines 17–225) is the **richest predecessor in the quintet** — full prompt artifact + design-notes block (lines 207–225) where the assistant explained design choices (three-phase pause, objectively-verifiable AC, per-task DoD, deployable-state checkpoints, mandatory Out-of-Scope, "we got this design wrong" risk). §3 Background and §14 References explicitly distinguish authoritative-for-design-rationale from authoritative-for-current-behavior. §8 Validation Approach calls out the three commits (`80000b1`, `5ce4024`, `4ebec0c`) that account for evolution between predecessor and shipping SKILL.md, so CP-2 reads divergences as evolution rather than drift. The N=2 prediction held exactly: without this distinction, CP-2 would have flagged every recommendation-not-in-SKILL.md as drift. |
 | Authoring date, not strategy-doc-anticipated date, for directory slug | **Validated** | Today is 2026-05-18 (same date as N=2's spec). Used `20260518-spec-write-skill/`. Strategy doc was committed 2026-05-17; date refinement honored. |
 | Batched CP-2 trigger (fires when *all five* quintet CP-1s plus project-constitution CP-2 condition holds, not when this single spec's CP-1 passes) | **Validated** | §9 CP-2 declares the batched trigger, with the additional refinement that N=2's CP-1 is now noted as already-passed (pass with comments on 2026-05-18), narrowing the remaining trigger condition to "three sibling quintet CP-1s + project-constitution CP-2." |
 | Off-by-one section-heading citations (from N=2 CP-1 review): cite the heading line, not the body's first line | **Validated, applied** | All §3 citations to `tech-stack.md` use the heading line as the section start: `§21-33` (ASPP heading at line 21), `§44` (constraint heading line), `§48` (conventions heading line), `§51` (spec-driven-development convention heading line). §9 CP-1 review focus explicitly carries this discipline forward as a check item. |
@@ -44,7 +44,7 @@ The explicit table appeared in the session's Phase 1 Discovery Report. Repeated 
 | [specs/20260518-spec-design-skill/architecture.md](../20260518-spec-design-skill/architecture.md) + [journal.md](../20260518-spec-design-skill/journal.md) | Yes — N=2 retroactive-spec source | Closest-sibling structural source. Journal's "Pattern for N=3" callouts validated above. |
 | [specs/20260517-project-constitution-skill/architecture.md](../20260517-project-constitution-skill/architecture.md) + [journal.md](../20260517-project-constitution-skill/journal.md) | Yes — N=1 retroactive-spec source | Original structural source. |
 | [docs/retroactive-spec-strategy.md](../../docs/retroactive-spec-strategy.md) | Read — orientation only | Cited in §3, §11, §12. Not used as a source for §4/§5 architectural commitments. |
-| [specs/20260515-spec-path-convention/architecture.md](../20260515-spec-path-convention/architecture.md) + [feature.md](../20260515-spec-path-convention/feature.md) | Negative signal | Modifies spec-write's OUTPUT FORMAT (commit `dc331f5`) but does not architecturally describe the skill. |
+| [specs/20260515-spec-path-convention/architecture.md](../20260515-spec-path-convention/architecture.md) + [feature.md](../20260515-spec-path-convention/feature.md) | Negative signal | Modifies spec-write's OUTPUT FORMAT (commit `4ebec0c`) but does not architecturally describe the skill. |
 | [specs/20260514-session-economy/architecture.md](../20260514-session-economy/architecture.md) | Negative signal | Mentions spec-write only as a propagation target for session-economy disciplines. |
 | [docs/spec-design-recommendations.md](../../docs/spec-design-recommendations.md) | Negative signal — sibling-skill predecessor, not this skill's | Authoritative for `spec-design`'s rationale, not `spec-write`'s. Tempting to confuse; flagged as negative signal to prevent confabulation. |
 
@@ -182,8 +182,8 @@ No `[blocker]` open questions; the spec is ready for CP-1.
 
 **Reviewer:** Claude (AI assistant) on behalf of Eric Wasgatt
 **Outcome:** pass with comments
-**Verdict commit:** `ec4a195`
-**Diff range:** `c137a5a` (paired commit introducing [architecture.md](./architecture.md) and this journal)
+**Verdict commit:** `d424198`
+**Diff range:** `3cf0fd2` (paired commit introducing [architecture.md](./architecture.md) and this journal)
 **Tasks reviewed:** none (retroactive design spec — no atomic tasks)
 **Blockers:** 0
 **Important:** 0
@@ -195,7 +195,7 @@ No `[blocker]` open questions; the spec is ready for CP-1.
 1. Every commitment in §4/§5/§6 corresponds to behavior present in SKILL.md — **pass with comments** (one advisory on §5.7's authoritative/inspirational claim).
 2. No commitment contradicts the shipping SKILL.md — **pass**.
 3. ASPP correctly characterized as binding (§3, §6) including absent-input behavior (§5.4) — **pass**. Citation to [tech-stack.md §21-33](../tech-stack.md#L21-L33) is on the heading line; N=2 off-by-one carry-forward fully resolved.
-4. Predecessor doc distinguished as authoritative-for-design-rationale-not-current-behavior (§3, §14) — **pass**. The three evolution-explaining commits (`2ef3a98`, `312453c`, `dc331f5`) all verified to have touched [.agents/skills/spec-write/SKILL.md](../../.agents/skills/spec-write/SKILL.md).
+4. Predecessor doc distinguished as authoritative-for-design-rationale-not-current-behavior (§3, §14) — **pass**. The three evolution-explaining commits (`80000b1`, `5ce4024`, `4ebec0c`) all verified to have touched [.agents/skills/spec-write/SKILL.md](../../.agents/skills/spec-write/SKILL.md).
 5. §13 "none surfaced" is honest reporting backed by triage table — **pass**. First exercise of N=3 candidate Pattern-for-N=4 #1; recommend carrying forward to sessions 3 and 4.
 6. Self-contained per Operating Principles — **pass with comments** (advisory on recursive-session framing density for outside readers; carry-forward from N=2).
 7. Section-heading citation discipline — **pass**. All four §3 citations to tech-stack.md (`§21-33`, `§44`, `§48`, `§51`) point to the heading/section-start line.
@@ -286,7 +286,7 @@ The two advisory findings are non-blocking. They may be folded into a future ame
 **Approver:** Eric Wasgatt
 **Approved on:** 2026-05-18
 **Status implication:** kept (`pass with comments` on CP-2 holds; missing-NFR-carrier fill, same shape as N=1 D-4 and N=2 D-4 precedents).
-**Commit:** 6f8dfda
+**Commit:** 8d5409e
 
 ### Full record
 
@@ -328,7 +328,7 @@ After:
 **Approver:** Eric Wasgatt
 **Approved on:** 2026-05-18
 **Status implication:** kept (`pass with comments` on CP-2 holds; SKILL.md edit not spec edit).
-**Commit:** bd30c71
+**Commit:** d3e688a
 
 ### Full record
 
@@ -371,13 +371,13 @@ After:
 **Approver:** Eric Wasgatt
 **Approved on:** 2026-05-18
 **Status implication:** kept (`pass with comments` on CP-2 holds; NFR-row addition matching N=2 D-3 precedent).
-**Commit:** a2aae72
+**Commit:** 16f7d1f
 
 ### Full record
 
 ## Amendment 2026-05-18-3 — specs/20260518-spec-write-skill/architecture.md §6
 
-**Trigger.** During the N=3 CP-2 drift audit of `spec-write` (2026-05-18, Claude as agent reviewer), the auditor surfaced [SKILL.md OUTPUT FORMAT line 189](../../.agents/skills/spec-write/SKILL.md#L189) — "All code blocks must specify a language for syntax highlighting" — as a binding output-format commitment with no §6 NFR carrier. Direct parallel of N=2 D-3 (`spec-design` Markdown hygiene NFR addition, commit `81e2e60`). Same finding shape, same routing.
+**Trigger.** During the N=3 CP-2 drift audit of `spec-write` (2026-05-18, Claude as agent reviewer), the auditor surfaced [SKILL.md OUTPUT FORMAT line 189](../../.agents/skills/spec-write/SKILL.md#L189) — "All code blocks must specify a language for syntax highlighting" — as a binding output-format commitment with no §6 NFR carrier. Direct parallel of N=2 D-3 (`spec-design` Markdown hygiene NFR addition, commit `f2b7b22`). Same finding shape, same routing.
 
 **Section.** [specs/20260518-spec-write-skill/architecture.md §6 Non-functional Requirements](./architecture.md#L239), inserted **between** the Format fidelity row (line 250) and the Pairing row (line 251). The table grows from thirteen rows (after D-1) to fourteen.
 
@@ -413,7 +413,7 @@ After:
 **Approver:** Eric Wasgatt
 **Approved on:** 2026-05-18
 **Status implication:** kept (`pass with comments` on CP-2 holds; single-clause Behavior addition).
-**Commit:** 56301ac
+**Commit:** ccbde36
 
 ### Full record
 
@@ -452,7 +452,7 @@ After:
 **Approver:** Eric Wasgatt
 **Approved on:** 2026-05-18
 **Status implication:** kept (`pass with comments` on CP-2 holds; SKILL.md preamble edit only).
-**Commit:** 581bfc6
+**Commit:** aa2a8ac
 
 ### Full record
 
@@ -507,11 +507,11 @@ Future CP-2 batches in the quintet should expect 3–5 amendments per spec (rang
 **Section amended:** [architecture.md:3](./architecture.md#L3) §1 Status banner
 **Trigger:** First execution of the post-CP-2 banner transition; methodology-level decision defining `Approved — CP-2 closed YYYY-MM-DD` as the post-`Draft — Open for Review` successor state, applied retroactively across N=1..N=6.
 **Reason:** Banner advances from `Draft — Open for Review` to `Approved — CP-2 closed 2026-05-18` per the methodology-level decision recorded in the cross-skill anchor.
-**Impact summary:** No tasks; CP-2 already closed (commit `a6c51ad` 2026-05-18 19:29:23); no completed work invalidated.
+**Impact summary:** No tasks; CP-2 already closed (commit `9731eac` 2026-05-18 19:29:23); no completed work invalidated.
 **Approver:** Eric Wasgatt
 **Approved on:** 2026-05-19
 **Status implication:** **forward advancement** — first instance in the methodology. Draft → Approved.
-**Commit:** `feb7d33` (six architecture.md banner edits); `9c00c4e` (cross-skill anchor + 6 paired companion journal entries).
+**Commit:** `88eda73` (six architecture.md banner edits); `cf50e2e` (cross-skill anchor + 6 paired companion journal entries).
 
 ### Full record
 

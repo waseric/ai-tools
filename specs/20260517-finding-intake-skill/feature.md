@@ -223,7 +223,7 @@ T-04 (below) flips the section so the `/finding-intake` invocation is the primar
 
 ### T-01 — Author `.agents/skills/finding-intake/SKILL.md`
 
-**Status:** done — 2026-05-17 — commit 1e60db9 — see journal entry. SKILL.md written at 149 lines (below §7 soft target of 180–220, within §6 NFR ceiling of ≤220); all 12 §5.1 structural sections present; all 9 INPUTS fields covered; all 4 anti-goals enumerated in WHAT NOT TO DO. The three internal OQs from §13 (auto-commit, captured-by, multi-pointer) were decided at execution time per their leanings — see §13 for the decisions.
+**Status:** done — 2026-05-17 — commit 8e2a146 — see journal entry. SKILL.md written at 149 lines (below §7 soft target of 180–220, within §6 NFR ceiling of ≤220); all 12 §5.1 structural sections present; all 9 INPUTS fields covered; all 4 anti-goals enumerated in WHAT NOT TO DO. The three internal OQs from §13 (auto-commit, captured-by, multi-pointer) were decided at execution time per their leanings — see §13 for the decisions.
 
 **Scope:**
 
@@ -256,7 +256,7 @@ T-04 (below) flips the section so the `/finding-intake` invocation is the primar
 
 ### T-02 — Synthetic validation exercise
 
-**Status:** done — 2026-05-17 — commit d82f43c — see journal entry. Skill invoked in structured-input mode against a fabricated methodology-domain signal. Produced [specs/findings/20260517-test-only-signal-synthetic-fixture/](../findings/20260517-test-only-signal-synthetic-fixture/) matching template structurally; Triage/Investigation/Route sections byte-for-byte identical to template; all six behavioral properties verified (60-second-target plausibility, no triage-phase prompts, persona-frame label correct, placeholder-vs-unknown convention honored, Date-opened == Last-transition, self-contained artifact). **Retain-vs-delete: retain** — see journal entry. Two advisory observations surfaced (template-scaffolding ambiguity in SKILL.md, stop-word list cosmetics); both deferred to post-RC-3a `spec-amend`, neither blocking T-03.
+**Status:** done — 2026-05-17 — commit 4764f42 — see journal entry. Skill invoked in structured-input mode against a fabricated methodology-domain signal. Produced [specs/findings/20260517-test-only-signal-synthetic-fixture/](../findings/20260517-test-only-signal-synthetic-fixture/) matching template structurally; Triage/Investigation/Route sections byte-for-byte identical to template; all six behavioral properties verified (60-second-target plausibility, no triage-phase prompts, persona-frame label correct, placeholder-vs-unknown convention honored, Date-opened == Last-transition, self-contained artifact). **Retain-vs-delete: retain** — see journal entry. Two advisory observations surfaced (template-scaffolding ambiguity in SKILL.md, stop-word list cosmetics); both deferred to post-RC-3a `spec-amend`, neither blocking T-03.
 
 **Scope:**
 
@@ -285,7 +285,7 @@ T-04 (below) flips the section so the `/finding-intake` invocation is the primar
 
 ### T-03 — Real-signal dogfood exercise
 
-**Status:** done — 2026-05-17 — commits 7a856f6 (finding artifact) + this closeout commit — see journal entry. Skill invoked in interactive mode against an operator-supplied real signal: Sandlot Bug Reports forum thread "Easy Survival - Error when placing items in shelves" (LWC plugin "Missing API" error on shelf interaction; Easy world affected, Normal world clean; two reporters). Produced [specs/findings/20260517-easy-survival-shelves-lwc-error/](../findings/20260517-easy-survival-shelves-lwc-error/) at `status: intake`; Triage/Investigation/Route sections byte-for-byte identical to template; 60-second NFR met with comfortable headroom (~30–60s of operator interaction: PDF attach + two confirm round-trips). Pointer-fetch policy refinement surfaced: the existing policy ("attempt fetch if capable") did not anticipate the case "operator pre-supplied a snapshot at session intake." Documented in journal as advisory observation; deferred to post-RC-3a `spec-amend` against SKILL.md Phase 3 step 4.
+**Status:** done — 2026-05-17 — commits 58258e9 (finding artifact) + this closeout commit — see journal entry. Skill invoked in interactive mode against an operator-supplied real signal: Sandlot Bug Reports forum thread "Easy Survival - Error when placing items in shelves" (LWC plugin "Missing API" error on shelf interaction; Easy world affected, Normal world clean; two reporters). Produced [specs/findings/20260517-easy-survival-shelves-lwc-error/](../findings/20260517-easy-survival-shelves-lwc-error/) at `status: intake`; Triage/Investigation/Route sections byte-for-byte identical to template; 60-second NFR met with comfortable headroom (~30–60s of operator interaction: PDF attach + two confirm round-trips). Pointer-fetch policy refinement surfaced: the existing policy ("attempt fetch if capable") did not anticipate the case "operator pre-supplied a snapshot at session intake." Documented in journal as advisory observation; deferred to post-RC-3a `spec-amend` against SKILL.md Phase 3 step 4.
 
 **Scope:**
 
