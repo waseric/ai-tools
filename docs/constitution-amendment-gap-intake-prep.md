@@ -33,13 +33,13 @@ Option (a) was chosen for the cascade work — but with explicit recognition tha
 
 | # | Target | Commit | SHA backfill |
 |---|---|---|---|
-| 1 | `specs/tech-stack.md` | `b515c71` | `55c6df6` |
-| 2 | `specs/20260517-findings-pipeline/architecture.md` | `d8d87d6` | `b5c4f02` |
-| 3 | `specs/20260517-findings-pipeline-schema/feature.md` + templates | `38a4afb` | `7faeb8a` |
-| 4 | `specs/20260517-finding-intake-skill/feature.md` + skill + bundled templates | `651fbd8` | `83bf60b` |
-| 5 | `specs/20260517-finding-triage-skill/feature.md` + skill + bundled templates | `45a81a9` | `19597d5` |
+| 1 | `specs/tech-stack.md` | `c86d2f6` | `6ac15a5` |
+| 2 | `specs/20260517-findings-pipeline/architecture.md` | `3779181` | `e493151` |
+| 3 | `specs/20260517-findings-pipeline-schema/feature.md` + templates | `a3517f6` | `b7070bf` |
+| 4 | `specs/20260517-finding-intake-skill/feature.md` + skill + bundled templates | `c71311f` | `6ede8df` |
+| 5 | `specs/20260517-finding-triage-skill/feature.md` + skill + bundled templates | `73ea104` | `14e5f7e` |
 
-**Routing entry of the originating finding.** Commit `204e96a` — see [specs/findings/20260517-intake-template-folder-dependency/finding.md §Route](../specs/findings/20260517-intake-template-folder-dependency/finding.md) and its journal's `Routed` entry, which explicitly names "Constitution-amendment workflow gap" as the second of two follow-on items (the first being the audit of spec-* skills for principle compliance).
+**Routing entry of the originating finding.** Commit `d0eeebd` — see [specs/findings/20260517-intake-template-folder-dependency/finding.md §Route](../specs/findings/20260517-intake-template-folder-dependency/finding.md) and its journal's `Routed` entry, which explicitly names "Constitution-amendment workflow gap" as the second of two follow-on items (the first being the audit of spec-* skills for principle compliance).
 
 ## What this finding is NOT
 

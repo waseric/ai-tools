@@ -40,7 +40,7 @@ Recorded in [architecture.md §"Phase 1 — Discovery Report"](./architecture.md
 | [specs/20260517-project-constitution-skill/architecture.md](../20260517-project-constitution-skill/architecture.md) + [journal.md](../20260517-project-constitution-skill/journal.md) | Yes — N=1 retroactive-spec source | Structural source. The journal's "Pattern for N=2" callouts are the validation inputs for the table above. |
 | [docs/retroactive-spec-strategy.md](../../docs/retroactive-spec-strategy.md) | Read — orientation only | Cited in §11 Adoption Path and §12 Out of Scope for the CP-2 batch strategy and the N=2-inflection-point pointer, but not used as a source for §4/§5 architectural commitments. |
 | [specs/20260514-session-economy/architecture.md](../20260514-session-economy/architecture.md) | Negative signal | Mentions `spec-design` only as a future modification target. |
-| [specs/20260515-spec-path-convention/architecture.md](../20260515-spec-path-convention/architecture.md) + [feature.md](../20260515-spec-path-convention/feature.md) | Negative signal | Modifies spec-design's OUTPUT FORMAT (commit `6d158fb`) but does not architecturally describe the skill. |
+| [specs/20260515-spec-path-convention/architecture.md](../20260515-spec-path-convention/architecture.md) + [feature.md](../20260515-spec-path-convention/feature.md) | Negative signal | Modifies spec-design's OUTPUT FORMAT (commit `dc331f5`) but does not architecturally describe the skill. |
 | A separate private design repo | Negative signal — out of repo, out of scope | `ai-frontmatter-distributor-architecture.md` lives there. Recommendations doc transmits what is portable. |
 
 ### New "Pattern for N=3" callout — distinguish design-rationale source from current-behavior source
@@ -50,7 +50,7 @@ A skill may have a **predecessor artifact** (recommendations doc, design brief, 
 - **Authoritative for current behavior** — SKILL.md only. CP-1 reviews against this.
 - **Authoritative for design rationale** — predecessor artifact, if it exists. Cited as Inspirational in §14. CP-2 reads divergences between predecessor and SKILL.md as *evolution*, not as drift.
 
-The N=1 retroactive spec did not have a predecessor artifact (project-constitution emerged directly from the trilogy commit `49c15f0` without a written design rationale doc) and so the distinction did not surface. This N=2 spec did have one ([docs/spec-design-recommendations.md](../../docs/spec-design-recommendations.md)) and the distinction was load-bearing — without it, CP-2 would flag every recommendation that didn't land in SKILL.md as drift, when most of those gaps are *deliberate* evolution.
+The N=1 retroactive spec did not have a predecessor artifact (project-constitution emerged directly from the trilogy commit `2ef3a98` without a written design rationale doc) and so the distinction did not surface. This N=2 spec did have one ([docs/spec-design-recommendations.md](../../docs/spec-design-recommendations.md)) and the distinction was load-bearing — without it, CP-2 would flag every recommendation that didn't land in SKILL.md as drift, when most of those gaps are *deliberate* evolution.
 
 **Pattern for N=3.** Each future quintet retroactive spec scans for predecessor artifacts in `docs/` early in Phase 1. Candidate predecessors for the remaining skills (operator may have additional context I lack):
 - `spec-write` — may have predecessor in `docs/` (operator to confirm at session 2).
@@ -157,8 +157,8 @@ No `[blocker]` open questions; the spec is ready for CP-1.
 
 **Reviewer:** Claude (agent reviewer)
 **Outcome:** pass with comments
-**Verdict commit:** `5690671`
-**Diff range:** commit `989fdf3` (specs/20260518-spec-design-skill/{architecture.md, journal.md})
+**Verdict commit:** `9397ce4`
+**Diff range:** commit `bcd030d` (specs/20260518-spec-design-skill/{architecture.md, journal.md})
 **Tasks reviewed:** none — retroactive design spec; CP-1 reviews spec-vs-SKILL.md faithfulness
 **Blockers:** 0
 **Important:** 0
@@ -249,7 +249,7 @@ No `[blocker]` open questions; the spec is ready for CP-1.
 **Approver:** Eric Wasgatt
 **Approved on:** 2026-05-18
 **Status implication:** SKILL.md has no Status banner; frontmatter `lastUpdated` advanced from 2026-05-15 to 2026-05-18.
-**Commit:** e93057b
+**Commit:** 80b76a3
 
 ### Full record
 
@@ -306,7 +306,7 @@ After:
 **Approver:** Eric Wasgatt
 **Approved on:** 2026-05-18
 **Status implication:** SKILL.md has no Status banner; frontmatter `lastUpdated` already at 2026-05-18 from amendment 2026-05-18-1 (same-day); no additional advance. architecture.md spec status remains `Draft — Open for Review`.
-**Commit:** 018df38
+**Commit:** ae56e95
 
 ### Full record
 
@@ -360,7 +360,7 @@ After:
 **Approver:** Eric Wasgatt
 **Approved on:** 2026-05-18
 **Status implication:** kept (`Draft — Open for Review`)
-**Commit:** 4b0b9c8
+**Commit:** 81e2e60
 
 ### Full record
 
@@ -402,7 +402,7 @@ After (new Markdown hygiene row inserted between Format fidelity and Pairing):
 **Approver:** Eric Wasgatt
 **Approved on:** 2026-05-18
 **Status implication:** kept (`Draft — Open for Review`)
-**Commit:** 5d10679
+**Commit:** 6abf442
 
 ### Full record
 
@@ -458,11 +458,11 @@ Future CP-2 batches in the quintet should expect 2–5 amendments per spec (N=1 
 **Section amended:** [architecture.md:3](./architecture.md#L3) §1 Status banner
 **Trigger:** First execution of the post-CP-2 banner transition; methodology-level decision defining `Approved — CP-2 closed YYYY-MM-DD` as the post-`Draft — Open for Review` successor state, applied retroactively across N=1..N=6.
 **Reason:** Banner advances from `Draft — Open for Review` to `Approved — CP-2 closed 2026-05-18` per the methodology-level decision recorded in the cross-skill anchor. spec-design's §5.8 lifecycle declaration (`Draft — Open for Review → Approved → Superseded`) is the methodology vocabulary source for the chosen successor state name.
-**Impact summary:** No tasks; CP-2 already closed (commit `9ed2373` 2026-05-18 12:20:28); no completed work invalidated. §5.8 lifecycle term `Approved` is now load-bearing methodology-wide (six-spec scope) rather than spec-design-internal — observation, not a follow-up edit.
+**Impact summary:** No tasks; CP-2 already closed (commit `fa5a6eb` 2026-05-18 12:20:28); no completed work invalidated. §5.8 lifecycle term `Approved` is now load-bearing methodology-wide (six-spec scope) rather than spec-design-internal — observation, not a follow-up edit.
 **Approver:** Eric Wasgatt
 **Approved on:** 2026-05-19
 **Status implication:** **forward advancement** — first instance in the methodology. Draft → Approved.
-**Commit:** `e18de97` (six architecture.md banner edits); `9adbd72` (cross-skill anchor + 6 paired companion journal entries).
+**Commit:** `feb7d33` (six architecture.md banner edits); `9c00c4e` (cross-skill anchor + 6 paired companion journal entries).
 
 ### Full record
 

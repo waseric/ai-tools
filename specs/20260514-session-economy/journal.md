@@ -3,7 +3,7 @@
 ## 2026-05-14 — Design Spec Authored
 
 **Status:** done
-**Commit:** 3d260dc
+**Commit:** 9e74d22
 **Artifact:** specs/20260514-session-economy/architecture.md
 **Decisions made:**
 - Two disciplines identified: token/session economy (spec-execute Phase 8) and multi-repo paired-commit (spec-execute, spec-amend, spec-review, spec-write, spec-design).
@@ -17,7 +17,7 @@
 ## 2026-05-14 — Implementation: All Skill Edits Applied
 
 **Status:** done
-**Commits:** e483466
+**Commits:** 312453c
 **Files touched:**
 - .agents/skills/spec-execute/SKILL.md (Phase 1 multi-repo detection, Phase 8 token economy)
 - .agents/skills/spec-amend/SKILL.md (INPUTS + Phase 4 + Phase 5 multi-repo)
@@ -53,13 +53,13 @@
 **Reviewer:** Claude (delayed formal closeout on behalf of waseric)
 **Outcome:** pass with comments
 **Tasks reviewed:** §7 Implementation Sequencing Phases 1–3 (no atomic task IDs — design spec)
-**Diff range:** e483466 — five SKILL.md files under .agents/skills/spec-{execute,amend,review,write,design}/
+**Diff range:** 312453c — five SKILL.md files under .agents/skills/spec-{execute,amend,review,write,design}/
 **Blockers:** 0
 **Important:** 0
-**Advisory:** 1 — Phase 8 rubric row at .agents/skills/spec-execute/SKILL.md:174 ("Session has consumed significant context") partially overlaps with the row above it at line 172 ("Session has run long or chewed through significant context"). The token-economy framing is conceptually distinct (resource constraint vs. drift risk), but the rubric rows do not separate them crisply. Self-review at e483466 already flagged this and judged it distinct enough to keep; this review agrees. No action required.
+**Advisory:** 1 — Phase 8 rubric row at .agents/skills/spec-execute/SKILL.md:174 ("Session has consumed significant context") partially overlaps with the row above it at line 172 ("Session has run long or chewed through significant context"). The token-economy framing is conceptually distinct (resource constraint vs. drift risk), but the rubric rows do not separate them crisply. Self-review at 312453c already flagged this and judged it distinct enough to keep; this review agrees. No action required.
 **Spec amendments proposed:** None.
 **Exit criterion verdict:** met. Each skill reads as if the discipline was always part of it — multi-repo prose lands at the natural mechanical points (commit locations, INPUTS), token economy is a peer factor in Phase 8's bullet list, "paired commit" / "multi-repo" / "token economy" are used uniformly across all five files. No visible seams.
 **Next action:**
 - §1 banner advanced from "Draft — Open for Review" to "Approved — CP-1 closed 2026-05-20" per the methodology-wide post-terminal-CP lifecycle decision recorded in amendment 2026-05-19-1 (primary record: specs/20260518-cp2-batch-audit/journal.md). CP-1 is this spec's terminal checkpoint, so the rule applies directly.
 - §9 CP-1 entry annotated with `**Status.**` line per `spec-review` Phase 8.
-- Closeout is a delayed formalization of work that landed at e483466; no new code or skill changes were required to close the checkpoint.
+- Closeout is a delayed formalization of work that landed at 312453c; no new code or skill changes were required to close the checkpoint.

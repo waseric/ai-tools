@@ -24,7 +24,7 @@
 ## 2026-05-15 — T-01: Update path references in spec-lifecycle skills
 
 **Status:** done
-**Commits:** 6d158fb
+**Commits:** dc331f5
 **Files touched:**
 - `.agents/skills/spec-execute/SKILL.md`
 - `.agents/skills/spec-write/SKILL.md`
@@ -37,7 +37,7 @@
 - Journal guidance note added to `spec-write` OUTPUT FORMAT → confirmed: line reads "Create a `journal.md` in the same directory…"
 - Journal guidance note added to `spec-design` OUTPUT FORMAT → confirmed: line reads "Create a `journal.md` in the same directory."
 - `lastUpdated` bumped to `2026-05-15` on all 5 files → confirmed via read.
-- Changes committed → 6d158fb.
+- Changes committed → dc331f5.
 **Decisions made:** None — straight execution per spec.
 **Spec amendments:** None.
 **Surprises and learnings:** None — all replacements were mechanical string substitutions.
@@ -46,7 +46,7 @@
 ## 2026-05-15 — T-02: Update project-constitution skill
 
 **Status:** done
-**Commits:** dc7021f
+**Commits:** 21e04c4
 **Files touched:**
 - `.agents/skills/project-constitution/SKILL.md`
 **Tests added:** N/A (prose-only changes; verified via grep)
@@ -56,7 +56,7 @@
 - Repository layout entry added to tech-stack template → confirmed: "Conventions Outside the Stack" section includes `- **Repository layout** —` bullet.
 - Output paragraph updated → confirmed: reads "live at `specs/`" not "live at the root of `docs/`".
 - `lastUpdated` bumped to `2026-05-15` → confirmed.
-- Changes committed → dc7021f.
+- Changes committed → 21e04c4.
 **Decisions made:** None — straight execution per spec.
 **Spec amendments:** None.
 **Surprises and learnings:** None.
@@ -65,7 +65,7 @@
 ## 2026-05-15 — T-03: Migrate existing spec files and delete todo
 
 **Status:** done
-**Commits:** 163ea11
+**Commits:** e52a261
 **Files touched:**
 - `specs/session-economy-and-multi-repo-disciplines-architecture.md` → `specs/20260514-session-economy/architecture.md`
 - `specs/session-economy-and-multi-repo-disciplines.journal.md` → `specs/20260514-session-economy/journal.md`
@@ -75,7 +75,7 @@
 - `specs/20260514-session-economy/` contains `architecture.md` and `journal.md` → confirmed via `Get-ChildItem`.
 - Old loose files no longer exist → confirmed: not in `specs/` listing.
 - `specs/spec-path-convention.todo.md` deleted → confirmed via `git rm -f`.
-- `git log --follow` traces back to original commit `3d260dc` → confirmed.
+- `git log --follow` traces back to original commit `9e74d22` → confirmed.
 - `specs/` contains only loose constitution files and dated subdirectories → confirmed: `mission.md`, `tech-stack.md`, `roadmap.md`, `20260514-session-economy/`, `20260515-spec-path-convention/`.
 **Decisions made:** Used `git rm -f` for the todo file because it had local modifications (unstaged edits). Safe because the file is superseded by the design spec.
 **Spec amendments:** None.

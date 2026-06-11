@@ -32,7 +32,7 @@
 ## 2026-05-17 — T-01: Apply batched amendment to design spec for 9 RC-1 advisories
 
 **Status:** done
-**Commits:** 8c146ce (amendment applied), d8c3455 (amendment journal entry in design spec)
+**Commits:** bd586e3 (amendment applied), 244da29 (amendment journal entry in design spec)
 **Files touched:**
 - specs/20260517-findings-pipeline/architecture.md (28 insertions, 31 deletions across §4, §5.1, §5.3, §5.5, §5.6, §6, §13, §14)
 - specs/20260517-findings-pipeline/journal.md (148 insertions — full amendment record appended)
@@ -40,9 +40,9 @@
 **Tests added:** N/A — inspection-based per T-01's "Tests required" (re-read each advisory; verify corresponding change present in amended spec).
 
 **DoD verification:**
-- *Amendment applied:* Commit 8c146ce applies all ten edits (sub-changes A–J) covering all nine RC-1 advisories. Inspection confirms each advisory's corresponding section is amended.
-- *Journal entry written:* Commit d8c3455 appends the full amendment record to the design spec's journal at specs/20260517-findings-pipeline/journal.md lines 101–247, preserving before/after diffs per advisory.
-- *Commit message matches required form:* `spec: amendment 2026-05-17-2 — RC-2 schema-pass advisory batch` — verified on commit 8c146ce.
+- *Amendment applied:* Commit bd586e3 applies all ten edits (sub-changes A–J) covering all nine RC-1 advisories. Inspection confirms each advisory's corresponding section is amended.
+- *Journal entry written:* Commit 244da29 appends the full amendment record to the design spec's journal at specs/20260517-findings-pipeline/journal.md lines 101–247, preserving before/after diffs per advisory.
+- *Commit message matches required form:* `spec: amendment 2026-05-17-2 — RC-2 schema-pass advisory batch` — verified on commit bd586e3.
 - *Design spec status unchanged:* `Draft — Open for Review` per amendment's "Status implication: kept" — verified at specs/20260517-findings-pipeline/architecture.md status banner.
 
 **Decisions made:** None new during execution — all nine advisory resolutions were pre-decided at feature-spec authoring time (per the "Per-advisory change summary" in [feature.md §7 T-01](feature.md#L208)). One execution-time refinement: sub-change H absorbed a §6 NFR-table addition (severity-axis decoupling row) as the natural home for OQ-1's converted decision, rather than placing it in §5.3 — the two locations were both proposed at spec time; §6 was selected as more discoverable.
@@ -91,7 +91,7 @@
 ## 2026-05-17 — T-03: Create `specs/findings/_template/finding.md`
 
 **Status:** done
-**Commits:** ab67d3f (deliverable), (this commit, closeout)
+**Commits:** 928f907 (deliverable), (this commit, closeout)
 **Files touched:**
 - specs/findings/_template/finding.md (new file, 65 lines)
 - specs/findings/_template/ (new directory)
@@ -102,7 +102,7 @@
 - *File written:* specs/findings/_template/finding.md created.
 - *Section structure matches design spec §5.1 verbatim:* Header block (Status / Domain / Severity / Operational urgency / Date opened / Last transition) + four phase sections (`## Intake`, `## Triage`, `## Investigation (optional)`, `## Route`) with field lists matching architecture.md:118-164.
 - *Under ~200 lines:* 65 lines (verified via `wc -l`).
-- *Committed:* ab67d3f.
+- *Committed:* 928f907.
 - *Every README field-reference field present:* All 30 fields enumerated in T-02's field reference table appear in the template (verified field-by-field against specs/findings/README.md).
 - *Operational urgency field present per OQ-1 → recorded decision (amendment sub-change H):* Yes, in the header block with `(optional)` marker and clarifying parenthetical "(typically operational findings only)".
 - *Top-of-file HTML comment guides intake-first:* Yes — comment block instructs "Fill the Intake section first; later phases append" and cross-references README + design spec.
@@ -116,14 +116,14 @@
 
 **Surprises and learnings:**
 - The §5.1 template's section heading `## Investigation (optional)` carries the `(optional)` marker as part of the heading itself — preserved verbatim. A new finding that skips investigation should still keep the section with placeholder values rather than delete it, so the finding's structure remains recognizable across reads. Recorded this guidance in the HTML comment.
-- Followed the two-commit pattern (deliverable + closeout) per operator guidance after T-02's bundled commit. The deliverable commit (ab67d3f) lands the file; this closeout commit lands the journal update. Pattern matches prior feature (spec-path-convention).
+- Followed the two-commit pattern (deliverable + closeout) per operator guidance after T-02's bundled commit. The deliverable commit (928f907) lands the file; this closeout commit lands the journal update. Pattern matches prior feature (spec-path-convention).
 
 **Next task pointer:** T-04 — create `specs/findings/_template/journal.md`. Dependency T-02 satisfied (README documents the journaling pattern, and the structural precedent at specs/20260515-spec-path-convention/journal.md is on hand). No `[blocker]` open questions; ready to proceed.
 
 ## 2026-05-17 — T-04: Create `specs/findings/_template/journal.md`
 
 **Status:** done
-**Commits:** 77136e9 (deliverable), (this commit, closeout)
+**Commits:** c2b317b (deliverable), (this commit, closeout)
 **Files touched:**
 - specs/findings/_template/journal.md (new file, 84 lines)
 
@@ -132,7 +132,7 @@
 **DoD verification:**
 - *File written:* specs/findings/_template/journal.md created.
 - *Under ~100 lines:* 84 lines (verified via `wc -l`).
-- *Committed:* 77136e9.
+- *Committed:* c2b317b.
 - *Structure matches feature-spec journal convention:* H1 `# <Short title> — Journal`; per-event `## <YYYY-MM-DD> — <Event>` sections; bolded inline fields. Matches precedent at specs/20260515-spec-path-convention/journal.md.
 - *Placeholders clearly marked:* All values are `<angle-bracket>` placeholders, no plausible example values that could be accidentally left in place.
 - *Documents one-entry-per-status-transition pattern:* Top HTML comment states the rule explicitly with design spec §6 Observability NFR citation. The skeleton entries below the active Intake entry instantiate the pattern.
@@ -154,7 +154,7 @@
 ## 2026-05-17 — T-05: Example-source validation exercise
 
 **Status:** done
-**Commits:** 9113c92 (deliverable), (this commit, closeout)
+**Commits:** 59b54bb (deliverable), (this commit, closeout)
 **Files touched:**
 - specs/findings/20260517-tab-display-issues/finding.md (new file, 62 lines)
 - specs/findings/20260517-tab-display-issues/journal.md (new file, 29 lines)
@@ -164,7 +164,7 @@
 **Source material:** Operator-supplied real-world signal — the Sandlot Minecraft community forum thread "All Servers - Tab Screen" at https://www.sandlotminecraft.com/threads/tab-screen.39849/, started Tuesday 2026-05-12 by NeonLights10927, with confirmations and additional symptoms from five other community members across the week. The thread captures a multi-faceted TAB-display bug with iterative in-band fixes — the kind of operational-domain signal the pipeline is designed to absorb. Stronger fit than the alternative candidates from internal feature-spec journals because it is genuinely external, multi-reporter, and mid-investigation.
 
 **DoD verification:**
-- *Real finding file exists in `specs/findings/`:* specs/findings/20260517-tab-display-issues/finding.md (62 lines) and journal.md (29 lines), both committed at 9113c92.
+- *Real finding file exists in `specs/findings/`:* specs/findings/20260517-tab-display-issues/finding.md (62 lines) and journal.md (29 lines), both committed at 59b54bb.
 - *Validation outcome recorded in this feature spec's journal:* this entry. See "Validation observations" below.
 - *Any schema gaps surfaced as findings or RC-2 amendments before checkpoint close:* No `[blocker]` schema gaps surfaced. Minor friction observations recorded below as journal observations for RC-2 reviewer attention, per T-05's "or as a journal observation for RC-2" allowance.
 - *Acceptance criteria walked:* every section of finding.md populated, with honest `unknown` markers in fields where information was genuinely unknown (most of Investigation; all of Route). State machine accommodated intake → triaged → under-investigation in one session without distortion. No schema-change-requiring shape mismatch.
@@ -201,7 +201,7 @@
 **Reviewer:** waseric (self-review, with Claude as agent reviewer)
 **Outcome:** pass with comments
 **Tasks reviewed:** T-01, T-02, T-03, T-04, T-05
-**Diff range:** `e65ac98..HEAD` (10 commits)
+**Diff range:** `4c6e4a4..HEAD` (10 commits)
 **Blockers:** 0
 **Important:** 1 — README ASCII state diagram ([specs/findings/README.md](../findings/README.md) lines 17-26) depicts an unauthorized `routed → closed` transition that is not in design spec §5.5 (`routed` and `closed` are sibling terminal states, not sequential). Prose-form state machine at [README:36-74](../findings/README.md) is unambiguous and authoritative; the diagram needs cleanup before Phase B `finding-intake-skill` authoring so downstream consumers don't read an internally-inconsistent README.
 **Spec amendments proposed:** None. All findings addressable within existing spec scope.
@@ -228,7 +228,7 @@ All five tasks satisfied scope. T-01 touched §5.3, §5.5, §6 of the design spe
 
 **Focus 3 — Persona-frame fields carry their weight:** **pass**. README persona-frame taxonomy table preserves asymmetry-by-design wording from amendment sub-change F. T-05 example uses persona-frame explicitly in solo-operator-collapse case (`business analyst (with admin/operator overlap)` for triage; `developer (with admin overlap)` for investigation) — direct evidence that the field forces deliberate framing rather than degenerating into a label slot. Severity-axis decoupling (sub-change H NFR row) exercised: `advisory + P3` accurately captures "low methodology severity, real but manageable operational urgency." One advisory: template's `Triaged by` line lists persona-frame options without an explicit operator slot — the T-05 example correctly shows `operator; persona-frame: <...>` and the template could prompt that form.
 
-**Additional focus — batched amendment cleanliness:** **pass**. All 9 RC-1 advisories accounted for in 10 sub-changes (advisory 6 split cleanly into D + H). Cross-reference updates handled (OQ-2..5 → OQ-1..4 renumbering propagated). Spec status correctly kept at `Draft — Open for Review`. RC-1's `[important]` (§5.8 dangling reference) was resolved by prior amendment 2026-05-17-1 (commit c05a405).
+**Additional focus — batched amendment cleanliness:** **pass**. All 9 RC-1 advisories accounted for in 10 sub-changes (advisory 6 split cleanly into D + H). Cross-reference updates handled (OQ-2..5 → OQ-1..4 renumbering propagated). Spec status correctly kept at `Draft — Open for Review`. RC-1's `[important]` (§5.8 dangling reference) was resolved by prior amendment 2026-05-17-1 (commit e206626).
 
 **Additional focus — T-05 schema-gap detection:** **pass with comments**. Seven validation observations recorded; five are `[ok]` (multi-reporter handling; in-band iteration validated by reopened back-transition + "orientation not handoffs"; `unknown` first-class value worked; severity-axis decoupling exercised; multi-transition single-session capture). Two are `[advisory]`: (a) bundling-vs-splitting guidance is a real operator judgment with no template-side prompt — one paragraph in README "Creating a new finding" could fill this; (b) retroactive-intake date semantics — possible future "Signal date" field, deferred until pattern recurs.
 
@@ -238,7 +238,7 @@ All five tasks satisfied scope. T-01 touched §5.3, §5.5, §6 of the design spe
 |---|---|---|
 | Template usable for a real finding without further interpretation | T-05 produced [specs/findings/20260517-tab-display-issues/finding.md](../findings/20260517-tab-display-issues/finding.md) end-to-end from an external real signal | met |
 | State transitions all uniquely defined | [README:36 terminal-status mapping](../findings/README.md) + [README:38-74 per-status semantics](../findings/README.md) — prose form unambiguous; diagram has `[important]` caveat | met (via prose) |
-| T-05 example-source finding successfully populates the template | finding.md (62 lines) + journal.md (29 lines) committed at 9113c92 | met |
+| T-05 example-source finding successfully populates the template | finding.md (62 lines) + journal.md (29 lines) committed at 59b54bb | met |
 | RC-1 advisory list is fully addressed | Amendment 2026-05-17-2 record at [design-spec journal:101-247](../20260517-findings-pipeline/journal.md#L101) | met |
 | No new `[blocker]` findings | Zero blockers in this review | met |
 
@@ -267,8 +267,8 @@ Inspection-based testing per task spec; all task closeout journal entries walk t
 ## 2026-05-17 — RC-2 remediation closeout
 
 **Status:** done
-**Remediation commit:** 71480e9
-**RC-2 verdict commit:** ccce4ce
+**Remediation commit:** ff56a8f
+**RC-2 verdict commit:** 0839fbc
 **Files touched:**
 - specs/findings/README.md (state diagram redrawn; terminal-state persona-frame clarified; bundle-vs-split paragraph added)
 - specs/findings/_template/finding.md (field names aligned with README; placeholder-vs-`unknown` convention formalized in HTML comment)
@@ -278,7 +278,7 @@ Inspection-based testing per task spec; all task closeout journal entries walk t
 
 **Per-finding disposition:**
 
-| RC-2 finding | Class | Disposition | Where in 71480e9 |
+| RC-2 finding | Class | Disposition | Where in ff56a8f |
 |---|---|---|---|
 | Unauthorized `routed → closed` transition in ASCII state diagram | important | fixed — diagram redrawn with `routed`/`closed` as visibly parallel terminals; authoritative valid-transitions list added below the diagram | [README.md:16-48](../findings/README.md#L16) |
 | Field-name asymmetry README ↔ template | advisory | fixed — template now uses `Triage date`/`Triage notes`/`Investigation date`/`Route decision`/`Route date`/`Route rationale` matching the README field-reference | [_template/finding.md:38-65](../findings/_template/finding.md) |
@@ -303,15 +303,15 @@ Inspection-based testing per task spec; all task closeout journal entries walk t
 - The placeholder-vs-`unknown` distinction (Adv-2) is more load-bearing than it looked at first — it changes what a reader concludes from a finding's incomplete sections. With placeholders, "the work hasn't been done yet"; with `unknown`, "the work was done and produced no answer." Conflating them would have made findings harder to triage at scale. Worth promoting from convention-in-a-comment to a documented norm in the README's "Status semantics" if the methodology grows.
 - The T-05 example's role straddles two purposes: validation-of-the-templates (its original purpose), and living-reference-for-future-consumers (an emergent purpose). RC-2 surfaced this tension implicitly: a one-shot validation artifact wouldn't need updating, but a living reference does. The methodology's existing "feature spec journals are append-only" discipline doesn't transfer cleanly to schema-deliverable example artifacts; this case sets a small precedent that example artifacts may be revised when the schema they exemplify is revised, with the revision journaled.
 
-**Feature spec status:** complete. All five tasks (T-01 through T-05) done; RC-2 verdict pass-with-comments committed at ccce4ce; remediation committed at 71480e9; all findings dispositioned. No further work in this feature spec.
+**Feature spec status:** complete. All five tasks (T-01 through T-05) done; RC-2 verdict pass-with-comments committed at 0839fbc; remediation committed at ff56a8f; all findings dispositioned. No further work in this feature spec.
 
 **Next:** Phase B — author the `finding-intake-skill` feature spec via `/spec-write`, per [design spec §7 Implementation Sequencing](../20260517-findings-pipeline/architecture.md#7-implementation-sequencing). Recommended fresh session: Phase B is a clean scope break from this feature spec, and a fresh session benefits from re-reading the now-stable schema artifacts against a clean prompt cache rather than carrying this session's context forward.
 
 ## 2026-05-17 — Amendment 2026-05-17-1
 
 **Section amended:** [specs/findings/_template/finding.md](../findings/_template/finding.md) leading HTML comment block (lines 1–22) + [specs/findings/_template/journal.md](../findings/_template/journal.md) leading HTML comment block (lines 1–18). Both files are Phase A deliverables of this schema feature spec.
-**Trigger:** RC-3a review of the finding-intake skill (commit 7ba74ba) advisory A5 — templates don't self-describe their strip-from-artifact behavior, making correct intake handling depend on reading SKILL.md or relying on living-example precedent.
-**Reason:** Three intake exercises (T-05 of this spec; T-02 and T-03 of the Phase B finding-intake-skill spec) all empirically stripped the leading HTML comments as scaffolding. SKILL.md just codified the distinction (Phase B amendment 2026-05-17-1, commit 1e60eb4). Adding a one-paragraph self-describing note inside each leading comment closes the loop: future operators or agents reading the templates directly will reach the right conclusion without needing to read SKILL.md.
+**Trigger:** RC-3a review of the finding-intake skill (commit cce080f) advisory A5 — templates don't self-describe their strip-from-artifact behavior, making correct intake handling depend on reading SKILL.md or relying on living-example precedent.
+**Reason:** Three intake exercises (T-05 of this spec; T-02 and T-03 of the Phase B finding-intake-skill spec) all empirically stripped the leading HTML comments as scaffolding. SKILL.md just codified the distinction (Phase B amendment 2026-05-17-1, commit 1520f17). Adding a one-paragraph self-describing note inside each leading comment closes the loop: future operators or agents reading the templates directly will reach the right conclusion without needing to read SKILL.md.
 **Impact summary:** No tasks affected (T-03 and T-04 of this spec created the templates as they were; this amendment refines a deliverable post-hoc); no checkpoints reopened (RC-2 closed; this doesn't change exit-criteria assessment); no completed work invalidated (T-05 of this spec and T-02/T-03 of Phase B are ratified, not invalidated); no cross-references to other sections need follow-up edits (feature.md §2/§5.2/§5.3 describe the templates purposively, not verbatim).
 **Approver:** waseric
 **Approved on:** 2026-05-17
@@ -320,7 +320,7 @@ Inspection-based testing per task spec; all task closeout journal entries walk t
 
 ### Full record
 
-**Trigger.** RC-3a review of the finding-intake skill (commit 7ba74ba on [specs/20260517-finding-intake-skill/journal.md](../20260517-finding-intake-skill/journal.md)) advisory A5. Three intake exercises (T-05 of this spec; T-02 and T-03 of the Phase B finding-intake-skill spec) all stripped the templates' leading HTML comment blocks on the empirical reading that those comments are operator-facing scaffolding (instructions for filling the template), not artifact content. SKILL.md just landed amendment 2026-05-17-1 (commit 1e60eb4) codifying this distinction in the finding-intake skill prose. Making the templates self-describe closes the loop: future operators or agents reading the templates directly will reach the right conclusion without needing to read SKILL.md or rely on living-example precedent.
+**Trigger.** RC-3a review of the finding-intake skill (commit cce080f on [specs/20260517-finding-intake-skill/journal.md](../20260517-finding-intake-skill/journal.md)) advisory A5. Three intake exercises (T-05 of this spec; T-02 and T-03 of the Phase B finding-intake-skill spec) all stripped the templates' leading HTML comment blocks on the empirical reading that those comments are operator-facing scaffolding (instructions for filling the template), not artifact content. SKILL.md just landed amendment 2026-05-17-1 (commit 1520f17) codifying this distinction in the finding-intake skill prose. Making the templates self-describe closes the loop: future operators or agents reading the templates directly will reach the right conclusion without needing to read SKILL.md or rely on living-example precedent.
 
 **Section.**
 - [specs/findings/_template/finding.md](../findings/_template/finding.md) lines 1–22 (leading HTML comment block).
@@ -379,12 +379,12 @@ The journal.md note is longer than the finding.md note because journal.md has *t
 
 **Decisions made:**
 - **Status value: `Complete`.** Matches the precedent set by the Phase B closeout ([finding-intake-skill journal:405-431](../20260517-finding-intake-skill/journal.md#L405)) and the spec-path-convention feature spec.
-- **No bundled content change.** The Phase B closeout (commit e426b8a) bundled a §5.2 stop-word cross-reference (the deferred follow-up from amendment 2026-05-17-3). This spec's amendment 2026-05-17-1 explicitly identified no follow-ups, so this closeout is banner-only — no §X edits piggybacked.
+- **No bundled content change.** The Phase B closeout (commit ea1d283) bundled a §5.2 stop-word cross-reference (the deferred follow-up from amendment 2026-05-17-3). This spec's amendment 2026-05-17-1 explicitly identified no follow-ups, so this closeout is banner-only — no §X edits piggybacked.
 
 **Spec amendments:** None. This is closeout housekeeping; the spec is functionally unchanged.
 
 **Surprises and learnings:**
-- The schema spec was already operationally complete at the RC-2 remediation closeout (line 306: "Feature spec status: complete. ... No further work in this feature spec.") but the banner was not flipped at that moment because Phase B's amendments against this spec (the A5 advisory from RC-3a, applied as amendment 2026-05-17-1) were still pending. Flipping the banner after *both* RC-2 remediation *and* the post-RC-3a cross-side amendment landed avoids re-flipping it twice. This is the same pattern Phase B used at e426b8a.
+- The schema spec was already operationally complete at the RC-2 remediation closeout (line 306: "Feature spec status: complete. ... No further work in this feature spec.") but the banner was not flipped at that moment because Phase B's amendments against this spec (the A5 advisory from RC-3a, applied as amendment 2026-05-17-1) were still pending. Flipping the banner after *both* RC-2 remediation *and* the post-RC-3a cross-side amendment landed avoids re-flipping it twice. This is the same pattern Phase B used at ea1d283.
 - Two specs in the findings-pipeline tree are now `Complete`: this one (Phase A schema) and the Phase B finding-intake-skill. The upstream design spec ([specs/20260517-findings-pipeline/architecture.md](../20260517-findings-pipeline/architecture.md)) remains `Draft — Open for Review`; its RC-3 (joint Phase B + Phase C review) is still open and will close only after Phase C's `finding-triage` skill spec exists and passes review.
 
 **Next pointer:** **Outside this spec.** The natural next step is `/spec-write` for Phase C — the `finding-triage` skill — against the upstream [findings-pipeline design spec](../20260517-findings-pipeline/architecture.md). Phase A's contribution to the design-spec RC-3 is now sealed alongside Phase B's.
@@ -392,17 +392,17 @@ The journal.md note is longer than the finding.md note because journal.md has *t
 ## 2026-05-17 — Amendment 2026-05-17-2
 
 **Section amended:** specs/20260517-findings-pipeline-schema/feature.md §6 NFRs (appended new `Skill portability` row); §5.2 finding-template subsection (replaced top-of-file-comment example with scaffold-marker example; added bundled-template / host-override clarification); §5.3 journal-template subsection (same treatment). Cascading file edits to specs/findings/_template/finding.md and specs/findings/_template/journal.md (wrapped scaffolding blocks with `<!-- scaffold-start -->` / `<!-- scaffold-end -->` markers; updated self-describing text to reference the marker mechanism).
-**Trigger:** Cascading from Amendment 2026-05-17-5 to the design spec (commit `d8d87d6`), which committed a `Skill portability` NFR referencing the [Atomic-Skill Portability Principle](../tech-stack.md#atomic-skill-portability-principle) in tech-stack.md. This amendment implements the principle's operational choices at the schema level.
+**Trigger:** Cascading from Amendment 2026-05-17-5 to the design spec (commit `3779181`), which committed a `Skill portability` NFR referencing the [Atomic-Skill Portability Principle](../tech-stack.md#atomic-skill-portability-principle) in tech-stack.md. This amendment implements the principle's operational choices at the schema level.
 **Reason:** The existing scaffolding strip mechanism (line-numbers hardcoded into `finding-{intake,triage}/SKILL.md`) is the load-bearing surface of the originating finding [intake-template-folder-dependency](../findings/20260517-intake-template-folder-dependency/finding.md). Marker delimiters fix both coupling axes (templates carry their own boundaries; skills strip by marker, not by line number). Templates are also explicitly committed as skill-bundled-with-host-override so that a globally installed skill ships its own defaults rather than expecting the host repo to provide them.
 **Impact summary:** No tasks re-opened (T-01 through T-05 stay closed); no checkpoints re-opened (RC-2 stays closed). Cascading amendments 4 and 5 bring the two SKILL.md files into conformance with the new marker mechanism. Until those land, the line-number-based strip instructions in the SKILL.md files mis-match the new marker-wrapped templates — handled in-session as part of this cascade.
 **Approver:** waseric
 **Approved on:** 2026-05-17
 **Status implication:** kept at `Complete`. The amendment reverses no design decision, re-opens no §7 task, and is cascading conformance work flowing from a higher-level methodology principle just committed in tech-stack.md. Explicit operator confirmation captured during the amendment session: "concur. Keep at complete."
-**Commit:** `38a4afb`
+**Commit:** `a3517f6`
 
 ### Full record
 
-**Trigger.** Cascading from Amendment 2026-05-17-5 to the design spec (commit `d8d87d6`), which committed the **Skill portability** NFR row referencing the Atomic-Skill Portability Principle. This amendment implements the principle's operational choices at the schema level: scaffold-marker delimiters replacing the line-number strip mechanism currently hardcoded in `finding-{intake,triage}/SKILL.md`; templates committed as skill-bundled defaults with the host project's `_template/` (when present) taking precedence as override; README.md role explicit in the schema's own NFR table.
+**Trigger.** Cascading from Amendment 2026-05-17-5 to the design spec (commit `3779181`), which committed the **Skill portability** NFR row referencing the Atomic-Skill Portability Principle. This amendment implements the principle's operational choices at the schema level: scaffold-marker delimiters replacing the line-number strip mechanism currently hardcoded in `finding-{intake,triage}/SKILL.md`; templates committed as skill-bundled defaults with the host project's `_template/` (when present) taking precedence as override; README.md role explicit in the schema's own NFR table.
 
 **Section(s).** [specs/20260517-findings-pipeline-schema/feature.md](feature.md) §6 NFRs (L187–L196 pre-amendment, appended new row); §5.2 (L143–L159 pre-amendment, replaced); §5.3 (L161–L177 pre-amendment, replaced). Plus cascading file edits to [specs/findings/_template/finding.md](../findings/_template/finding.md) and [specs/findings/_template/journal.md](../findings/_template/journal.md).
 

@@ -69,7 +69,7 @@ Each retroactive spec carries up to two structural sources. Both are made explic
 
 | Source | Role | Citation example |
 |---|---|---|
-| **Predecessor doc** | The artifact the skill was originally designed against — frequently a conversation export or a recommendations doc. May be inline (a section inside a larger doc, extracted at the trilogy commit `49c15f0`) per N=6. | N=3 [docs/spec-driven-development-prompts-conversation.md](spec-driven-development-prompts-conversation.md) (whole doc); N=6 same doc lines 391–403 + 414 (inline). |
+| **Predecessor doc** | The artifact the skill was originally designed against — frequently a conversation export or a recommendations doc. May be inline (a section inside a larger doc, extracted at the trilogy commit `2ef3a98`) per N=6. | N=3 [docs/spec-driven-development-prompts-conversation.md](spec-driven-development-prompts-conversation.md) (whole doc); N=6 same doc lines 391–403 + 414 (inline). |
 | **Sibling design spec** | A separate design spec that the retroactive spec inherits commitments from — most often [specs/20260514-session-economy/architecture.md](../specs/20260514-session-economy/architecture.md). | N=4–N=6 all cite session-economy as the sibling source. |
 
 ### Two mapping shapes
@@ -77,7 +77,7 @@ Each retroactive spec carries up to two structural sources. Both are made explic
 When a retroactive spec inherits commitments from the sibling design spec, the mapping takes one of two shapes:
 
 - **Shape (i) — §5-enumerated mapping.** The sibling design spec has a numbered §5.x subsection that prescribes specific SKILL.md additions. The retroactive spec cites the §5.x subsection by number; the SKILL.md additions are verifiable at the line level. Example: [N=5 retro §5.8 + INPUTS contract ↔ session-economy §5.4](../specs/20260518-spec-review-skill/architecture.md), prescribing two SKILL.md additions both present.
-- **Shape (ii) — narrative-sourced mapping.** The sibling design spec has no numbered subsection for the retroactive concern; the commitment is sourced from §1 / §3 narrative content plus a commit reference. Example: N=4 retro §5.4 / §5.6 cite [session-economy §1 + §3 + commit `e483466`](../specs/20260514-session-economy/architecture.md).
+- **Shape (ii) — narrative-sourced mapping.** The sibling design spec has no numbered subsection for the retroactive concern; the commitment is sourced from §1 / §3 narrative content plus a commit reference. Example: N=4 retro §5.4 / §5.6 cite [session-economy §1 + §3 + commit `312453c`](../specs/20260514-session-economy/architecture.md).
 
 Shape (i) is the simpler and preferred case where the sibling spec affords it. Shape (ii) is acceptable when §5.x coverage doesn't exist; the citation must include the commit reference to anchor the narrative source. Only N=4 (`spec-execute`) exhibited shape (ii); N=5 and N=6 confirmed that the four-mapping complexity at N=4 was the outlier driven by spec-execute's eight-phase iterative shape.
 
@@ -94,7 +94,7 @@ Three finding classes recurred across the six CP-2 audits at frequencies ≥3/6.
 Two finding classes were confirmed *non-universal* and do not generalize as authoring-time pre-empts:
 
 - **Status-banner-lifecycle** (N=2 D-1 only). Three consecutive non-fires (N=4 / N=5 / N=6) confirmed the class is specific to design specs that *also* declare a Draft → Approved → Superseded lifecycle commitment. Watch for it only when authoring a spec that proposes a lifecycle commitment in §5.x.
-- **SKILL.md internal stale-citation** (N=5 D-1 only). N=6 non-fire confirmed non-universal. Class is specific to skills whose introductory sections (e.g., "Design Notes," "Notes on what makes this skill load-bearing") were authored pre-trilogy-commit (`49c15f0`, 2026-05-14) and not refactored at the commit. Walk such sections against current Phase body if the skill predates the trilogy split.
+- **SKILL.md internal stale-citation** (N=5 D-1 only). N=6 non-fire confirmed non-universal. Class is specific to skills whose introductory sections (e.g., "Design Notes," "Notes on what makes this skill load-bearing") were authored pre-trilogy-commit (`2ef3a98`, 2026-05-14) and not refactored at the commit. Walk such sections against current Phase body if the skill predates the trilogy split.
 
 ## Operator (c)→(a/b) override pattern
 
@@ -120,7 +120,7 @@ When a CP-2 audit (or a sibling-spec CP-1 audit) surfaces a finding that affects
 |---|---|
 | Surface | N=6 (`spec-amend`) CP-1 found §5.9 cited the strategy doc as holder of Amendment 2026-05-17-1; correct holder is project-constitution-skill. |
 | Trace upstream | Citation error traced to N=5 (`spec-review`) §5.11, which carried the same error. Both specs needed correction. |
-| Apply as single amendment ID | Amendment 2026-05-18-3 spanned both `architecture.md` files (commit `7a33abe`) + both journals (commit `c01488a`), with a single amendment ID. |
+| Apply as single amendment ID | Amendment 2026-05-18-3 spanned both `architecture.md` files (commit `145302d`) + both journals (commit `a824775`), with a single amendment ID. |
 | Verify at both endpoints | N=5 §5.11 verified clean at N=5 CP-2 (session 4 of the batch); N=6 §5.9 verified clean at N=6 CP-2 (session 5 of the batch). |
 
 The mechanics worked at the first cycle and again at [amendment 2026-05-19-1](../specs/20260518-cp2-batch-audit/journal.md) (methodology-level decision trigger, six specs in scope). Two cycles across distinct trigger classes satisfied W-1; the convention is codified at [.agents/skills/spec-amend/SKILL.md §"Cross-skill case"](../.agents/skills/spec-amend/SKILL.md) under amendment 2026-05-19-2.
