@@ -41,7 +41,7 @@ Recorded in [architecture.md §"Phase 1 — Discovery Report"](./architecture.md
 | [docs/retroactive-spec-strategy.md](../../docs/retroactive-spec-strategy.md) | Read — orientation only | Cited in §11 Adoption Path and §12 Out of Scope for the CP-2 batch strategy and the N=2-inflection-point pointer, but not used as a source for §4/§5 architectural commitments. |
 | [specs/20260514-session-economy/architecture.md](../20260514-session-economy/architecture.md) | Negative signal | Mentions `spec-design` only as a future modification target. |
 | [specs/20260515-spec-path-convention/architecture.md](../20260515-spec-path-convention/architecture.md) + [feature.md](../20260515-spec-path-convention/feature.md) | Negative signal | Modifies spec-design's OUTPUT FORMAT (commit `6d158fb`) but does not architecturally describe the skill. |
-| External private repo (`private-design-repo`) | Negative signal — out of repo, out of scope | `ai-frontmatter-distributor-architecture.md` lives there. Recommendations doc transmits what is portable. |
+| A separate private design repo | Negative signal — out of repo, out of scope | `ai-frontmatter-distributor-architecture.md` lives there. Recommendations doc transmits what is portable. |
 
 ### New "Pattern for N=3" callout — distinguish design-rationale source from current-behavior source
 

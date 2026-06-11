@@ -19,7 +19,7 @@ This journal is structured for **N=2 mining**. The four sibling legacy-trilogy s
 | [specs/roadmap.md](../roadmap.md) | Yes — authoritative for lifecycle position | Confirms `project-constitution` as a Phase 1 deliverable; positions the skill in the methodology's evolution. |
 | [docs/constitution-amendment-gap-intake-prep.md](../../docs/constitution-amendment-gap-intake-prep.md) | Yes — known-gap signal only | Source of §13 OQ-1 content. The gap is named in the spec; the intake action is *out of session* per operator. |
 | [specs/20260514-session-economy/architecture.md](../20260514-session-economy/architecture.md) | Negative signal — explicitly NOT a source | Lists `project-constitution` as out-of-scope twice ([line 27](../20260514-session-economy/architecture.md#L27), [line 220](../20260514-session-economy/architecture.md#L220)). Confirmed the absence of prior architectural specification. |
-| External repo (`private-design-repo`) | No — operator confirmed stay within ai-tools | Surfaced as a candidate during orientation; ruled out before /spec-design invocation. |
+| A separate private design repo | No — operator confirmed stay within ai-tools | Surfaced as a candidate during orientation; ruled out before /spec-design invocation. |
 
 **Pattern for N=2.** Source-file selection for retroactive specs should explicitly include a *negative-signal* row — what was checked and ruled out. Future skills will have their own out-of-scope mentions in concurrent architecture docs that should be cited as "confirmed not the source" rather than silently ignored.
 

@@ -1,6 +1,6 @@
 # Recommendations for `spec-design`
 
-Observations and recommendations from a session in which `spec-write` was adapted to produce a system-architecture / protocol-design document rather than a feature-implementation spec. The session designed an AI agent content distribution protocol (`ai-frontmatter-distributor`) and produced [`ai-frontmatter-distributor-architecture.md`]((internal URL removed) as the deliverable. These notes name what worked, what required reshape, and what a dedicated `spec-design` skill should formalize.
+Observations and recommendations from a session in which `spec-write` was adapted to produce a system-architecture / protocol-design document rather than a feature-implementation spec. The session designed an AI agent content distribution protocol (`ai-frontmatter-distributor`) and produced an `ai-frontmatter-distributor-architecture.md` deliverable (which lives in a separate private repo, not in this one). These notes name what worked, what required reshape, and what a dedicated `spec-design` skill should formalize.
 
 These are observations, not specifications. Take what fits the direction you're heading.
 
@@ -203,13 +203,13 @@ In addition to `spec-design`, two companion needs surfaced:
 
 ### `project-constitution`
 
-Bootstraps a new repo with the three-part shape that's appeared in every repo we touched (mission, tech-stack, roadmap or mission, tech-stack, validation). Each repo (`legacy-agents-repo`, `standards-repo`, `reference-repo`) hand-rolled this and they all converged on similar structure. A skill that does it consistently would shorten every new repo's setup and would make `spec-design` more grounded (architecture specs are stronger when the host repo has a constitution).
+Bootstraps a new repo with the three-part shape that's appeared in every repo we touched (mission, tech-stack, roadmap or mission, tech-stack, validation). Several repos hand-rolled this and they all converged on similar structure. A skill that does it consistently would shorten every new repo's setup and would make `spec-design` more grounded (architecture specs are stronger when the host repo has a constitution).
 
 Likely structure:
 - Prompt for: repo purpose, audience, what's in scope / out of scope.
 - Scan for: `package.json`, any existing READMEs, framework markers, CI config.
 - Produce: `mission.md` (the why), `tech-stack.md` (the how), and optionally `roadmap.md` (planned phases) or `validation.md` (done criteria), depending on which lifecycle the repo is in.
-- The old `init-project-specs.md` and `new-feature-spec.md` skills in `legacy-agents-repo` are an earlier iteration of this idea and could inform the new shape.
+- The old `init-project-specs.md` and `new-feature-spec.md` skills in an earlier repo are an earlier iteration of this idea and could inform the new shape.
 
 ### `spec-amend` (lower priority)
 
@@ -241,7 +241,7 @@ A few process notes from the session that aren't quite recommendations but are w
 
 ## Appendix: The ai-frontmatter-distributor spec as a worked example
 
-[`ai-frontmatter-distributor-architecture.md`]((internal URL removed) was produced by running `spec-write` against an extended design conversation and adapting the output. It demonstrates:
+`ai-frontmatter-distributor-architecture.md` (kept in a separate private repo, not included here) was produced by running `spec-write` against an extended design conversation and adapting the output. It demonstrates:
 
 - The reshape of §7/§8/§11 for a design spec
 - The Open Question pattern with full analysis + leaning + watch items + anti-goals

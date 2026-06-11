@@ -90,7 +90,7 @@ When the operator chose a non-default authoritative-artifacts layout in Phase 2,
 <One or two sentences. What this repo exists to do.>
 
 ## Audience
-<Who this repo serves, and what they get from it. Be specific — "developers" is too broad; "corporate the-platform platform engineers contributing to the-platform workflow features" is right-sized.>
+<Who this repo serves, and what they get from it. Be specific — "developers" is too broad; "backend engineers maintaining the payments API" is right-sized.>
 
 ## In Scope
 <Bulleted. What kinds of work belong here.>
@@ -169,7 +169,7 @@ Roadmaps describe phases, not features. Each phase produces an outcome the next 
 <One paragraph. The healthy steady state for this repo: build green, tests passing, deploys clean, no chronic issues. This is the bar the repo holds itself to.>
 
 ## Acceptance Signals
-<Bulleted. Concrete signals that the repo is doing its job. E.g., "the-platform Alert Task notifications dispatched within 60 seconds of source event," "CI green on `main` for 95% of weekdays in the trailing 30 days.">
+<Bulleted. Concrete signals that the repo is doing its job. E.g., "alert notifications dispatched within 60 seconds of source event," "CI green on `main` for 95% of weekdays in the trailing 30 days.">
 
 ## Known Gaps
 <Bulleted. Honest list of where the repo currently falls short of the bar above. Each item names an owner or routes to a downstream spec.>
