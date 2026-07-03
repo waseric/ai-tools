@@ -1,6 +1,6 @@
 ---
 name: spec-execute
-lastUpdated: 2026-05-15
+lastUpdated: 2026-07-03
 description: Execute against an existing feature spec, advancing one task at a time with closeout at each task boundary. Orients on spec + journal + branch state, verifies prior task Definition of Done, proposes the next task for approval, implements it strictly within declared scope, verifies DoD with evidence, and updates spec + journal before moving on. Supports the multi-repo case where spec and code live in separate working trees (paired commits per task). At every task boundary, pauses for a session-continuity check (continue in this session vs. pick up fresh). Surfaces drift by routing to `spec-amend` rather than silent deviation. Use whenever the user wants to start or resume a working session against an existing spec at `specs/YYYYMMDD-<feature>/feature.md`. Pairs with `spec-write` (authors the spec), `spec-review` (reviews checkpoint deliverables), and `spec-amend` (applies spec changes when execution reveals drift).
 ---
 
@@ -23,6 +23,7 @@ TARGET_BRANCH: <e.g. feature/x>
 SPEC_TARGET_BRANCH: <optional; branch in SPEC_REPO_ROOT, when different from TARGET_BRANCH>
 SESSION_GOAL: <optional: a specific task ID or scope for this session, otherwise the agent picks>
 TIME_BUDGET: <optional: e.g. "two hours" or "single task only">
+AUTONOMY: <optional; "task" (default) | "checkpoint". "task" pauses for user approval at every task boundary. "checkpoint" runs tasks back-to-back and stops only at review checkpoints, blocker-class questions, proposed spec amendments, model-floor conflicts, and any production-touching action. Only the user may set "checkpoint" — never self-granted>
 ```
 
 If `JOURNAL_PATH` does not exist yet, create it on first run.
@@ -46,6 +47,7 @@ You follow the Definition of Done in the spec literally. You do not declare a ta
 5. **One task at a time.** Do not interleave tasks. Finish, close out, then pick up the next.
 6. **Re-anchor at boundaries.** At each task transition, re-read the relevant section of the spec rather than relying on memory of it from earlier in the session.
 7. **Ask, do not guess.** Blocker-class open questions stop work until resolved by the user.
+8. **Honor model floors.** When the spec's Task Breakdown declares a per-task **Model floor**, the model doing that task's work — this session's or any subagent's — must meet or exceed it. Never delegate below the floor. If the current session's model is below the floor for the proposed task, say so and stop instead of proceeding; do not spawn subagents merely to launder the floor.
 
 # PHASE 1 — ORIENT
 
@@ -66,7 +68,7 @@ Then output an **Orientation Report**:
 - **Drift signals.** Anything in the branch that does not match the spec, or anything in the spec that no longer matches the codebase.
 - **Multi-repo state.** Whether `SPEC_REPO_ROOT` is set (explicitly or detected). If set, confirm both repos are on the expected branches and have no uncommitted changes that would block paired commits.
 
-Then **stop and wait for user approval** of the proposed next task. Do not begin work yet.
+Then **stop and wait for user approval** of the proposed next task. Do not begin work yet. Under `AUTONOMY: checkpoint`, do not wait — state the proposed task and proceed — *unless* the Orientation Report surfaced drift signals or blocker-class questions, which stop the run in any mode.
 
 # PHASE 2 — PRE-FLIGHT VERIFY (last task)
 
@@ -97,6 +99,7 @@ Implement the task. Constraints:
 - Write the tests required by the task, not just the production code. Tests and code land together.
 - Keep changes scoped to the task's declared file list. If you must touch a file outside that list, stop and propose a spec amendment first.
 - Commit at logical points within the task with messages that reference the task ID (e.g. `T-04: add validator for Foo input`).
+- When delegating any part of the task to a subagent, set the subagent's model at or above the task's declared **Model floor** (Operating Principle 8), and scope the subagent's prompt to the task — pass the relevant spec excerpts and file list rather than having it re-derive orientation from scratch.
 - **Multi-repo case.** When `SPEC_REPO_ROOT` is set, code commits land in `CODEBASE_ROOT` and any spec or journal updates land in `SPEC_REPO_ROOT`. Treat each task as producing a *pair* of commits — one per repo — both referencing the same task ID. Do not let the code commit ship without its paired spec/journal commit; the spec falls out of sync the moment that happens.
 - If you discover that the task as specified cannot be completed correctly, stop and propose a spec amendment. Do not work around the spec.
 
@@ -127,6 +130,7 @@ Do all of the following before claiming the task complete:
   **Files touched:** <list>
   **Tests added:** <list of test names or files>
   **DoD verification:** <one line per DoD item with evidence pointer>
+  **Models used:** <model per major work unit, vs the task's declared Model floor; omit if the spec declares no floors>
   **Decisions made:** <any in-flight design decisions, with rationale>
   **Spec amendments:** <links to any sections amended, with one-line summary>
   **Surprises and learnings:** <anything that future sessions or reviewers should know>
@@ -189,7 +193,7 @@ Session continuity check: <one or two sentences naming what shaped the recommend
 
 Then stop and wait. If the user says continue, return to Phase 1 for the next task, re-reading the spec rather than relying on memory of it. If the user pauses, the session ends cleanly with the journal as the handoff.
 
-Skip this phase only when the user has explicitly said "run the full set without checking in" — and even then, surface a brief note at the end of each task so the user can interrupt if they want.
+Skip this phase only when the user has explicitly said "run the full set without checking in" or has set `AUTONOMY: checkpoint` — and even then, surface a brief note at the end of each task so the user can interrupt if they want. `AUTONOMY: checkpoint` never overrides Phase 7: review checkpoints, blockers, amendments, model-floor conflicts, and production-touching actions stop the run in every mode.
 
 # WHAT NOT TO DO
 
@@ -204,7 +208,8 @@ Skip this phase only when the user has explicitly said "run the full set without
 - Do not produce a spec amendment without showing the diff against the existing section. Amendments are surgical, not rewrites.
 - Do not ship a code commit without its paired spec/journal commit when `SPEC_REPO_ROOT` is set. The spec falls out of sync the moment that happens, and the next session has no clean handoff.
 - Do not skip Phase 8 (Session Continuity Check) at a task boundary. Even when continuing is the obvious call, name the reasoning so the user can intervene.
-- Do not unilaterally start the next task after Phase 8 — the recommendation is for the user, not a license to proceed.
+- Do not unilaterally start the next task after Phase 8 — the recommendation is for the user, not a license to proceed. (Both bullets relax under user-set `AUTONOMY: checkpoint`, which substitutes a brief logged note per boundary; checkpoint gates, blockers, and production actions still stop the run.)
+- Do not set or escalate `AUTONOMY` yourself — it is user-granted input, restated in the journal so later sessions know the operating mode.
 
 # AMENDMENT PROTOCOL
 

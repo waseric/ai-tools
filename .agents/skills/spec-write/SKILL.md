@@ -1,6 +1,6 @@
 ---
 name: spec-write
-lastUpdated: 2026-05-15
+lastUpdated: 2026-07-03
 description: Author a feature spec for a new feature in an existing codebase. Runs Discovery → Clarify → Spec Document phases, producing a self-contained markdown spec covering overview, goals, architecture, detailed design, NFRs, atomic task breakdown, test strategy, review checkpoints, risks, rollout, and open questions. When a design spec exists upstream (produced by `spec-design`), reads it as authoritative input rather than redesigning. Use whenever the user wants to write, draft, or author a feature spec or development plan before implementation begins. Pairs with `spec-design` (upstream — architecture/protocol design), `spec-execute` (downstream — executes against the spec), and `spec-review` (downstream — reviews checkpoint deliverables).
 ---
 
@@ -14,6 +14,8 @@ A design spec commits to a shape, vocabulary, and adoption path. A feature spec 
 
 When invoked, you act as the agent. Gather the INPUTS below from the user — many can be inferred from the working directory and recent conversation; ask explicitly only for what is missing or ambiguous. Then run Phase 1 (Discovery), pause at Phase 2 for user input on assumptions, open questions, and decisions proposed unilaterally, and produce the Phase 3 spec document. The spec is the contract — iterate on it before any implementation begins.
 
+**Token economy.** Treat the conversation as authoritative Discovery input: never re-read files already read this session, prefer targeted greps and line-range reads over whole-file reads, and batch independent lookups into one tool round-trip. Discovery output is conclusions with `file:line` citations, not file dumps. Do not spawn subagents for lookups a direct grep answers.
+
 ## INPUTS
 
 ```
@@ -26,6 +28,7 @@ DEADLINE_OR_CONSTRAINTS: <if any>
 KNOWN_CONSTRAINTS: <e.g. must not change public API, must support X version, must run on Y runtime>
 NON_GOALS: <things explicitly out of scope, if you already know>
 DESIGN_SPEC_PATH: <optional; repo-relative path to an upstream design spec produced by spec-design; e.g. specs/YYYYMMDD-feature-x/architecture.md>
+MODEL_FLOOR_POLICY: <optional; the project's model-tier ladder and selection rationale (e.g. haiku/sonnet/opus/fable). When set, every task in the breakdown declares a Model floor and every review checkpoint declares a reviewer floor>
 CONSTITUTION_PATHS: <optional; repo-relative paths to mission/tech-stack/roadmap or validation produced by project-constitution>
 ```
 
@@ -139,6 +142,7 @@ A numbered list of tasks. Each task must include:
 - **Definition of Done.** Code merged, tests passing in CI, documentation updated, observability hooks in place, no new lint or type errors, peer reviewed.
 - **Dependencies.** Other task IDs that must complete first.
 - **Estimated size.** S / M / L. L tasks must be split before implementation.
+- **Model floor.** The minimum model tier for the agent or subagent executing this task (ladder from `MODEL_FLOOR_POLICY`; e.g. haiku / sonnet / opus / fable). Choose by the cost of an *undetected* logic failure, not by task size: mechanical work with objectively verifiable acceptance criteria takes the lowest tier; work where a plausible-but-wrong change would pass its own tests silently takes a high tier. Floors are minimums — `spec-execute` may run higher, never lower.
 
 Tasks should be sequenced so that the branch is in a deployable or revertible state at each task boundary. Prefer many small tasks over few large ones.
 
@@ -157,6 +161,7 @@ A short list of checkpoints, each tied to one or more task IDs, where a code rev
 - **Trigger.** Which tasks are complete.
 - **Review focus.** What the reviewer should pay particular attention to (security, performance, contract stability, etc.).
 - **Exit criteria.** What must be true to move past the checkpoint.
+- **Reviewer floor.** When `MODEL_FLOOR_POLICY` is set: the minimum model tier for an agent performing this review (checkpoints guarding logic-heavy or hard-to-reverse work take the top tier).
 
 ## 10. Risks and Mitigations
 
