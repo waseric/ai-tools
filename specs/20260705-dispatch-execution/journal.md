@@ -39,3 +39,30 @@
 **Consistency check (re-runnable):** `grep -rn "admindoc\|hungergames\|T-14\|40%" specs/20260705-dispatch-execution/architecture.md CLAUDE.md` returns zero hits (verified this date). Scope is the spec document and repo context file; this journal legitimately retains "40%" in its historical record of the decision change.
 
 **Next:** CP-1 review against the updated §9 focus list.
+
+## 2026-07-05 — Draft Revision 2 (CP-1 review findings, pre-approval)
+
+**Status:** draft revised — awaiting operator approval
+**Reviewer:** Claude (AI reviewer), CP-1 review conducted per `/spec-review`, verdict: pass with comments (0 blockers, 2 important, 1 advisory). Full verdict below.
+
+**Changes** (all in `architecture.md`, same spec per operator direction; spec still Draft, so revised directly rather than amended):
+
+- **Doctrine citation fixed (§3, §4, §9):** "verification wins ties" and doctrine rule "derived claims over narrative claims" were presented as inherited constitution phrases but did not appear anywhere in `CLAUDE.md` or any governing spec — grepped and confirmed absent. Replaced with direct citation of `CLAUDE.md`'s actual rework-prevention property ("mechanically re-derivable claims") at all three sites (§3 doctrine list, §4 Derivation re-check vocabulary entry, §9 CP-1 review-focus line).
+- **Cue coverage closed (§5.9):** the designed-stop set named in §2 Goals lists six stop types (checkpoint, blocker, amendment trigger, floor conflict, production-touching action, budget breach); §5.9's enumerated cue list covered only five, omitting floor conflict and production-touching-action stops. Added explicit cue treatment for both.
+
+**Deferred (advisory, not fixed here):** pre-existing drift where `AUTONOMY` (`SKILL.md:26`, commit `6bef6f8`, 2026-07-03) is undocumented in the `spec-execute` governing `architecture.md` (2026-05-18, predates that commit). Not caused by this spec; flagged for P2 to backfill alongside the `EXECUTION`-mode amendment rather than fixed here.
+
+**Consistency check (re-runnable):** `grep -rn "admindoc\|hungergames\|T-14\|40%" specs/20260705-dispatch-execution/architecture.md CLAUDE.md` returns zero hits (re-verified this date, post-edit).
+
+**Next:** Operator approval of CP-1 (banner advance to Approved pending explicit confirmation); then P2 (`spec-execute` amendment set via `spec-amend`).
+
+## 2026-07-05 — Review of CP-1
+
+**Reviewer:** Claude (AI reviewer)
+**Outcome:** pass with comments
+**Tasks reviewed:** N/A — design-spec checkpoint (whole document; no Task Breakdown)
+**Blockers:** 0
+**Important:** 2 (both fixed in Draft Revision 2 above — doctrine-citation fidelity; §5.9 cue coverage)
+**Advisory:** 1 (pre-existing `AUTONOMY` documentation gap in `spec-execute` governing spec — not caused by this spec, deferred to P2)
+**Spec amendments proposed:** None — spec was still Draft, so findings were fixed by direct revision rather than routed through `spec-amend`.
+**Next action:** Operator approved 2026-07-05. Banner advanced to Approved; CP-1 status line recorded in §9. Proceed to P2 — `spec-execute` amendment set via `spec-amend` (governing spec §4, §5.4–§5.8, master, deploy copy; fold in the `AUTONOMY` backfill noted above).

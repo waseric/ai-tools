@@ -1,6 +1,6 @@
 # Dispatch Execution — Architecture and Protocol Specification
 
-> Status: Draft — Open for Review
+> Status: Approved — CP-1 closed 2026-07-05
 > Date: 2026-07-05
 > Author: Eric Wasgatt (with AI assistance)
 > Audience: Maintainers of the `ai-tools` methodology skills — Eric Wasgatt, future contributors, and future AI agent sessions executing or amending the skills. Written for the broadest reader: a cold AI agent session with no memory of the originating conversation.
@@ -39,7 +39,7 @@ The architectural commitment is twofold. **Session context is not the carrier of
 
 An earlier spec, [session-economy](../20260514-session-economy/architecture.md) (2026-05-14), captured first-iteration ideas on session economy and added Phase 8's token-economy factor. It is historical context only; this design derives from current harness capabilities and current operational evidence, not from that spec's framing.
 
-The repo constitution ([mission](../mission.md), [tech-stack](../tech-stack.md), [roadmap](../roadmap.md)) establishes this repo as the master home of the skill family. The family serves multiple consuming projects across the operator's work and hobby contexts; this spec names none of them and assumes none is available. Consuming repos may carry their own operating doctrine built on the same principles the skills encode: mechanically re-derivable claims; batch-by-default with operator-owned stops; starve context, not verification; verification wins ties.
+The repo constitution ([mission](../mission.md), [tech-stack](../tech-stack.md), [roadmap](../roadmap.md)) establishes this repo as the master home of the skill family. The family serves multiple consuming projects across the operator's work and hobby contexts; this spec names none of them and assumes none is available. Consuming repos may carry their own operating doctrine built on the same principles the skills encode, per `CLAUDE.md`'s design bar: mechanically re-derivable claims (rework prevention); batch-by-default with operator-owned stops (batch autonomy); starve context, not verification (token economy).
 
 ### Constraints (cited)
 
@@ -92,7 +92,7 @@ The repo constitution ([mission](../mission.md), [tech-stack](../tech-stack.md),
 - **Worker** — a subagent spawned for exactly one task, at a model meeting the task's floor, from a named agent definition. Owns Phases 4–6 for its task, including the paired commits and the journal entry. Dies at closeout.
 - **Worker brief** — the prompt the orchestrator passes at spawn: the task's full spec text, referenced spec sections, file list, DoD, conventions pointer, and artifact paths. The worker orients from artifacts, never from the orchestrator's transcript.
 - **Receipt** — the worker's final message, in a fixed schema with a hard length cap (§5.4). The only thing that enters the orchestrator's context per task.
-- **Derivation re-check** — the orchestrator re-running the receipt's journaled verification command(s) itself before accepting the receipt. The delegation-era form of doctrine rule "derived claims over narrative claims."
+- **Derivation re-check** — the orchestrator re-running the receipt's journaled verification command(s) itself before accepting the receipt. The delegation-era form of the rework-prevention property (`CLAUDE.md`: "mechanically re-derivable claims").
 - **Context budget** — a numeric threshold on session context (§5.6) that converts Phase 8's qualitative continuity check into a mechanical trigger.
 - **Agent definition** — a versioned artifact under `.agents/agents/` defining a worker or reviewer agent type: its role, tool surface, prompt discipline, and receipt contract. Deployed to the harness's user-level agents directory.
 - **Operator cue** — a fixed-format "what happened / your move / how" block emitted at every boundary that hands control to the operator (§5.9).
@@ -231,7 +231,7 @@ HOW:           <the exact next invocation(s): skill name + INPUTS, pre-filled
                 (journal entry / spec section / receipt)>
 ```
 
-**Behavior.** Emitted at every designed stop and pause: Phase 7 checkpoint stops (cue: the `spec-review` invocation with inputs pre-filled from the checkpoint contract), Phase 8 pauses (cue: how to resume `spec-execute`, carrying the journal's next-task pointer), blocker escalations (cue: the question to answer and where the answer lands), amendment triggers (cue: the `spec-amend` invocation with `SECTION`/`TRIGGER` pre-filled), and budget stops (cue: how to relaunch fresh). The journal's next-task pointer remains the durable handoff; the cue is its ephemeral, human-facing rendering — cues are emitted at boundaries, not stored in artifacts.
+**Behavior.** Emitted at every designed stop and pause — the full set named in §2 Goals: Phase 7 checkpoint stops (cue: the `spec-review` invocation with inputs pre-filled from the checkpoint contract), Phase 8 pauses (cue: how to resume `spec-execute`, carrying the journal's next-task pointer), blocker escalations (cue: the question to answer and where the answer lands), amendment triggers (cue: the `spec-amend` invocation with `SECTION`/`TRIGGER` pre-filled), floor conflicts (cue: the floor that could not be met, the task it blocks, and the choice — supply a compliant model or amend the floor), production-touching-action stops (cue: the specific action requiring explicit authorization and how to grant it), and budget stops (cue: how to relaunch fresh). The journal's next-task pointer remains the durable handoff; the cue is its ephemeral, human-facing rendering — cues are emitted at boundaries, not stored in artifacts.
 
 **Pattern invoked.** Pre-filled handoff prompts — the journal's next-task-pointer principle, extended to the human side of the loop.
 
@@ -268,8 +268,10 @@ Amendment-class work throughout — no downstream feature spec is anticipated; e
 
 ### CP-1 — Design approval
 
+**Status:** pass with comments on 2026-07-05 by Claude (AI reviewer) — see [CP-1 review journal entry](./journal.md). 2 important findings (doctrine-citation fidelity §3/§4/§9; §5.9 cue coverage for floor-conflict and production-touching-action stops) fixed in Draft Revision 2 before approval; 1 advisory (pre-existing `AUTONOMY` documentation gap in the `spec-execute` governing spec) deferred to P2. Operator approved 2026-07-05. **Checkpoint closed.**
+
 - **Trigger.** This document complete, Draft status.
-- **Review focus.** Doctrine compatibility (does the derivation re-check genuinely preserve "verification wins"?); receipt schema sufficiency (can a reviewer reconstruct floor compliance and DoD state from artifacts alone?); the flipped defaults (§5.1 — is the designed-stop set rich enough to make autonomous-by-default safe?); cue coverage (§5.9 — is any operator-facing boundary missing one?); harness-fact verification (§3 constraints).
+- **Review focus.** Doctrine compatibility (does the derivation re-check genuinely preserve the rework-prevention property, `CLAUDE.md`'s "mechanically re-derivable claims"?); receipt schema sufficiency (can a reviewer reconstruct floor compliance and DoD state from artifacts alone?); the flipped defaults (§5.1 — is the designed-stop set rich enough to make autonomous-by-default safe?); cue coverage (§5.9 — is any operator-facing boundary missing one?); harness-fact verification (§3 constraints).
 - **Exit criteria.** Operator approves; open questions have owners; banner advances to Approved.
 
 ### CP-2 — Amendment-set consistency
