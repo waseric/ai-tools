@@ -1,6 +1,6 @@
 ---
 name: spec-review
-lastUpdated: 2026-05-15
+lastUpdated: 2026-07-06
 description: Review a body of work against a specific Review Checkpoint declared in a feature spec or design spec. Reads the checkpoint contract first (review focus + exit criteria), then walks the diff (or the artifact, for design-spec checkpoints) producing structured findings tagged blocker/important/advisory, distinguishing spec-compliance failures from preferences. Produces a fixed-format verdict (pass / pass with comments / changes requested / blocked) and writes the outcome back to the spec and journal. Use whenever a spec Review Checkpoint has been triggered, or the user wants a structured review against an existing spec. Pairs with `spec-design` and `spec-write` (which declare checkpoints), `spec-execute` (which produces the work being reviewed), and `spec-amend` (which applies spec changes when the review surfaces them).
 ---
 
@@ -22,6 +22,7 @@ DIFF_RANGE: <e.g. main..feature/x, or a list of commit SHAs, or a PR URL>
 TASK_IDS_IN_SCOPE: <task IDs covered by this checkpoint, from the spec>
 REVIEWER: <name or role>
 SPEC_REPO_ROOT: <optional; path to the repo where SPEC_PATH and JOURNAL_PATH live, when different from the codebase under review>
+REVIEW_EXECUTION: <optional; "inline" (default) | "dispatch". Selects who performs the review. "inline": this session runs Phases 1–8 itself (current behavior). "dispatch": this session runs as a thin coordinator — it spawns a `spec-reviewer` subagent at the checkpoint's declared reviewer floor to run Phases 1–7 (read the checkpoint contract, journal, and full diff; return findings + verdict in the Phase 7 format), then writes the outcome back to spec and journal itself (Phase 8). Only the user sets this mode. See DISPATCH MODE below.>
 ```
 
 ---
@@ -181,6 +182,43 @@ Regardless of outcome, record the review:
 - **If spec amendments were proposed,** route them through the `spec-amend` skill. Amendments are not applied silently as part of a review.
 - **If the outcome is `pass` or `pass with comments`,** state the next task ID per the dependency graph so the next session has a clear pickup point.
 
+## DISPATCH MODE (REVIEW_EXECUTION: dispatch)
+
+When the operator sets `REVIEW_EXECUTION: dispatch`, this session runs as a thin **coordinator** and delegates the review to a disposable `spec-reviewer` subagent spawned in a fresh, isolated context. The contract is unchanged — checkpoint as the source of truth, structured verdict, write-back to spec and journal — only who reads the diff changes.
+
+**Phase split.** The coordinator (this session) orients only far enough to identify the checkpoint, its declared **reviewer floor**, and the diff range; spawns the reviewer; then owns Phase 8 — writing the verdict back, routing proposed amendments, and making the paired commit when `SPEC_REPO_ROOT` is set. It does not walk the diff itself. The `spec-reviewer` subagent runs Phases 1–7: it reads the checkpoint contract, the journal, and the **full** diff (or the artifact, for a design-spec checkpoint) and returns findings plus a verdict in the exact Phase 7 format as its final message. It does not write the outcome back, may not spawn further subagents, and may not modify any file — enforced by the agent definition.
+
+**Do not starve the reviewer.** Review is the one place this design does not economize on context: the reviewer gets the full diff-reading mandate. What dispatch buys is isolation (a fresh, floor-correct context untainted by the session that produced the work) and a thin coordinator — not a thinner review.
+
+**Reviewer floor.** Spawn the reviewer at the checkpoint's declared reviewer floor; the spawned model must meet or exceed it. If the checkpoint declares no reviewer floor, spawn at the coordinator's own model (or an operator-supplied model), never below. A floor that cannot be met is a stop — emit the model-floor cue and wait.
+
+**Reviewer brief.** The reviewer starts cold and inherits nothing from this session's transcript. The brief carries: `SPEC_PATH` and `JOURNAL_PATH` (plus `SPEC_REPO_ROOT` when multi-repo); `CHECKPOINT_ID` and its contract (quoted or path+anchor); `DIFF_RANGE`; `TASK_IDS_IN_SCOPE`; the reviewer floor being satisfied; the conventions pointer (the repo's `CLAUDE.md`(s)); and the Phase 7 verdict format. The reviewer orients from the artifacts on disk.
+
+**Coordinator write-back.** On receiving the verdict, the coordinator performs Phase 8 unchanged, recording the reviewer's returned verdict block first-hand. The coordinator does not re-review or overrule findings; a disputed verdict is re-dispatched with an updated brief or escalated to the operator.
+
+**Back-out.** `REVIEW_EXECUTION: inline` (the default) fully restores prior behavior; a dispatch-produced verdict is format-identical to an inline one.
+
+## OPERATOR CUES
+
+A completed review hands control back to the operator (or the next session) at the verdict. End the review with a fixed-format cue block so the operator can act without reconstructing the framework:
+
+```
+WHAT HAPPENED: <one line — e.g. "CP-2 review complete: changes requested (2 blockers)">
+YOUR MOVE:     <one line — the decision or action only the operator can take>
+HOW:           <the exact next invocation(s), pre-filled from current state; plus
+                where to look first (the verdict block / journal entry / spec §9 line)>
+```
+
+Emit a cue for the verdict outcome:
+
+- **`pass` / `pass with comments`** — cue how to resume `spec-execute` at the next task per the dependency graph (the checkpoint is closed).
+- **`changes requested`** — cue what must be fixed, then re-invoke `/spec-review` against the same `CHECKPOINT_ID`.
+- **`blocked`** — cue the underlying issue; task pickup stays stopped until it is resolved.
+- **Spec amendments proposed** — cue the `/spec-amend` invocation with `SECTION` / `TRIGGER` pre-filled from the finding; amendments are proposed here, applied there.
+- **Model-floor conflict** (dispatch mode) — cue the reviewer floor that could not be met, the checkpoint it blocks, and the choice: supply a compliant model or amend the floor.
+
+The journal's Next-action line remains the durable handoff; the cue is its ephemeral, human-facing rendering, emitted at the boundary and not stored in the artifact. Cues apply in both inline and dispatch modes.
+
 ## WHAT NOT TO DO
 
 - Do not begin reviewing the diff before reading the checkpoint definition. The spec tells you what to focus on; reading code first biases the review toward whatever happens to be salient in the diff.
@@ -191,6 +229,7 @@ Regardless of outcome, record the review:
 - Do not silently accept out-of-scope file changes. Either confirm a spec amendment is recorded or block until one is.
 - Do not skip the exit criteria walk. A checkpoint with unmet exit criteria fails regardless of how good the rest of the work looks.
 - Do not produce a verdict without the structured format. Future sessions and reviewers depend on the predictable shape.
+- Do not, in dispatch mode, walk the diff yourself as the coordinator or overrule the reviewer's findings. Re-dispatch with an updated brief or escalate — coordinator-side reviewing rebuilds the context isolation dispatch exists to provide.
 
 ## REVIEWER NOTES
 
