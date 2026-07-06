@@ -88,3 +88,26 @@
 **Spec amendments:** [governing spec amendment 2026-07-05-1](../20260518-spec-execute-skill/journal.md) — §4 "Execution modes and autonomy" subsection added.
 **Surprises and learnings:** The `git commit --amend` used to backfill the amendment SHA rewrote the SHA (2f4aca6→630fc5a), so backfill must be a *separate follow-up commit* (`87ea98a`), never `--amend`. Matches the cross-skill-case guidance in spec-amend ("backfill is a small follow-up commit").
 **Next task pointer:** P2.2 — orchestrator/worker phase split + conduct rules + worker brief (dispatch-execution §5.2, §5.3), against the [spec-execute governing spec](../20260518-spec-execute-skill/architecture.md) §4/§5 and the master.
+
+## 2026-07-05 — P2.2: orchestrator/worker phase split + conduct rules + worker brief (governing-spec amendment + master)
+
+**Status:** done
+**Operating mode (operator-granted this session):** `AUTONOMY: checkpoint`; `EXECUTION: inline` (dispatch not yet built — P2 bootstraps it inline by necessity). Operator approved the concrete P2.2 diffs in-session before apply (spec amendment = designed stop under checkpoint).
+**Commits:** `ffe7206` (governing-spec §4/§5.12 application), `54ac7b2` (governing-spec amendment 2026-07-05-2 journal record), `44c61b7` (master DISPATCH MODE + Phase 2/4/5/6 notes + WHAT-NOT-TO-DO bullets, deploy synced). This closeout entry commits separately.
+**Executed by:** inline
+**Files touched:** `specs/20260518-spec-execute-skill/architecture.md` (§4 index sentence + new §5.12), `specs/20260518-spec-execute-skill/journal.md` (amendment 2026-07-05-2 record), `.agents/skills/spec-execute/SKILL.md` (DISPATCH MODE section + 4 phase notes + 2 WHAT-NOT-TO-DO bullets), deploy copy `~/.claude/skills/spec-execute/SKILL.md` (synced).
+**DoD verification:**
+- Governing-spec change routed through `spec-amend` (diff shown + operator-approved in-session; first-class amendment 2026-07-05-2 journaled): commits `ffe7206` + `54ac7b2`.
+- Master edited; master ≡ deploy: `diff -q` clean ("MASTER==DEPLOY OK") post-commit, commit `44c61b7`.
+- Composition rule / orchestrator conduct / worker brief present in master (DISPATCH MODE section) and described in governing §5.12: grep confirms both.
+- Vocabulary agreement (dispatch spec ↔ governing spec ↔ master): `orchestrator`/`worker`/`receipt` present in all three (governing 8/7/5, master 16/11/12, dispatch spec 28/40/32).
+- Scope boundary held: no `receipt-schema.md` created (that is P2.3); `Executed by` field, context budget (P2.4), cues (P2.5), agent definitions (P3), and the defaults flip (P2.6) untouched.
+**Models used:** dispatch-execution declares no per-task Model floors (design spec); no floor gating applies. Work done by this session's model (Opus 4.8).
+**Decisions made:**
+- **Governing-spec home = new §5.12** (a peer to §5.11), descriptive of the master's DISPATCH MODE section, rather than expanding each phase subsection. Keeps the eight per-phase subsections intact and groups dispatch as one cohesive block, mirroring how the dispatch spec itself groups §4/§5.2/§5.3.
+- **Master home = new top-level `# DISPATCH MODE` section + short per-phase "Dispatch mode." notes** on Phases 2/4/5/6, matching the INPUTS promise ("dispatch-mode notes on Phases 2 and 4–6"). Phase 5/6 notes added too (worker owns 4–6 as a unit) — a minor, faithful superset of the INPUTS wording.
+- **Forward references kept, flagged honest:** §5.12 and the master reference the receipt-schema support file (P2.3), `Executed by` (P2.3), context budget (P2.4), cues (P2.5), and the worker agent definition (P3). Dispatch is not *usable* until P2.6 + P3 regardless; the refs mark the amendment set's remaining steps, not drift.
+- **Commit shape (no self-referential backfill):** committed the governing-spec application (`ffe7206`) first, then the journal entry referencing that SHA (`54ac7b2`) — avoids the P2.1 `--amend`-rewrites-SHA trap by never having the journal reference its own commit.
+**Spec amendments:** [governing spec amendment 2026-07-05-2](../20260518-spec-execute-skill/journal.md) — §4 index sentence + new §5.12 "Dispatch mode".
+**Surprises and learnings:** Invoking `spec-amend` and `spec-execute` as in-session Skills reset the Edit tool's "file has been read" tracking; had to re-Read anchor regions before editing. Cheap, but worth knowing: a skill launch is a read-state boundary. The clean 2-commit ordering (spec-edit → journal-referencing-it) is simpler than P2.1's commit-then-backfill and is the recommended pattern for future single-artifact amendments here.
+**Next task pointer:** P2.3 — receipt-schema support file (`.agents/skills/spec-execute/receipt-schema.md`, dispatch-execution §5.4) + `Executed by` journal field (§5.5); wire the master's Phase 6 journal template and the governing spec to reference both.
