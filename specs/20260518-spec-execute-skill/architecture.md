@@ -332,9 +332,9 @@ Two orthogonal operator-set inputs govern how a session runs, independent of the
 
 **Why this design.** A mode, not a new skill: the contract is identical in both modes; only the executor changes. Derivation re-check (orchestrator conduct rule 3) is load-bearing — it preserves the rework-prevention property (`CLAUDE.md`'s "mechanically re-derivable claims") across the delegation boundary at near-zero context cost. First-hand journaling and committing from the worker keep the evidence chain unbroken: the entity that ran the tests writes the record.
 
-**Reversibility.** No format change: a dispatch-produced journal is indistinguishable from an inline one except the `Executed by` field (added in a later step of the P2 amendment set). Setting `EXECUTION: inline` fully restores the §5.1–§5.8 single-session behavior.
+**Reversibility.** No format change: a dispatch-produced journal is indistinguishable from an inline one except the `Executed by` field (`inline | worker(<agent-definition-name>, <model>)`), now in the SKILL.md Phase 6 journal template. Setting `EXECUTION: inline` fully restores the §5.1–§5.8 single-session behavior.
 
-**Cross-reference.** The receipt schema (referenced above) is specified in the receipt-schema support file and the `Executed by` journal field is added alongside it (dispatch-execution §5.4–5.5); the Phase 8 context budget (§5.6) and operator cues (§5.9) land in their own steps of the P2 amendment set.
+**Cross-reference.** The receipt schema (referenced above) is specified in the receipt-schema support file `receipt-schema.md` in the skill directory, deployed alongside SKILL.md; the `Executed by` journal field is in the SKILL.md Phase 6 template (dispatch-execution §5.4–5.5). The Phase 8 context budget (§5.6) and operator cues (§5.9) land in their own steps of the P2 amendment set.
 
 ## 6. Non-functional Requirements
 
