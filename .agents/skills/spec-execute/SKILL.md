@@ -138,6 +138,7 @@ Do all of the following before claiming the task complete:
   **Tests added:** <list of test names or files>
   **DoD verification:** <one line per DoD item with evidence pointer>
   **Models used:** <model per major work unit, vs the task's declared Model floor; omit if the spec declares no floors>
+  **Executed by:** inline | worker(<agent-definition-name>, <model>)
   **Decisions made:** <any in-flight design decisions, with rationale>
   **Spec amendments:** <links to any sections amended, with one-line summary>
   **Surprises and learnings:** <anything that future sessions or reviewers should know>
@@ -208,7 +209,7 @@ Skip this phase only when the user has explicitly said "run the full set without
 
 When the operator sets `EXECUTION: dispatch`, the session runs as a thin orchestrator that delegates each task's implementation to a disposable worker subagent. The contract is unchanged — spec as source of truth, closeout discipline, amendment protocol — only the executor changes. All inter-task continuity lives in the spec and journal, never in the orchestrator's context, because the worker that held the working set no longer exists at the next boundary.
 
-A **receipt** is the worker's final message: a fixed-shape, length-capped task summary, and the only thing that enters the orchestrator's context per task. Its schema lives in the receipt-schema support file (added in a later step of this amendment set).
+A **receipt** is the worker's final message: a fixed-shape, length-capped task summary, and the only thing that enters the orchestrator's context per task. Its schema is specified in the receipt-schema support file (`receipt-schema.md`, in this skill directory).
 
 ## Phase split
 
@@ -236,7 +237,7 @@ The worker starts cold and inherits nothing from the orchestrator's transcript; 
 - the task's declared file list and Definition of Done;
 - the model floor being satisfied;
 - the conventions pointer (the repo's `CLAUDE.md`(s));
-- the receipt schema and its length cap (the receipt-schema support file).
+- the receipt schema and its length cap (the receipt-schema support file, `receipt-schema.md`).
 
 The worker orients by reading the spec task and the latest journal entry from disk — the same Phase 1 discipline, scoped to one task. Workers do **not** invoke the `spec-*` skills: the Phase 4–6 rules they follow are carried in the worker agent definition (authored under `.agents/agents/`) and this section, so loading a full skill — with the orientation phases the orchestrator already ran — would re-import the very cost dispatch removes. Workers implement, verify the DoD with evidence, write the journal entry first-hand (the entity that ran the tests writes the record), and make the paired commits, all per the Phase 4–6 contracts above. Single delegation level: workers may not spawn further subagents.
 
