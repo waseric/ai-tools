@@ -345,6 +345,8 @@ Deliberately deferred, expected to come up in review:
 
 ### OQ-4 — Worker tool surface
 
+**Resolved 2026-07-06 (P3 authoring).** The `spec-worker` definition grants the full tool surface minus the Agent tool, expressed as `disallowedTools: Agent` — the leaning below, implemented. One definition; web access is left to brief-level instruction, not a definition-level denial. Model is left unpinned in the frontmatter (defaults to `inherit`) so the per-spawn `model` override sets the floor. The sibling `spec-reviewer` is further constrained to `disallowedTools: Agent, Write, Edit`, which mechanically enforces `spec-review`'s "you review, you don't fix" — a reviewer-specific tightening outside this OQ's scope (which concerns the worker). Cold-read validation of the worker contract (§8) remains a CP-2 exit criterion, not yet run. Original analysis retained below.
+
 **Question.** Exactly which tools does the `spec-worker` definition grant?
 
 **Analysis.** Workers need file edit/read, shell, and git (implement, verify, commit). They must not spawn subagents (single delegation level, floor-laundering guard). Web access is task-dependent (some consuming tasks fetch upstream docs); granting it broadly is simpler, denying it is safer-by-default with per-batch exceptions in the brief.
