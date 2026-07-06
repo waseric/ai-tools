@@ -678,3 +678,24 @@ See [specs/20260518-cp2-batch-audit/journal.md](../20260518-cp2-batch-audit/jour
 **After:** As quoted in the P2.1 amendment presentation (dispatch-execution session, 2026-07-05); see [architecture.md](./architecture.md) §4 "Execution modes and autonomy".
 
 This is a **single-artifact amendment** (the cross-skill four-step mechanics do not apply): the paired master + deploy-copy edits are cross-reference follow-ups under this amendment ID, not parallel amendment records. The dispatch-execution session journal carries the P2.1 task closeout separately.
+
+## 2026-07-05 — Amendment 2026-07-05-2
+
+**Section amended:** [architecture.md](./architecture.md) §4 *Execution modes and autonomy* (appended one index sentence pointing to §5.12) + new §5.12 *Dispatch mode — orchestrator/worker split, conduct, and worker brief*
+**Trigger:** dispatch-execution ([specs/20260705-dispatch-execution/architecture.md](../20260705-dispatch-execution/architecture.md), Approved) P2.2; implements that spec's §4 composition rule + §5.2 orchestrator conduct + §5.3 worker brief. Planned, operator-approved amendment — not drift.
+**Reason:** After P2.1 introduced the `EXECUTION` axis, the governing spec still described no dispatch *mechanics*; a faithful contract must document the orchestrator/worker phase split, orchestrator conduct rules, and worker brief that the shipping master now carries under `EXECUTION: dispatch`.
+**Impact summary:** Affected tasks: dispatch-execution P2.2 (paired master DISPATCH MODE + Phase 2/4/5/6 dispatch notes + WHAT-NOT-TO-DO bullets follow in same closeout); affected checkpoints: dispatch-execution CP-2 (amendment-set consistency); no completed work invalidated.
+**Approver:** Eric Wasgatt
+**Approved on:** 2026-07-05
+**Status implication:** kept — §1 banner stays `Approved — CP-2 closed 2026-05-18`. Additive, backed by the separately-approved dispatch-execution spec; governing-spec ↔ master consistency is gated by dispatch-execution CP-2, not by re-opening this spec's checkpoints.
+**Commit:** `ffe7206` (governing-spec application); this journal entry commits as a paired follow-up; master + deploy sync in `spec-execute:`-prefixed commit.
+
+### Full record
+
+**Change.** (1) §4 *Execution modes and autonomy*: appended one sentence to the Defaults paragraph — "The orchestrator/worker phase split, orchestrator conduct rules, and worker brief contract are described in §5.12." (2) Inserted a new subsection §5.12 after §5.11, descriptive of the master's new DISPATCH MODE section, with fields Purpose / Composition rule / Orchestrator conduct / Worker brief / Why this design / Reversibility / Cross-reference. Cites dispatch-execution §4/§5.2/§5.3 as the sibling design-spec authority for dispatch behavior.
+
+**Before:** §4's Defaults paragraph ended at "…stands for Phase 8."; §5 ended at §5.11 (Portability rule for links), proceeding directly to §6. No description of the orchestrator/worker split, orchestrator conduct, or worker brief anywhere in the spec.
+
+**After:** As approved in the dispatch-execution P2.2 session, 2026-07-05; see [architecture.md](./architecture.md) §4 "Execution modes and autonomy" (final sentence) and §5.12.
+
+This is a **single-artifact amendment** (the cross-skill four-step mechanics do not apply): the paired master + deploy-copy edits are cross-reference follow-ups under this amendment ID, not parallel amendment records. Forward references within §5.12 (receipt schema support file, `Executed by` field, context budget, operator cues, worker agent definition) point at later steps of the same P2/P3 amendment set and are honest markers, not drift. The dispatch-execution session journal carries the P2.2 task closeout separately.
