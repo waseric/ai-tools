@@ -24,6 +24,7 @@ SPEC_TARGET_BRANCH: <optional; branch in SPEC_REPO_ROOT, when different from TAR
 SESSION_GOAL: <optional: a specific task ID or scope for this session, otherwise the agent picks>
 TIME_BUDGET: <optional: e.g. "two hours" or "single task only">
 AUTONOMY: <optional; "task" (default) | "checkpoint". "task" pauses for user approval at every task boundary. "checkpoint" runs tasks back-to-back and stops only at review checkpoints, blocker-class questions, proposed spec amendments, model-floor conflicts, and any production-touching action. Only the user may set "checkpoint" — never self-granted>
+EXECUTION: <optional; "inline" (default) | "dispatch". Orthogonal to AUTONOMY — AUTONOMY governs *where the run stops*, EXECUTION governs *who implements*; all four combinations are legal. "inline": the session runs every phase itself. "dispatch": the session runs as a thin orchestrator that delegates each task's Phases 4–6 to a disposable worker subagent spawned at the task's model floor; dispatch conduct is specified in the dispatch-mode notes on Phases 2 and 4–6 and in the receipt-schema support file. The operator may restrict to "inline" for tightly supervised work; the agent may *recommend* switching but never switches silently, and may never loosen the stop set (skip a designed pause, downgrade a blocker, or continue past a designed stop). Only the user sets these modes — never self-granted or self-escalated>
 ```
 
 If `JOURNAL_PATH` does not exist yet, create it on first run.
