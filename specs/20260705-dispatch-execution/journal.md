@@ -111,3 +111,27 @@
 **Spec amendments:** [governing spec amendment 2026-07-05-2](../20260518-spec-execute-skill/journal.md) — §4 index sentence + new §5.12 "Dispatch mode".
 **Surprises and learnings:** Invoking `spec-amend` and `spec-execute` as in-session Skills reset the Edit tool's "file has been read" tracking; had to re-Read anchor regions before editing. Cheap, but worth knowing: a skill launch is a read-state boundary. The clean 2-commit ordering (spec-edit → journal-referencing-it) is simpler than P2.1's commit-then-backfill and is the recommended pattern for future single-artifact amendments here.
 **Next task pointer:** P2.3 — receipt-schema support file (`.agents/skills/spec-execute/receipt-schema.md`, dispatch-execution §5.4) + `Executed by` journal field (§5.5); wire the master's Phase 6 journal template and the governing spec to reference both.
+
+## 2026-07-05 — P2.3: receipt-schema support file + `Executed by` journal field (support file + master + governing-spec amendment)
+
+**Status:** done
+**Operating mode (operator-granted this session):** `AUTONOMY: checkpoint`; `EXECUTION: inline` (dispatch not yet built — P2 bootstraps it inline by necessity). Operator approved the concrete P2.3 diffs in-session before apply (amendment = designed stop under checkpoint).
+**Commits:** `25c5ffb` (governing-spec §5.12 amendment application), `29939e5` (governing-spec amendment 2026-07-05-3 journal record, refs 25c5ffb), `fb04837` (new `receipt-schema.md` support file + master Phase 6 `Executed by` line + DISPATCH MODE receipt-file references, deploy synced). This closeout entry commits separately.
+**Executed by:** inline
+**Files touched:** `.agents/skills/spec-execute/receipt-schema.md` (new support file), `.agents/skills/spec-execute/SKILL.md` (Phase 6 template `Executed by` line + 2 DISPATCH MODE receipt-file references), deploy copies `~/.claude/skills/spec-execute/{SKILL.md,receipt-schema.md}` (synced), `specs/20260518-spec-execute-skill/architecture.md` (§5.12 Reversibility + Cross-reference stubs resolved), `specs/20260518-spec-execute-skill/journal.md` (amendment 2026-07-05-3 record).
+**Tests added:** n/a (doc/skill artifacts — verification is mechanical grep + diff).
+**DoD verification:**
+- Receipt-schema support file authored at the OQ-1-resolved path, faithful to dispatch-execution §5.4 (8 fields in order, 25-line cap, commands-as-evidence rule, stop conditions): `grep -n "Hard cap" .agents/skills/spec-execute/receipt-schema.md` → line 14.
+- `Executed by` field added to master Phase 6 journal template (dispatch-execution §5.5 shape): `grep -n "Executed by" .agents/skills/spec-execute/SKILL.md` → line 141.
+- Master references the now-existing support file (no "added in a later step" language): `grep -n "receipt-schema.md" .agents/skills/spec-execute/SKILL.md` → lines 212, 240.
+- Governing-spec §5.12 forward-reference stubs resolved: `grep -n "added in a later step" specs/20260518-spec-execute-skill/architecture.md` → no stale stubs.
+- Governing-spec change routed through `spec-amend` (first-class amendment 2026-07-05-3 journaled): commits `25c5ffb` + `29939e5`.
+- Master ≡ deploy (both files): `diff -q` clean for `SKILL.md` and `receipt-schema.md` ("MASTER==DEPLOY OK").
+**Models used:** dispatch-execution declares no per-task Model floors (design spec); no floor gating applies. Work done by this session's model (Opus 4.8).
+**Decisions made:**
+- **Governing §5.6 left untouched.** Its Phase 6 field list (line 237) is explicitly illustrative and defers to SKILL.md for the authoritative format ("matching the format declared in SKILL.md"); it already omits `Models used`. Adding only `Executed by` there would be inconsistent, and the master is the authoritative template — so the field landed in the master template and the §5.12 forward-reference stubs were resolved instead. Surfaced to the operator in Phase 3; approved.
+- **Support-file scope = normative schema only.** `receipt-schema.md` carries the schema shape, the 25-line cap, the evidence/stop rules, and the "why capped" rationale — a faithful reproduction of dispatch-execution §5.4, self-contained so both the orchestrator (via the skill) and the worker (via the P3 `spec-worker` agent definition) load one normative copy. No consumer-doctrine copy (OQ-1 resolution).
+- **Commit shape mirrors P2.2** (spec-edit → journal-referencing-it → master+deploy → closeout): avoids the P2.1 `--amend`-rewrites-SHA trap by never having a journal reference its own commit.
+**Spec amendments:** [governing spec amendment 2026-07-05-3](../20260518-spec-execute-skill/journal.md) — §5.12 Reversibility + Cross-reference forward-reference stubs resolved to the shipped support file and template field.
+**Surprises and learnings:** The `Executed by` field this step added is the same field this very journal entry uses — the amendment set became self-hosting at P2.3. Deploy sync now covers *two* files in the skill directory (`SKILL.md` + `receipt-schema.md`); the deploy-sync check must diff both, not just the master, going forward (relevant to P3 when the agent-definitions class adds a third deploy target class).
+**Next task pointer:** P2.4 — Phase 8 context budget (fixed 80,000-token trigger; dispatch-execution §5.6): wire the master's Phase 8 and the governing spec's §5.8. Note the still-open remaining P2 steps: P2.5 operator cues (§5.9), P2.6 atomic defaults flip; then P3 agent definitions (`spec-worker`/`spec-reviewer`), P4 spec-review.
