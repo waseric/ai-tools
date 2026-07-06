@@ -657,3 +657,24 @@ Banner advancement deferred (no successor state defined; matches precedent). Res
 ### Full record
 
 See [specs/20260518-cp2-batch-audit/journal.md](../20260518-cp2-batch-audit/journal.md) amendment 2026-05-19-1 for the full structured Phase 2 amendment record. This is the **cross-skill companion entry**; the batch journal holds the primary record because the amendment is methodology-level (defines the post-CP-2 successor state across N=1..N=6). Pasting the structured block here would duplicate the durable record.
+
+## 2026-07-05 — Amendment 2026-07-05-1
+
+**Section amended:** [architecture.md](./architecture.md) §4 Architecture → *Execution model* (new subsection "Execution modes and autonomy")
+**Trigger:** dispatch-execution design spec ([specs/20260705-dispatch-execution/architecture.md](../20260705-dispatch-execution/architecture.md), Approved, CP-1 closed 2026-07-05) P2.1; folds in the CP-1 advisory to backfill the `AUTONOMY` input undocumented here since it shipped in `6bef6f8` (2026-07-03).
+**Reason:** This 2026-05-18 governing spec described only single-lane inline execution with per-task pauses; it predates both the `AUTONOMY` input and the dispatch execution topology. It must describe the two orthogonal execution-mode/autonomy axes and their flipped defaults to stay a faithful contract.
+**Impact summary:** Affected tasks: dispatch-execution P2.1 (paired master INPUTS edit follows in same closeout); affected checkpoints: dispatch-execution CP-2 (amendment-set consistency); no completed work invalidated.
+**Approver:** Eric Wasgatt
+**Approved on:** 2026-07-05
+**Status implication:** kept — §1 banner stays `Approved — CP-2 closed 2026-05-18`. Additive amendment backed by the separately-approved dispatch-execution spec; governing-spec ↔ master consistency is gated by dispatch-execution CP-2, not by re-opening this spec's checkpoints.
+**Commit:** `2f4aca6`
+
+### Full record
+
+**Change.** Inserted a new `### Execution modes and autonomy` subsection into §4 between the "Four explicit pause points" paragraph and `### Where this design plugs in`. The subsection documents: (1) the `AUTONOMY` input (`task` | `checkpoint`) with its designed-stop set and operator-set-only discipline — the backfill; (2) the `EXECUTION` input (`inline` | `dispatch`) as an orthogonal axis governing who implements; (3) the flipped defaults (`EXECUTION: dispatch`, `AUTONOMY: checkpoint`) with the "agent may never loosen the stop set" governing rule, citing the dispatch-execution spec as the sibling design-spec authority for dispatch behavior (as session-economy is for Phase 8).
+
+**Before:** §4 *Execution model* ended at the "Four explicit pause points" paragraph, then proceeded directly to `### Where this design plugs in`. No mention of `AUTONOMY` or `EXECUTION` anywhere in the spec.
+
+**After:** As quoted in the P2.1 amendment presentation (dispatch-execution session, 2026-07-05); see [architecture.md](./architecture.md) §4 "Execution modes and autonomy".
+
+This is a **single-artifact amendment** (the cross-skill four-step mechanics do not apply): the paired master + deploy-copy edits are cross-reference follow-ups under this amendment ID, not parallel amendment records. The dispatch-execution session journal carries the P2.1 task closeout separately.
