@@ -276,6 +276,8 @@ Amendment-class work throughout — no downstream feature spec is anticipated; e
 
 ### CP-2 — Amendment-set consistency
 
+**Status:** pass with comments on 2026-07-06 by Claude (AI reviewer) — see [CP-2 review journal entry](./journal.md). 0 blockers; 0 important; 1 advisory (spec-execute master never names the concrete `spec-worker` agent type for the coordinator to spawn, where the spec-review master names `spec-reviewer` — a discoverable but asymmetric skill-text polish, not a spec-compliance failure). Both exit criteria met: consistency sweep clean (master≡deploy across all 5 deliverables; no skill gained harness frontmatter; governing-spec↔skill-text vocabulary agreement confirmed); cold-read test passed for both `spec-worker` and `spec-reviewer` and is journaled. **Checkpoint closed.**
+
 - **Trigger.** P2–P4 landed.
 - **Review focus.** Master/deploy equality (mechanical); governing-spec ↔ skill-text agreement; cold-read test passed; no skill gained harness-specific frontmatter.
 - **Exit criteria.** Consistency sweep clean; cold-read pass journaled.
