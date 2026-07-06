@@ -82,6 +82,8 @@ Before opening new work, verify that the previous task is actually closed out:
 
 If any of these fail, the next action is to repair the closeout, not to start new work.
 
+**Dispatch mode (`EXECUTION: dispatch`).** Phase 2 stays orchestrator-side and becomes a *derivation re-check*: re-run each verification command the prior task's receipt journaled and compare the output against the receipt's claim. Reject any receipt whose re-check fails — the task is not accepted as done; re-dispatch it with an updated brief, or stop to the operator. Do not open code files or diffs for this; command output is the evidence. See **DISPATCH MODE**.
+
 # PHASE 3 — CLARIFY (only if needed)
 
 For the proposed next task, list:
@@ -104,6 +106,8 @@ Implement the task. Constraints:
 - **Multi-repo case.** When `SPEC_REPO_ROOT` is set, code commits land in `CODEBASE_ROOT` and any spec or journal updates land in `SPEC_REPO_ROOT`. Treat each task as producing a *pair* of commits — one per repo — both referencing the same task ID. Do not let the code commit ship without its paired spec/journal commit; the spec falls out of sync the moment that happens.
 - If you discover that the task as specified cannot be completed correctly, stop and propose a spec amendment. Do not work around the spec.
 
+**Dispatch mode.** Phases 4–6 are owned by a disposable worker subagent spawned for this one task at its model floor. The orchestrator does not implement, read code, or read diffs — it spawns the worker with a brief (see **DISPATCH MODE**) and waits for the receipt.
+
 # PHASE 5 — VERIFY (current task)
 
 Walk the Definition of Done item by item. For each item, produce evidence:
@@ -115,6 +119,8 @@ Walk the Definition of Done item by item. For each item, produce evidence:
 - Acceptance criteria: walk each Given/When/Then and state how it is satisfied.
 
 If any item is not satisfied, the task is not done. Either finish it or split out the unfinished portion as a follow-up task in the spec.
+
+**Dispatch mode.** The worker performs Phase 5 and records each DoD result in its receipt as a PASS/FAIL plus the re-runnable command. The orchestrator does not re-read the diff; it re-derives via Phase 2's re-check. See **DISPATCH MODE**.
 
 # PHASE 6 — UPDATE ARTIFACTS
 
@@ -141,6 +147,8 @@ Do all of the following before claiming the task complete:
 - **Update the next-task pointer.** Identify the next task per the dependency graph and state it explicitly in the journal entry. This is the handoff for the next session.
 - **Surface new risks or open questions.** If the work revealed any, add them to the spec's Risks or Open Questions sections.
 - **Commit the artifact updates.** Stage and commit the spec and journal changes with a message that references the task ID (e.g. `spec: T-04 closeout — mark done, journal entry, next-task pointer`). When `SPEC_REPO_ROOT` is set, this commit lands in the spec repo, not the codebase repo — and is the paired commit to whatever code commits closed out the task. Do not declare the task complete until *both* commits exist.
+
+**Dispatch mode.** The worker writes the journal entry first-hand and makes the paired commits; the orchestrator does not author the entry from the receipt (that would insert a transcription layer where confabulation enters). The receipt — not the journal — is what enters the orchestrator's context. See **DISPATCH MODE**.
 
 # PHASE 7 — CHECKPOINT GATE
 
@@ -196,6 +204,42 @@ Then stop and wait. If the user says continue, return to Phase 1 for the next ta
 
 Skip this phase only when the user has explicitly said "run the full set without checking in" or has set `AUTONOMY: checkpoint` — and even then, surface a brief note at the end of each task so the user can interrupt if they want. `AUTONOMY: checkpoint` never overrides Phase 7: review checkpoints, blockers, amendments, model-floor conflicts, and production-touching actions stop the run in every mode.
 
+# DISPATCH MODE (EXECUTION: dispatch)
+
+When the operator sets `EXECUTION: dispatch`, the session runs as a thin orchestrator that delegates each task's implementation to a disposable worker subagent. The contract is unchanged — spec as source of truth, closeout discipline, amendment protocol — only the executor changes. All inter-task continuity lives in the spec and journal, never in the orchestrator's context, because the worker that held the working set no longer exists at the next boundary.
+
+A **receipt** is the worker's final message: a fixed-shape, length-capped task summary, and the only thing that enters the orchestrator's context per task. Its schema lives in the receipt-schema support file (added in a later step of this amendment set).
+
+## Phase split
+
+- **Orchestrator** (this session) runs Phases 1–3, 7, 8 plus receipt acceptance: orientation, pre-flight, clarification, checkpoint gate, continuity decision. It never opens code files, diffs, or build output.
+- **Worker** (one per task) runs Phases 4–6: implement, verify the DoD with evidence, write the journal entry, and make the paired commits (code and spec/journal). Spawned at the task's declared model floor; orients from the artifacts on disk; dies at closeout.
+- **Phase 2** is always orchestrator-side (derivation re-checks).
+
+## Orchestrator conduct
+
+In dispatch mode the orchestrator:
+
+1. Reads only the spec, the journal, and receipts — never code, diffs, or build output.
+2. Runs shell only for derivation re-checks and git-state inspection.
+3. Performs Phase 2 by re-running each verification command the receipt journaled and comparing against the claim; a receipt whose re-check fails is rejected and the task is not accepted as done.
+4. Treats an amendment trigger reported in any receipt as a batch stop (the same designed stop as any amendment under `AUTONOMY: checkpoint`).
+5. Never "just quickly fixes" anything. A failed or partial task is re-dispatched with an updated brief, or stopped to the operator. Orchestrator drift into implementation silently rebuilds the accumulating session dispatch removes.
+
+## Worker brief
+
+The worker starts cold and inherits nothing from the orchestrator's transcript; the brief must carry everything. At minimum it contains:
+
+- the task ID and the full task text, quoted from the spec;
+- repo-relative paths to `SPEC_PATH` and `JOURNAL_PATH` (and `SPEC_REPO_ROOT` / `SPEC_TARGET_BRANCH` when multi-repo);
+- the referenced spec sections (quoted, or path + anchor);
+- the task's declared file list and Definition of Done;
+- the model floor being satisfied;
+- the conventions pointer (the repo's `CLAUDE.md`(s));
+- the receipt schema and its length cap (the receipt-schema support file).
+
+The worker orients by reading the spec task and the latest journal entry from disk — the same Phase 1 discipline, scoped to one task. Workers do **not** invoke the `spec-*` skills: the Phase 4–6 rules they follow are carried in the worker agent definition (authored under `.agents/agents/`) and this section, so loading a full skill — with the orientation phases the orchestrator already ran — would re-import the very cost dispatch removes. Workers implement, verify the DoD with evidence, write the journal entry first-hand (the entity that ran the tests writes the record), and make the paired commits, all per the Phase 4–6 contracts above. Single delegation level: workers may not spawn further subagents.
+
 # WHAT NOT TO DO
 
 - Do not skip Phase 1 on the assumption that you remember the spec from earlier in the session. Re-read it at every task boundary.
@@ -210,6 +254,8 @@ Skip this phase only when the user has explicitly said "run the full set without
 - Do not ship a code commit without its paired spec/journal commit when `SPEC_REPO_ROOT` is set. The spec falls out of sync the moment that happens, and the next session has no clean handoff.
 - Do not skip Phase 8 (Session Continuity Check) at a task boundary. Even when continuing is the obvious call, name the reasoning so the user can intervene.
 - Do not unilaterally start the next task after Phase 8 — the recommendation is for the user, not a license to proceed. (Both bullets relax under user-set `AUTONOMY: checkpoint`, which substitutes a brief logged note per boundary; checkpoint gates, blockers, and production actions still stop the run.)
+- Do not, in dispatch mode, open code files, read diffs, or "just quickly fix" a task as the orchestrator. Re-dispatch with an updated brief or stop — orchestrator-side implementation silently rebuilds the accumulating session dispatch exists to remove.
+- Do not have the orchestrator author a worker's journal entry from its receipt. Journals are written first-hand by the worker; second-hand transcription is where confabulation enters.
 - Do not set or escalate `AUTONOMY` yourself — it is user-granted input, restated in the journal so later sessions know the operating mode.
 
 # AMENDMENT PROTOCOL
