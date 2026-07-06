@@ -248,3 +248,30 @@
 - **CP-2 now un-gated on P4.** With P4 landed, only **P2.6** (defaults flip) remains before dispatch-execution CP-2 (which audits the whole P2–P4 amendment set: master≡deploy sweep, cold-read test of `spec-worker`, no skill gained harness frontmatter) triggers. The `spec-reviewer` cold-read test (§8) is also a CP-2 exit criterion, still pending.
 - **Pre-existing follow-up surfaced:** spec-execute master `lastUpdated` is stale (2026-07-03, not bumped by the 2026-07-05 P2 amendments). Typo-class; can land directly per CLAUDE.md's typo-class exception, or fold into P2.6's master edit.
 **Next task pointer:** **P2.6** — atomic defaults flip (master `spec-execute` INPUTS: `EXECUTION` default → `dispatch`, `AUTONOMY` default → `checkpoint`; dispatch-execution §5.1), now the last remaining amendment-set step. Consider folding the stale-`lastUpdated` fix into that same master edit. Once P2.6 lands, **CP-2** triggers (amendment-set consistency + cold-read tests).
+
+## 2026-07-06 — P2.6: atomic defaults flip on the spec-execute master (master reconciliation)
+
+**Status:** done
+**Operating mode (operator-granted this session):** `AUTONOMY: checkpoint`; `EXECUTION: inline` (dispatch not spawnable from this pre-existing session — the `~/.claude/agents/` definitions landed at P3 become detectable only in a fresh session; noted at P3). **Not a `spec-amend`:** the governing spec §4 "Defaults" (line 155, landed at amendment 2026-07-05-1) already declares `EXECUTION: dispatch` + `AUTONOMY: checkpoint` as the design authority — P2.6 reconciles the master *to* the already-amended spec (a master edit, no spec change), exactly as the P2.1 decision scoped it. No amendment stop applied; no drift/blocker surfaced under checkpoint.
+**Commits:** `d37feec` (master INPUTS defaults flip + framing rewording + `lastUpdated` bump, deploy synced). This closeout entry commits separately.
+**Executed by:** inline
+**Files touched:** `.agents/skills/spec-execute/SKILL.md` (INPUTS `AUTONOMY` + `EXECUTION` default flip and restriction-framing rewording; `lastUpdated` 2026-07-03→2026-07-06), deploy copy `~/.claude/skills/spec-execute/SKILL.md` (synced — filesystem op, outside this repo, not git-tracked here).
+**Tests added:** n/a (skill artifact — verification is mechanical grep + diff).
+**DoD verification:**
+- `EXECUTION` default flipped inline→dispatch in master INPUTS (dispatch-execution §5.1 shape): `grep -n 'EXECUTION: <optional; "dispatch" (default)'` → line 27.
+- `AUTONOMY` default flipped task→checkpoint, restriction framing reworded to "operator restricts; agent may never loosen the stop set" (governing §4 line 155): `grep -n 'AUTONOMY: <optional; "checkpoint" (default)'` → line 26.
+- Old-default framing fully gone: `grep -n '"task" (default)\|"inline" (default)\|lastUpdated: 2026-07-03'` → NONE.
+- Stale `lastUpdated` fixed: line 3 → 2026-07-06.
+- Master ≡ deploy: `diff -q` clean ("SKILL MASTER==DEPLOY OK"); `receipt-schema.md` untouched (still in sync from P2.3).
+- No body-reference breakage: the only `(default)` occurrences were the two INPUTS lines; body uses conditional "Under AUTONOMY: checkpoint" phrasing and line 237's "default autonomy" already assumes the new posture — no other edits needed.
+**Models used:** dispatch-execution declares no per-task Model floors (design spec); no floor gating applies. Work done by this session's model (Opus 4.8).
+**Decisions made:**
+- **Direct master edit, not `spec-amend`.** The governing-spec change that authorizes these defaults already landed at amendment 2026-07-05-1; re-routing through `spec-amend` would produce no spec change. P2.1 explicitly decomposed the flip as the P2-end reconciliation step for this reason.
+- **Framing reworded, not just tokens flipped.** The old "Only the user may set checkpoint — never self-granted" clause is backwards once checkpoint is the default; replaced with the governing §4 posture (operator *restricts* to `task`/`inline`; the agent may never loosen the stop set, never self-escalates). Faithful reconciliation, not scope creep.
+- **`lastUpdated` folded in** (P4 follow-up recommendation), keeping the flip a single atomic master edit.
+- **Commit shape:** single master commit (no paired governing-spec commit, since there is no spec edit) → this closeout entry separate. Simpler than P2.2–P2.5's amendment 4-commit shape precisely because P2.6 is a reconciliation, not an amendment.
+**Spec amendments:** none (master-to-spec reconciliation; the authorizing amendment is the pre-existing governing-spec 2026-07-05-1).
+**Surprises and learnings:**
+- **Deploy copy is not git-add-able from this repo.** `git add ~/.claude/skills/...` fatals ("outside repository") — the deploy copy lives outside the working tree and deploy-sync is a filesystem `cp`, verified by `diff -q`, never a tracked path. Commit only the master; state the sync status in the message. (First time a P-step touched only the master with no paired spec commit, so this surfaced now.)
+- **The P2 amendment set is complete.** All of P2.1–P2.6 have landed; combined with P3 (agent definitions) and P4 (spec-review dispatch), the entire dispatch surface is in place. **CP-2 now triggers** — its exit criteria (master≡deploy sweep, governing-spec↔skill-text agreement, `spec-worker`/`spec-reviewer` cold-read tests, no skill gained harness frontmatter) are the next gate. The cold-read tests remain un-run and are CP-2's live work.
+**Next task pointer:** **CP-2 — Amendment-set consistency** (dispatch-execution §9). Trigger met (P2–P4 landed). Review focus: master/deploy equality across both skills; governing-spec ↔ skill-text vocabulary agreement; `spec-worker` + `spec-reviewer` cold-read tests passed; no skill gained harness-specific frontmatter. This is a review checkpoint (Phase 7 hard stop) — hand off to `/spec-review`. Note: `spec-worker`/`spec-reviewer` are only spawnable in a **fresh** session (P3 learning), which the cold-read test needs anyway.
