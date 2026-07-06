@@ -177,6 +177,8 @@ Factors to weigh:
 - **Token economy.** How much of the model's context window has this session consumed? Long sessions with extensive code reads, error traces, or exploration burn context that crowds out the next task's working space. When the session has consumed a large fraction of available context, a fresh session gives the next task full headroom. Also consider billing: if the model charges per token, a fresh session with a clean prompt-cache hit on the spec is often cheaper than continuing with a bloated context.
 - **User signal.** If the user has said "stay in this session" or "we'll pick up tomorrow," honor that over any heuristic.
 
+**Context budget — a mechanical trigger.** The token-economy factor above has a hard floor: **80,000 tokens of session context consumed** (read from the harness's context indicator, or conservatively estimated from turn count and read volume when no indicator is available). Below budget, weigh the factors qualitatively as above. At or above budget the weighing is over: in inline mode the recommendation *must* be "fresh session," and under `AUTONOMY: checkpoint` a breach stops the run at the task boundary rather than continuing — cleanly, with the journal's next-task pointer set. In dispatch mode the budget is moot: a thin orchestrator grows ~2k tokens per accepted receipt and should never approach 80k, so reaching it signals that the orchestrator conduct rules were violated, and the run stops for the operator. Fixed tokens rather than a fraction of the window: tokens are the unit of pricing, so the threshold means the same cost exposure on every model.
+
 A reasonable default rubric — adapt to the project's actual feel:
 
 | Signal | Lean |
@@ -186,6 +188,7 @@ A reasonable default rubric — adapt to the project's actual feel:
 | Session has run long or chewed through significant context | fresh session |
 | Next task is small and fully specified | either is fine — user picks |
 | Session has consumed significant context (long reads, traces, false starts) | fresh session |
+| Session context ≥ 80,000 tokens | fresh session (inline) / stop for operator (dispatch) — mandatory, not a lean |
 | Open question surfaced that needs offline decision | pause regardless |
 
 Output format for the recommendation:
@@ -203,7 +206,7 @@ Session continuity check: <one or two sentences naming what shaped the recommend
 
 Then stop and wait. If the user says continue, return to Phase 1 for the next task, re-reading the spec rather than relying on memory of it. If the user pauses, the session ends cleanly with the journal as the handoff.
 
-Skip this phase only when the user has explicitly said "run the full set without checking in" or has set `AUTONOMY: checkpoint` — and even then, surface a brief note at the end of each task so the user can interrupt if they want. `AUTONOMY: checkpoint` never overrides Phase 7: review checkpoints, blockers, amendments, model-floor conflicts, and production-touching actions stop the run in every mode.
+Skip this phase only when the user has explicitly said "run the full set without checking in" or has set `AUTONOMY: checkpoint` — and even then, surface a brief note at the end of each task so the user can interrupt if they want. `AUTONOMY: checkpoint` never overrides Phase 7: review checkpoints, blockers, amendments, model-floor conflicts, production-touching actions, and a context-budget breach stop the run in every mode.
 
 # DISPATCH MODE (EXECUTION: dispatch)
 
