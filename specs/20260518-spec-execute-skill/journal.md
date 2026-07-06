@@ -699,3 +699,24 @@ This is a **single-artifact amendment** (the cross-skill four-step mechanics do 
 **After:** As approved in the dispatch-execution P2.2 session, 2026-07-05; see [architecture.md](./architecture.md) §4 "Execution modes and autonomy" (final sentence) and §5.12.
 
 This is a **single-artifact amendment** (the cross-skill four-step mechanics do not apply): the paired master + deploy-copy edits are cross-reference follow-ups under this amendment ID, not parallel amendment records. Forward references within §5.12 (receipt schema support file, `Executed by` field, context budget, operator cues, worker agent definition) point at later steps of the same P2/P3 amendment set and are honest markers, not drift. The dispatch-execution session journal carries the P2.2 task closeout separately.
+
+## 2026-07-05 — Amendment 2026-07-05-3
+
+**Section amended:** [architecture.md](./architecture.md) §5.12 *Dispatch mode* — the "Reversibility" and "Cross-reference" paragraphs (resolved two forward-reference stubs)
+**Trigger:** dispatch-execution ([specs/20260705-dispatch-execution/architecture.md](../20260705-dispatch-execution/architecture.md), Approved) P2.3; lands the receipt-schema support file (`.agents/skills/spec-execute/receipt-schema.md`, dispatch-execution §5.4) and the `Executed by` journal field (dispatch-execution §5.5, now in the SKILL.md Phase 6 template). Planned, operator-approved amendment — not drift.
+**Reason:** §5.12's "Reversibility" and "Cross-reference" paragraphs described the `Executed by` field and the receipt schema as "added in a later step of the P2 amendment set." P2.3 is that step; the stubs are now stale and must resolve to the shipped artifacts (the support file at its path, the field in the master template).
+**Impact summary:** Affected tasks: dispatch-execution P2.3 (paired master `receipt-schema.md` + Phase 6 `Executed by` line + DISPATCH MODE receipt-file references land in the same closeout); affected checkpoints: dispatch-execution CP-2 (amendment-set consistency); no completed work invalidated.
+**Approver:** Eric Wasgatt
+**Approved on:** 2026-07-05
+**Status implication:** kept — §1 banner stays `Approved — CP-2 closed 2026-05-18`. Reference-resolution only; no design change, backed by the separately-approved dispatch-execution spec; governing-spec ↔ master consistency is gated by dispatch-execution CP-2.
+**Commit:** `25c5ffb` (governing-spec application); this journal entry commits as a paired follow-up; master + new support file + deploy sync in `spec-execute:`-prefixed commit.
+
+### Full record
+
+**Change.** Two paragraphs in §5.12. (1) *Reversibility*: replaced "the `Executed by` field (added in a later step of the P2 amendment set)" with "the `Executed by` field (`inline | worker(<agent-definition-name>, <model>)`), now in the SKILL.md Phase 6 journal template." (2) *Cross-reference*: replaced the stub sentence with a concrete pointer — the receipt schema is specified in the support file `receipt-schema.md` in the skill directory (deployed alongside SKILL.md) and the `Executed by` field is in the SKILL.md Phase 6 template; the Phase 8 context budget (§5.6) and operator cues (§5.9) remain flagged as their own later P2 steps.
+
+**Before:** "…except the `Executed by` field (added in a later step of the P2 amendment set)." / "The receipt schema (referenced above) is specified in the receipt-schema support file and the `Executed by` journal field is added alongside it (dispatch-execution §5.4–5.5); …"
+
+**After:** As approved in the dispatch-execution P2.3 session, 2026-07-05; see [architecture.md](./architecture.md) §5.12 "Reversibility" and "Cross-reference" paragraphs.
+
+This is a **single-artifact amendment** (the cross-skill four-step mechanics do not apply): the paired master edits (new `receipt-schema.md`, Phase 6 `Executed by` template line, DISPATCH MODE receipt-file references) and deploy-copy sync are cross-reference follow-ups under this amendment ID, not parallel amendment records. Remaining forward references (Phase 8 context budget §5.6, operator cues §5.9, worker agent definition) point at later P2/P3 steps and stay honest markers. The dispatch-execution session journal carries the P2.3 task closeout separately.
