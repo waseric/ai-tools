@@ -100,6 +100,8 @@ A reviewer enters the skill with:
 
 The reviewer reads the checkpoint contract first (Phase 1), then walks Phases 2–6 producing findings, emits the verdict in Phase 7, and updates artifacts in Phase 8. The verdict is the deliverable; the phases are the means.
 
+A review may run **inline** (this session performs Phases 1–8) or **dispatched** (`REVIEW_EXECUTION: dispatch` — a thin coordinator spawns a `spec-reviewer` subagent at the checkpoint's declared reviewer floor for Phases 1–7 and writes the verdict back in Phase 8). The optional mode and its operator cues are specified in §5.12–§5.13; the sibling design authority is [dispatch-execution §5.8–§5.9](../20260705-dispatch-execution/architecture.md).
+
 ### Where this design plugs in
 
 `spec-review` is invoked when a Review Checkpoint declared in a spec is triggered — usually by `spec-execute`'s Phase 7 Checkpoint Gate, sometimes directly by an operator who completed a body of work outside `spec-execute`. The skill is the **only spec-driven-core skill whose primary output is a verdict, not a markdown artifact authored from scratch**. Its outputs feed back to `spec-execute` (whether to proceed) and to `spec-amend` (when amendments are proposed).
@@ -262,6 +264,26 @@ Two conditional updates:
 
 **Alternatives considered.** Permitting absolute paths in author-private prose — rejected. Spec is committed; nothing is "author-private."
 
+### 5.12 Dispatch option (`REVIEW_EXECUTION`)
+
+**Purpose.** Give checkpoint reviews the dispatch economics: a fresh reviewer context at the declared reviewer floor, coordinated by a thin session. Descriptive of the master's `DISPATCH MODE` section; sibling design authority [dispatch-execution §5.8](../20260705-dispatch-execution/architecture.md), cited rather than restated.
+
+**Behavior.** An optional `REVIEW_EXECUTION: inline | dispatch` input (default `inline`) selects who reviews. Inline is unchanged current behavior. In dispatch, the session runs as a **coordinator**: it spawns a `spec-reviewer` subagent (agent definition under `.agents/agents/`) at the checkpoint's declared reviewer floor to run Phases 1–7 against the full diff, and itself performs Phase 8 — writing the verdict back to spec and journal, routing any proposed amendments, and making the paired commit when `SPEC_REPO_ROOT` is set. The reviewer keeps the full diff-reading mandate: review is the one place the dispatch design does not starve context. What dispatch buys is isolation (a fresh, floor-correct context untainted by the execution session) and a thin coordinator, not a thinner review.
+
+**Why this design.** A mode, not a second skill: the contract — checkpoint as source of truth, structured verdict, write-back — is identical in both modes; only who reads the diff changes. Floor-correct fresh-context isolation is most valuable exactly where checkpoint reviews are most expensive.
+
+**Reversibility.** `REVIEW_EXECUTION: inline` (the default) fully restores prior behavior; a dispatch-produced verdict is format-identical to an inline one, so a checkpoint can switch modes freely.
+
+**Alternatives considered.** Leaving `spec-review` untouched — viable, and the fallback if dispatch-execution CP-1 had trimmed scope; included because fresh-context isolation benefits the most expensive checkpoint reviews most (dispatch-execution §5.8).
+
+### 5.13 Operator cues at the verdict boundary
+
+**Purpose.** Reduce the operator's re-orientation cost at the review's operator-facing boundary — the verdict. Human-in-the-loop steps land after a context switch; the operator should not have to reconstruct the framework to act. Descriptive of the master's `OPERATOR CUES` section; sibling design authority [dispatch-execution §5.9](../20260705-dispatch-execution/architecture.md).
+
+**Behavior.** A completed review ends with a fixed-format `WHAT HAPPENED / YOUR MOVE / HOW` cue block that renders the next move as a pre-filled invocation: resume `spec-execute` on pass / pass-with-comments; fix-and-re-review on changes-requested; resolve-the-blocker on blocked; the `/spec-amend` invocation (`SECTION` / `TRIGGER` pre-filled) when amendments are proposed; and, in dispatch mode, a model-floor cue when the reviewer floor cannot be met. The journal's Next-action line remains the durable handoff; the cue is its ephemeral rendering, emitted at the boundary and not stored in the artifact. Cues apply in both inline and dispatch modes.
+
+**Why this design.** A verdict without a cue converts the review's gating value into operator re-orientation cost — most expensive exactly at the cold context-switch when a checkpoint stop is acted on.
+
 ## 6. Non-functional Requirements
 
 | NFR | Requirement | Source |
@@ -274,6 +296,8 @@ Two conditional updates:
 | **Multi-repo discipline** | When `SPEC_REPO_ROOT` is set, spec §9 status updates and journal entries are committed in `SPEC_REPO_ROOT`, paired with the code-side commit being reviewed. Architectural source: [session-economy §5.4](../20260514-session-economy/architecture.md). Shape (i) §5-enumerated attribution: retro §5.8 ↔ session-economy §5.4. | [SKILL.md INPUTS + Phase 8](../../.agents/skills/spec-review/SKILL.md); [session-economy §5.4](../20260514-session-economy/architecture.md) |
 | **Verdict observability** | Outcomes are recorded with predictable structural markers (`Status:` line in spec §9; `**Outcome:**` line in journal verdict block). Future sessions and agents parse without ambiguity. | [SKILL.md Phase 8](../../.agents/skills/spec-review/SKILL.md) |
 | **No new requirements during review** | If the reviewer wants something the spec did not require, the channel is "propose a spec amendment for next iteration," not "block this checkpoint." This is what lets specs survive multiple reviewers without becoming unbounded. | [SKILL.md OP §5](../../.agents/skills/spec-review/SKILL.md) |
+| **Dispatch isolation & economy** | With `REVIEW_EXECUTION: dispatch`, the review runs in a fresh `spec-reviewer` context at the checkpoint's reviewer floor, coordinated by a thin session; the reviewer keeps the full diff-reading mandate (isolation, not a thinner review). | [dispatch-execution §5.8](../20260705-dispatch-execution/architecture.md); [SKILL.md DISPATCH MODE](../../.agents/skills/spec-review/SKILL.md) |
+| **Resumability (human)** | Every operator-facing verdict boundary emits a §5.13 cue block; an operator returning cold can act on the verdict from the cue plus the journal entry alone. | [dispatch-execution §5.9](../20260705-dispatch-execution/architecture.md); [SKILL.md OPERATOR CUES](../../.agents/skills/spec-review/SKILL.md) |
 
 ## 7. Implementation Sequencing
 
