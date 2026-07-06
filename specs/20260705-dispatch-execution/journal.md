@@ -135,3 +135,27 @@
 **Spec amendments:** [governing spec amendment 2026-07-05-3](../20260518-spec-execute-skill/journal.md) — §5.12 Reversibility + Cross-reference forward-reference stubs resolved to the shipped support file and template field.
 **Surprises and learnings:** The `Executed by` field this step added is the same field this very journal entry uses — the amendment set became self-hosting at P2.3. Deploy sync now covers *two* files in the skill directory (`SKILL.md` + `receipt-schema.md`); the deploy-sync check must diff both, not just the master, going forward (relevant to P3 when the agent-definitions class adds a third deploy target class).
 **Next task pointer:** P2.4 — Phase 8 context budget (fixed 80,000-token trigger; dispatch-execution §5.6): wire the master's Phase 8 and the governing spec's §5.8. Note the still-open remaining P2 steps: P2.5 operator cues (§5.9), P2.6 atomic defaults flip; then P3 agent definitions (`spec-worker`/`spec-reviewer`), P4 spec-review.
+
+## 2026-07-05 — P2.4: Phase 8 context budget (fixed 80,000-token trigger) (governing-spec amendment + master)
+
+**Status:** done
+**Operating mode (operator-granted this session):** `AUTONOMY: checkpoint`; `EXECUTION: inline` (dispatch not yet built — P2 bootstraps it inline by necessity). Operator approved the concrete P2.4 diffs in-session before apply (amendment = designed stop under checkpoint).
+**Commits:** `f677c90` (governing-spec §5.8/§6/§5.12 amendment application), `4ed745b` (governing-spec amendment 2026-07-05-4 journal record, refs f677c90), `234bd94` (master SKILL.md Phase 8 budget block + rubric row + always-stops override line, deploy synced). This closeout entry commits separately.
+**Executed by:** inline
+**Files touched:** `.agents/skills/spec-execute/SKILL.md` (Phase 8 "Context budget" block + rubric row + always-stops override sentence), deploy copy `~/.claude/skills/spec-execute/SKILL.md` (synced), `specs/20260518-spec-execute-skill/architecture.md` (§5.8 Context budget paragraph + Override/Pattern updates, §6 Token-economy NFR row, §5.12 Cross-reference stub resolved), `specs/20260518-spec-execute-skill/journal.md` (amendment 2026-07-05-4 record).
+**Tests added:** n/a (doc/skill artifacts — verification is mechanical grep + diff).
+**DoD verification:**
+- 80k budget landed in master Phase 8 (dispatch-execution §5.6 faithful: fixed 80k, inline forced fresh-session, checkpoint-breach stop, dispatch-moot-but-conduct-signal, fixed-tokens rationale): `grep -n "80,000 tokens\|Context budget\|context-budget breach" .agents/skills/spec-execute/SKILL.md` → lines 180, 191, 209.
+- Budget wired into governing spec §5.8 (Context budget paragraph + Override + Pattern all cite dispatch-execution §5.6): `grep -n "Context budget" specs/20260518-spec-execute-skill/architecture.md` → line 268.
+- §6 Token-economy NFR row updated with the mechanical-trigger clause + dispatch-execution §5.6 source: line 352.
+- §5.12 Cross-reference forward stub resolved (no stale "land in their own steps" for the Phase 8 budget): `grep -n "land in their own steps of the P2"` → none.
+- Governing-spec change routed through `spec-amend` (first-class amendment 2026-07-05-4 journaled): commits `f677c90` + `4ed745b`.
+- Master ≡ deploy (both files): `diff -q` clean for `SKILL.md` and `receipt-schema.md` ("MASTER==DEPLOY OK").
+**Models used:** dispatch-execution declares no per-task Model floors (design spec); no floor gating applies. Work done by this session's model (Opus 4.8).
+**Decisions made:**
+- **Two consequential edits beyond the bare §5.8 + master minimum, operator-approved in Phase 3:** (a) resolved the §5.12 Cross-reference forward stub — P2.4 is the step it pointed at, mirroring how P2.3 (amendment -3) resolved its own §5.12 stubs; (b) updated the §6 Token-economy NFR row so the NFR table stays faithful to the now-mechanical trigger. Both are within-amendment cross-reference follow-ups under one amendment ID, not separate amendments.
+- **Governing §5.8 Override paragraph strengthened** to state a context-budget breach is not subject to the "run the full set without checking in" override — the governing-spec analog of the master's always-stops sentence, keeping the two in parity.
+- **Commit shape mirrors P2.2/P2.3** (spec-edit → journal-referencing-it → master+deploy → closeout): avoids the P2.1 `--amend`-rewrites-SHA trap by never having a journal reference its own commit.
+**Spec amendments:** [governing spec amendment 2026-07-05-4](../20260518-spec-execute-skill/journal.md) — §5.8 Context budget + §6 NFR + §5.12 Cross-reference stub resolution.
+**Surprises and learnings:** None new — the "skill launch resets Edit read-state" boundary (first recorded at P2.2) recurred when `spec-amend` launched mid-task; re-Read the three governing-spec anchor regions before editing, as expected. Remaining P2 forward references now number two (operator cues §5.9 = P2.5; worker agent definition = P3); the defaults flip (P2.6) stays last.
+**Next task pointer:** P2.5 — operator cues at human-in-the-loop boundaries (dispatch-execution §5.9): fixed-format WHAT HAPPENED / YOUR MOVE / HOW blocks at every operator-facing stop; wire the master (new cue section + per-boundary emission) and the governing spec (§4 execution-modes note already forward-references cues; add the governing §5.x home). Then P2.6 atomic defaults flip; P3 agent definitions; P4 spec-review.
