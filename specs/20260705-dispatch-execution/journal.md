@@ -66,3 +66,25 @@
 **Advisory:** 1 (pre-existing `AUTONOMY` documentation gap in `spec-execute` governing spec — not caused by this spec, deferred to P2)
 **Spec amendments proposed:** None — spec was still Draft, so findings were fixed by direct revision rather than routed through `spec-amend`.
 **Next action:** Operator approved 2026-07-05. Banner advanced to Approved; CP-1 status line recorded in §9. Proceed to P2 — `spec-execute` amendment set via `spec-amend` (governing spec §4, §5.4–§5.8, master, deploy copy; fold in the `AUTONOMY` backfill noted above).
+
+## 2026-07-05 — P2.1: EXECUTION mode + AUTONOMY backfill (governing-spec amendment + master)
+
+**Status:** done
+**Operating mode (operator-granted this session):** `AUTONOMY: checkpoint`; `EXECUTION: dispatch` requested but not yet built, so this session runs **inline** (operator's explicit fallback). P2 bootstraps dispatch inline by necessity.
+**Commits:** `630fc5a` (governing-spec amendment 2026-07-05-1 + its journal entry), `87ea98a` (SHA backfill), `d3c64c2` (master EXECUTION input + deploy sync).
+**Executed by:** inline
+**Files touched:** `specs/20260518-spec-execute-skill/architecture.md` (§4 new "Execution modes and autonomy" subsection), `specs/20260518-spec-execute-skill/journal.md` (amendment 2026-07-05-1 record), `.agents/skills/spec-execute/SKILL.md` (INPUTS: new EXECUTION entry), deploy copy `~/.claude/skills/spec-execute/SKILL.md` (synced).
+**DoD verification:**
+- Governing-spec change routed through `spec-amend` (diff shown, first-class amendment 2026-07-05-1 journaled): commit `630fc5a`.
+- Master edited; master ≡ deploy: `diff -q` clean ("MASTER==DEPLOY OK"), commit `d3c64c2`.
+- Vocabulary agreement (dispatch spec ↔ governing spec ↔ master): grep confirms `EXECUTION`/`inline`/`dispatch` present in all three; "never loosen the stop set" present in governing spec + master.
+- Closeout journaled here with `Executed by: inline`.
+**Models used:** dispatch-execution spec declares no per-task Model floors (design spec, Implementation Sequencing not atomic Task Breakdown); no floor gating applies. Work done by this session's model (Opus 4.8).
+**Decisions made:**
+- **P2 decomposed into sub-steps** (operator choice): P2.1 EXECUTION mode + AUTONOMY backfill; P2.2 orchestrator/worker phase split + conduct + worker brief (§5.2–5.3); P2.3 receipt-schema support file + `Executed by` journal field (§5.4–5.5); P2.4 Phase 8 context budget (§5.6); P2.5 operator cues (§5.9); **P2.6 atomic defaults flip** (see below). §5.7 agent definitions = P3; §5.8 spec-review = P4 — not in P2.
+- **Defaults flip deferred to a final atomic micro-step (P2.6), not P2.1.** Flipping the master default to `dispatch` before dispatch conduct exists would ship a broken default; flipping only `AUTONOMY`→checkpoint while `EXECUTION` stays inline yields the mega-session combination the design fights (dispatch-execution §5.1). So the master keeps `EXECUTION: inline` / `AUTONOMY: task` defaults until all conduct lands, then flips both atomically. The governing spec already describes the *target* defaults as the design authority; master reconciles by P2 end (dispatch-execution CP-2 verifies).
+- **AUTONOMY backfill scope:** the gap was in the *governing spec* only (the master already documented AUTONOMY since `6bef6f8`). Backfill landed in the governing-spec amendment.
+- **Amendment model:** dispatch-execution is treated as a sibling design-spec authority for dispatch behavior, mirroring how session-economy is authoritative for Phase 8; the governing spec describes the modes and cites dispatch-execution.
+**Spec amendments:** [governing spec amendment 2026-07-05-1](../20260518-spec-execute-skill/journal.md) — §4 "Execution modes and autonomy" subsection added.
+**Surprises and learnings:** The `git commit --amend` used to backfill the amendment SHA rewrote the SHA (2f4aca6→630fc5a), so backfill must be a *separate follow-up commit* (`87ea98a`), never `--amend`. Matches the cross-skill-case guidance in spec-amend ("backfill is a small follow-up commit").
+**Next task pointer:** P2.2 — orchestrator/worker phase split + conduct rules + worker brief (dispatch-execution §5.2, §5.3), against the [spec-execute governing spec](../20260518-spec-execute-skill/architecture.md) §4/§5 and the master.
