@@ -720,3 +720,24 @@ This is a **single-artifact amendment** (the cross-skill four-step mechanics do 
 **After:** As approved in the dispatch-execution P2.3 session, 2026-07-05; see [architecture.md](./architecture.md) §5.12 "Reversibility" and "Cross-reference" paragraphs.
 
 This is a **single-artifact amendment** (the cross-skill four-step mechanics do not apply): the paired master edits (new `receipt-schema.md`, Phase 6 `Executed by` template line, DISPATCH MODE receipt-file references) and deploy-copy sync are cross-reference follow-ups under this amendment ID, not parallel amendment records. Remaining forward references (Phase 8 context budget §5.6, operator cues §5.9, worker agent definition) point at later P2/P3 steps and stay honest markers. The dispatch-execution session journal carries the P2.3 task closeout separately.
+
+## 2026-07-05 — Amendment 2026-07-05-4
+
+**Section amended:** [architecture.md](./architecture.md) §5.8 *Phase 8 — Session continuity check* (new "Context budget" paragraph + Override/Pattern updates); §6 NFR table *Token economy* row; §5.12 *Dispatch mode* "Cross-reference" paragraph (resolved the Phase 8-budget forward stub)
+**Trigger:** dispatch-execution ([specs/20260705-dispatch-execution/architecture.md](../20260705-dispatch-execution/architecture.md), Approved) P2.4; wires the fixed **80,000-token** Phase 8 context budget (dispatch-execution §5.6) into the governing spec. Planned, operator-approved amendment — not drift.
+**Reason:** §5.8's token-economy factor was qualitative-only; dispatch-execution §5.6 converts it into a mechanical trigger (fixed 80k). §5.12's "Cross-reference" paragraph still listed the Phase 8 budget as landing "in [its] own step" of the P2 set — P2.4 is that step, so the stub is now stale and resolves to §5.8 + the master Phase 8 section.
+**Impact summary:** Affected tasks: dispatch-execution P2.4 (paired master SKILL.md Phase 8 "Context budget" block + rubric row + always-stops override line land in the same closeout); affected checkpoints: dispatch-execution CP-2 (amendment-set consistency); no completed work invalidated.
+**Approver:** Eric Wasgatt
+**Approved on:** 2026-07-05
+**Status implication:** kept — §1 banner stays `Approved — CP-2 closed 2026-05-18`. Additive documentation of already-approved dispatch-execution behavior; no design change originates here; governing-spec ↔ master consistency is gated by dispatch-execution CP-2.
+**Commit:** `f677c90` (governing-spec application); this journal entry commits as a paired follow-up; master Phase 8 edits + deploy sync in a `spec-execute:`-prefixed commit.
+
+### Full record
+
+**Change.** Three edits. (1) §5.8 *Behavior* block gains a **Context budget** paragraph: a fixed 80,000-token session-context trigger (harness indicator or conservative estimate) that forces "fresh session" in inline mode, stops the run at the boundary under `AUTONOMY: checkpoint`, and is moot-but-a-conduct-signal in dispatch mode; fixed tokens chosen over a window fraction to hold cost exposure constant across models; cites dispatch-execution §5.6. The *Override* paragraph gains "A context-budget breach is not subject to the override: it stops the run in every mode," and *Pattern invoked* adds the dispatch-execution §5.6 mechanical-trigger commitment alongside the session-economy §5.1 source. (2) §6 *Token economy* NFR row appended with the 80k mechanical-trigger clause and the dispatch-execution §5.6 source. (3) §5.12 *Cross-reference* stub resolved: the Phase 8 budget is "now wired into §5.8 and the SKILL.md Phase 8 section," leaving only operator cues (§5.9) as a remaining P2 step.
+
+**Before (§5.12 Cross-reference tail):** "The Phase 8 context budget (§5.6) and operator cues (§5.9) land in their own steps of the P2 amendment set."
+
+**After (§5.12 Cross-reference tail):** "The Phase 8 context budget (dispatch-execution §5.6) is now wired into §5.8 and the SKILL.md Phase 8 section; operator cues (dispatch-execution §5.9) land in their own step of the P2 amendment set."
+
+This is a **single-artifact amendment** (the cross-skill four-step mechanics do not apply): the paired master edits (Phase 8 "Context budget" block, rubric row, always-stops override sentence) and deploy-copy sync are cross-reference follow-ups under this amendment ID, not parallel amendment records. The remaining forward references (operator cues §5.9, worker agent definition) point at later P2/P3 steps and stay honest markers. The dispatch-execution session journal carries the P2.4 task closeout separately.
