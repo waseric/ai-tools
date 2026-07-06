@@ -741,3 +741,24 @@ This is a **single-artifact amendment** (the cross-skill four-step mechanics do 
 **After (§5.12 Cross-reference tail):** "The Phase 8 context budget (dispatch-execution §5.6) is now wired into §5.8 and the SKILL.md Phase 8 section; operator cues (dispatch-execution §5.9) land in their own step of the P2 amendment set."
 
 This is a **single-artifact amendment** (the cross-skill four-step mechanics do not apply): the paired master edits (Phase 8 "Context budget" block, rubric row, always-stops override sentence) and deploy-copy sync are cross-reference follow-ups under this amendment ID, not parallel amendment records. The remaining forward references (operator cues §5.9, worker agent definition) point at later P2/P3 steps and stay honest markers. The dispatch-execution session journal carries the P2.4 task closeout separately.
+
+## 2026-07-05 — Amendment 2026-07-05-5
+
+**Section amended:** [architecture.md](./architecture.md) new §5.13 *Operator cues at human-in-the-loop boundaries*; §6 NFR table new *Resumability (human)* row; §4 *Execution modes and autonomy* dispatch-mechanics pointer sentence (append §5.13 reference); §5.12 *Dispatch mode* "Cross-reference" paragraph (resolved the operator-cues forward stub)
+**Trigger:** dispatch-execution ([specs/20260705-dispatch-execution/architecture.md](../20260705-dispatch-execution/architecture.md), Approved) P2.5; wires operator cues (dispatch-execution §5.9) into the governing spec. Planned, operator-approved amendment — not drift.
+**Reason:** Under dispatch-execution's default-autonomy posture the operator's touches become rarer and colder; §5.9 commits every operator-facing boundary to a fixed-format WHAT HAPPENED / YOUR MOVE / HOW cue with a pre-filled next invocation. The governing spec had no cue commitment; §5.12's "Cross-reference" listed operator cues as a remaining P2 step — P2.5 is that step, so the stub resolves to §5.13 + the shipped SKILL.md OPERATOR CUES section.
+**Impact summary:** Affected tasks: dispatch-execution P2.5 (paired master SKILL.md OPERATOR CUES section + Phase 7/Phase 8/AMENDMENT PROTOCOL pointer notes land in the same closeout); affected checkpoints: dispatch-execution CP-2 (amendment-set consistency); no completed work invalidated.
+**Approver:** Eric Wasgatt
+**Approved on:** 2026-07-05
+**Status implication:** kept — §1 banner stays `Approved — CP-2 closed 2026-05-18`. Additive documentation of already-approved dispatch-execution behavior; cues are emitted at boundaries and never stored in artifacts, so artifact formats are unchanged; governing-spec ↔ master consistency is gated by dispatch-execution CP-2.
+**Commit:** `6de1ffe` (governing-spec application); this journal entry commits as a paired follow-up; master OPERATOR CUES section + pointer notes + deploy sync in a `spec-execute:`-prefixed commit.
+
+### Full record
+
+**Change.** Four edits. (1) New §5.13 *Operator cues at human-in-the-loop boundaries* (peer to §5.12): Purpose / Behavior / Why / Reversibility, describing the master's OPERATOR CUES section — a fixed-format cue block emitted at every operator-facing boundary in both execution modes (Phase 7 checkpoint, Phase 8 pause, blocker, amendment trigger, model-floor conflict, production-touching-action, context-budget breach), each pre-filling the exact next invocation; cites dispatch-execution §5.9. (2) §6 NFR table gains a *Resumability (human)* row (cold operator can act from cue + latest journal entry alone). (3) §4 dispatch-mechanics pointer sentence appends "operator cues ... are described in §5.13." (4) §5.12 *Cross-reference* operator-cues stub resolved.
+
+**Before (§5.12 Cross-reference tail):** "… operator cues (dispatch-execution §5.9) land in their own step of the P2 amendment set."
+
+**After (§5.12 Cross-reference tail):** "… operator cues (dispatch-execution §5.9) are described in §5.13 and shipped as the SKILL.md OPERATOR CUES section."
+
+This is a **single-artifact amendment** (the cross-skill four-step mechanics do not apply): the paired master edits (OPERATOR CUES section + Phase 7/Phase 8/AMENDMENT PROTOCOL pointer notes) and deploy-copy sync are cross-reference follow-ups under this amendment ID, not parallel amendment records. One forward reference remains — the worker agent definition (P3). The dispatch-execution session journal carries the P2.5 task closeout separately.
