@@ -667,7 +667,7 @@ See [specs/20260518-cp2-batch-audit/journal.md](../20260518-cp2-batch-audit/jour
 **Approver:** Eric Wasgatt
 **Approved on:** 2026-07-05
 **Status implication:** kept — §1 banner stays `Approved — CP-2 closed 2026-05-18`. Additive amendment backed by the separately-approved dispatch-execution spec; governing-spec ↔ master consistency is gated by dispatch-execution CP-2, not by re-opening this spec's checkpoints.
-**Commit:** `2f4aca6`
+**Commit:** `630fc5a`
 
 ### Full record
 
