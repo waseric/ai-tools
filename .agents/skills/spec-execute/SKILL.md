@@ -162,6 +162,8 @@ Check the spec's Review Checkpoints section. If the just-completed task is the t
 
 If no checkpoint is triggered, proceed to Phase 8 — do not jump back to Phase 1 yet.
 
+**Operator cue.** A checkpoint stop is an operator-facing boundary — end it with an OPERATOR CUES block pre-filling the `/spec-review` invocation from the checkpoint contract.
+
 # PHASE 8 — SESSION CONTINUITY CHECK
 
 At every task boundary — even when no review checkpoint is triggered — pause and consider session economy before picking up the next task. The task you just finished is closed out; the question is whether the *same conversation* should pick up the next task or whether a fresh session would serve the work better.
@@ -207,6 +209,32 @@ Session continuity check: <one or two sentences naming what shaped the recommend
 Then stop and wait. If the user says continue, return to Phase 1 for the next task, re-reading the spec rather than relying on memory of it. If the user pauses, the session ends cleanly with the journal as the handoff.
 
 Skip this phase only when the user has explicitly said "run the full set without checking in" or has set `AUTONOMY: checkpoint` — and even then, surface a brief note at the end of each task so the user can interrupt if they want. `AUTONOMY: checkpoint` never overrides Phase 7: review checkpoints, blockers, amendments, model-floor conflicts, production-touching actions, and a context-budget breach stop the run in every mode.
+
+**Operator cue.** This is an operator-facing boundary — end it with an OPERATOR CUES block (below), pre-filling how to resume `/spec-execute` with the journal's next-task pointer.
+
+# OPERATOR CUES
+
+Every boundary that hands control to the operator ends with a fixed-format cue block. Human-in-the-loop stops typically land after a context switch — hours or days later, mid-other-work — and the operator should not have to reconstruct the framework to act. The cue renders the next move as a pre-filled invocation so acting on a stop is cheap.
+
+```
+WHAT HAPPENED: <one line — e.g. "CP-2 triggered after T-12; batch stopped">
+YOUR MOVE:     <one line — the decision or action only the operator can take>
+HOW:           <the exact next invocation(s): skill name + INPUTS, pre-filled
+                from current state; plus where to look first
+                (journal entry / spec section / receipt)>
+```
+
+Emit a cue at every designed stop and pause:
+
+- **Phase 7 checkpoint stop** — the `/spec-review` invocation, inputs pre-filled from the checkpoint contract.
+- **Phase 8 pause** — how to resume `/spec-execute`, carrying the journal's next-task pointer.
+- **Blocker escalation (Phase 3)** — the question to answer and where the answer lands.
+- **Amendment trigger** — the `/spec-amend` invocation with `SECTION` / `TRIGGER` pre-filled.
+- **Model-floor conflict** — the floor that could not be met, the task it blocks, and the choice (supply a compliant model or amend the floor).
+- **Production-touching-action stop** — the specific action requiring authorization and how to grant it.
+- **Context-budget breach** — how to relaunch fresh.
+
+The journal's next-task pointer remains the durable handoff; the cue is its ephemeral, human-facing rendering. Cues are emitted at boundaries, not stored in artifacts — the journal stays terse and the how-to renders at the stop. Cues apply in both inline and dispatch modes; under default autonomy the operator's touches are rarer and colder, so the cue is what keeps a stop cheap to act on.
 
 # DISPATCH MODE (EXECUTION: dispatch)
 
@@ -274,6 +302,8 @@ Your responsibilities when execution surfaces the need for an amendment:
 4. State the impact on the current task: blocked entirely, partially blocked, or proceedable-with-a-note.
 5. Hand off to `spec-amend`, passing `SECTION`, `TRIGGER`, and any `PROPOSED_CHANGE` text. The user (or the spec-amend session) drives the rest.
 6. Wait for the amendment to be applied (or rejected) before resuming.
+
+**Operator cue.** An amendment trigger is an operator-facing boundary — end it with an OPERATOR CUES block pre-filling the `/spec-amend` invocation with `SECTION` / `TRIGGER`.
 
 When the amendment is applied, re-orient via Phase 1 against the amended spec — do not rely on memory of the pre-amendment text. The amended spec is the new contract.
 
