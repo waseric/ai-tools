@@ -159,3 +159,29 @@
 **Spec amendments:** [governing spec amendment 2026-07-05-4](../20260518-spec-execute-skill/journal.md) — §5.8 Context budget + §6 NFR + §5.12 Cross-reference stub resolution.
 **Surprises and learnings:** None new — the "skill launch resets Edit read-state" boundary (first recorded at P2.2) recurred when `spec-amend` launched mid-task; re-Read the three governing-spec anchor regions before editing, as expected. Remaining P2 forward references now number two (operator cues §5.9 = P2.5; worker agent definition = P3); the defaults flip (P2.6) stays last.
 **Next task pointer:** P2.5 — operator cues at human-in-the-loop boundaries (dispatch-execution §5.9): fixed-format WHAT HAPPENED / YOUR MOVE / HOW blocks at every operator-facing stop; wire the master (new cue section + per-boundary emission) and the governing spec (§4 execution-modes note already forward-references cues; add the governing §5.x home). Then P2.6 atomic defaults flip; P3 agent definitions; P4 spec-review.
+
+## 2026-07-05 — P2.5: operator cues at human-in-the-loop boundaries (governing-spec amendment + master)
+
+**Status:** done
+**Operating mode (operator-granted this session):** `AUTONOMY: checkpoint`; `EXECUTION: inline` (dispatch not yet built — P2 bootstraps it inline by necessity). Operator approved the concrete P2.5 diffs in-session before apply (amendment = designed stop under checkpoint).
+**Commits:** `6de1ffe` (governing-spec §5.13/§6/§4/§5.12 amendment application), `b984f3b` (governing-spec amendment 2026-07-05-5 journal record, refs 6de1ffe), `2b360ca` (master SKILL.md OPERATOR CUES section + Phase 7/Phase 8/AMENDMENT PROTOCOL pointer notes, deploy synced). This closeout entry commits separately.
+**Executed by:** inline
+**Files touched:** `.agents/skills/spec-execute/SKILL.md` (new `# OPERATOR CUES` section + 3 pointer notes), deploy copy `~/.claude/skills/spec-execute/SKILL.md` (synced), `specs/20260518-spec-execute-skill/architecture.md` (new §5.13, §6 Resumability-human NFR row, §4 §5.13 pointer, §5.12 Cross-reference stub resolved), `specs/20260518-spec-execute-skill/journal.md` (amendment 2026-07-05-5 record).
+**Tests added:** n/a (doc/skill artifacts — verification is mechanical grep + diff).
+**DoD verification:**
+- `# OPERATOR CUES` section shipped in master (fixed-format block + full 7-boundary emission list + "emitted at boundaries, not stored in artifacts" rule, both modes; faithful to dispatch-execution §5.9): `grep -n "^# OPERATOR CUES"` → line 215; pointer notes at Phase 7 (165), Phase 8 (213), AMENDMENT PROTOCOL (306).
+- Governing spec §5.13 authored (Purpose/Behavior/Why/Reversibility, cites dispatch-execution §5.9): `grep -n "### 5.13 Operator cues"` → line 341.
+- §6 *Resumability (human)* NFR row added: line 364.
+- §4 dispatch-mechanics sentence references §5.13: line 155.
+- §5.12 Cross-reference operator-cues forward stub resolved (no stale "land in their own step"): `grep -n "land in their own step of the P2"` → none.
+- Governing-spec change routed through `spec-amend` (first-class amendment 2026-07-05-5 journaled): commits `6de1ffe` + journal record.
+- Master ≡ deploy (both files): `diff -q` clean for `SKILL.md` and `receipt-schema.md` ("MASTER==DEPLOY OK").
+**Models used:** dispatch-execution declares no per-task Model floors (design spec); no floor gating applies. Work done by this session's model (Opus 4.8).
+**Decisions made:**
+- **Cues are cross-cutting, not dispatch-specific.** Both the master `# OPERATOR CUES` section and the governing §5.13 are standalone (not nested under dispatch mode), because dispatch-execution §5.9 emits cues at every operator-facing boundary in *both* inline and dispatch modes. Surfaced in Phase 3; operator-approved.
+- **Master pointer-note placement (surgical).** One-line `Operator cue.` notes at the three phases that most commonly hand control to the operator (Phase 7 checkpoint, Phase 8 pause, AMENDMENT PROTOCOL); the remaining boundaries (blocker, floor conflict, production action, budget breach) are enumerated inside the OPERATOR CUES section rather than each getting a phase note. Mirrors the P2.2 DISPATCH MODE section-plus-per-phase-notes precedent.
+- **§5.12 stub resolved in-amendment** (mirrors P2.4): P2.5 is the step the operator-cues forward reference pointed at, so the stub resolves to §5.13 + the shipped section as a cross-reference follow-up under this amendment ID, not a separate amendment.
+- **Commit shape mirrors P2.2–P2.4** (spec-edit → journal-referencing-it → master+deploy → closeout).
+**Spec amendments:** [governing spec amendment 2026-07-05-5](../20260518-spec-execute-skill/journal.md) — new §5.13 + §6 Resumability-human NFR + §4 pointer + §5.12 Cross-reference stub resolution.
+**Surprises and learnings:** With P2.5 landed, the governing spec's §5.12 Cross-reference paragraph now has **no remaining forward stubs** — the only open forward reference across the P2 amendment set is the worker agent definition (P3, §5.7 of the dispatch spec / `spec-worker.md`). Remaining P2 work is P2.6 alone (the atomic defaults flip); all descriptive conduct for dispatch is now in place, so P2.6 is a pure defaults change gated on P3 (flipping `EXECUTION: dispatch` before `spec-worker` exists would ship a default that cannot spawn its worker — see P2.1's deferral rationale).
+**Next task pointer:** P2.6 — atomic defaults flip (master INPUTS: `EXECUTION` default → `dispatch`, `AUTONOMY` default → `checkpoint`), dispatch-execution §5.1. **Gating note:** P2.6 should not land until P3 (agent definitions — `spec-worker`/`spec-reviewer`) exists, per the P2.1 decision that flipping the default to `dispatch` before a spawnable worker exists ships a broken default. Recommend sequencing P3 before P2.6, or confirming inline-fallback tolerance with the operator. Then P4 spec-review (§5.8).
