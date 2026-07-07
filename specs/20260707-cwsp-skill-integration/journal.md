@@ -1,13 +1,13 @@
 # Journal — CWSP Skill Integration
 
 ## Current State
-- **Phase:** P1 execution — complete, CP-P1 pending
-- **Last completed:** T-03 (2026-07-07)
-- **Next:** CP-P1 review (vocabulary consistency) — see feature.md §9
-- **Open holds:** OQ-2/OQ-3/OQ-6 carried from design (deferred to CP-2 / P4 / spec-amend). FQ-1 resolved 2026-07-07.
-- **Pending checkpoint:** CP-P1 — triggered (T-01–T-03 complete)
+- **Phase:** CP-P1 review — changes requested (1 blocker); P1 tasks done
+- **Last completed:** CP-P1 review (2026-07-07)
+- **Next:** Reconcile constitution↔§5.2 dialect drift (task-table row ↔ table row), then re-run CP-P1
+- **Open holds:** CP-P1 blocker — skill dialect ≠ constitution grammar (see verdict entry). OQ-2/OQ-3/OQ-6 carried from design. FQ-1 resolved 2026-07-07.
+- **Pending checkpoint:** CP-P1 — OPEN (changes requested; re-review after reconciliation)
 - **Archive:** none — all entries live
-- **Latest entry:** 2026-07-07 — T-03: project-constitution may declare repo house-style grammar
+- **Latest entry:** 2026-07-07 — Review of CP-P1
 
 ## Grammar
 - **Journal entry:** `## <YYYY-MM-DD> — <event>`
@@ -145,3 +145,16 @@
 **Surprises and learnings.** None of note. Read location matched the brief's `:131` pointer once "conventions/authoritative-artifacts section" was resolved to the "Conventions Outside the Stack" template block (project-constitution's own section headings don't use that literal phrase; the Phase 2/3 prose does, at `:70` and `:79`).
 
 **Next task pointer.** CP-P1 — vocabulary consistency review (feature.md §9). Triggered: T-01–T-03 complete.
+
+## 2026-07-07 — Review of CP-P1
+
+**Reviewer:** waseric (opus, inline)
+**Outcome:** changes requested
+**Tasks reviewed:** T-01, T-02, T-03
+**Diff range:** c6fa82c^..6baea95
+**Blockers:** 1 — skill-emitted reference dialect ≠ constitution's declared grammar. Constitution [tech-stack.md](../tech-stack.md#L64) Task-block row reads `**and** the §7 **task-table** row`; feature.md §5.2 and both skills (spec-write:235, spec-design) read `**and** the §7 **table** row`. Fails the CP-P1 exit criterion "skill dialect matches the constitution grammar" (feature.md §3 requires the two identical). All other CP-P1 focus items pass.
+**Important:** 1 — `specs/tech-stack.md` is entirely CRLF (66/66 lines) while skill masters + specs are LF, so a literal byte-for-byte identity diff of the constitution grammar against the skills can never be empty. Pre-existing (not introduced by T-01–T-03); does not affect grep-derived INDEX function. Normalize to LF alongside the blocker fix.
+**Advisory:** 0
+**Spec amendments proposed:** none required if the constitution is reconciled to §5.2 (the canonical vocabulary source, feature.md §5). If instead §5.2 is changed to "task-table row" (more precise wording), that routes through `spec-amend` on feature.md §5.2 and re-emission of T-01/T-02.
+**Passed checks:** writer↔writer STATE/Grammar/dialect diffs empty; STATE block + Grammar bootstrap faithful to §5.1/§5.2; free-rider rule present in both writers (no grammar-only constitution read); OQ-1 reader cross-check correctly NOT baked into writers (reserved for P2 readers); no whole-file-read regression; deploy-sync byte-identical for all three masters; T-03 grep assertions pass.
+**Next action:** Operator reconciles the one-word dialect drift (recommend editing `specs/tech-stack.md:64` "§7 task-table row" → "§7 table row" and normalizing that file to LF — cheapest path, keeps §5.2 canonical and avoids spec-amend), then re-invoke `/spec-review` against CP-P1. No skill re-edit required under the recommended path.

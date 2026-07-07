@@ -315,6 +315,7 @@ Global DoD addenda for **every** task (not repeated per task): master edited; de
 - *Review focus.* Do the emitted STATE block and reference dialect read **byte-identically** across spec-write and spec-design? Does the `## Grammar` bootstrap match §5.2? Does the reference dialect emitted by the skills match the **constitution's declared grammar** ([tech-stack.md](../tech-stack.md) "Grammar") — the two must be identical? Is the constitution→spec codification free-rider correct (no skill reads a file solely for grammar)? Is the OQ-1 cross-check phrased as a reader contract, not baked into writers?
 - *Exit criteria.* Cross-skill STATE/dialect diff is empty; skill dialect matches the constitution grammar; grep assertions for T-01–T-03 pass; no whole-file-read regression introduced.
 - *Reviewer floor.* opus — guards the vocabulary every later phase copies; an inconsistency here propagates.
+- *Status.* **changes requested** on 2026-07-07 by waseric (opus, inline) — 1 blocker: skill dialect ≠ constitution grammar (constitution [tech-stack.md](../tech-stack.md) says "§7 **task-table** row"; §5.2 + both skills say "§7 **table** row"). Cross-skill (writer↔writer) diff empty; STATE/bootstrap faithful to §5.1/§5.2; free-rider correct; OQ-1 not baked into writers; deploy-sync byte-identical. Checkpoint stays open pending reconciliation. See journal verdict entry.
 
 **CP-2 — Pilot validation (the design's CP-2; architecture.md §9).**
 - *Trigger.* P2 (T-04–T-06) implemented.
