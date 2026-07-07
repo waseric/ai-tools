@@ -2,12 +2,12 @@
 
 ## Current State
 - **Phase:** P1 execution
-- **Last completed:** T-01 (2026-07-07)
-- **Next:** T-02 — spec-design emits STATE + Grammar + reference dialect on journal creation
+- **Last completed:** T-02 (2026-07-07)
+- **Next:** T-03 — project-constitution may declare repo house-style grammar
 - **Open holds:** OQ-2/OQ-3/OQ-6 carried from design (deferred to CP-2 / P4 / spec-amend). FQ-1 resolved 2026-07-07.
 - **Pending checkpoint:** CP-P1 (vocabulary consistency) — triggers when T-01–T-03 complete; contract in feature.md §9
 - **Archive:** none — all entries live
-- **Latest entry:** 2026-07-07 — T-01: spec-write emits STATE + Grammar + reference dialect on journal creation
+- **Latest entry:** 2026-07-07 — T-02: spec-design emits STATE + Grammar + reference dialect on journal creation
 
 ## Grammar
 - **Journal entry:** `## <YYYY-MM-DD> — <event>`
@@ -80,3 +80,36 @@
 **Surprises and learnings.** None. STATE cross-check (OQ-1) passed on orientation — STATE's Latest-entry anchor matched the true latest entry grep.
 
 **Next task pointer.** T-02 — spec-design emits STATE + Grammar + reference dialect on journal creation (mirror of this task, adapted to `architecture.md` authoring; STATE/Grammar blocks must be byte-identical to T-01's).
+
+## 2026-07-07 — T-02: spec-design emits STATE + Grammar + reference dialect on journal creation
+
+**Status.** Done. Mirrors T-01 into `spec-design`'s journal creation, adapted to `architecture.md` authoring.
+
+**Event.** Wired the three P1 vocabulary emissions into `spec-design` (SKILL.md master + deploy copy) per feature.md §7 T-02, copying the STATE/Grammar/dialect shapes verbatim from feature.md §5.1/§5.2 (byte-identical to T-01's spec-write emission).
+
+**Files touched.**
+- `.agents/skills/spec-design/SKILL.md` (master): `lastUpdated` 2026-05-18 → 2026-07-07; Phase 1 Discovery grammar codify-forward (free-rider) paragraph added, adapted to spec-design's landscape/constraint-orientation Discovery (no `CONSTITUTION_PATHS` input parameter exists here, so the paragraph hooks off the constitution read implied by Constraint orientation / HANDOFF NOTES §upstream); OUTPUT FORMAT journal.md bullet now points to a new `# JOURNAL CREATION` section carrying the verbatim `## Current State` STATE block, the `## Grammar` bootstrap block, and the reference-dialect table as the native default.
+- `~/.claude/skills/spec-design/SKILL.md` (deploy copy): synced byte-identical.
+
+**Tests added (grep assertions / manual checks).**
+- Grep (presence): `grep -n "## Current State\|## Grammar$\|Canonical anchor" .agents/skills/spec-design/SKILL.md` — all three present.
+- Grep (free-rider paragraph): `grep -n "codify it forward" .agents/skills/spec-design/SKILL.md` — present.
+- Byte-identical cross-check vs T-01 (consistency NFR §6): `diff <(sed -n '/^## Current State$/,/^## Grammar$/p' .agents/skills/spec-write/SKILL.md) <(sed -n '/^## Current State$/,/^## Grammar$/p' .agents/skills/spec-design/SKILL.md)` — empty. `diff <(sed -n '/^| Element | Canonical anchor |$/,/^| Task block/p' .agents/skills/spec-write/SKILL.md) <(sed -n '/^| Element | Canonical anchor |$/,/^| Task block/p' .agents/skills/spec-design/SKILL.md)` — empty.
+
+**DoD verification.**
+- AC1 (journal opens with §5.1 STATE + §5.2 Grammar, byte-identical to T-01): PASS — `# JOURNAL CREATION` section emits both blocks verbatim; both cross-check diffs above return empty.
+- AC2 (Discovery constitution-grammar codify-forward, adapted to spec-design's landscape orientation): PASS — `grep -n "codify it forward" .agents/skills/spec-design/SKILL.md`.
+- AC3 (reference-dialect table present, byte-identical to T-01's): PASS — `grep -n "Canonical anchor" .agents/skills/spec-design/SKILL.md`; empty diff shown above.
+- Global: deploy-sync `diff .agents/skills/spec-design/SKILL.md ~/.claude/skills/spec-design/SKILL.md` — empty; `lastUpdated` 2026-07-07; frontmatter still only `name`/`lastUpdated`/`description`; commit prefix `spec-design:` referencing T-02; STATE overwritten in this same commit.
+
+**Models used.** sonnet (floor: sonnet — met exactly).
+
+**Executed by:** worker(spec-worker, sonnet).
+
+**Decisions made.** Placed the emission contract in a dedicated `# JOURNAL CREATION` section mirroring T-01's placement exactly (same heading, same block order) so the two skills read identically at the anchor a cold reader consults first. Because spec-design has no `CONSTITUTION_PATHS` input parameter (unlike spec-write), the free-rider paragraph is worded to hook off the existing Constraint-orientation Discovery step and the HANDOFF NOTES' constitution-citation convention, rather than inventing a new input.
+
+**Spec amendments.** None. §5 copy source and T-01's precedent were consistent and reconcilable; no trigger.
+
+**Surprises and learnings.** spec-design lacks an explicit `CONSTITUTION_PATHS`-style input that spec-write has — the constitution read is implicit (Constraint orientation + HANDOFF NOTES upstream note). Adapted wording accordingly rather than adding a new INPUTS field, since T-02's scope is limited to the journal-creation instruction and Discovery paragraph, not INPUTS restructuring. Flagging for awareness only, not as an amendment trigger — the free-rider rule still holds (no extra read added).
+
+**Next task pointer.** T-03 — project-constitution may declare repo house-style grammar.

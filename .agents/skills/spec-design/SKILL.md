@@ -1,6 +1,6 @@
 ---
 name: spec-design
-lastUpdated: 2026-05-18
+lastUpdated: 2026-07-07
 description: Author an architecture or protocol design spec — earlier in the lifecycle than a feature spec. Runs Discovery → Clarify → Spec Document phases, producing a self-contained design document with status banner, named audience, overview, goals, architecture, detailed design, NFRs, implementation sequencing (not atomic tasks), validation approach, review checkpoints, risks, adoption path, and a structured Open Questions section with analysis + leaning + owner per question. Treats conversation as authoritative input rather than restarting an interview. Use when the user wants to design a system, protocol, or architecture before any feature spec is written. Pairs with `project-constitution` (upstream), `spec-write` (downstream — consumes the design spec), and `spec-review` (reviews design checkpoints).
 ---
 
@@ -60,6 +60,8 @@ Produce a Discovery Report covering:
 - **Conversation grounding.** Summarize what prior conversation established, and what it left open. This is the input you will not re-derive. If there was no prior conversation, say so and proceed with a broader Discovery interview in Phase 2.
 - **Prior-art scan.** If similar architectures exist (in this org, in the broader ecosystem, in published references), cite them. Do not invent shapes without first checking what shapes already exist.
 - **Naming candidates.** If `ARTIFACT_NAME` is a placeholder or missing, propose 2–4 candidate names with one-line rationale each. The user picks in Phase 2.
+
+**Grammar codify-forward (free-rider — no extra read).** If the landscape includes a repo constitution (`project-constitution` output — mission/tech-stack/roadmap or validation) and you read it during the Constraint orientation above, check for a `## Grammar` block — a repo house-style anchor dialect declaring the exact heading shapes for journal entries, amendments, spec sections, and task blocks. If one is present, **codify it forward into the design spec you author**: carry its declared anchor conventions into the spec's own grammar section so later skills (`spec-write`, `spec-execute`, `spec-review`, `spec-amend`) consult the spec's codified copy rather than re-reading the constitution. This is a free-rider rule — you are reading the constitution during Discovery anyway for scope/stack context; do **not** add a constitution read *solely* to fetch the grammar. Absent any declared grammar (no constitution in the landscape, or no `## Grammar` block in it), the design spec uses the native reference dialect emitted at journal creation (see JOURNAL CREATION below) as its default. The codified grammar is a point-in-time snapshot fixed for the spec's life; a mid-flight dialect change routes through `spec-amend`.
 
 Do **not** include a "test infrastructure" or "touch surface" subsection — those belong in the downstream feature spec, not here.
 
@@ -181,11 +183,48 @@ Inline citations at the point of claim are preferred over a bibliography-at-the-
 # OUTPUT FORMAT
 
 - Phase 1 and Phase 2 may be conversational.
-- Phase 3 must be a single self-contained markdown document, suitable for committing as `specs/YYYYMMDD-<artifact-name>/architecture.md`. Create a `journal.md` in the same directory.
+- Phase 3 must be a single self-contained markdown document, suitable for committing as `specs/YYYYMMDD-<artifact-name>/architecture.md`. Create a `journal.md` in the same directory following the JOURNAL CREATION contract below.
 - All links follow the portability rule (no absolute filesystem paths).
 - All code blocks specify a language.
 - If the spec will be committed to a different repo than the codebase it describes, note this in the spec's §3 Background section and include `SPEC_REPO_ROOT` / `SPEC_TARGET_BRANCH` values for downstream `spec-execute` sessions. This eliminates the need for the executor to rediscover the multi-repo layout each session.
 - No marketing language. Be precise.
+
+# JOURNAL CREATION
+
+Create `journal.md` in the same directory as the architecture spec. The file **opens with two blocks** — a `## Current State` STATE block and a `## Grammar` bootstrap block — followed by the first append-only journal entry recording the authoring event. STATE is a fixed-position summary of "where are we now"; the `## Grammar` block is the one anchor a cold reader looks to first, so it must not itself be dialect-dependent.
+
+**STATE block — emit verbatim at the journal head.** STATE is written here at journal creation and thereafter **overwritten in place at every closeout** (task, checkpoint, amendment) by the downstream skill doing the closeout; it is the *only* in-place-mutated part of the journal — entries below stay append-only. Fill the angle-bracket placeholders for the newly authored design spec (Phase → the spec's authoring/first-checkpoint state; Last completed → "design spec authored"; Next → the first checkpoint or the downstream feature spec's first task; Latest entry → the anchor of the authoring entry below):
+
+```markdown
+## Current State
+- **Phase:** <e.g. P2 execution | CP-2 review | complete>
+- **Last completed:** <task/checkpoint id> (<YYYY-MM-DD>)
+- **Next:** <task id + one-line | "CP-N pending" | "spec complete">
+- **Open holds:** <blockers / deferred items | none>
+- **Pending checkpoint:** <CP-N + spec §ref | none>
+- **Archive:** <relative path to journal-archive.md | none — all entries live>
+- **Latest entry:** <anchor of the most recent full entry below>
+```
+
+**`## Grammar` bootstrap block — emit verbatim adjacent to STATE:**
+
+```markdown
+## Grammar
+- **Journal entry:** `## <YYYY-MM-DD> — <event>`
+- **Amendment:** `## <YYYY-MM-DD> — Amendment <id>`
+- **Spec section:** `## N. <title>`; task blocks `### <T-ID> — <title>` plus the §7 table row.
+```
+
+**Reference dialect — the native default you emit absent any override.** If the constitution declared a `## Grammar` block, you codified it forward into the design spec during Discovery (see PHASE 1) and the spec's grammar is that declared dialect. Absent any such declaration, the native default anchor dialect you emit is:
+
+| Element | Canonical anchor |
+|---|---|
+| Journal entry | `## <YYYY-MM-DD> — <event>` |
+| Task closeout | `## <YYYY-MM-DD> — <T-ID>: <title>` |
+| Review | `## <YYYY-MM-DD> — Review of <CP-ID>` |
+| Amendment | `## <YYYY-MM-DD> — Amendment <id>` (single form) |
+| Spec section | `## N. <title>` |
+| Task block | `### <T-ID> — <title>` **and** the §7 table row |
 
 # WHAT NOT TO DO
 
