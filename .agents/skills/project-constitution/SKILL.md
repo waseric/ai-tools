@@ -1,6 +1,6 @@
 ---
 name: project-constitution
-lastUpdated: 2026-05-18
+lastUpdated: 2026-07-07
 description: Bootstrap a new (or recently created) repo with a constitution — the three-part shape that orients contributors, AI agents, and stakeholders before any feature or design spec is written. Produces `mission.md` (the why), `tech-stack.md` (the how), and conditionally `roadmap.md` (planned phases) or `validation.md` (done criteria), depending on the repo's lifecycle stage. Scans for existing signals (package manifests, READMEs, framework markers, CI config) before prompting for what the scan cannot determine. Use when starting a new repo, adopting an inherited repo, or formalizing a repo whose intent has drifted from its docs. Pairs with `spec-design` (downstream — references the constitution).
 ---
 
@@ -129,6 +129,7 @@ When the operator chose a non-default authoritative-artifacts layout in Phase 2,
 <Anything tooling-adjacent: branch naming, commit-message format, PR template, secret handling, env-var prefixes. Keep this short — link to a CONTRIBUTING.md if more detail is needed.>
 
 - **Repository layout** — `specs/` for authoritative artifacts (constitution, design specs, feature specs, journals). `docs/` for supporting material (research, recommendations, retrospectives). Document any divergence from this convention here.
+- **Grammar (optional).** A constitution *may* declare a `## Grammar` block here — a repo-wide house-style anchor dialect for spec and journal headings (journal entry, task closeout, review, amendment, spec section, task block). This is never mandated: absent a declared block, every skill falls back to its own native default dialect. When declared, early writers (`spec-write`, `spec-design`) read it during Discovery and codify it forward into each spec they author — a free rider on the constitution read they already perform, not an extra read — so later skills consult the spec's copy rather than re-reading the constitution.
 ```
 
 ## specs/roadmap.md (for `new` and `growing` repos)

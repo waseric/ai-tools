@@ -1,13 +1,13 @@
 # Journal — CWSP Skill Integration
 
 ## Current State
-- **Phase:** P1 execution
-- **Last completed:** T-02 (2026-07-07)
-- **Next:** T-03 — project-constitution may declare repo house-style grammar
+- **Phase:** P1 execution — complete, CP-P1 pending
+- **Last completed:** T-03 (2026-07-07)
+- **Next:** CP-P1 review (vocabulary consistency) — see feature.md §9
 - **Open holds:** OQ-2/OQ-3/OQ-6 carried from design (deferred to CP-2 / P4 / spec-amend). FQ-1 resolved 2026-07-07.
-- **Pending checkpoint:** CP-P1 (vocabulary consistency) — triggers when T-01–T-03 complete; contract in feature.md §9
+- **Pending checkpoint:** CP-P1 — triggered (T-01–T-03 complete)
 - **Archive:** none — all entries live
-- **Latest entry:** 2026-07-07 — T-02: spec-design emits STATE + Grammar + reference dialect on journal creation
+- **Latest entry:** 2026-07-07 — T-03: project-constitution may declare repo house-style grammar
 
 ## Grammar
 - **Journal entry:** `## <YYYY-MM-DD> — <event>`
@@ -113,3 +113,35 @@
 **Surprises and learnings.** spec-design lacks an explicit `CONSTITUTION_PATHS`-style input that spec-write has — the constitution read is implicit (Constraint orientation + HANDOFF NOTES upstream note). Adapted wording accordingly rather than adding a new INPUTS field, since T-02's scope is limited to the journal-creation instruction and Discovery paragraph, not INPUTS restructuring. Flagging for awareness only, not as an amendment trigger — the free-rider rule still holds (no extra read added).
 
 **Next task pointer.** T-03 — project-constitution may declare repo house-style grammar.
+
+## 2026-07-07 — T-03: project-constitution may declare repo house-style grammar
+
+**Status.** Done.
+
+**Commits.** (this task's commit — see receipt).
+
+**Files touched.**
+- `.agents/skills/project-constitution/SKILL.md` (master): `lastUpdated` 2026-05-18 → 2026-07-07; added a "Grammar (optional)" bullet to the `tech-stack.md` "Conventions Outside the Stack" template, adjacent to the existing "Repository layout" bullet, documenting that a constitution *may* declare a `## Grammar` block as repo house style, that it is never mandated (native-default fallback otherwise), and that `spec-write`/`spec-design` read and codify it forward during Discovery as a free rider on the constitution read they already perform.
+- `~/.claude/skills/project-constitution/SKILL.md` (deploy copy): synced byte-identical.
+
+**Tests added (grep checks).**
+- `grep -n '## Grammar' .agents/skills/project-constitution/SKILL.md` — present.
+- `grep -n 'house-style' .agents/skills/project-constitution/SKILL.md` — present.
+- `grep -n 'spec-write.*spec-design\|spec-design.*spec-write' .agents/skills/project-constitution/SKILL.md` — present (writer codification reference).
+
+**DoD verification.**
+- AC (prose documents optional `## Grammar` declaration + downstream free-rider consumption): PASS — new bullet at `.agents/skills/project-constitution/SKILL.md:132`; `grep -n 'Grammar (optional)' .agents/skills/project-constitution/SKILL.md`.
+- No contradiction with the already-declared `tech-stack.md` "## Grammar" fixture: PASS — new prose describes the *capability* generically (never mandates, native-default fallback), consistent with the fixture's own "Declared as data, never enforced by tooling" framing; manual read of both side by side.
+- Global: deploy-sync empty diff — `diff .agents/skills/project-constitution/SKILL.md ~/.claude/skills/project-constitution/SKILL.md` (empty). `lastUpdated` bumped to 2026-07-07, no other frontmatter keys added — `sed -n '1,5p' .agents/skills/project-constitution/SKILL.md`. Commit prefix `project-constitution:` referencing T-03. STATE overwritten in this same commit.
+
+**Models used.** sonnet (floor: sonnet — met exactly).
+
+**Executed by:** worker(spec-worker, sonnet).
+
+**Decisions made.** Placed the new bullet inside the existing `tech-stack.md` "Conventions Outside the Stack" template (adjacent to "Repository layout"), matching the task's declared scope location (`:131`) rather than adding a new top-level SKILL.md section — the grammar declaration is itself a tech-stack convention, consistent with where the fixture actually lives in this repo's own `tech-stack.md`.
+
+**Spec amendments.** None. Scope, acceptance criteria, and the already-declared fixture were all consistent; no trigger.
+
+**Surprises and learnings.** None of note. Read location matched the brief's `:131` pointer once "conventions/authoritative-artifacts section" was resolved to the "Conventions Outside the Stack" template block (project-constitution's own section headings don't use that literal phrase; the Phase 2/3 prose does, at `:70` and `:79`).
+
+**Next task pointer.** CP-P1 — vocabulary consistency review (feature.md §9). Triggered: T-01–T-03 complete.
