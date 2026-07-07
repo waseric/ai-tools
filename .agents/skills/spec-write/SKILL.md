@@ -1,6 +1,6 @@
 ---
 name: spec-write
-lastUpdated: 2026-07-03
+lastUpdated: 2026-07-07
 description: Author a feature spec for a new feature in an existing codebase. Runs Discovery → Clarify → Spec Document phases, producing a self-contained markdown spec covering overview, goals, architecture, detailed design, NFRs, atomic task breakdown, test strategy, review checkpoints, risks, rollout, and open questions. When a design spec exists upstream (produced by `spec-design`), reads it as authoritative input rather than redesigning. Use whenever the user wants to write, draft, or author a feature spec or development plan before implementation begins. Pairs with `spec-design` (upstream — architecture/protocol design), `spec-execute` (downstream — executes against the spec), and `spec-review` (downstream — reviews checkpoint deliverables).
 ---
 
@@ -59,6 +59,8 @@ You follow established SDLC practices: discovery, design, decomposition, review 
 If `DESIGN_SPEC_PATH` is provided, read it in full first. Quote its declared vocabulary, the components it commits to, its NFRs, and its named downstream-spec references. This becomes the authoritative frame for the rest of Discovery.
 
 If `CONSTITUTION_PATHS` is provided, read them. Note the declared in-scope/out-of-scope and the tech-stack. The feature spec must not propose work outside scope or stack without an explicit amendment to the constitution.
+
+**Grammar codify-forward (free-rider — no extra read).** While you have the constitution open for the scope/stack read above, check for a `## Grammar` block — a repo house-style anchor dialect declaring the exact heading shapes for journal entries, amendments, spec sections, and task blocks. If one is present, **codify it forward into the spec you author**: carry its declared anchor conventions into the spec as the spec's own grammar so later skills (`spec-execute`, `spec-review`, `spec-amend`) consult the spec's codified copy rather than re-reading the constitution. This is a free-rider rule — you are reading the constitution during Discovery anyway; do **not** add a constitution read *solely* to fetch the grammar. Absent any declared grammar (no constitution in scope, or no `## Grammar` block in it), the spec uses the native reference dialect emitted at journal creation (see JOURNAL CREATION below) as its default. The codified grammar is a point-in-time snapshot fixed for the spec's life; a mid-flight dialect change routes through `spec-amend`.
 
 Then produce a Discovery Report covering:
 
@@ -189,11 +191,48 @@ Links to the patterns, RFCs, library docs, internal docs, and prior code that in
 # OUTPUT FORMAT
 
 - Phase 1 and Phase 2 may be conversational.
-- Phase 3 must be a single self-contained markdown document, suitable for committing as `specs/YYYYMMDD-<feature-name>/feature.md`. Create a `journal.md` in the same directory. If a design spec exists upstream, it should already be in a sibling or parent spec directory referenced via `DESIGN_SPEC_PATH`.
+- Phase 3 must be a single self-contained markdown document, suitable for committing as `specs/YYYYMMDD-<feature-name>/feature.md`. Create a `journal.md` in the same directory following the JOURNAL CREATION contract below. If a design spec exists upstream, it should already be in a sibling or parent spec directory referenced via `DESIGN_SPEC_PATH`.
 - All file paths must be repo-relative.
 - All code blocks must specify a language for syntax highlighting.
 - If the spec will be committed to a different repo than the codebase it describes, note this in the spec's §3 Background section and include `SPEC_REPO_ROOT` / `SPEC_TARGET_BRANCH` values for downstream `spec-execute` sessions. This eliminates the need for the executor to rediscover the multi-repo layout each session.
 - Do not include marketing language. Be precise.
+
+# JOURNAL CREATION
+
+Create `journal.md` in the same directory as the spec. The file **opens with two blocks** — a `## Current State` STATE block and a `## Grammar` bootstrap block — followed by the first append-only journal entry recording the authoring event. STATE is a fixed-position summary of "where are we now"; the `## Grammar` block is the one anchor a cold reader looks to first, so it must not itself be dialect-dependent.
+
+**STATE block — emit verbatim at the journal head.** STATE is written here at journal creation and thereafter **overwritten in place at every closeout** (task, checkpoint, amendment) by the downstream skill doing the closeout; it is the *only* in-place-mutated part of the journal — entries below stay append-only. Fill the angle-bracket placeholders for the newly authored spec (Phase → the spec's authoring/first-checkpoint state; Last completed → "feature spec authored"; Next → the first task or checkpoint; Latest entry → the anchor of the authoring entry below):
+
+```markdown
+## Current State
+- **Phase:** <e.g. P2 execution | CP-2 review | complete>
+- **Last completed:** <task/checkpoint id> (<YYYY-MM-DD>)
+- **Next:** <task id + one-line | "CP-N pending" | "spec complete">
+- **Open holds:** <blockers / deferred items | none>
+- **Pending checkpoint:** <CP-N + spec §ref | none>
+- **Archive:** <relative path to journal-archive.md | none — all entries live>
+- **Latest entry:** <anchor of the most recent full entry below>
+```
+
+**`## Grammar` bootstrap block — emit verbatim adjacent to STATE:**
+
+```markdown
+## Grammar
+- **Journal entry:** `## <YYYY-MM-DD> — <event>`
+- **Amendment:** `## <YYYY-MM-DD> — Amendment <id>`
+- **Spec section:** `## N. <title>`; task blocks `### <T-ID> — <title>` plus the §7 table row.
+```
+
+**Reference dialect — the native default you emit absent any override.** If the constitution declared a `## Grammar` block, you codified it forward into the spec during Discovery (see PHASE 1) and the spec's grammar is that declared dialect. Absent any such declaration, the native default anchor dialect you emit is:
+
+| Element | Canonical anchor |
+|---|---|
+| Journal entry | `## <YYYY-MM-DD> — <event>` |
+| Task closeout | `## <YYYY-MM-DD> — <T-ID>: <title>` |
+| Review | `## <YYYY-MM-DD> — Review of <CP-ID>` |
+| Amendment | `## <YYYY-MM-DD> — Amendment <id>` (single form) |
+| Spec section | `## N. <title>` |
+| Task block | `### <T-ID> — <title>` **and** the §7 table row |
 
 # WHAT NOT TO DO
 

@@ -1,13 +1,13 @@
 # Journal — CWSP Skill Integration
 
 ## Current State
-- **Phase:** Draft — feature spec authored; CP-P1 pending (no tasks started)
-- **Last completed:** feature spec authored via `spec-write` (2026-07-07)
-- **Next:** T-01 — spec-write emits STATE + Grammar + reference dialect on journal creation
+- **Phase:** P1 execution
+- **Last completed:** T-01 (2026-07-07)
+- **Next:** T-02 — spec-design emits STATE + Grammar + reference dialect on journal creation
 - **Open holds:** OQ-2/OQ-3/OQ-6 carried from design (deferred to CP-2 / P4 / spec-amend). FQ-1 resolved 2026-07-07.
 - **Pending checkpoint:** CP-P1 (vocabulary consistency) — triggers when T-01–T-03 complete; contract in feature.md §9
 - **Archive:** none — all entries live
-- **Latest entry:** 2026-07-07 — FQ-1 resolved: repo house-style grammar declared
+- **Latest entry:** 2026-07-07 — T-01: spec-write emits STATE + Grammar + reference dialect on journal creation
 
 ## Grammar
 - **Journal entry:** `## <YYYY-MM-DD> — <event>`
@@ -48,3 +48,35 @@
 **Note.** This is a documentation/house-style declaration, not skill behavior — no skill yet reads it (P1 wires that). It manages drift immediately for human and agent authors regardless, and is forward-compatible with P1.
 
 **Next pointer.** Unchanged — CP-P1 gates P1; first task is T-01. Committing the spec + constitution edit now.
+
+## 2026-07-07 — T-01: spec-write emits STATE + Grammar + reference dialect on journal creation
+
+**Status.** Done. First P1 task; establishes the canonical STATE/Grammar/reference-dialect copy source that T-02 mirrors and every downstream reader consults.
+
+**Event.** Wired the three P1 vocabulary emissions into `spec-write` (SKILL.md master + deploy copy) per feature.md §7 T-01, copying the shapes verbatim from feature.md §5.1/§5.2.
+
+**Files touched.**
+- `.agents/skills/spec-write/SKILL.md` (master): `lastUpdated` 2026-07-03 → 2026-07-07; Phase 1 Discovery grammar codify-forward (free-rider) paragraph added; OUTPUT FORMAT journal.md bullet now points to a new `# JOURNAL CREATION` section carrying the verbatim `## Current State` STATE block, the `## Grammar` bootstrap block, and the reference-dialect table as the native default.
+- `~/.claude/skills/spec-write/SKILL.md` (deploy copy): synced byte-identical.
+
+**Tests added (grep assertions / manual checks).**
+- Grep (presence): `## Current State`, `## Grammar`, and the `Canonical anchor` reference-dialect table all present in the master.
+- Manual/verbatim: `diff` of the emitted STATE / Grammar / dialect blocks against feature.md §5.1/§5.2 copy-ready text — all three empty (verbatim match).
+
+**DoD verification.**
+- AC1 (journal opens with §5.1 STATE + §5.2 Grammar): PASS — `# JOURNAL CREATION` section emits both blocks verbatim; `grep -nE '^(## Current State|## Grammar)$'` on the master.
+- AC2 (constitution-declared grammar codified forward into the spec): PASS — Phase 1 Discovery free-rider paragraph; `grep -n 'codify it forward' .agents/skills/spec-write/SKILL.md`.
+- AC3 (reference-dialect table present): PASS — `grep -n 'Canonical anchor' .agents/skills/spec-write/SKILL.md`.
+- Global: deploy-sync empty diff; `lastUpdated` 2026-07-07; frontmatter still only name/lastUpdated/description; commit prefix `spec-write:` referencing T-01; STATE overwritten in this same commit.
+
+**Models used.** opus (floor: opus — met exactly).
+
+**Executed by:** worker(spec-worker, opus).
+
+**Decisions made.** Placed the emission contract in a dedicated `# JOURNAL CREATION` section (rather than inline in the OUTPUT FORMAT bullet) so the verbatim blocks read as copy templates in fenced `markdown` code blocks; the OUTPUT FORMAT bullet now cross-references it. Grammar codify-forward lives in Phase 1 Discovery adjacent to the existing constitution read, making the free-rider rule (no read added solely for grammar) explicit.
+
+**Spec amendments.** None. Spec §5 copy source and design were consistent; no trigger.
+
+**Surprises and learnings.** None. STATE cross-check (OQ-1) passed on orientation — STATE's Latest-entry anchor matched the true latest entry grep.
+
+**Next task pointer.** T-02 — spec-design emits STATE + Grammar + reference dialect on journal creation (mirror of this task, adapted to `architecture.md` authoring; STATE/Grammar blocks must be byte-identical to T-01's).
