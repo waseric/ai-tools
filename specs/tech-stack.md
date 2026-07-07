@@ -1,7 +1,7 @@
 # ai-tools — Tech Stack
 
 > Audience: Eric Wasgatt (author); AI coding agents consuming the methodology's artifacts; engineers evaluating or adopting the methodology
-> Status: Living document — last updated 2026-05-15
+> Status: Living document — last updated 2026-07-07
 
 ## Languages and Runtimes
 
@@ -49,3 +49,18 @@ The principle is methodology-wide: it applies to every skill in `.agents/skills/
 - **Commit messages** — descriptive, present-tense summaries. No enforced conventional-commits format at this time.
 - **Branch strategy** — single `main` branch. Feature branches when warranted by scope; not currently in use.
 - **Spec-driven development** — changes to the methodology itself follow the methodology: design spec → feature spec → execution → review. The repo eats its own cooking.
+
+## Grammar
+
+Repo house-style anchor conventions for spec and journal artifacts — the [Context Working-Set Protocol (CWSP)](20260707-context-working-set/architecture.md) declared dialect for this repository. These are the exact heading shapes the `spec-*` skills grep to derive a spec/journal INDEX on demand (no maintained index), and the shapes writer skills emit. Early writers (`spec-design`, `spec-write`) read this block during discovery and codify it forward into each spec they author; later skills consult the spec's codified copy. Declared as data, never enforced by tooling — broad-union discovery is the fallback for any legacy artifact that predates or diverges from it (CWSP architecture §5.2, §5.7). Declaring it here manages go-forward anchor drift across the repo's growing spec/journal corpus.
+
+| Element | Canonical anchor |
+|---|---|
+| Journal entry | `## <YYYY-MM-DD> — <event>` |
+| Task closeout | `## <YYYY-MM-DD> — <T-ID>: <title>` |
+| Review | `## <YYYY-MM-DD> — Review of <CP-ID>` |
+| Amendment | `## <YYYY-MM-DD> — Amendment <id>` (single form) |
+| Spec section | `## N. <title>` |
+| Task block | `### <T-ID> — <title>` **and** the §7 task-table row |
+
+A `## Grammar` block adjacent to a journal's STATE block (or this constitution section) is the one anchor that is not itself dialect-dependent: a reader looks there first, then everything else may vary.
