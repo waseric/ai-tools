@@ -1,13 +1,13 @@
 # Context Working-Set Protocol (CWSP) — Architecture and Protocol Specification
 
-> Status: Draft — Open for Review
+> Status: Approved — CP-1 passed 2026-07-07
 > Date: 2026-07-07
 > Author: waseric
 > Audience: skill contributors (human), AI agents executing/reviewing/amending specs, stakeholders evaluating the spec-* suite's cost profile
 
 ## 1. Overview
 
-The Context Working-Set Protocol (CWSP) governs *what portion* of a spec's continuity artifacts — the spec file (`feature.md` / `architecture.md`) and the `journal.md` — an agent loads into context for a given operation. Today the spec-* suite treats these as whole-file reads: `spec-execute` reads the spec "in full" and re-runs that read at every task boundary. On a representative multi-task feature (spec ~21k tokens, journal ~26k tokens, upstream design doc ~13k tokens; measured 2026-07-07), an agent pays roughly 48k tokens to "get centered" before opening a line of code — and a batch executor pays a large fraction of that *per turn, per task*. Against high-cost models this produces the multi-turn-at-200k+ sessions that dominate the suite's spend.
+The Context Working-Set Protocol (CWSP) governs *what portion* of a spec's continuity artifacts — the spec file (`feature.md` / `architecture.md`) and the `journal.md` — an agent loads into context for a given operation. Today the spec-* suite treats these as whole-file reads: `spec-execute` reads the spec "in full" and re-runs that read at every task boundary. On a representative multi-task feature (spec ~21k tokens, journal ~26k tokens, upstream design doc ~13k tokens; measured 2026-07-07), an agent pays roughly 47k tokens to "get centered" before opening a line of code — and a batch executor pays a large fraction of that *per turn, per task*. Against high-cost models this produces the multi-turn-at-200k+ sessions that dominate the suite's spend.
 
 CWSP commits to a shape: the spec and journal are **backing store**; each operation loads a small, declared **working set** paged in on demand; **widening is always one cheap targeted read away**; and the journal's *state* ("where are we now") is separated from its *history* ("what happened"). The load-bearing invariant is discoverability — **slices are fine; orphaned context is not.** A scoped read must always carry a cheap, complete map back to everything it was sliced from. This is the same pattern already running in this repo's memory system (`MEMORY.md` index + one-fact shards + `description` relevance cues). CWSP does not change *what* the spec and journal contain, and it does not economize on verification: a reviewer still reads the full diff.
 
@@ -110,8 +110,8 @@ Both continuity artifacts decompose into three layers:
 
 - **Behavior.** Overwritten in place at every closeout (task, checkpoint, amendment). It is the only in-place-mutated part of the journal; entries below remain append-only. If STATE is stale, an agent reading it plus the latest entry still self-corrects by widening — staleness degrades cost, never correctness (§10).
 - **Pattern invoked.** Materialized view / cache of derivable state. Kept small so the drift cost is bounded.
-- **Why this design.** STATE is the exact information grep cannot produce; storing only it (and deriving everything else) minimizes the maintained, drift-prone surface to a few hundred tokens.
-- **Alternatives considered.** A fully stored manifest (J4) carrying gist+status per entry — richer, but a second thing to keep in sync with BODY; rejected as default in favor of derived INDEX. Chosen scope: store *only* non-derivable state.
+- **Why this design.** STATE is the exact information grep cannot produce; storing that (plus a small derivable convenience subset) and deriving everything else minimizes the maintained, drift-prone surface to a few hundred tokens.
+- **Alternatives considered.** A fully stored manifest (J4) carrying gist+status per entry — richer, but a second thing to keep in sync with BODY; rejected as default in favor of derived INDEX. Chosen scope: store non-derivable state plus a minimal derivable convenience subset (last-completed, latest-entry anchor) whose freshness OQ-1 governs.
 
 ### 5.2 Derived INDEX
 
@@ -135,7 +135,7 @@ The declared default slice for each operation. Widening beyond it is always perm
 
 | Operation | Working set (default read) | Explicitly *not* read by default |
 |---|---|---|
-| Execute task T (inline or worker) | STATE + §7 task-table row + the `### T` block *if the spec uses per-task headings* (table-only specs: the row is the whole unit) + pending checkpoint contract if any | §1–6, other task blocks, journal history |
+| Execute task T (inline or worker) | STATE + §7 task-table row + the `### T` block *if the spec uses per-task headings* (table-only specs: the row is the whole unit) + pending checkpoint contract if any + NFR items the task block cross-references | §1–6, other task blocks, journal history |
 | Dispatch orchestrator (per task) | STATE + task-table row + receipt(s) | task-block internals, code, journal history |
 | Review checkpoint C | checkpoint contract + in-scope task blocks + relevant NFR items + journal entries for tasks under review + **full diff** | out-of-scope tasks, unrelated sections |
 | Amend section S | §S block + sections cross-referencing S + prior amendments to S | unrelated sections, unrelated history |
@@ -148,18 +148,18 @@ The declared default slice for each operation. Widening beyond it is always perm
 ### 5.4 Widening protocol and the cold-reader guarantee
 
 - **Purpose.** Make "I need more" safe and cheap, so scoped reading never risks wrong work.
-- **Behavior.** When a working-set read leaves a referenced task, section, amendment, or prior decision unresolved: consult INDEX (grep), then range-read the specific BODY unit — never fall back to a whole-file read. A **cold reader** (adversarial verifier, auditor, a fresh session) is guaranteed a complete path: STATE names the archive (if any); INDEX enumerates every unit across live + archived files; every unit is reachable by range or by opening the named archive.
+- **Behavior.** When a working-set read leaves a referenced task, section, amendment, or prior decision unresolved: consult INDEX (grep), then range-read the specific BODY unit — never fall back to a whole-file read. A **cold reader** (adversarial verifier, auditor, a fresh session) is guaranteed a complete path. In the default single-file layout (Tier 0) this is trivially total — one file, one grep. Under a sealed layout (Tier 1/2), totality is preserved by two normative rules: seal and STATE-update occur in one atomic closeout, and archives follow a discoverable sibling naming convention (`journal-archive*.md`) so a cold reader enumerates them by glob even if STATE's **Archive** pointer lags. INDEX then spans live + archived files; every unit is reachable by a range read or by opening a discovered archive.
 - **Pattern invoked.** Progressive disclosure with a total-coverage index.
 - **Why this design.** Directly discharges the discoverability invariant — the operator's stated condition for allowing splits ("a willing agent knows about and can access the broader context").
 
 ### 5.5 Splitting tiers (adoption ladder)
 
 - **Tier 0 — Convention (default).** Single `journal.md` (STATE head + append body) and single spec file. Reads are STATE + working set + range-scoped widening. No split. This is the standard.
-- **Tier 1 — Enforcement split.** When a checkpoint closes (or a size threshold trips), *seal* completed BODY units into a sibling archive (`journal-archive.md`; optionally a `tasks/` appendix for the spec). STATE's **Archive** pointer names it; INDEX spans both files. Adopt when read-discipline alone proves insufficient and structural enforcement of "history is a separate open" is worth the seal step.
+- **Tier 1 — Enforcement split.** When a checkpoint closes (or a size threshold trips), *seal* completed BODY units into a sibling archive (`journal-archive.md`; optionally a `tasks/` appendix for the spec). STATE's **Archive** pointer names it; INDEX spans both files. Adopt when read-discipline alone proves insufficient and structural enforcement of "history is a separate open" is worth the seal step. Archives use the discoverable sibling naming convention `journal-archive*.md`; sealing and the STATE **Archive**-pointer update happen in one atomic closeout, so a cold reader reaches archived units by glob even under pointer staleness (this discharges the discoverability invariant for sealed layouts — see §5.4).
 - **Tier 2 — Contention shard.** One file per BODY unit + a stored manifest, enabling parallel writers. Adopt only if/when parallel dispatch lands (coupled to dispatch OQ-3).
 - **Behavior.** Sealing is loss-free and index-preserving: units move verbatim, headings unchanged, STATE updated in the same closeout. Amendment double-recording (a dated pointer entry *plus* a verbatim `### Full record`) collapses to the single amendment form in the reference dialect (§5.7) — keep the full record under one dated `## <date> — Amendment <id>` heading.
 - **Why this design.** Ties each structural step to the specific thing it buys, so the suite doesn't pay split ceremony for a token benefit that scoped reading already delivers.
-- **Alternatives considered.** Pre-sharding all specs (Tier 2 as default) — maximal optionality but loses single-narrative texture and adds write cephony for no token gain; rejected per operator preference (splitting reachable, not standard).
+- **Alternatives considered.** Pre-sharding all specs (Tier 2 as default) — maximal optionality but loses single-narrative texture and adds write ceremony for no token gain; rejected per operator preference (splitting reachable, not standard).
 
 ### 5.6 Skill integration points
 
@@ -205,7 +205,7 @@ The declared default slice for each operation. Widening beyond it is always perm
 - **Reversibility.** Revert = restore whole-file reads; STATE becomes a harmless extra block. No data migration.
 - **Observability.** Floor/scope compliance stays re-derivable: STATE and INDEX are plain text; a reviewer can reconstruct the index by grep and confirm STATE against the latest entry.
 - **Zero-tooling.** INDEX is grep; STATE and grammar are markdown read as data. No generator, no linter, no build step. Enforcement is soft (declared-dialect + discovery), per the governing invariant (§4).
-- **Cost.** Target: orientation read for "execute task T" drops from whole-spec+whole-journal (~45k+ tokens on the measured example) to STATE + one task block + one checkpoint contract (target < ~5k tokens); per-turn re-anchor to STATE-only (target < ~1k tokens).
+- **Cost.** Target: orientation read for "execute task T" drops from whole-spec+whole-journal (~47k tokens on the measured example) to STATE + one task block + one checkpoint contract (target < ~5k tokens); per-turn re-anchor to STATE-only (target < ~1k tokens).
 - **Correctness safety.** No working set may exclude a BODY unit the operation *must* have; widening covers the rest. Under-read degrades to an extra cheap read, never to wrong output.
 
 ## 7. Implementation Sequencing (Forward-Looking)
@@ -233,6 +233,7 @@ Each phase produces an artifact the next consumes (vocabulary → skill edits �
 - *Trigger.* This spec drafted through §14.
 - *Review focus.* Is the STATE/INDEX split correct? Is the discoverability invariant fully discharged by §5.4? Does the working-set table (§5.3) omit any unit an operation genuinely needs?
 - *Exit criteria.* Operator approves shape and vocabulary; blockers in §13 resolved or explicitly deferred. Advances status to Approved.
+- *Status.* **pass** on 2026-07-07 by waseric (self-review). Verdict: pass with comments — 0 blockers, 1 important, 6 advisory. All remediable findings fixed pre-approval (§5.1 STATE-scope wording, §5.3 NFR symmetry, §5.4/§5.5 OQ-5 promotion, §1/§6 number unification, §5.5 typo; `## Grammar` bootstrap added to journal). Operator approved shape + vocabulary; OQ-1–OQ-4/OQ-6 deferred with owners, OQ-5 resolved into normative design. **CP-1 closed.**
 
 **CP-2 — Pilot validation.**
 - *Trigger.* P2 (`spec-execute` adoption) implemented on a branch/deploy pair.
@@ -312,15 +313,11 @@ A consumer skill adopts CWSP by (1) emitting/maintaining a STATE block in its jo
 
 **Owner.** Whoever revisits dispatch OQ-3.
 
-### OQ-5 — Guaranteeing the cold reader without a stored index
+### OQ-5 — Guaranteeing the cold reader without a stored index — RESOLVED (CP-1, 2026-07-07)
 
 **Question.** With INDEX derived (not stored), is a cold reader on a *sealed* (Tier 1/2) spec guaranteed total coverage?
 
-**Analysis.** Derived INDEX must span every file the BODY lives in. STATE names the archive, so a cold reader greps live + archive. Risk: an archive file exists but STATE's pointer was not updated at seal time → the archive is orphaned. Mitigation: seal and STATE-update are one atomic closeout; a naming convention (`journal-archive*.md` as siblings) lets a cold reader discover archives by glob even if STATE lags.
-
-**Leaning.** Atomic seal+STATE update, plus a discoverable sibling naming convention as belt-and-suspenders. This fully discharges the discoverability invariant even under staleness.
-
-**Owner.** P4.
+**Resolution.** Promoted into normative design at CP-1. §5.4 and §5.5 now require (a) seal and STATE-update in one atomic closeout, and (b) a discoverable sibling archive naming convention (`journal-archive*.md`) so a cold reader enumerates archives by glob even if STATE's Archive pointer lags. Together these fully discharge the discoverability invariant even under STATE staleness. Any Tier-1 implementation detail remains owned by P4.
 
 ### OQ-6 — Grammar evolution after codification
 

@@ -1,13 +1,18 @@
 # Journal — Context Working-Set Protocol (CWSP)
 
 ## Current State
-- **Phase:** Design — Draft + validation + grammar-model increment complete, awaiting CP-1 (design approval)
-- **Last completed:** Grammar-declaration model folded in (new §5.7; §2/§4/§5.2/§5.5/§5.6/§6/§7/§10/§14 updated; OQ-6 added) (2026-07-07)
-- **Next:** CP-1 design review — resolve/defer §13 open questions (now OQ-1..OQ-6); on approval advance status to Approved and author downstream `spec-write` feature spec
-- **Open holds:** OQ-1..OQ-6 open (first-class, see §13); no blockers
-- **Pending checkpoint:** CP-1 (Design approval), contract in architecture.md §9
+- **Phase:** Approved — CP-1 passed; design baselined, ready to author downstream feature spec
+- **Last completed:** CP-1 design review — pass with comments (0 blockers), all remediable findings fixed pre-approval (2026-07-07)
+- **Next:** Author downstream feature spec `specs/YYYYMMDD-cwsp-skill-integration/feature.md` via `spec-write` (DESIGN_SPEC_PATH = this architecture.md), sequencing from P1
+- **Open holds:** OQ-1–OQ-4, OQ-6 open (deferred, owners assigned §13); OQ-5 resolved at CP-1; no blockers
+- **Pending checkpoint:** CP-2 (Pilot validation) — triggers when P2 (`spec-execute` adoption) is implemented; contract in architecture.md §9
 - **Archive:** none — all entries live
-- **Latest entry:** 2026-07-07 — Grammar-declaration model
+- **Latest entry:** 2026-07-07 — Review of CP-1
+
+## Grammar
+- **Journal entry:** `## <YYYY-MM-DD> — <event>`
+- **Amendment:** `## <YYYY-MM-DD> — Amendment <id>`
+- **Spec (this design):** sections `## N. <title>`; task blocks `### <T-ID> — <title>` plus the §7 task-table row.
 
 ## 2026-07-07 — Design session (spec-design)
 
@@ -60,3 +65,22 @@
 **Added.** OQ-6 — grammar evolution after codification (snapshot stays fixed for the spec's life; mid-flight change routes through spec-amend). §14 cites finding-* declared pipeline vocabulary as in-house precedent.
 
 **Next pointer.** CP-1 design review. Spec is coherent and self-contained; still uncommitted on disk.
+
+## 2026-07-07 — Review of CP-1
+
+**Reviewer:** waseric (self-review, inline)
+**Outcome:** pass with comments — **CP-1 closed, design Approved**
+**Tasks reviewed:** none (design-approval checkpoint; artifact = architecture.md @ 80912ff + review-response edits)
+**Blockers:** 0
+**Important:** 1 — §5.4/OQ-5 discoverability invariant fully discharged only for Tier 0; Tier 1/2 completeness relied on OQ-5's (then-open) glob convention.
+**Advisory:** 6 — §5.1 "only non-derivable" vs. derivable subset; §5.3 Execute-row NFR asymmetry vs. Review row; §5.5 typo "cephony"; §1/§6 orientation-cost figure (48k vs 45k+); journal missing `## Grammar` bootstrap; journal:46 stale "lint" mention (append-only history, left intact).
+
+**Review focus verdicts.** (1) STATE/INDEX split — correct. (2) Discoverability invariant — discharged for Tier 0; Tier 1/2 gap closed by promoting OQ-5 into normative §5.4/§5.5. (3) Working-set table — no unit omitted that isn't cheaply reachable by widening; Execute row made NFR-symmetric with Review row.
+
+**Remediation (operator-directed, dispatched to a general-purpose worker; verified against diff).** §1/§6 unified to ~47k; §5.1 wording reconciled with OQ-1; §5.3 Execute row gained "+ NFR items the task block cross-references"; §5.4/§5.5 promoted OQ-5's atomic-seal + sibling-glob convention into normative design; §5.5 typo fixed; OQ-5 marked RESOLVED (CP-1); `## Grammar` bootstrap block added to this journal head (dogfooding §5.7). No new issues on re-verification.
+
+**Operator decisions.** Approved shape + vocabulary. OQ-5 → promoted into design (resolved). `## Grammar` block → added now. OQ-1–OQ-4, OQ-6 → deferred with assigned owners.
+
+**Spec amendments proposed:** none outstanding (pre-approval draft edits applied directly; spec was not yet baselined).
+
+**Next action.** Author downstream feature spec `specs/YYYYMMDD-cwsp-skill-integration/feature.md` via `spec-write` with this architecture.md as `DESIGN_SPEC_PATH`, sequencing from P1. CP-2 (Pilot validation) triggers when P2 (`spec-execute` adoption) is implemented.
