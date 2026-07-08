@@ -482,3 +482,13 @@ After (matching feature.md's new bootstrap bullet — dogfood correction):
 
 **Spec amendments proposed:** none.
 **Next action:** None — CP-P3 CLOSED; spec is functionally complete. All checkpoints (CP-P1, CP-2, CP-P3) closed; P4/T-11 stays gated shut per CP-2. Advisory (2) can be swept in a future journal-hygiene pass if desired.
+
+## 2026-07-08 — Feature complete (terminal state)
+
+**Event.** Formally moved the feature spec to terminal state. Status banner: `Draft — awaiting review (CP-P1 pending)` → **Complete — 2026-07-08**. This is lifecycle closeout bookkeeping (like a CP verdict write-back), not a §-content amendment, so it lands directly rather than via `spec-amend`.
+
+**Basis.** All three checkpoints closed: CP-P1 (pass, 2026-07-08), CP-2 (pass with comments, 2026-07-08), CP-P3 (pass, 2026-07-08). Tasks T-01–T-10 done. T-11/P4 (Tier-1 sealing) deliberately gated out per CP-2 — scoped reads proved sufficient with 2–6× margin; the gate stays shut, to be revisited only if a future corpus breaches the §6 targets.
+
+**Paired.** The upstream design spec `../20260707-context-working-set/architecture.md` moved to **Adopted** in the same commit (its CP-2 pilot gate was executed and passed here; its §9 CP-2 now carries a status line pointing back to this journal).
+
+**Next action.** None — feature complete. Open questions OQ-2/OQ-3/OQ-6 remain dormant (relevant only if P4 is ever reopened).

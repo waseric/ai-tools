@@ -1,6 +1,6 @@
 # CWSP Skill Integration — Feature Specification
 
-> Status: Draft — awaiting review (CP-P1 pending)
+> Status: Complete — 2026-07-08. All checkpoints passed (CP-P1, CP-2, CP-P3); tasks T-01–T-10 done; P4/T-11 deliberately gated out per CP-2 (scoped reads proved sufficient).
 > Date: 2026-07-07
 > Author: waseric
 > Upstream design: [Context Working-Set Protocol (CWSP) architecture](../20260707-context-working-set/architecture.md) (Approved, CP-1 passed 2026-07-07)

@@ -1,13 +1,13 @@
 # Journal — Context Working-Set Protocol (CWSP)
 
 ## Current State
-- **Phase:** Approved — CP-1 passed; design baselined, ready to author downstream feature spec
-- **Last completed:** CP-1 design review — pass with comments (0 blockers), all remediable findings fixed pre-approval (2026-07-07)
-- **Next:** Author downstream feature spec `specs/YYYYMMDD-cwsp-skill-integration/feature.md` via `spec-write` (DESIGN_SPEC_PATH = this architecture.md), sequencing from P1
-- **Open holds:** OQ-1–OQ-4, OQ-6 open (deferred, owners assigned §13); OQ-5 resolved at CP-1; no blockers
-- **Pending checkpoint:** CP-2 (Pilot validation) — triggers when P2 (`spec-execute` adoption) is implemented; contract in architecture.md §9
+- **Phase:** Adopted — CP-1 and CP-2 both passed; design implemented across the spec-* suite via the downstream feature spec. Terminal.
+- **Last completed:** CP-2 (pilot validation) — pass with comments (0 blockers), executed and closed via the downstream feature spec (2026-07-08).
+- **Next:** none — design adopted and terminal. P4/Tier-1 sealing deliberately not adopted (CP-2 found scoped reads sufficient); revisit only if a future corpus breaches the §6 targets.
+- **Open holds:** OQ-2/OQ-3/OQ-6 remain open but dormant (relevant only if P4 opens); OQ-1 resolved in the feature spec (one-grep STATE cross-check); OQ-4 deferred wholesale to dispatch OQ-3; OQ-5 resolved at CP-1. No blockers.
+- **Pending checkpoint:** none — CP-1 and CP-2 both closed.
 - **Archive:** none — all entries live
-- **Latest entry:** 2026-07-07 — Review of CP-1
+- **Latest entry:** 2026-07-08 — Design adopted (terminal): CP-2 passed downstream, implementation complete
 
 ## Grammar
 - **Journal entry:** `## <YYYY-MM-DD> — <event>`
@@ -84,3 +84,15 @@
 **Spec amendments proposed:** none outstanding (pre-approval draft edits applied directly; spec was not yet baselined).
 
 **Next action.** Author downstream feature spec `specs/YYYYMMDD-cwsp-skill-integration/feature.md` via `spec-write` with this architecture.md as `DESIGN_SPEC_PATH`, sequencing from P1. CP-2 (Pilot validation) triggers when P2 (`spec-execute` adoption) is implemented.
+
+## 2026-07-08 — Design adopted (terminal): CP-2 passed downstream, implementation complete
+
+**Event.** Moved the design spec to terminal state. Status banner: `Approved — CP-1 passed 2026-07-07` → **Adopted — 2026-07-08**. Added a §9 CP-2 status line recording the pilot outcome.
+
+**Basis.** The design's CP-2 (Pilot validation) — the go/no-go gate for broad adoption and the P4 decision — was executed and closed via the downstream feature spec `../20260707-cwsp-skill-integration/feature.md` (now Complete). CP-2 passed with comments: ~8× measured orientation reduction on this corpus (well inside §6 targets), output parity held, cold-read reconstruction total, 0 blockers. The design is implemented across the spec-* suite (spec-write, spec-design, spec-execute, spec-review, spec-amend + spec-worker/spec-reviewer agent defs).
+
+**P4 decision.** Tier-1 sealing (design §5.5, feature P4/T-11) **not adopted** — CP-2 found read-discipline alone sufficient. The seal machinery in §5.4/§5.5 remains specified but dormant; OQ-3 (seal trigger) stays open against a future P4 reopening only.
+
+**Open questions.** OQ-1 resolved downstream (one-grep STATE cross-check embedded in every reader). OQ-2/OQ-3/OQ-6 dormant; OQ-4 remains deferred to dispatch OQ-3; OQ-5 resolved at CP-1.
+
+**Next action.** None — design adopted and terminal.

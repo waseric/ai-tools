@@ -1,6 +1,6 @@
 # Context Working-Set Protocol (CWSP) — Architecture and Protocol Specification
 
-> Status: Approved — CP-1 passed 2026-07-07
+> Status: Adopted — 2026-07-08. CP-1 passed 2026-07-07; CP-2 (pilot validation) passed 2026-07-08 via the downstream feature spec `../20260707-cwsp-skill-integration/feature.md` (Complete). Implemented across the spec-* suite; Tier-1 sealing (P4) deliberately not adopted (scoped reads proved sufficient at CP-2).
 > Date: 2026-07-07
 > Author: waseric
 > Audience: skill contributors (human), AI agents executing/reviewing/amending specs, stakeholders evaluating the spec-* suite's cost profile
@@ -239,6 +239,7 @@ Each phase produces an artifact the next consumes (vocabulary → skill edits �
 - *Trigger.* P2 (`spec-execute` adoption) implemented on a branch/deploy pair.
 - *Review focus.* Measured orientation-token reduction; output parity vs. baseline; no correctness loss from scoped reads; STATE stays accurate across boundaries.
 - *Exit criteria.* Orientation cost meets §6 target; zero quality regression on the dogfood task; cold-read reconstruction succeeds.
+- *Status.* **pass with comments** on 2026-07-08 (fable, dispatched spec-reviewer — floor met), executed and recorded in the downstream feature spec's journal (`../20260707-cwsp-skill-integration/journal.md`; feature.md §9 CP-2). 0 blockers, 1 important, 2 advisory. Measured ~8× orientation reduction vs. the whole-file baseline on this corpus (well inside the §6 targets); output parity held; cold-read reconstruction total. **This checkpoint also decided P4:** scoped reads proved sufficient with 2–6× margin, so Tier-1 sealing (P4/T-11) was **not adopted** — gated shut, revisit only if a future corpus breaches the targets. **CP-2 closed.**
 
 ## 10. Risks and Mitigations
 
