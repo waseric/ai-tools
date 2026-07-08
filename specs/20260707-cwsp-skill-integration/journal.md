@@ -1,13 +1,13 @@
 # Journal — CWSP Skill Integration
 
 ## Current State
-- **Phase:** CP-P1 CLOSED (re-review: pass); P1 complete. Ready for P2 (T-04).
-- **Last completed:** CP-P1 re-review (2026-07-08) — pass
-- **Next:** P2 — T-04 (spec-execute retires whole-file reads; first P2 task). Commit the working-tree tech-stack.md LF/dialect fix as the paired spec-side commit alongside this verdict.
-- **Open holds:** OQ-2/OQ-3/OQ-6 carried from design. FQ-1 resolved 2026-07-07. CP-P1 blocker resolved 2026-07-08.
+- **Phase:** P2 execution — T-04 done. Next T-05.
+- **Last completed:** T-04 (2026-07-08) — spec-execute retires whole-file reads for STATE + working set
+- **Next:** T-05 — spec-execute Phase 6 closeout updates STATE (in the same commit as the appended journal entry).
+- **Open holds:** OQ-2/OQ-3/OQ-6 carried from design. FQ-1 resolved 2026-07-07. CP-P1 CLOSED 2026-07-08.
 - **Pending checkpoint:** CP-2 — Pilot validation, triggers after P2 (T-04–T-06); reviewer floor fable.
 - **Archive:** none — all entries live
-- **Latest entry:** 2026-07-08 — Review of CP-P1 (re-review)
+- **Latest entry:** 2026-07-08 — T-04: spec-execute retires whole-file reads for STATE + working set
 
 ## Grammar
 - **Journal entry:** `## <YYYY-MM-DD> — <event>`
@@ -177,3 +177,38 @@
 - Deploy-sync byte-identical — spec-write / spec-design / project-constitution masters `diff` clean against `~/.claude/` copies.
 **Reviewer floor:** opus — met (reviewer ran on opus).
 **Next action:** Commit the working-tree `specs/tech-stack.md` fix as the paired spec-side commit alongside this verdict (spec + journal + constitution in one). CP-P1 is CLOSED. Resume `spec-execute` at P2 / T-04.
+
+## 2026-07-08 — T-04: spec-execute retires whole-file reads for STATE + working set
+
+**Status.** done. First P2 task. Converts all of `spec-execute`'s read-discipline prose from whole-file spec reads to STATE-first + Execute-task working set + INDEX widening + grammar consult, as one coherent unit-edit spanning the coupled sites.
+
+**Commits.** This task's closeout commit (single-repo; skill master + deploy copy + spec/journal in one commit — SHA in the receipt).
+
+**Files touched.**
+- `.agents/skills/spec-execute/SKILL.md` (master): `lastUpdated` 2026-07-06 → 2026-07-08; six coupled edits — (1) Operating Principle 6 re-anchor redefined to STATE + next-task working set via INDEX, not "re-read the relevant section"; (2) Phase 1 ORIENT read list restructured to STATE-consult-first with the OQ-1 one-grep cross-check (§5.1), then the Execute-task working set + grammar consult + INDEX widening (§5.2/§5.3/§5.4), retiring "`SPEC_PATH` in full"; (3) Phase 8 re-anchoring-cost bullet ("re-reads the spec from scratch" → scoped STATE + working-set read); (4) Phase 8 continue/pause prose ("re-reading the spec" → STATE + next task block via INDEX; handoff = the `## Current State` block); (5) WHAT NOT TO DO boundary bullet ("Re-read it at every task boundary" → STATE + next task block via INDEX, never a whole-spec reload); (6) DISPATCH MODE orchestrator conduct item 1 aligned to the §5.3 "Dispatch orchestrator" row (STATE + §7 task-table row + receipt(s); not task-block internals/code/journal history).
+- `~/.claude/skills/spec-execute/SKILL.md` (deploy copy): synced byte-identical.
+- `specs/20260707-cwsp-skill-integration/feature.md`: §7 T-04 marked done (2026-07-08).
+
+**Tests added (grep assertions / manual checks).**
+- Absence: `grep -c 'SPEC_PATH\` in full' .agents/skills/spec-execute/SKILL.md` → 0.
+- Absence (whole-file phrasings): `grep -nE 're-read the spec from scratch|re-reads the spec from scratch|re-read it at every task boundary' .agents/skills/spec-execute/SKILL.md` → none.
+- Presence (Phase 1 + boundary prose): `grep -cE 'Current State|working set|widen' .agents/skills/spec-execute/SKILL.md` present in Phase 1 read list and Operating Principle 6.
+- Manual: read Phase 1 + Principle 6 + Phase 8 + DISPATCH MODE together — no whole-file-read instruction survives; Phase 1 (scoped) and boundary prose (scoped) no longer contradict.
+
+**DoD verification.**
+- AC1 (Phase 1 directs STATE + working-set + widen-via-INDEX; "`SPEC_PATH` in full" absent): PASS — Phase 1 items 1–2; `grep -c 'SPEC_PATH\` in full' .agents/skills/spec-execute/SKILL.md` → 0.
+- AC2 (task-boundary re-anchor = STATE + next-task-block, not whole-spec re-read): PASS — Principle 6 + Phase 8 + WHAT NOT TO DO; whole-file-phrasing absence grep above → none.
+- AC3 (dispatch orchestrator per-task read matches §5.3 orchestrator row): PASS — DISPATCH MODE orchestrator conduct item 1 now reads "STATE + the §7 task-table row + the receipt(s)".
+- Global: deploy-sync `diff .agents/skills/spec-execute/SKILL.md ~/.claude/skills/spec-execute/SKILL.md` — empty; `lastUpdated` 2026-07-08; frontmatter still only `name`/`lastUpdated`/`description`; commit prefix `spec-execute:` referencing T-04; STATE overwritten in this same commit.
+
+**Models used.** opus (floor: opus — met).
+
+**Executed by:** worker(spec-worker, opus).
+
+**Decisions made.** Restructured the Phase 1 numbered read list so STATE (journal) is item 1 and the spec working set is item 2 — reversing the prior spec-first order — because STATE is now the cheapest orient anchor and the working-set read for the spec depends on which task STATE names as Next. Kept branch-state and multi-repo-detection as items 3/4 unchanged. Folded the OQ-1 one-grep cross-check verbatim into Phase 1 item 1 rather than a separate principle, matching §5.1's "reader contract" framing.
+
+**Spec amendments.** None. §5.1–5.4 copy source and the design were consistent with the task's scope; no trigger. STATE cross-check passed on orientation (Latest-entry anchor matched the true latest journal entry grep).
+
+**Surprises and learnings.** Prior P1 tasks (T-01–T-03) recorded done-status only in the journal (STATE + entries), not in §7 task blocks; T-04's brief explicitly required a §7 done-mark, so a `- **Status.** done` line was added to the T-04 block — a small convention divergence from earlier tasks, flagged for awareness (not an amendment trigger).
+
+**Next task pointer.** T-05 — spec-execute Phase 6 closeout updates STATE in the same commit as the appended journal entry.

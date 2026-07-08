@@ -1,6 +1,6 @@
 ---
 name: spec-execute
-lastUpdated: 2026-07-06
+lastUpdated: 2026-07-08
 description: Execute against an existing feature spec, advancing one task at a time with closeout at each task boundary. Orients on spec + journal + branch state, verifies prior task Definition of Done, proposes the next task for approval, implements it strictly within declared scope, verifies DoD with evidence, and updates spec + journal before moving on. Supports the multi-repo case where spec and code live in separate working trees (paired commits per task). At every task boundary, pauses for a session-continuity check (continue in this session vs. pick up fresh). Surfaces drift by routing to `spec-amend` rather than silent deviation. Use whenever the user wants to start or resume a working session against an existing spec at `specs/YYYYMMDD-<feature>/feature.md`. Pairs with `spec-write` (authors the spec), `spec-review` (reviews checkpoint deliverables), and `spec-amend` (applies spec changes when execution reveals drift).
 ---
 
@@ -46,7 +46,7 @@ You follow the Definition of Done in the spec literally. You do not declare a ta
 3. **No silent deviation.** If implementation reveals that the spec is wrong, stop and propose a spec amendment. Do not proceed under a contradicted plan.
 4. **Verify before claiming done.** Definition of Done items are checked one by one with evidence (test output, lint output, file paths), not asserted in summary.
 5. **One task at a time.** Do not interleave tasks. Finish, close out, then pick up the next.
-6. **Re-anchor at boundaries.** At each task transition, re-read the relevant section of the spec rather than relying on memory of it from earlier in the session.
+6. **Re-anchor at boundaries.** At each task transition, re-read the journal's `## Current State` block and the next task's working set — its §7 task-table row plus its `### T` block if the spec uses per-task headings — widening via INDEX (grep → range-read) only as needed, rather than relying on memory from earlier in the session. Re-anchoring is a STATE + next-task-block read, never a whole-spec re-read.
 7. **Ask, do not guess.** Blocker-class open questions stop work until resolved by the user.
 8. **Honor model floors.** When the spec's Task Breakdown declares a per-task **Model floor**, the model doing that task's work — this session's or any subagent's — must meet or exceed it. Never delegate below the floor. If the current session's model is below the floor for the proposed task, say so and stop instead of proceeding; do not spawn subagents merely to launder the floor.
 
@@ -54,8 +54,8 @@ You follow the Definition of Done in the spec literally. You do not declare a ta
 
 Read, in order:
 
-1. `SPEC_PATH` in full. Pay particular attention to the **Task Breakdown**, **Open Questions**, and **Review Checkpoints** sections.
-2. `JOURNAL_PATH` if it exists. The latest entry is your handoff from the previous session.
+1. **`JOURNAL_PATH`'s `## Current State` block first** (if the journal exists; create the journal on first run if not). STATE — Phase, Last completed, Next, Open holds, Pending checkpoint, Archive, Latest entry — is your handoff from the previous session. Then cross-check STATE's **derivable** fields — *Last completed* and the *Latest entry* anchor — against **one grep** of the true latest entry (`grep -nE '^## [0-9]{4}-[0-9]{2}-[0-9]{2} — ' journal.md | tail -1`). If they match, trust STATE and proceed to the working set. If they mismatch, STATE is stale: range-read the true latest entry before acting (staleness degrades cost by one read, never correctness).
+2. **The Execute-task working set from `SPEC_PATH`** — not the whole spec: STATE + the §7 task-table row for the proposed task + that task's `### T` block *if the spec uses per-task headings* (table-only specs: the row is the whole unit) + the pending checkpoint contract if any + the NFR items the task block cross-references. Consult the grammar first: if a `## Grammar` block is declared at the journal head (or a spec grammar section), grep its exact anchor patterns to locate units; else use the native reference dialect and broad-union discovery patterns. spec-execute reads the spec anyway, so it uses the spec's codified grammar if present, else its native default — it does **not** re-consult the constitution. When a referenced task, section, checkpoint, or NFR item is unresolved, **widen** via INDEX (grep) then range-read that specific unit — never fall back to a whole-file read. Pay particular attention to the **Task Breakdown**, **Open Questions**, and **Review Checkpoints** units you page in.
 3. The current state of `TARGET_BRANCH`. Identify the most recent commits and any uncommitted changes.
 4. **Multi-repo detection.** If `SPEC_REPO_ROOT` is not set, check whether `SPEC_PATH` resolves within `CODEBASE_ROOT`. If it does not — e.g., the spec is at a path in a different working tree — surface this and confirm with the user: "The spec appears to live in a different repo than the codebase. Should I treat `<detected-path>` as `SPEC_REPO_ROOT`?" Set it upon confirmation. If `SPEC_REPO_ROOT` is already set, confirm it is still correct (repos move).
 
@@ -174,7 +174,7 @@ Factors to weigh:
 
 - **Context already spent.** Long sessions accumulate context the next task does not need. Roughly: how much of the session has gone to background reading, exploration, false starts, or now-stale plans?
 - **Coupling to what was just done.** A next task that builds tightly on freshly-loaded context (same files, same vocabulary, same in-flight mental model) favors continuing. A next task that opens a different area favors a fresh session.
-- **Re-anchoring cost.** Phase 1 of a fresh session re-reads the spec from scratch — that is required either way. The real cost of a new session is the prompt-cache miss on the codebase reads, which is small compared to the drift risk of a long session.
+- **Re-anchoring cost.** Phase 1 of a fresh session re-reads STATE + the next task's working set via INDEX — a scoped read either way, not a whole-spec reload. The real cost of a new session is the prompt-cache miss on the codebase reads, which is small compared to the drift risk of a long session.
 - **Drift risk on long sessions.** Long sessions are more prone to confabulating remembered details from earlier turns. Short sessions snap to the artifact and are less likely to invent.
 - **Token economy.** How much of the model's context window has this session consumed? Long sessions with extensive code reads, error traces, or exploration burn context that crowds out the next task's working space. When the session has consumed a large fraction of available context, a fresh session gives the next task full headroom. Also consider billing: if the model charges per token, a fresh session with a clean prompt-cache hit on the spec is often cheaper than continuing with a bloated context.
 - **User signal.** If the user has said "stay in this session" or "we'll pick up tomorrow," honor that over any heuristic.
@@ -206,7 +206,7 @@ Session continuity check: <one or two sentences naming what shaped the recommend
 **If pausing:** the journal's next-task pointer is set to <next task ID> for the next session.
 ```
 
-Then stop and wait. If the user says continue, return to Phase 1 for the next task, re-reading the spec rather than relying on memory of it. If the user pauses, the session ends cleanly with the journal as the handoff.
+Then stop and wait. If the user says continue, return to Phase 1 for the next task, re-reading STATE + the next task block via INDEX rather than relying on memory of it. If the user pauses, the session ends cleanly with the journal's `## Current State` block as the handoff.
 
 Skip this phase only when the user has explicitly said "run the full set without checking in" or has set `AUTONOMY: checkpoint` — and even then, surface a brief note at the end of each task so the user can interrupt if they want. `AUTONOMY: checkpoint` never overrides Phase 7: review checkpoints, blockers, amendments, model-floor conflicts, production-touching actions, and a context-budget breach stop the run in every mode.
 
@@ -252,7 +252,7 @@ A **receipt** is the worker's final message: a fixed-shape, length-capped task s
 
 In dispatch mode the orchestrator:
 
-1. Reads only the spec, the journal, and receipts — never code, diffs, or build output.
+1. Per task, reads only its working set — STATE + the §7 task-table row + the receipt(s) — never task-block internals, code, diffs, journal history, or build output. Widens via INDEX (grep → range-read) only when a receipt re-check or the checkpoint gate forces resolution of a specific unit.
 2. Runs shell only for derivation re-checks and git-state inspection.
 3. Performs Phase 2 by re-running each verification command the receipt journaled and comparing against the claim; a receipt whose re-check fails is rejected and the task is not accepted as done.
 4. Treats an amendment trigger reported in any receipt as a batch stop (the same designed stop as any amendment under `AUTONOMY: checkpoint`).
@@ -274,7 +274,7 @@ The worker orients by reading the spec task and the latest journal entry from di
 
 # WHAT NOT TO DO
 
-- Do not skip Phase 1 on the assumption that you remember the spec from earlier in the session. Re-read it at every task boundary.
+- Do not skip Phase 1 on the assumption that you remember the spec from earlier in the session. Re-read STATE + the next task block via INDEX at every task boundary — never a whole-spec reload.
 - Do not declare Definition of Done satisfied with a summary like "tests pass and docs updated." Cite specific evidence per item.
 - Do not silently deviate from the spec when reality bites. Propose an amendment, get approval, then proceed.
 - Do not start a new task while the previous task's closeout is incomplete.
