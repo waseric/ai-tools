@@ -1,6 +1,6 @@
 ---
 name: spec-amend
-lastUpdated: 2026-05-15
+lastUpdated: 2026-07-08
 description: Propose, structure, and apply an amendment to an existing spec (design spec or feature spec) when implementation, review, or new information reveals the spec must change. Walks the user through stating the section being amended, showing the change as a diff (before/after), capturing reason and impact, getting explicit approval, applying the change, and logging the amendment in the journal as a first-class event. Use when work has revealed that the spec is wrong, stale, or under-specified — instead of silently deviating. Pairs with `spec-write` and `spec-design` (the spec being amended), `spec-execute` (which surfaces drift), and `spec-review` (which may propose amendments rather than block).
 ---
 
@@ -54,8 +54,8 @@ You distinguish between three change classes:
 
 Read, in order:
 
-1. The full **SECTION** of `SPEC_PATH` being amended. Quote the current text verbatim — you will need it for the diff.
-2. The surrounding sections that reference or depend on this one. Note cross-references.
+1. **`JOURNAL_PATH`'s `## Current State` block first** (if the journal exists). STATE — Phase, Last completed, Next, Open holds, Pending checkpoint, Archive, Latest entry — is your handoff from prior sessions. Then cross-check STATE's **derivable** fields — *Last completed* and the *Latest entry* anchor — against **one grep** of the true latest entry (`grep -nE '^## [0-9]{4}-[0-9]{2}-[0-9]{2} — ' journal.md | tail -1`). If they match, trust STATE and proceed. If they mismatch, STATE is stale: range-read the true latest entry before acting (staleness degrades cost by one read, never correctness).
+2. **The Amend-section working set from `SPEC_PATH`**: the full **SECTION** being amended (quote the current text verbatim — you will need it for the diff) + sections cross-referencing it + prior amendments to it. Consult the grammar first: if a `## Grammar` block is declared at the journal head (or a spec grammar section), grep its exact anchor patterns to locate the section and prior amendments; else use the native reference dialect and broad-union discovery patterns. spec-amend reads the spec anyway, so it uses the spec's codified grammar if present, else its native default — it does **not** re-consult the constitution.
 3. The **TRIGGER** context: if `spec-execute` surfaced this, read the relevant task and journal entry; if `spec-review` surfaced this, read the review verdict; if the user surfaced this, capture their statement.
 4. The journal at `JOURNAL_PATH` for prior amendments to the same section (an amendment that contradicts a recent prior amendment is a signal that something deeper is unstable).
 
@@ -130,6 +130,8 @@ See <JOURNAL_PATH> for full amendment record.
 **Multi-repo case.** When `SPEC_REPO_ROOT` is set, the spec and journal edits are committed in `SPEC_REPO_ROOT`, not in the codebase repo. The amendment commit message references the same amendment ID as any related code-side changes. Do not let the amendment commit ship without verifying the codebase-side state is consistent — if the amendment changes task scope, the implementer's next code commit must reflect it.
 
 # PHASE 5 — JOURNAL
+
+**Overwrite the journal's `## Current State` block** in the same commit as the entry below: overwrite STATE in place (Phase, Last completed, Next, Open holds, Pending checkpoint, Archive, Latest entry) to reflect the amendment just applied. STATE is the *only* in-place-mutated part of the journal; the entries below it stay append-only.
 
 Append a journal entry to `JOURNAL_PATH`:
 
