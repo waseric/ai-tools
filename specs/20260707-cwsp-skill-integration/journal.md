@@ -1,13 +1,13 @@
 # Journal — CWSP Skill Integration
 
 ## Current State
-- **Phase:** P3 — Cross-skill adoption (T-07–T-08 done; T-09–T-10 remain before CP-P3).
-- **Last completed:** T-08 — spec-reviewer agent definition consults STATE on orientation (commit 4f3a6e8).
-- **Next:** T-09 — spec-amend adopts STATE/INDEX vocabulary + STATE write-back.
-- **Open holds:** OQ-2/OQ-3/OQ-6 carried from design. FQ-1 resolved 2026-07-07. CP-P1 CLOSED 2026-07-08. P4/T-11 NOT adopted (CP-2 decided scoped reads sufficient).
+- **Phase:** P3 — Cross-skill adoption (T-07–T-09 done; T-10 remains before CP-P3).
+- **Last completed:** T-09 — spec-amend adopts STATE/INDEX vocabulary + STATE write-back (commit 8e3508c).
+- **Next:** T-10 — spec-amend collapses to the single amendment dialect form. **Blocked on model floor: opus required, session is sonnet.**
+- **Open holds:** OQ-2/OQ-3/OQ-6 carried from design. FQ-1 resolved 2026-07-07. CP-P1 CLOSED 2026-07-08. P4/T-11 NOT adopted (CP-2 decided scoped reads sufficient). T-10 model-floor conflict (opus vs. session sonnet) — awaiting operator.
 - **Pending checkpoint:** CP-P3 — cross-skill consistency (triggers after T-07–T-10).
 - **Archive:** none — all entries live
-- **Latest entry:** 2026-07-08 — T-08: spec-reviewer consults STATE on orientation
+- **Latest entry:** 2026-07-08 — T-09: spec-amend adopts STATE/INDEX vocabulary + STATE write-back
 
 ## Grammar
 - **Journal entry:** `## <YYYY-MM-DD> — <event>`
@@ -421,3 +421,21 @@ After (matching feature.md's new bootstrap bullet — dogfood correction):
 **Spec amendments:** none.
 **Surprises and learnings:** none.
 **Next task pointer:** T-09 — spec-amend adopts STATE/INDEX vocabulary + STATE write-back (dependency: T-04, already satisfied).
+
+## 2026-07-08 — T-09: spec-amend adopts STATE/INDEX vocabulary + STATE write-back
+
+**Status:** done
+**Commits:** 8e3508c (skill-master + deploy sync); this entry's paired spec/journal commit
+**Files touched:** `.agents/skills/spec-amend/SKILL.md` (+ deploy copy `~/.claude/skills/spec-amend/SKILL.md`)
+**Tests added:** none (grep-checkable prose assertions per §8)
+**DoD verification:**
+- "Current State" present in Phase 1 (new item 1: STATE-first + one-grep cross-check + grammar consult, ahead of the Amend-section working set) — verified.
+- "Current State" present in the journal-append prose (new sentence ahead of the Phase 5 template: overwrite STATE in the same commit as the amendment entry) — verified.
+- Deploy-sync byte-identical — `diff .agents/skills/spec-amend/SKILL.md ~/.claude/skills/spec-amend/SKILL.md` empty.
+- `lastUpdated` bumped 2026-05-15 → 2026-07-08.
+**Models used:** sonnet (session model) — task's declared floor is sonnet; met.
+**Executed by:** inline
+**Decisions made:** the Amend-section working set (§S block + cross-references + prior amendments) was folded into Phase 1 item 2 rather than left as items 1–2 of the original list, so STATE consult leads and the section-scoped read follows it — matching T-07's and T-09's sibling tasks' STATE-first ordering.
+**Spec amendments:** none.
+**Surprises and learnings:** none.
+**Next task pointer:** T-10 — spec-amend collapses to the single amendment dialect form. **Model floor: opus** (feature.md: "this changes the *emitted grammar*; getting it wrong desynchronizes new amendments from the INDEX contract... Judgment-bearing."). This session's model is sonnet — below floor. Per Operating Principle 8, do not proceed; stop for the operator (see OPERATOR CUES in the session's closing message).

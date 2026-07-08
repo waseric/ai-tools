@@ -275,6 +275,7 @@ Global DoD addenda for **every** task (not repeated per task): master edited; de
 - **Model floor.** sonnet — additive, grep-verifiable.
 
 #### T-09 — spec-amend adopts STATE/INDEX vocabulary + STATE write-back
+- **Status.** done (2026-07-08; commit 8e3508c — see journal).
 - **Title.** Wire STATE/INDEX vocabulary, grammar consult, and STATE write-back into `spec-amend`.
 - **Scope.** [.agents/skills/spec-amend/SKILL.md](../../.agents/skills/spec-amend/SKILL.md): Phase 1 ORIENT (:53 — STATE consult + cross-check + grammar consult; the Amend-section working set from §5.3); journal append (:134 — overwrite STATE in the amendment commit).
 - **Acceptance criteria.** *Given* spec-amend Phase 1, *then* prose directs STATE + section-scoped reads. *Given* the amendment journal append, *then* STATE is overwritten in the same commit. Grep: "Current State" present in Phase 1 + journal-append prose.
