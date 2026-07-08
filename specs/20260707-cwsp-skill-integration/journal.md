@@ -1,13 +1,13 @@
 # Journal — CWSP Skill Integration
 
 ## Current State
-- **Phase:** P3 complete — T-07–T-10 done; CP-P3 now triggers.
-- **Last completed:** T-10 — spec-amend collapses to the single amendment dialect form (commit 7aa9279).
-- **Next:** CP-P3 — cross-skill consistency review (reviewer floor opus). Then T-11 remains gated shut (P4 not adopted per CP-2).
-- **Open holds:** OQ-2/OQ-3/OQ-6 carried from design. FQ-1 resolved 2026-07-07. CP-P1 CLOSED 2026-07-08. P4/T-11 NOT adopted (CP-2 decided scoped reads sufficient).
-- **Pending checkpoint:** CP-P3 — cross-skill consistency (triggers now; T-07–T-10 done).
+- **Phase:** spec functionally complete — P1/P2/P3 done, all checkpoints closed; P4/T-11 gated shut.
+- **Last completed:** CP-P3 — cross-skill consistency review: pass (2026-07-08, opus inline).
+- **Next:** none — spec complete. T-11/P4 stays gated shut per CP-2 (revisit only if a future corpus breaches the §6 targets).
+- **Open holds:** OQ-2/OQ-3/OQ-6 carried from design (dormant unless P4 opens). FQ-1 resolved 2026-07-07. CP-P1 CLOSED 2026-07-08. CP-2 CLOSED 2026-07-08. CP-P3 CLOSED 2026-07-08. P4/T-11 NOT adopted (CP-2 decided scoped reads sufficient).
+- **Pending checkpoint:** none — all checkpoints (CP-P1, CP-2, CP-P3) closed.
 - **Archive:** none — all entries live
-- **Latest entry:** 2026-07-08 — T-10: spec-amend collapses to the single amendment dialect form
+- **Latest entry:** 2026-07-08 — Review of CP-P3
 
 ## Grammar
 - **Journal entry:** `## <YYYY-MM-DD> — <event>`
@@ -460,3 +460,25 @@ After (matching feature.md's new bootstrap bullet — dogfood correction):
 **Spec amendments:** none.
 **Surprises and learnings:** The Phase 5 heading was *already* the reference-dialect single form (`## <YYYY-MM-DD> — Amendment <YYYY-MM-DD-N>`); the actual double-record lived in the terse summary fields + `### Full record` paste under it, and the *Phase 2 draft* still used the old two-part `## Amendment <id> — §SECTION` heading. The collapse was therefore about unifying Phase 2's and Phase 5's heading and dropping the duplicate body, not inventing a new form.
 **Next task pointer:** CP-P3 — cross-skill consistency checkpoint (reviewer floor opus). P3 (T-07–T-10) complete; T-11/P4 remain gated shut per CP-2.
+
+## 2026-07-08 — Review of CP-P3
+
+**Reviewer:** waseric (opus, inline — reviewer floor opus met)
+**Outcome:** pass
+**Tasks reviewed:** T-07, T-08, T-09, T-10
+**Diff range:** reviewed full P3 scope `659e45e..fb0efe3` (masters e1bd8a8 / 4f3a6e8 / 8e3508c / 7aa9279). The invocation's `DIFF_RANGE 69dfe17..fb0efe3` covered only T-10 (base was T-09's closeout); widened to the pre-T-07 base so the checkpoint's declared T-07–T-10 scope was reviewed in full. No work finding — an input-range note.
+**Blockers:** 0
+**Important:** 0
+**Advisory:** 2 — (1) STATE cross-check trailing clause differs contextually across the three files ("proceed to the working set below" / "proceed" / "move on"); the STATE shape, derivable-subset definition, and literal grep command are byte-identical — expected tailoring, not drift; noted so the standing consistency grep does not false-alarm. (2) Journal append-only anomaly: the 2026-07-08 "Re-sync T-01/T-02" entry sits at the journal head (line 17) out of chronological order, violating §5.1's "entries below stay append-only"; pre-P3, honestly documented in T-07's entry — flagged for a future journal-hygiene pass, correcting-in-place declined as worse than a documented anomaly.
+
+**Exit criteria (all met):**
+- *Cross-skill grep consistency holds* — MET. The OQ-1 STATE cross-check core ("cross-check STATE's **derivable** fields — *Last completed* and the *Latest entry* anchor — against **one grep**...") and the literal command `grep -nE '^## [0-9]{4}-[0-9]{2}-[0-9]{2} — ' journal.md | tail -1` are byte-identical across spec-review, spec-amend, and spec-reviewer.
+- *Full-diff mandate demonstrably intact* — MET. spec-review :54 ("Read it in full — review is the one place this design does not economize on context") and :195; spec-reviewer :17 ("full diff-reading mandate") and :31 (STATE "narrows what you carry in from the spec/journal, never how much of the diff you read"). Reinforced, not weakened, by T-07/T-08.
+- *Amendment-form grep assertions pass* — MET. Single-form heading `## <YYYY-MM-DD> — Amendment <YYYY-MM-DD-N>` present (spec-amend :77); old two-part `Amendment <id> — §SECTION` heading and `### Full record` double-record both 0 matches; legacy note :142 points at the §5.2 union grep `^#{2,3} .*Amendment`, matching the reference dialect.
+
+**Review-focus verdicts:** vocabulary reads identically (pass); full-diff mandate survived T-07/T-08 (pass); amendment single-form matches §5.2 + legacy discovery intact (pass); STATE write-backs present in every write phase — spec-review Phase 8 :170, spec-amend Phase 5 :138 (pass; spec-reviewer is read-only by definition, no write-back expected).
+
+**Scope:** clean. Files touched = the 3 declared masters + feature.md (§7/§9 status lines) + journal; no out-of-scope files, no new tooling/dependencies. Deploy-sync byte-identical for all three (masters in-repo; deploy copies under `~/.claude/`, verified via `diff`).
+
+**Spec amendments proposed:** none.
+**Next action:** None — CP-P3 CLOSED; spec is functionally complete. All checkpoints (CP-P1, CP-2, CP-P3) closed; P4/T-11 stays gated shut per CP-2. Advisory (2) can be swept in a future journal-hygiene pass if desired.
