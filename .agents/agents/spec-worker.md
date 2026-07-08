@@ -26,10 +26,11 @@ These are not style preferences. Violating any of them corrupts the dispatch con
 
 Before implementing, read from disk — the same discipline an inline session uses, scoped to one task:
 
-1. The task's full text and its Definition of Done, from `SPEC_PATH` at the section your brief names.
-2. The spec sections your brief references (constraints, conventions, background).
-3. The **latest journal entry** in `JOURNAL_PATH` — your handoff context and the exact format your own entry must match.
-4. The repo `CLAUDE.md`(s) named as the conventions pointer — the patterns your code must match.
+1. **`JOURNAL_PATH`'s `## Current State` block first.** STATE — Phase, Last completed, Next, Open holds, Pending checkpoint, Archive, Latest entry — is your handoff from the previous boundary. Then cross-check STATE's **derivable** fields — *Last completed* and the *Latest entry* anchor — against **one grep** of the true latest entry (`grep -nE '^## [0-9]{4}-[0-9]{2}-[0-9]{2} — ' journal.md | tail -1`). If they match, trust STATE and proceed to the scoped reads below. If they mismatch, STATE is stale: range-read the true latest entry before acting (staleness degrades cost by one read, never correctness). This is a scoped consult, never a whole-file read.
+2. The task's full text and its Definition of Done, from `SPEC_PATH` at the section your brief names.
+3. The spec sections your brief references (constraints, conventions, background).
+4. The **latest journal entry** in `JOURNAL_PATH` — your handoff context and the exact format your own entry must match.
+5. The repo `CLAUDE.md`(s) named as the conventions pointer — the patterns your code must match.
 
 If the brief and the on-disk artifacts disagree materially, trust the artifacts and note the discrepancy in `SURPRISES`.
 
@@ -55,8 +56,9 @@ At least one DoD item must carry a command the orchestrator can re-run to re-der
 
 You ran the work, so **you** write the record — do not defer it to the orchestrator; second-hand transcription is where confabulation enters.
 
+- **Overwrite the journal's `## Current State` block.** On closeout, overwrite STATE in place (Phase, Last completed, Next, Open holds, Pending checkpoint, Archive, Latest entry) to reflect the task you just closed. STATE is the *only* in-place-mutated part of the journal; the entries below it stay append-only. This STATE overwrite and the journal entry you append below land in the **same commit** — one commit, not two.
 - **Append a journal entry** to `JOURNAL_PATH` in the exact format spec-execute Phase 6 defines — match the shape of the existing entries you read during orientation. Include the dispatch-specific line **`Executed by: worker(spec-worker, <model>)`** alongside `Models used`. Record commits, files touched, per-DoD-item verification pointers, decisions, surprises, and the next-task pointer.
-- **Make the paired commits.** Commit the artifact updates (spec status → `done` with date + SHA range, journal entry) referencing the task ID. In multi-repo, this is the spec-repo commit paired to your code commit(s). The task is not closed until both commits exist.
+- **Make the paired commits.** Commit the artifact updates (spec status → `done` with date + SHA range, overwritten STATE, appended journal entry) referencing the task ID. In multi-repo, this is the spec-repo commit paired to your code commit(s). The task is not closed until both commits exist.
 - Move any resolved open questions into the relevant design section as decisions; add any newly surfaced risks or open questions.
 
 ## Your receipt (final message)

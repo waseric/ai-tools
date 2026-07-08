@@ -241,6 +241,7 @@ Global DoD addenda for **every** task (not repeated per task): master edited; de
 - **Model floor.** sonnet — additive write-side rule, objectively grep-verifiable.
 
 #### T-06 — spec-worker consults + updates STATE
+- **Status.** done (2026-07-08; this task's closeout commit — see journal / receipt).
 - **Title.** Add STATE consult (with OQ-1 cross-check) to the worker's orient, and STATE update to the worker's journal commit.
 - **Scope.** [.agents/agents/spec-worker.md](../../.agents/agents/spec-worker.md): Orient (:25-31 — read STATE first + one-grep cross-check before the task + latest-entry read it already does); journal commit (:58-59 — overwrite STATE per §5.1 in the paired spec/journal commit).
 - **Acceptance criteria.** *Given* a worker spawns cold, *when* it orients, *then* it reads STATE + cross-checks + the scoped task/latest-entry (unchanged) — no whole-file read introduced. *Given* the worker closes out, *then* it overwrites STATE in its journal commit. Grep: "Current State" present in Orient and journal-commit prose; cross-check grep phrasing present.

@@ -1,13 +1,13 @@
 # Journal — CWSP Skill Integration
 
 ## Current State
-- **Phase:** P2 execution — T-05 done. Next T-06.
-- **Last completed:** T-05 (2026-07-08) — spec-execute Phase 6 closeout updates STATE
-- **Next:** T-06 — spec-worker consults + updates STATE.
+- **Phase:** P2 execution complete — T-06 done. CP-2 (Pilot validation) triggers.
+- **Last completed:** T-06 (2026-07-08) — spec-worker consults + updates STATE
+- **Next:** CP-2 — Pilot validation (P2 complete; reviewer floor fable). P3 (T-07) gated behind CP-2.
 - **Open holds:** OQ-2/OQ-3/OQ-6 carried from design. FQ-1 resolved 2026-07-07. CP-P1 CLOSED 2026-07-08.
-- **Pending checkpoint:** CP-2 — Pilot validation, triggers after P2 (T-04–T-06); reviewer floor fable.
+- **Pending checkpoint:** CP-2 — Pilot validation, triggered (P2 T-04–T-06 complete); reviewer floor fable.
 - **Archive:** none — all entries live
-- **Latest entry:** 2026-07-08 — T-05: spec-execute Phase 6 closeout updates STATE
+- **Latest entry:** 2026-07-08 — T-06: spec-worker consults + updates STATE
 
 ## Grammar
 - **Journal entry:** `## <YYYY-MM-DD> — <event>`
@@ -244,3 +244,38 @@
 **Surprises and learnings.** None beyond T-04's flagged §7 `**Status.**` convention, which this task continued.
 
 **Next task pointer.** T-06 — spec-worker consults + updates STATE.
+
+## 2026-07-08 — T-06: spec-worker consults + updates STATE
+
+**Status.** done. Agent-definition edit mirroring the reader/writer contracts T-04/T-05 added to spec-execute: the worker's Orient now consults STATE first with the OQ-1 one-grep cross-check, and Phase 6 close-out overwrites STATE in the same commit as the appended journal entry.
+
+**Commits.** This task's closeout commit (single-repo; agent-def master + deploy copy + spec/journal in one commit — SHA in the receipt).
+
+**Files touched.**
+- `.agents/agents/spec-worker.md` (master): (a) Orient — prepended a new item 1 (`## Current State` consult first + derivable-subset cross-check via the one grep `grep -nE '^## [0-9]{4}-[0-9]{2}-[0-9]{2} — ' journal.md | tail -1`, mismatch → range-read true latest entry; explicitly "a scoped consult, never a whole-file read"), renumbering the existing task/section/latest-entry/CLAUDE.md reads (2–5, unchanged). (b) Phase 6 — added a new "Overwrite the journal's `## Current State` block" bullet before "Append a journal entry" (§5.1 Writer contract: overwrite in place, only in-place-mutated part, entries append-only, same commit — one commit not two), and folded "overwritten STATE, appended journal entry" into the paired-commit bullet. No `lastUpdated` field exists in this agent-def frontmatter (name/description/disallowedTools only) — per the harness-adapter rule, none added.
+- `~/.claude/agents/spec-worker.md` (deploy copy): synced byte-identical.
+- `specs/20260707-cwsp-skill-integration/feature.md`: §7 T-06 marked done (2026-07-08).
+
+**Tests added (grep assertions).**
+- Presence (Orient + Phase 6): `grep -c 'Current State' .agents/agents/spec-worker.md` → 2 (Orient item 1; Phase 6 bullet).
+- Cross-check phrasing present: `grep -c "grep -nE '\^## \[0-9\]{4}" .agents/agents/spec-worker.md` → 1 (Orient item 1).
+- Phase 6 same-commit rule: `grep -c 'same commit' .agents/agents/spec-worker.md` → 1.
+- No whole-file-read instruction in Orient: the only "whole-file" match is the negation "never a whole-file read"; the numbered reads remain scoped (STATE, task text, referenced sections, latest entry, CLAUDE.md).
+
+**DoD verification.**
+- AC (worker orients → reads STATE + cross-check + scoped task/latest-entry, no whole-file read): PASS — Orient item 1 at line ~29; existing scoped reads unchanged (renumbered 2–5).
+- AC (worker closes out → overwrites STATE in its journal commit): PASS — Phase 6 STATE-overwrite bullet at line ~59; paired-commit bullet updated.
+- Grep ("Current State" in Orient + journal-commit prose; cross-check grep phrasing present): PASS — see grep counts above.
+- Global: deploy-sync `diff .agents/agents/spec-worker.md ~/.claude/agents/spec-worker.md` — empty; frontmatter unchanged (no `lastUpdated` to bump — agent-def harness adapter, no new key added); commit prefix `spec-worker:` referencing T-06; STATE overwritten in this same commit (dogfooded).
+
+**Models used.** opus (floor: opus — met).
+
+**Executed by:** worker(spec-worker, opus).
+
+**Decisions made.** Mirrored spec-execute's exact vocabulary (T-04 Phase 1 item 1 cross-check language; T-05 Phase 6 Writer-contract language "same commit / one commit, not two") rather than introducing new phrasing, so worker and orchestrator read consistently. Added the STATE consult as a new item 1 (STATE-first) and renumbered rather than appending, matching spec-execute Phase 1's read order. `lastUpdated` case: field absent from agent-def frontmatter — not added, per the repo rule that agent defs are declared harness adapters and must not gain new frontmatter keys.
+
+**Spec amendments.** None. §5.1's reader + writer contracts mapped cleanly onto the worker's Orient and Phase 6.
+
+**Surprises and learnings.** None. spec-worker.md carries no `lastUpdated` (unlike skill masters), so the global "bump lastUpdated" DoD addendum is N/A for agent-def tasks — worth noting for the sibling T-08 (spec-reviewer).
+
+**Next task pointer.** CP-2 — Pilot validation (P2 complete; reviewer floor fable). P3 (T-07) is gated behind CP-2.
