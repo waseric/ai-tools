@@ -265,6 +265,7 @@ Global DoD addenda for **every** task (not repeated per task): master edited; de
 - **Model floor.** sonnet — spec-review is already selective; edit is additive vocabulary + a write-back, verifiable by grep. Guarded by CP-P3.
 
 #### T-08 — spec-reviewer consults STATE on orientation
+- **Status.** done (2026-07-08; commit 4f3a6e8 — see journal).
 - **Title.** Add STATE consult (with cross-check) to the `spec-reviewer` agent definition's orientation read.
 - **Scope.** [.agents/agents/spec-reviewer.md](../../.agents/agents/spec-reviewer.md) — orientation read. Add STATE-first + cross-check; full-diff mandate unchanged.
 - **Acceptance criteria.** *Given* a reviewer subagent spawns cold, *then* it reads STATE + cross-checks before the checkpoint-scoped reads; full-diff mandate intact. Grep: "Current State" present; full-diff language intact.

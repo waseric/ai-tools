@@ -1,13 +1,13 @@
 # Journal — CWSP Skill Integration
 
 ## Current State
-- **Phase:** P3 — Cross-skill adoption (T-07 done; T-08–T-10 remain before CP-P3).
-- **Last completed:** T-07 — spec-review adopts STATE/INDEX vocabulary + cold-reader guarantee + STATE write-back (commit e1bd8a8).
-- **Next:** T-08 — spec-reviewer agent definition consults STATE on orientation.
+- **Phase:** P3 — Cross-skill adoption (T-07–T-08 done; T-09–T-10 remain before CP-P3).
+- **Last completed:** T-08 — spec-reviewer agent definition consults STATE on orientation (commit 4f3a6e8).
+- **Next:** T-09 — spec-amend adopts STATE/INDEX vocabulary + STATE write-back.
 - **Open holds:** OQ-2/OQ-3/OQ-6 carried from design. FQ-1 resolved 2026-07-07. CP-P1 CLOSED 2026-07-08. P4/T-11 NOT adopted (CP-2 decided scoped reads sufficient).
 - **Pending checkpoint:** CP-P3 — cross-skill consistency (triggers after T-07–T-10).
 - **Archive:** none — all entries live
-- **Latest entry:** 2026-07-08 — T-07: spec-review adopts STATE/INDEX vocabulary + cold-reader guarantee + STATE write-back
+- **Latest entry:** 2026-07-08 — T-08: spec-reviewer consults STATE on orientation
 
 ## Grammar
 - **Journal entry:** `## <YYYY-MM-DD> — <event>`
@@ -403,3 +403,21 @@ After (matching feature.md's new bootstrap bullet — dogfood correction):
 **Spec amendments:** none.
 **Surprises and learnings:** the prior journal entry ("Re-sync T-01/T-02 masters to Amendment 2026-07-08-1") was inserted at the journal head, right after the `## Grammar` block, instead of appended at the bottom with every other entry — breaking this journal's own append-only convention (§5.1 writer contract: "entries below stay append-only"). Not rewritten here (correcting history in place is worse than a documented anomaly); this entry and all future entries append at the true bottom. Worth a mention if `spec-amend` or a future audit touches journal-ordering conventions.
 **Next task pointer:** T-08 — spec-reviewer agent definition consults STATE on orientation (dependency: T-07, now satisfied).
+
+## 2026-07-08 — T-08: spec-reviewer consults STATE on orientation
+
+**Status:** done
+**Commits:** 4f3a6e8 (agent-def + deploy sync); this entry's paired spec/journal commit
+**Files touched:** `.agents/agents/spec-reviewer.md` (+ deploy copy `~/.claude/agents/spec-reviewer.md`)
+**Tests added:** none (grep-checkable prose assertions per §8)
+**DoD verification:**
+- "Current State" present in the "What to read, in order" list (new item 1: STATE-first + one-grep cross-check, ahead of the checkpoint contract) — verified `grep -c` = 1.
+- Full-diff mandate intact — grep for "full diff"/"full-diff"/"read in full" still returns the frontmatter description, the "Context posture" section, and the diff-read step's explicit "read in full" plus the added clarifying sentence that STATE narrows spec/journal context, never diff coverage.
+- Deploy-sync byte-identical — `diff .agents/agents/spec-reviewer.md ~/.claude/agents/spec-reviewer.md` empty.
+- `lastUpdated` — N/A; agent-def masters carry no `lastUpdated` frontmatter (T-06 precedent).
+**Models used:** sonnet (session model) — task's declared floor is sonnet; met.
+**Executed by:** inline
+**Decisions made:** placed the STATE consult as the new first read item (matching T-07's ordering in spec-review), and added one clarifying sentence to the diff-read item rather than leaving the STATE addition to speak for itself, since T-07's review focus for CP-P3 explicitly checks that the full-diff mandate "survived T-07/T-08 intact."
+**Spec amendments:** none.
+**Surprises and learnings:** none.
+**Next task pointer:** T-09 — spec-amend adopts STATE/INDEX vocabulary + STATE write-back (dependency: T-04, already satisfied).
