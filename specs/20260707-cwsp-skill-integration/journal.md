@@ -2,17 +2,27 @@
 
 ## Current State
 - **Phase:** CP-2 (Pilot validation) PASSED with comments 2026-07-08 — P3 open.
-- **Last completed:** Amendment 2026-07-08-1 (feature.md §5.2 task-block discovery pattern, reconciled with tech-stack.md and this journal's own Grammar block).
-- **Next:** T-07 — spec-review adopts STATE/INDEX vocabulary + cold-reader guarantee + STATE write-back. Recommend a small follow-up task before CP-P3 to re-sync the reference-dialect table in the already-done T-01 (spec-write) / T-02 (spec-design) SKILL.md masters to the amended §5.2 text.
-- **Open holds:** Follow-up re-sync of T-01/T-02 SKILL.md masters' embedded reference-dialect table to Amendment 2026-07-08-1's text (not yet done; recommended before CP-P3 closes). OQ-2/OQ-3/OQ-6 carried from design. FQ-1 resolved 2026-07-07. CP-P1 CLOSED 2026-07-08. P4/T-11 NOT adopted (CP-2 decided scoped reads sufficient).
+- **Last completed:** Out-of-band re-sync of T-01/T-02 SKILL.md masters' reference-dialect table to Amendment 2026-07-08-1's text (mechanical copy-fix, not a §7 task).
+- **Next:** T-07 — spec-review adopts STATE/INDEX vocabulary + cold-reader guarantee + STATE write-back.
+- **Open holds:** OQ-2/OQ-3/OQ-6 carried from design. FQ-1 resolved 2026-07-07. CP-P1 CLOSED 2026-07-08. P4/T-11 NOT adopted (CP-2 decided scoped reads sufficient).
 - **Pending checkpoint:** CP-P3 — cross-skill consistency (triggers after T-07–T-10).
 - **Archive:** none — all entries live
-- **Latest entry:** 2026-07-08 — Amendment 2026-07-08-1
+- **Latest entry:** 2026-07-08 — Re-sync T-01/T-02 masters to Amendment 2026-07-08-1
 
 ## Grammar
 - **Journal entry:** `## <YYYY-MM-DD> — <event>`
 - **Amendment:** `## <YYYY-MM-DD> — Amendment <id>`
 - **Spec section:** `## N. <title>`; task blocks `#{3,4} <T-ID> — <title>` (heading depth h3 or h4), plus the §7 table row where one exists.
+
+## 2026-07-08 — Re-sync T-01/T-02 masters to Amendment 2026-07-08-1
+
+**Event.** Out-of-band mechanical copy-fix flagged by Amendment 2026-07-08-1's Phase 6 handoff: T-01 (spec-write) and T-02 (spec-design) SKILL.md masters still embedded the pre-amendment reference-dialect table text (`### <T-ID> — <title>` / table-always-present), diverging from feature.md §5.2's amended canonical text. Not a §7 task — a narrow re-sync to keep the CP-P1 byte-identity invariant alive ahead of CP-P3.
+
+**Change.** Two lines per file, four files: `.agents/skills/spec-write/SKILL.md`, `~/.claude/skills/spec-write/SKILL.md`, `.agents/skills/spec-design/SKILL.md`, `~/.claude/skills/spec-design/SKILL.md`. Replaced the Grammar bullet and reference-dialect table row with the amended text (`#{3,4} <T-ID> — <title>`, h3 or h4, §7 table row "where one exists" / "where a table exists"). No other text touched.
+
+**Verification.** `diff` master vs. deploy — empty for both skills. `grep -n '### <T-ID>' .agents/skills/spec-write/SKILL.md .agents/skills/spec-design/SKILL.md` — no matches (old form fully retired). New text confirmed byte-identical to feature.md:131,142-143 and tech-stack.md:64.
+
+**Next task pointer.** T-07 — spec-review adopts STATE/INDEX vocabulary + cold-reader guarantee + STATE write-back.
 
 ## 2026-07-07 — Feature spec authored
 

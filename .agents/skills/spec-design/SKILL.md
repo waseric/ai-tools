@@ -212,7 +212,7 @@ Create `journal.md` in the same directory as the architecture spec. The file **o
 ## Grammar
 - **Journal entry:** `## <YYYY-MM-DD> — <event>`
 - **Amendment:** `## <YYYY-MM-DD> — Amendment <id>`
-- **Spec section:** `## N. <title>`; task blocks `### <T-ID> — <title>` plus the §7 table row.
+- **Spec section:** `## N. <title>`; task blocks `#{3,4} <T-ID> — <title>` (heading depth h3 or h4), plus the §7 table row where one exists.
 ```
 
 **Reference dialect — the native default you emit absent any override.** If the constitution declared a `## Grammar` block, you codified it forward into the design spec during Discovery (see PHASE 1) and the spec's grammar is that declared dialect. Absent any such declaration, the native default anchor dialect you emit is:
@@ -224,7 +224,7 @@ Create `journal.md` in the same directory as the architecture spec. The file **o
 | Review | `## <YYYY-MM-DD> — Review of <CP-ID>` |
 | Amendment | `## <YYYY-MM-DD> — Amendment <id>` (single form) |
 | Spec section | `## N. <title>` |
-| Task block | `### <T-ID> — <title>` **and** the §7 table row |
+| Task block | `#{3,4} <T-ID> — <title>` (h3 or h4) **and** the §7 table row, where a table exists |
 
 # WHAT NOT TO DO
 
