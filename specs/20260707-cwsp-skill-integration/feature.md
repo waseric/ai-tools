@@ -128,7 +128,7 @@ This one-grep cross-check is the resolution of design OQ-1 and is embedded in ev
 ## Grammar
 - **Journal entry:** `## <YYYY-MM-DD> — <event>`
 - **Amendment:** `## <YYYY-MM-DD> — Amendment <id>`
-- **Spec section:** `## N. <title>`; task blocks `### <T-ID> — <title>` plus the §7 table row.
+- **Spec section:** `## N. <title>`; task blocks `#{3,4} <T-ID> — <title>` (heading depth h3 or h4), plus the §7 table row where one exists.
 ```
 
 **Reference dialect (the native default a writer emits absent any override):**
@@ -140,14 +140,14 @@ This one-grep cross-check is the resolution of design OQ-1 and is embedded in ev
 | Review | `## <YYYY-MM-DD> — Review of <CP-ID>` |
 | Amendment | `## <YYYY-MM-DD> — Amendment <id>` (single form) |
 | Spec section | `## N. <title>` |
-| Task block | `### <T-ID> — <title>` **and** the §7 table row |
+| Task block | `#{3,4} <T-ID> — <title>` (h3 or h4) **and** the §7 table row, where a table exists |
 
 **INDEX resolution (two-tier, derived on demand, never stored).**
 1. **Declared dialect (primary).** If a `## Grammar` block is in scope (journal head, or a spec/constitution grammar section), grep its exact patterns — one clean pattern per element type.
 2. **Discovery (fallback).** If no dialect is declared, or declared patterns return implausible results, fall back to broad-union patterns and re-derive by inspection:
    - Journal entries: `grep -nE '^## [0-9]{4}-[0-9]{2}-[0-9]{2} — ' journal.md`
    - Spec sections: `grep -nE '^## [0-9]+\. ' <spec>` (never grep `§N` — that form is cross-reference-only)
-   - Spec tasks: **the §7 task table is canonical** (always present); where per-task headings exist, `grep -nE '^### T-[0-9]' <spec>` locates them for range-reading
+   - Spec tasks: heading-block discovery is primary — `grep -nE '^#{3,4} T-[0-9]' <spec>` locates per-task headings at either depth; the §7 table row, where one exists, is a secondary index, not assumed canonical
    - Amendments: `grep -nE '^#{2,3} .*Amendment' journal.md` (unions the three legacy heading forms)
 
 **Grammar consult, free-rider rule (design §5.7).** Grammar discovery costs *no extra read*: early writers (spec-write, spec-design) read the constitution during discovery anyway and **codify any declared grammar forward into the spec they author**; later skills (spec-execute, spec-review, spec-amend) read the spec anyway and use its codified grammar if present, else their native default — they do **not** re-consult the constitution. Absent any declaration, every skill uses its native default and INDEX uses discovery.
@@ -158,7 +158,7 @@ The declared default slice per operation (design §5.3). Widening beyond it is a
 
 | Operation | Working set (default read) | Explicitly *not* read by default |
 |---|---|---|
-| Execute task T (inline or worker) | STATE + §7 task-table row + the `### T` block *if the spec uses per-task headings* (table-only specs: the row is the whole unit) + pending checkpoint contract if any + NFR items the task block cross-references | §1–6, other task blocks, journal history |
+| Execute task T (inline or worker) | STATE + §7 task-table row (if present) + the `#{3,4} T` heading block *if the spec uses per-task headings* (table-only specs: the row is the whole unit; heading-only specs with no §7 table: the heading block is the whole unit) + pending checkpoint contract if any + NFR items the task block cross-references | §1–6, other task blocks, journal history |
 | Dispatch orchestrator (per task) | STATE + task-table row + receipt(s) | task-block internals, code, journal history |
 | Review checkpoint C | checkpoint contract + in-scope task blocks + relevant NFR items + journal entries for tasks under review + **full diff** | out-of-scope tasks, unrelated sections |
 | Amend section S | §S block + sections cross-referencing S + prior amendments to S | unrelated sections, unrelated history |

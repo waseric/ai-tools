@@ -61,6 +61,6 @@ Repo house-style anchor conventions for spec and journal artifacts — the [Cont
 | Review | `## <YYYY-MM-DD> — Review of <CP-ID>` |
 | Amendment | `## <YYYY-MM-DD> — Amendment <id>` (single form) |
 | Spec section | `## N. <title>` |
-| Task block | `### <T-ID> — <title>` **and** the §7 table row |
+| Task block | `#{3,4} <T-ID> — <title>` (h3 or h4) **and** the §7 table row, where a table exists |
 
 A `## Grammar` block adjacent to a journal's STATE block (or this constitution section) is the one anchor that is not itself dialect-dependent: a reader looks there first, then everything else may vary.

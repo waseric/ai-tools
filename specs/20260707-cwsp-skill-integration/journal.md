@@ -2,17 +2,17 @@
 
 ## Current State
 - **Phase:** CP-2 (Pilot validation) PASSED with comments 2026-07-08 — P3 open.
-- **Last completed:** CP-2 review (2026-07-08, pass with comments, fable) — P2 (T-04–T-06) done.
-- **Next:** T-07 — spec-review adopts STATE/INDEX vocabulary + cold-reader guarantee + STATE write-back.
-- **Open holds:** `spec-amend` proposed on feature.md §5.2 (task-anchor / heading-depth reconciliation — `#### T-NN` / no-§7-table drift; non-blocking, land before/with CP-P3). OQ-2/OQ-3/OQ-6 carried from design. FQ-1 resolved 2026-07-07. CP-P1 CLOSED 2026-07-08. P4/T-11 NOT adopted (CP-2 decided scoped reads sufficient).
+- **Last completed:** Amendment 2026-07-08-1 (feature.md §5.2 task-block discovery pattern, reconciled with tech-stack.md and this journal's own Grammar block).
+- **Next:** T-07 — spec-review adopts STATE/INDEX vocabulary + cold-reader guarantee + STATE write-back. Recommend a small follow-up task before CP-P3 to re-sync the reference-dialect table in the already-done T-01 (spec-write) / T-02 (spec-design) SKILL.md masters to the amended §5.2 text.
+- **Open holds:** Follow-up re-sync of T-01/T-02 SKILL.md masters' embedded reference-dialect table to Amendment 2026-07-08-1's text (not yet done; recommended before CP-P3 closes). OQ-2/OQ-3/OQ-6 carried from design. FQ-1 resolved 2026-07-07. CP-P1 CLOSED 2026-07-08. P4/T-11 NOT adopted (CP-2 decided scoped reads sufficient).
 - **Pending checkpoint:** CP-P3 — cross-skill consistency (triggers after T-07–T-10).
 - **Archive:** none — all entries live
-- **Latest entry:** 2026-07-08 — Review of CP-2
+- **Latest entry:** 2026-07-08 — Amendment 2026-07-08-1
 
 ## Grammar
 - **Journal entry:** `## <YYYY-MM-DD> — <event>`
 - **Amendment:** `## <YYYY-MM-DD> — Amendment <id>`
-- **Spec section:** `## N. <title>`; task blocks `### <T-ID> — <title>` plus the §7 table row.
+- **Spec section:** `## N. <title>`; task blocks `#{3,4} <T-ID> — <title>` (heading depth h3 or h4), plus the §7 table row where one exists.
 
 ## 2026-07-07 — Feature spec authored
 
@@ -307,3 +307,70 @@
 **Spec amendments proposed:** one — feature.md §5.2 (and the coupled emitted Grammar bootstrap + constitution dialect, per CP-P1): broaden the task-block discovery pattern to tolerate heading depth (`^#{3,4} T-[0-9]` or equivalent) or state that the §7 table is optional and heading-blocks may sit at h3/h4, and reconcile this spec's own `####`/absent-table shape with whatever is declared. Non-blocking for CP-2; route through `spec-amend` before or alongside P3 since it touches the same vocabulary CP-P3 re-checks. Not applied here — reviews propose amendments; `spec-amend` applies them.
 
 **Next action:** CP-2 is CLOSED (pass with comments); P4 remains gated shut. Resume `spec-execute` at P3 / T-07. Recommended: land the §5.2 task-anchor `spec-amend` before or alongside T-07 so CP-P3's byte-identity checks stay meaningful.
+
+## 2026-07-08 — Amendment 2026-07-08-1
+
+**Section amended:** feature.md §5.2 (Grammar bootstrap block + reference dialect + INDEX contracts), plus coupled §5.3 (Execute-task working-set row), `specs/tech-stack.md:64` (constitution grammar), and this journal's own `## Grammar` block.
+**Trigger:** CP-2 review (2026-07-08, fable) — declared task-anchor grammar (`### <T-ID>` + "§7 table is canonical, always present") missed this spec's own `#### T-NN` / no-§7-table task blocks; both the declared-dialect grep and the discovery fallback returned zero on this spec.
+**Reason:** Broaden the grammar to tolerate heading depth (h3 or h4) and make the §7 table an optional secondary index rather than an assumed-present primary one, so the common case hits on the first grep instead of always falling through to widen.
+**Impact summary:** No completed task's output is invalidated; T-01/T-02's SKILL.md masters embed the now-superseded table text and need a follow-up re-sync task before CP-P3 closes (tracked in STATE's Open holds). CP-P3's exit criteria should read against the amended §5.2.
+**Approver:** waseric
+**Approved on:** 2026-07-08
+**Status implication:** kept (Draft — awaiting review; non-blocking clarification, does not advance or revert status)
+**Commit:** (paired with this journal commit — see repo log)
+
+### Full record
+
+**Trigger.** CP-2 review (2026-07-08, fable, dispatched spec-reviewer) found that the declared task-anchor grammar (`### <T-ID>` heading + "the §7 task table is canonical, always present") does not match this spec's own task blocks, which are `#### T-NN` (h4) with no §7 table. Both the declared-dialect grep and the discovery fallback return zero hits on this spec. Non-blocking (correctness-safe — the miss degrades to a cheap widen), but flagged as live anchor drift that should be reconciled before CP-P3 re-checks cross-skill dialect consistency.
+
+**Section.** `feature.md` §5.2 (lines 123–153), plus the coupled §5.3 working-set row, the coupled constitution grammar (`specs/tech-stack.md:64`), and this spec's own already-emitted journal Grammar block.
+
+**Change.**
+
+Before (feature.md §5.2, bootstrap bullet):
+> `- **Spec section:** `## N. <title>`; task blocks `### <T-ID> — <title>` plus the §7 table row.`
+
+After:
+> `- **Spec section:** `## N. <title>`; task blocks `#{3,4} <T-ID> — <title>` (heading depth h3 or h4), plus the §7 table row where one exists.`
+
+Before (feature.md §5.2, reference-dialect table, Task block row):
+> `| Task block | `### <T-ID> — <title>` **and** the §7 table row |`
+
+After:
+> `| Task block | `#{3,4} <T-ID> — <title>` (h3 or h4) **and** the §7 table row, where a table exists |`
+
+Before (feature.md §5.2, discovery-fallback bullet):
+> `- Spec tasks: **the §7 task table is canonical** (always present); where per-task headings exist, `grep -nE '^### T-[0-9]' <spec>` locates them for range-reading`
+
+After:
+> `- Spec tasks: heading-block discovery is primary — `grep -nE '^#{3,4} T-[0-9]' <spec>` locates per-task headings at either depth; the §7 table row, where one exists, is a secondary index, not assumed canonical`
+
+Before (feature.md §5.3, Execute-task working-set row):
+> `| Execute task T (inline or worker) | STATE + §7 task-table row + the `### T` block *if the spec uses per-task headings* (table-only specs: the row is the whole unit) + pending checkpoint contract if any + NFR items the task block cross-references | §1–6, other task blocks, journal history |`
+
+After:
+> `| Execute task T (inline or worker) | STATE + §7 task-table row (if present) + the `#{3,4} T` heading block *if the spec uses per-task headings* (table-only specs: the row is the whole unit; heading-only specs with no §7 table: the heading block is the whole unit) + pending checkpoint contract if any + NFR items the task block cross-references | §1–6, other task blocks, journal history |`
+
+Before (`specs/tech-stack.md:64`):
+> `| Task block | `### <T-ID> — <title>` **and** the §7 table row |`
+
+After (kept byte-identical to feature.md §5.2's new row, per CP-P1's binding exit criterion):
+> `| Task block | `#{3,4} <T-ID> — <title>` (h3 or h4) **and** the §7 table row, where a table exists |`
+
+Before (this journal's own emitted `## Grammar` bootstrap):
+> `- **Spec section:** `## N. <title>`; task blocks `### <T-ID> — <title>` plus the §7 table row.`
+
+After (matching feature.md's new bootstrap bullet — dogfood correction):
+> `- **Spec section:** `## N. <title>`; task blocks `#{3,4} <T-ID> — <title>` (heading depth h3 or h4), plus the §7 table row where one exists.`
+
+**Reason.** The original grammar assumed every spec's task blocks are h3-with-mandatory-table. This spec itself is h4-with-no-table, so the declared dialect and its own discovery fallback both silently fail to grep this spec's tasks. Broadening the pattern to tolerate heading depth and making the table optional closes the gap without weakening correctness (widening was already the safety net; this just makes the common case hit on the first grep instead of falling through to widen every time).
+
+**Impact.**
+- **Affected tasks:** None re-opened. T-04–T-06 (done) already executed correctly under the old dialect via widen-fallback, so no rework. **Follow-up task needed** (new, to be scoped by `spec-execute`): re-sync the reference-dialect table and bootstrap bullet embedded verbatim in the already-done T-01 (`spec-write`) and T-02 (`spec-design`) SKILL.md masters (+ deploy copies), so future spec-write/spec-design journal creation emits the corrected grammar. Recommend landing this before CP-P3, since CP-P3 re-checks cross-skill dialect byte-identity.
+- **Affected checkpoints:** CP-P3 (not yet triggered) — its exit criteria should be read against the amended §5.2, not the original.
+- **Completed work invalidated:** No completed task's output is wrong; the completed T-01/T-02 masters now embed a stale copy of the canonical text and need the follow-up re-sync above before CP-P3 closes.
+- **Cross-references requiring follow-up:** `specs/tech-stack.md:64` (constitution grammar, edited in this amendment per the CP-P1 byte-identity binding) and this journal's own `## Grammar` block (edited in this amendment as a dogfood correction).
+
+**Status implication.** Spec stays at its current status (Draft — awaiting review). This is a non-blocking clarification, pre-flagged as non-blocking by CP-2; it doesn't revert or advance status.
+
+**Approver.** waseric, approved 2026-07-08.
