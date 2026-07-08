@@ -1,13 +1,13 @@
 # Journal — CWSP Skill Integration
 
 ## Current State
-- **Phase:** P3 — Cross-skill adoption (T-07–T-09 done; T-10 remains before CP-P3).
-- **Last completed:** T-09 — spec-amend adopts STATE/INDEX vocabulary + STATE write-back (commit 8e3508c).
-- **Next:** T-10 — spec-amend collapses to the single amendment dialect form. **Blocked on model floor: opus required, session is sonnet.**
-- **Open holds:** OQ-2/OQ-3/OQ-6 carried from design. FQ-1 resolved 2026-07-07. CP-P1 CLOSED 2026-07-08. P4/T-11 NOT adopted (CP-2 decided scoped reads sufficient). T-10 model-floor conflict (opus vs. session sonnet) — awaiting operator.
-- **Pending checkpoint:** CP-P3 — cross-skill consistency (triggers after T-07–T-10).
+- **Phase:** P3 complete — T-07–T-10 done; CP-P3 now triggers.
+- **Last completed:** T-10 — spec-amend collapses to the single amendment dialect form (commit 7aa9279).
+- **Next:** CP-P3 — cross-skill consistency review (reviewer floor opus). Then T-11 remains gated shut (P4 not adopted per CP-2).
+- **Open holds:** OQ-2/OQ-3/OQ-6 carried from design. FQ-1 resolved 2026-07-07. CP-P1 CLOSED 2026-07-08. P4/T-11 NOT adopted (CP-2 decided scoped reads sufficient).
+- **Pending checkpoint:** CP-P3 — cross-skill consistency (triggers now; T-07–T-10 done).
 - **Archive:** none — all entries live
-- **Latest entry:** 2026-07-08 — T-09: spec-amend adopts STATE/INDEX vocabulary + STATE write-back
+- **Latest entry:** 2026-07-08 — T-10: spec-amend collapses to the single amendment dialect form
 
 ## Grammar
 - **Journal entry:** `## <YYYY-MM-DD> — <event>`
@@ -439,3 +439,24 @@ After (matching feature.md's new bootstrap bullet — dogfood correction):
 **Spec amendments:** none.
 **Surprises and learnings:** none.
 **Next task pointer:** T-10 — spec-amend collapses to the single amendment dialect form. **Model floor: opus** (feature.md: "this changes the *emitted grammar*; getting it wrong desynchronizes new amendments from the INDEX contract... Judgment-bearing."). This session's model is sonnet — below floor. Per Operating Principle 8, do not proceed; stop for the operator (see OPERATOR CUES in the session's closing message).
+
+## 2026-07-08 — T-10: spec-amend collapses to the single amendment dialect form
+
+**Status:** done
+**Commits:** 7aa9279 (skill-master + deploy sync); this entry's paired spec/journal closeout commit
+**Files touched:** `.agents/skills/spec-amend/SKILL.md` (+ deploy copy `~/.claude/skills/spec-amend/SKILL.md`); `specs/20260707-cwsp-skill-integration/feature.md` (§7 T-10 status line); this journal (STATE + entry)
+**Tests added:** none (grep-checkable prose assertions per §8)
+**DoD verification:**
+- Single-form heading template present — `grep -nE '^#{2,3} <YYYY-MM-DD> — Amendment <YYYY-MM-DD-N>' .agents/skills/spec-amend/SKILL.md` → :77 (Phase 2 draft block, now the reference-dialect single form; Phase 5 points at the same heading).
+- Old two-part heading retired — `grep -n 'Amendment <YYYY-MM-DD-N> — ' .agents/skills/spec-amend/SKILL.md` → no matches.
+- "Full record" double-record prose absent — `grep -ni 'full record' .agents/skills/spec-amend/SKILL.md` → no matches (Phase 5 `### Full record` paste removed; cross-skill §"the full record" reworded to "the complete record"; my own Phase 2 note reworded to avoid the phrase).
+- Legacy-readable note present — `grep -n 'go-forward only' .agents/skills/spec-amend/SKILL.md` → :142 (points at the §5.2 union grep `^#{2,3} .*Amendment`).
+- Emitted form matches §5.2 reference-dialect amendment row `## <YYYY-MM-DD> — Amendment <id>` (id = `<YYYY-MM-DD-N>`) — manual confirmation.
+- Deploy-sync byte-identical — `diff .agents/skills/spec-amend/SKILL.md ~/.claude/skills/spec-amend/SKILL.md` empty.
+- `lastUpdated` 2026-07-08 (already at target from T-09; unchanged this task). Frontmatter still only name/lastUpdated/description.
+**Models used:** opus (dispatch worker) — task's declared floor is opus; met.
+**Executed by:** worker(spec-worker, opus)
+**Decisions made:** (1) Made the Phase 2 structured block the single canonical record — its heading is now the reference-dialect single form and it gains a backfilled `**Commit.**` field; the `**Section.**` field carries `SPEC_PATH §SECTION` (dropped from the heading). Phase 5 now appends that same block verbatim instead of a terse summary + `### Full record` paste. (2) Reworded the cross-skill-section "the full record" → "the complete record" (line ~188) so the absence grep is unambiguous; it was never a double-record instruction, but the phrase would otherwise trip the DoD assertion. Both edits stayed inside spec-amend/SKILL.md — no other file touched for the skill change.
+**Spec amendments:** none.
+**Surprises and learnings:** The Phase 5 heading was *already* the reference-dialect single form (`## <YYYY-MM-DD> — Amendment <YYYY-MM-DD-N>`); the actual double-record lived in the terse summary fields + `### Full record` paste under it, and the *Phase 2 draft* still used the old two-part `## Amendment <id> — §SECTION` heading. The collapse was therefore about unifying Phase 2's and Phase 5's heading and dropping the duplicate body, not inventing a new form.
+**Next task pointer:** CP-P3 — cross-skill consistency checkpoint (reviewer floor opus). P3 (T-07–T-10) complete; T-11/P4 remain gated shut per CP-2.

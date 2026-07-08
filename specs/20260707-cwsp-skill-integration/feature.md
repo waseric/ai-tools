@@ -285,6 +285,7 @@ Global DoD addenda for **every** task (not repeated per task): master edited; de
 - **Model floor.** sonnet — additive vocabulary + write-back, grep-verifiable.
 
 #### T-10 — spec-amend collapses to the single amendment dialect form
+- **Status.** done (2026-07-08; commit 7aa9279 — see journal).
 - **Title.** Retire the three-variant amendment heading and the double-record; emit the single reference-dialect form `## <YYYY-MM-DD> — Amendment <id>`.
 - **Scope.** [.agents/skills/spec-amend/SKILL.md](../../.agents/skills/spec-amend/SKILL.md) — the amendment heading template (:75) and journal-entry template (:134-139), and any prose prescribing a separate verbatim "Full record". Emit one dated `## <YYYY-MM-DD> — Amendment <id>` heading holding the full record; drop the double-record. Note that INDEX's union pattern (§5.2) still reads *legacy* three-form amendments — this change is go-forward only, non-destructive to existing journals.
 - **Acceptance criteria.** *Given* spec-amend emits an amendment, *then* it writes exactly one dated `## ... — Amendment <id>` heading and no separate `### Full record` block. Grep: single-form heading template present; "Full record" double-record prose absent; a note that legacy forms remain readable via discovery present.
