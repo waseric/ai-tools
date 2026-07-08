@@ -1,6 +1,6 @@
 ---
 name: spec-review
-lastUpdated: 2026-07-06
+lastUpdated: 2026-07-08
 description: Review a body of work against a specific Review Checkpoint declared in a feature spec or design spec. Reads the checkpoint contract first (review focus + exit criteria), then walks the diff (or the artifact, for design-spec checkpoints) producing structured findings tagged blocker/important/advisory, distinguishing spec-compliance failures from preferences. Produces a fixed-format verdict (pass / pass with comments / changes requested / blocked) and writes the outcome back to the spec and journal. Use whenever a spec Review Checkpoint has been triggered, or the user wants a structured review against an existing spec. Pairs with `spec-design` and `spec-write` (which declare checkpoints), `spec-execute` (which produces the work being reviewed), and `spec-amend` (which applies spec changes when the review surfaces them).
 ---
 
@@ -46,11 +46,14 @@ You distinguish between **spec compliance findings** (objective; block merge unt
 
 Read, in order:
 
-1. The **Review Checkpoints** section of `SPEC_PATH`. Find the entry matching `CHECKPOINT_ID`. Note its **trigger**, **review focus**, and **exit criteria** verbatim. These are the contract for this review.
-2. The **Task Breakdown** entries for each task in `TASK_IDS_IN_SCOPE`. Note each task's scope, acceptance criteria, and Definition of Done.
-3. The **Non-functional Requirements** section. Note the items relevant to the tasks under review (security, observability, performance, backward compatibility, configuration).
-4. The journal entries in `JOURNAL_PATH` for the tasks under review. Note any spec amendments, decisions made, surprises, or partial-completion flags.
-5. The diff in `DIFF_RANGE`. Skim for shape and scope before reading in detail.
+1. **`JOURNAL_PATH`'s `## Current State` block first** (if the journal exists). STATE — Phase, Last completed, Next, Open holds, Pending checkpoint, Archive, Latest entry — is your handoff from prior sessions. Then cross-check STATE's **derivable** fields — *Last completed* and the *Latest entry* anchor — against **one grep** of the true latest entry (`grep -nE '^## [0-9]{4}-[0-9]{2}-[0-9]{2} — ' journal.md | tail -1`). If they match, trust STATE and proceed to the working set below. If they mismatch, STATE is stale: range-read the true latest entry before acting (staleness degrades cost by one read, never correctness).
+2. The **Review Checkpoints** section of `SPEC_PATH`. Find the entry matching `CHECKPOINT_ID`. Note its **trigger**, **review focus**, and **exit criteria** verbatim. These are the contract for this review.
+3. The **Task Breakdown** entries for each task in `TASK_IDS_IN_SCOPE`. Note each task's scope, acceptance criteria, and Definition of Done.
+4. The **Non-functional Requirements** section. Note the items relevant to the tasks under review (security, observability, performance, backward compatibility, configuration).
+5. The journal entries in `JOURNAL_PATH` for the tasks under review. Note any spec amendments, decisions made, surprises, or partial-completion flags.
+6. **The full diff in `DIFF_RANGE`.** Read it in full — review is the one place this design does not economize on context; the checkpoint-scoped working set (steps 1–5) narrows *which spec text* you carry in, never how much of the diff you read. Skim first for shape and scope, then read in detail.
+
+Consult the grammar first: if a `## Grammar` block is declared at the journal head (or a spec grammar section), grep its exact anchor patterns to locate the checkpoint contract and task blocks; else use the native reference dialect and broad-union discovery patterns. spec-review reads the spec anyway, so it uses the spec's codified grammar if present, else its native default — it does **not** re-consult the constitution. When a referenced task, section, or NFR item is unresolved, **widen** via INDEX (grep) then range-read that specific unit — never fall back to a whole-file read.
 
 Then output an **Orientation Report**:
 
@@ -164,6 +167,7 @@ Outcome rubric:
 Regardless of outcome, record the review:
 
 - **Update the spec.** In the Review Checkpoints section, add a `Status` line under the relevant checkpoint entry: `Status: <outcome> on <date> by <reviewer>`. If `pass` or `pass with comments`, the checkpoint is closed. If `changes requested` or `blocked`, the checkpoint stays open.
+- **Overwrite the journal's `## Current State` block.** In the same commit as the verdict entry, overwrite STATE in place (Phase, Last completed, Next, Open holds, Pending checkpoint, Archive, Latest entry) to reflect this checkpoint's outcome. STATE is the *only* in-place-mutated part of the journal; the entries below it stay append-only.
 - **Append a journal entry.** Format:
 
 ```
