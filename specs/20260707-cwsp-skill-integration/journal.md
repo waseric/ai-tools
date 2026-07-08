@@ -1,13 +1,13 @@
 # Journal — CWSP Skill Integration
 
 ## Current State
-- **Phase:** P2 execution — T-04 done. Next T-05.
-- **Last completed:** T-04 (2026-07-08) — spec-execute retires whole-file reads for STATE + working set
-- **Next:** T-05 — spec-execute Phase 6 closeout updates STATE (in the same commit as the appended journal entry).
+- **Phase:** P2 execution — T-05 done. Next T-06.
+- **Last completed:** T-05 (2026-07-08) — spec-execute Phase 6 closeout updates STATE
+- **Next:** T-06 — spec-worker consults + updates STATE.
 - **Open holds:** OQ-2/OQ-3/OQ-6 carried from design. FQ-1 resolved 2026-07-07. CP-P1 CLOSED 2026-07-08.
 - **Pending checkpoint:** CP-2 — Pilot validation, triggers after P2 (T-04–T-06); reviewer floor fable.
 - **Archive:** none — all entries live
-- **Latest entry:** 2026-07-08 — T-04: spec-execute retires whole-file reads for STATE + working set
+- **Latest entry:** 2026-07-08 — T-05: spec-execute Phase 6 closeout updates STATE
 
 ## Grammar
 - **Journal entry:** `## <YYYY-MM-DD> — <event>`
@@ -212,3 +212,35 @@
 **Surprises and learnings.** Prior P1 tasks (T-01–T-03) recorded done-status only in the journal (STATE + entries), not in §7 task blocks; T-04's brief explicitly required a §7 done-mark, so a `- **Status.** done` line was added to the T-04 block — a small convention divergence from earlier tasks, flagged for awareness (not an amendment trigger).
 
 **Next task pointer.** T-05 — spec-execute Phase 6 closeout updates STATE in the same commit as the appended journal entry.
+
+## 2026-07-08 — T-05: spec-execute Phase 6 closeout updates STATE
+
+**Status.** done. Additive write-side rule pairing with T-04's read-side conversion — Phase 6 closeout now overwrites STATE in place in the same commit as the appended journal entry.
+
+**Commits.** This task's closeout commit (single-repo; skill master + deploy copy + spec/journal in one commit — SHA in the receipt).
+
+**Files touched.**
+- `.agents/skills/spec-execute/SKILL.md` (master): Phase 6 — added a new bullet ("Overwrite the journal's `## Current State` block") between "Update the spec" and "Append a journal entry," embedding §5.1's Writer contract (overwrite in place at every closeout — task, checkpoint, amendment; STATE is the only in-place-mutated part of the journal, entries below stay append-only; STATE overwrite and the appended entry land in the same commit). `lastUpdated` left at 2026-07-08 (already current from T-04).
+- `~/.claude/skills/spec-execute/SKILL.md` (deploy copy): synced byte-identical.
+- `specs/20260707-cwsp-skill-integration/feature.md`: §7 T-05 marked done (2026-07-08).
+
+**Tests added (grep assertions).**
+- Presence: `grep -c 'Current State' .agents/skills/spec-execute/SKILL.md` → 4 (Principle 6, Phase 1, new Phase 6 bullet, Phase 8 pause prose).
+- Presence: `grep -c 'same commit' .agents/skills/spec-execute/SKILL.md` → 1 (new Phase 6 bullet).
+- Manual: read the new Phase 6 bullet against §5.1's Writer contract — verbatim-equivalent (overwritten in place at every closeout; only in-place-mutated part; entries below append-only; same commit as the appended entry).
+
+**DoD verification.**
+- AC (Phase 6 requires a STATE overwrite in the same commit as the journal entry; grep "Current State" + "same commit" present in Phase 6 prose): PASS — new bullet at Phase 6 (line ~130); `grep -nE 'Current State|same commit' .agents/skills/spec-execute/SKILL.md` shows both in the Phase 6 section.
+- Global: deploy-sync `diff .agents/skills/spec-execute/SKILL.md ~/.claude/skills/spec-execute/SKILL.md` — empty; `lastUpdated` 2026-07-08; frontmatter still only `name`/`lastUpdated`/`description`; commit prefix `spec-execute:` referencing T-05; STATE overwritten in this same commit (dogfooded).
+
+**Models used.** sonnet (floor: sonnet — met).
+
+**Executed by:** worker(spec-worker, sonnet).
+
+**Decisions made.** Placed the new STATE-overwrite bullet immediately before "Append a journal entry" (rather than after) so the closeout checklist reads in the order the rule implies — STATE gets overwritten as part of preparing the same commit that appends the entry — and integrated T-04's language ("same commit," "one commit, not two") rather than introducing new phrasing, to avoid contradicting T-04's edit.
+
+**Spec amendments.** None. §5.1's Writer contract mapped cleanly onto Phase 6 with no drift found.
+
+**Surprises and learnings.** None beyond T-04's flagged §7 `**Status.**` convention, which this task continued.
+
+**Next task pointer.** T-06 — spec-worker consults + updates STATE.

@@ -127,6 +127,7 @@ If any item is not satisfied, the task is not done. Either finish it or split ou
 Do all of the following before claiming the task complete:
 
 - **Update the spec.** In the Task Breakdown section, mark the task `done`, add the date and the commit SHA range. If any open questions were resolved during the task, move them out of the Open Questions section into the relevant design section as decisions, with rationale.
+- **Overwrite the journal's `## Current State` block.** On every closeout — task, checkpoint, or amendment — overwrite STATE in place (Phase, Last completed, Next, Open holds, Pending checkpoint, Archive, Latest entry) to reflect the work just closed. STATE is the *only* in-place-mutated part of the journal; the entries below it stay append-only. This STATE overwrite and the journal entry appended below land in the same commit — one commit, not two.
 - **Append a journal entry.** Format:
 
   ```

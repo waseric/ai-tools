@@ -231,6 +231,7 @@ Global DoD addenda for **every** task (not repeated per task): master edited; de
 - **Model floor.** opus — highest-traffic skill (~33% of suite usage); the edit spans coupled sites and a plausible-but-wrong scoping would pass grep yet silently under-read at execution. High undetected-failure cost.
 
 #### T-05 — spec-execute Phase 6 closeout updates STATE
+- **Status.** done (2026-07-08).
 - **Title.** Make `spec-execute` Phase 6 closeout overwrite STATE in the same commit as the appended journal entry.
 - **Scope.** [.agents/skills/spec-execute/SKILL.md](../../.agents/skills/spec-execute/SKILL.md) Phase 6 closeout prose. Add: on task/checkpoint/amendment closeout, overwrite the `## Current State` block per §5.1 in the same commit that appends the entry; entries below stay append-only.
 - **Acceptance criteria.** *Given* a task closes out, *when* Phase 6 writes the journal, *then* the prose requires a STATE overwrite in the same commit. Grep: "Current State" + "same commit" present in Phase 6 prose.
