@@ -317,7 +317,7 @@
 **Approver:** waseric
 **Approved on:** 2026-07-08
 **Status implication:** kept (Draft — awaiting review; non-blocking clarification, does not advance or revert status)
-**Commit:** (paired with this journal commit — see repo log)
+**Commit:** 3578fbe
 
 ### Full record
 
