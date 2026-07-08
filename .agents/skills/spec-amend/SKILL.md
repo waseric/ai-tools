@@ -71,12 +71,14 @@ Then output an **Orientation Report**:
 
 Produce the amendment in the structured form below. If the user supplied `PROPOSED_CHANGE`, structure it. If not, draft from conversation, then ask the user to confirm.
 
+This structured block is the **single canonical amendment record** — the same artifact you present for approval in Phase 3 and append to the journal in Phase 5. It is written once under one dated heading, not duplicated into a summary plus a separate verbatim copy.
+
 ```markdown
-## Amendment <YYYY-MM-DD-N> — <SPEC_PATH §SECTION>
+## <YYYY-MM-DD> — Amendment <YYYY-MM-DD-N>
 
 **Trigger.** <One paragraph. What was discovered, by whom, in what context.>
 
-**Section.** <Section name and line range in the spec.>
+**Section.** <SPEC_PATH §SECTION — section name and line range in the spec.>
 
 **Change.**
 
@@ -97,6 +99,8 @@ After:
 **Status implication.** <Does this amendment keep the spec at its current status, or does it revert to Draft? Justify if non-default.>
 
 **Approver.** <Name and date when approved. Filled in after Phase 3.>
+
+**Commit.** <SHA. Backfilled in Phase 5 after the amendment commit lands.>
 ```
 
 # PHASE 3 — APPROVAL
@@ -133,23 +137,9 @@ See <JOURNAL_PATH> for full amendment record.
 
 **Overwrite the journal's `## Current State` block** in the same commit as the entry below: overwrite STATE in place (Phase, Last completed, Next, Open holds, Pending checkpoint, Archive, Latest entry) to reflect the amendment just applied. STATE is the *only* in-place-mutated part of the journal; the entries below it stay append-only.
 
-Append a journal entry to `JOURNAL_PATH`:
+Append the amendment to `JOURNAL_PATH` as a single entry under the reference-dialect heading `## <YYYY-MM-DD> — Amendment <YYYY-MM-DD-N>`. The entry **is** the structured block you drafted in Phase 2 — append it verbatim, filling in the **Approver** date and the **Commit** SHA (backfilled after the amendment commit lands). Do not write a second, summarized copy: the drafted structure and the journal entry are one artifact, not two.
 
-```markdown
-## <YYYY-MM-DD> — Amendment <YYYY-MM-DD-N>
-
-**Section amended:** <SPEC_PATH §SECTION>
-**Trigger:** <One line>
-**Reason:** <One line>
-**Impact summary:** <Affected tasks/checkpoints/completed-work in one line>
-**Approver:** <Name>
-**Approved on:** <YYYY-MM-DD>
-**Status implication:** <kept | reverted to Draft | other>
-**Commit:** <SHA>
-
-### Full record
-<Paste the structured amendment from Phase 2 here, with the Approver field filled in.>
-```
+**Legacy note.** This single dated form is go-forward only. Amendments recorded before the collapse to one form used one of three legacy heading variants; they remain fully readable via INDEX amendment discovery (`grep -nE '^#{2,3} .*Amendment' journal.md`, the spec's reference-dialect union grep), so the change is non-destructive to existing journals.
 
 When `SPEC_REPO_ROOT` is set, the journal lives in `SPEC_REPO_ROOT`. Stage and commit the journal entry in that repo. The commit references the amendment ID and is paired with any code-side commit that prompted the amendment.
 
@@ -185,7 +175,7 @@ The structured Phase 2 amendment block lives at the cycle's natural anchor:
 - **Per-spec finding trigger** (CP-1, CP-2, in-flight authoring discovery) → the originating spec's journal holds the primary. Sibling specs' journals carry companion entries that reference the primary by amendment ID.
 - **Methodology-level decision trigger** (batch synthesis, cross-spec lifecycle decision) → the methodology-level journal (e.g., a batch audit journal) holds the primary. Each affected spec's journal carries a companion entry that references the primary by amendment ID.
 
-Companion records summarize impact for their own spec and link to the primary; they do not duplicate the structured Phase 2 block. This preserves a single source of truth — readers reach the full record through one canonical entry rather than reconciling N parallel records.
+Companion records summarize impact for their own spec and link to the primary; they do not duplicate the structured Phase 2 block. This preserves a single source of truth — readers reach the complete record through one canonical entry rather than reconciling N parallel records.
 
 ## When the case does not apply
 
