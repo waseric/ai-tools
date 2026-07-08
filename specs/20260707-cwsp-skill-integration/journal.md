@@ -1,13 +1,13 @@
 # Journal — CWSP Skill Integration
 
 ## Current State
-- **Phase:** CP-2 (Pilot validation) PASSED with comments 2026-07-08 — P3 open.
-- **Last completed:** Out-of-band re-sync of T-01/T-02 SKILL.md masters' reference-dialect table to Amendment 2026-07-08-1's text (mechanical copy-fix, not a §7 task).
-- **Next:** T-07 — spec-review adopts STATE/INDEX vocabulary + cold-reader guarantee + STATE write-back.
+- **Phase:** P3 — Cross-skill adoption (T-07 done; T-08–T-10 remain before CP-P3).
+- **Last completed:** T-07 — spec-review adopts STATE/INDEX vocabulary + cold-reader guarantee + STATE write-back (commit e1bd8a8).
+- **Next:** T-08 — spec-reviewer agent definition consults STATE on orientation.
 - **Open holds:** OQ-2/OQ-3/OQ-6 carried from design. FQ-1 resolved 2026-07-07. CP-P1 CLOSED 2026-07-08. P4/T-11 NOT adopted (CP-2 decided scoped reads sufficient).
 - **Pending checkpoint:** CP-P3 — cross-skill consistency (triggers after T-07–T-10).
 - **Archive:** none — all entries live
-- **Latest entry:** 2026-07-08 — Re-sync T-01/T-02 masters to Amendment 2026-07-08-1
+- **Latest entry:** 2026-07-08 — T-07: spec-review adopts STATE/INDEX vocabulary + cold-reader guarantee + STATE write-back
 
 ## Grammar
 - **Journal entry:** `## <YYYY-MM-DD> — <event>`
@@ -384,3 +384,22 @@ After (matching feature.md's new bootstrap bullet — dogfood correction):
 **Status implication.** Spec stays at its current status (Draft — awaiting review). This is a non-blocking clarification, pre-flagged as non-blocking by CP-2; it doesn't revert or advance status.
 
 **Approver.** waseric, approved 2026-07-08.
+
+## 2026-07-08 — T-07: spec-review adopts STATE/INDEX vocabulary + cold-reader guarantee + STATE write-back
+
+**Status:** done
+**Commits:** e1bd8a8 (skill-master + deploy sync); this entry's paired spec/journal commit
+**Files touched:** `.agents/skills/spec-review/SKILL.md` (+ deploy copy `~/.claude/skills/spec-review/SKILL.md`)
+**Tests added:** none (grep-checkable prose assertions per §8; no test runner)
+**DoD verification:**
+- "Current State" present in Phase 1 (STATE-first read + one-grep cross-check + grammar consult, added ahead of the checkpoint-contract read) — verified `awk` range-count = 1.
+- "Current State" present in Phase 8 (STATE overwritten in the same commit as the verdict journal entry) — verified `awk` range-count = 1.
+- Full-diff mandate intact and not weakened — grep for "full diff"/"full-diff" still returns the INPUTS description, the new Phase 1 step 6 ("Read it in full — review is the one place this design does not economize on context"), and the DISPATCH MODE "do not starve the reviewer" prose.
+- Deploy-sync byte-identical — `diff .agents/skills/spec-review/SKILL.md ~/.claude/skills/spec-review/SKILL.md` empty.
+- `lastUpdated` bumped 2026-07-06 → 2026-07-08.
+**Models used:** sonnet (session model) — task's declared floor is sonnet; met.
+**Executed by:** inline
+**Decisions made:** Phase 1's new STATE/grammar-consult step is inserted as step 1 (before the checkpoint-contract read), matching spec-execute/spec-worker's STATE-first ordering; the full-diff read became step 6, restated explicitly as "read in full" so the new checkpoint-scoped working set language can't be misread as narrowing diff coverage.
+**Spec amendments:** none.
+**Surprises and learnings:** the prior journal entry ("Re-sync T-01/T-02 masters to Amendment 2026-07-08-1") was inserted at the journal head, right after the `## Grammar` block, instead of appended at the bottom with every other entry — breaking this journal's own append-only convention (§5.1 writer contract: "entries below stay append-only"). Not rewritten here (correcting history in place is worse than a documented anomaly); this entry and all future entries append at the true bottom. Worth a mention if `spec-amend` or a future audit touches journal-ordering conventions.
+**Next task pointer:** T-08 — spec-reviewer agent definition consults STATE on orientation (dependency: T-07, now satisfied).

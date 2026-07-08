@@ -255,6 +255,7 @@ Global DoD addenda for **every** task (not repeated per task): master edited; de
 ### P3 — Cross-skill adoption
 
 #### T-07 — spec-review adopts STATE/INDEX vocabulary + cold-reader guarantee + STATE write-back
+- **Status.** done (2026-07-08; commit e1bd8a8 — see journal).
 - **Title.** Wire STATE/INDEX vocabulary, the cold-reader guarantee, grammar consult, and Phase 8 STATE write-back into `spec-review`.
 - **Scope.** [.agents/skills/spec-review/SKILL.md](../../.agents/skills/spec-review/SKILL.md): Phase 1 ORIENT (:45 — STATE consult + cross-check + grammar consult; the Review-checkpoint working set from §5.3; **full-diff mandate explicitly preserved**); Phase 8 write-back — overwrite STATE in the same commit as the verdict entry.
 - **Acceptance criteria.** *Given* spec-review Phase 1, *then* prose directs STATE + checkpoint-contract-scoped reads while retaining the full-diff mandate (grep: "full diff" mandate still present — not weakened). *Given* Phase 8, *then* STATE is overwritten in the verdict commit. Grep: "Current State" present in Phase 1 + Phase 8; full-diff language intact.
