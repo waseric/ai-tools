@@ -1,13 +1,13 @@
 # Journal — CWSP Skill Integration
 
 ## Current State
-- **Phase:** P2 execution complete — T-06 done. CP-2 (Pilot validation) triggers.
-- **Last completed:** T-06 (2026-07-08) — spec-worker consults + updates STATE
-- **Next:** CP-2 — Pilot validation (P2 complete; reviewer floor fable). P3 (T-07) gated behind CP-2.
-- **Open holds:** OQ-2/OQ-3/OQ-6 carried from design. FQ-1 resolved 2026-07-07. CP-P1 CLOSED 2026-07-08.
-- **Pending checkpoint:** CP-2 — Pilot validation, triggered (P2 T-04–T-06 complete); reviewer floor fable.
+- **Phase:** CP-2 (Pilot validation) PASSED with comments 2026-07-08 — P3 open.
+- **Last completed:** CP-2 review (2026-07-08, pass with comments, fable) — P2 (T-04–T-06) done.
+- **Next:** T-07 — spec-review adopts STATE/INDEX vocabulary + cold-reader guarantee + STATE write-back.
+- **Open holds:** `spec-amend` proposed on feature.md §5.2 (task-anchor / heading-depth reconciliation — `#### T-NN` / no-§7-table drift; non-blocking, land before/with CP-P3). OQ-2/OQ-3/OQ-6 carried from design. FQ-1 resolved 2026-07-07. CP-P1 CLOSED 2026-07-08. P4/T-11 NOT adopted (CP-2 decided scoped reads sufficient).
+- **Pending checkpoint:** CP-P3 — cross-skill consistency (triggers after T-07–T-10).
 - **Archive:** none — all entries live
-- **Latest entry:** 2026-07-08 — T-06: spec-worker consults + updates STATE
+- **Latest entry:** 2026-07-08 — Review of CP-2
 
 ## Grammar
 - **Journal entry:** `## <YYYY-MM-DD> — <event>`
@@ -279,3 +279,31 @@
 **Surprises and learnings.** None. spec-worker.md carries no `lastUpdated` (unlike skill masters), so the global "bump lastUpdated" DoD addendum is N/A for agent-def tasks — worth noting for the sibling T-08 (spec-reviewer).
 
 **Next task pointer.** CP-2 — Pilot validation (P2 complete; reviewer floor fable). P3 (T-07) is gated behind CP-2.
+
+## 2026-07-08 — Review of CP-2
+
+**Reviewer:** fable (dispatched spec-reviewer; floor fable — met)
+**Outcome:** pass with comments
+**Tasks reviewed:** T-04, T-05, T-06
+**Diff range:** e5c2d55^..HEAD
+**Execution:** dispatch — opus coordinator session spawned a `spec-reviewer` at model=fable (checkpoint floor could not be met inline by the opus session; operator chose dispatch). Reviewer ran Phases 1–7 and returned the verdict; this session (coordinator) performed Phase 8 write-back unchanged, recording the reviewer's verdict first-hand.
+**Blockers:** 0.
+**Important:** 1 — declared task-anchor grammar misses this spec's own task blocks. journal.md:15 + feature.md:131/150 declare `### <T-ID> — <title>` and assert "the §7 task table is canonical (always present)," but feature.md has **no** §7 table and its task blocks are `#### T-NN` (h4, e.g. feature.md:257); both the declared-dialect grep and the §5.2 discovery fallback (`^### T-[0-9]`) return zero on the very spec under test. Correctness-safe (a miss forces a cheap widen via broad task-ID grep, never wrong output — the §6 correctness-safety invariant held), but it is live anchor drift in the exact place the grammar was declared to prevent it. Pre-existing at spec authoring (2026-07-07), not introduced by T-04–T-06.
+**Advisory:** 2 — (1) spec-execute Phase 1 item 2 (SKILL.md:58) and Principle 6 (SKILL.md:49) lead with "§7 task-table row" and handle the table-only case parenthetically but not the heading-only/no-table case this repo's specs exhibit; readers recover trivially. (2) Inline spec-execute Phase 1 no longer reads the latest journal entry when STATE matches, whereas spec-worker Orient deliberately keeps it (spec-worker.md:32); no correctness gap (Phase 2 prior-DoD verify forces the widen; Phase 6 carries the entry template) but the asymmetry is worth knowing.
+
+**Measured results (the CP-2 substance).**
+- Baseline orientation (whole-file, the retired discipline): ~19.1k tokens on this corpus (feature.md 44,987 + journal.md 31,362 chars; method chars/4). The design's ~47k figure is its larger measured example (spec ~21k + journal ~26k tokens, architecture.md:10) — order-consistent once ~2× harness read overhead is included; not contradicted.
+- Scoped orientation (CWSP working set for the T-07 boundary): ~0.7k tokens core (STATE+Grammar + OQ-1 grep + T-07 block + CP-P3 contract) / ~2.4k including the expected widen to the §5.1–§5.4 vocabulary copy-source that T-07 embeds verbatim (an explicit cross-ref widen, not an under-read). vs. < ~5k target — **met**, ~8× reduction vs. baseline (28× core-only).
+- Re-anchor: ~0.17k tokens (STATE + the one cross-check grep) vs. < ~1k target — **met** (~6× margin).
+- Output parity / under-read: T-05 and T-06 were themselves executed by workers orienting under the migrated scoped discipline (STATE cross-check passed at each); all declared DoD greps re-run clean; the one under-read-shaped path (task-anchor miss, above) degrades to a cheap widen, never wrong output.
+- Cold-read reconstruction: **succeeded** — from STATE + the one-grep INDEX (10 entries enumerated) reconstructed current phase/next-task and reached two historical decisions by range-read (CP-P1 verdict journal.md:149-179; FQ-1 resolution journal.md:36-50); `Archive: none` keeps the Tier-0 path guaranteed-total.
+
+**Verification cross-checks (passed).** "`SPEC_PATH` in full" count 0; no whole-file re-read phrasing survives at Phase 1 / Principle 6 / Phase 8 / WHAT NOT TO DO / DISPATCH sites (read together — no internal contradiction, the §10 top risk did not materialize); deploy-sync byte-identical for spec-execute and spec-worker masters vs. `~/.claude/` copies; STATE derivable fields match the true latest-entry grep; frontmatter clean; commit prefixes conform.
+
+**Exit criteria — all met.** Orientation cost meets §6 target (measured above); zero quality regression on the dogfood task (T-04–T-06 executed under scoped discipline, greps + deploy-sync + STATE accuracy all clean); cold-read reconstruction succeeds (above).
+
+**P4 gate decision.** **Do not adopt P4 (T-11).** The exit criterion admits sealing only if scoped reads alone prove insufficient; they proved sufficient with 2–6× margin and low widen frequency (one expected cross-ref widen per vocabulary-copy task, zero unexpected widens across three boundaries), and the journal is far from size pressure (~31k chars, all-live). T-11 stays gated shut; revisit only if a future corpus breaches the targets under read-discipline alone.
+
+**Spec amendments proposed:** one — feature.md §5.2 (and the coupled emitted Grammar bootstrap + constitution dialect, per CP-P1): broaden the task-block discovery pattern to tolerate heading depth (`^#{3,4} T-[0-9]` or equivalent) or state that the §7 table is optional and heading-blocks may sit at h3/h4, and reconcile this spec's own `####`/absent-table shape with whatever is declared. Non-blocking for CP-2; route through `spec-amend` before or alongside P3 since it touches the same vocabulary CP-P3 re-checks. Not applied here — reviews propose amendments; `spec-amend` applies them.
+
+**Next action:** CP-2 is CLOSED (pass with comments); P4 remains gated shut. Resume `spec-execute` at P3 / T-07. Recommended: land the §5.2 task-anchor `spec-amend` before or alongside T-07 so CP-P3's byte-identity checks stay meaningful.
