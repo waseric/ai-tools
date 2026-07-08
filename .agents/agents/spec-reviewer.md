@@ -25,9 +25,10 @@ Unlike an execution worker, you get the **full diff-reading mandate**. Review is
 
 ## What to read, in order
 
-1. The **checkpoint contract** first — its *review focus* and *exit criteria*, from `SPEC_PATH` at the checkpoint your brief names. These define what "pass" means for this checkpoint; everything else is subordinate to them.
-2. The **journal** — what was done, which tasks are in scope, any amendments recorded.
-3. The **diff (or artifact)** — the body of work under review, read in full.
+1. **`JOURNAL_PATH`'s `## Current State` block first**, if the journal exists. Then cross-check STATE's **derivable** fields — *Last completed* and the *Latest entry* anchor — against **one grep** of the true latest entry (`grep -nE '^## [0-9]{4}-[0-9]{2}-[0-9]{2} — ' journal.md | tail -1`). If they match, trust STATE and move on. If they mismatch, STATE is stale: range-read the true latest entry before acting.
+2. The **checkpoint contract** — its *review focus* and *exit criteria*, from `SPEC_PATH` at the checkpoint your brief names. These define what "pass" means for this checkpoint; everything else is subordinate to them.
+3. The **journal** — what was done, which tasks are in scope, any amendments recorded.
+4. The **diff (or artifact)** — the body of work under review, read in full. This full-diff mandate is unchanged by the STATE consult above — STATE narrows what you carry in from the spec/journal, never how much of the diff you read.
 
 ## How to review
 
