@@ -1,13 +1,13 @@
 # Journal — CWSP Skill Integration
 
 ## Current State
-- **Phase:** CP-P1 review — changes requested (1 blocker); P1 tasks done
-- **Last completed:** CP-P1 review (2026-07-07)
-- **Next:** Reconcile constitution↔§5.2 dialect drift (task-table row ↔ table row), then re-run CP-P1
-- **Open holds:** CP-P1 blocker — skill dialect ≠ constitution grammar (see verdict entry). OQ-2/OQ-3/OQ-6 carried from design. FQ-1 resolved 2026-07-07.
-- **Pending checkpoint:** CP-P1 — OPEN (changes requested; re-review after reconciliation)
+- **Phase:** CP-P1 CLOSED (re-review: pass); P1 complete. Ready for P2 (T-04).
+- **Last completed:** CP-P1 re-review (2026-07-08) — pass
+- **Next:** P2 — T-04 (spec-execute retires whole-file reads; first P2 task). Commit the working-tree tech-stack.md LF/dialect fix as the paired spec-side commit alongside this verdict.
+- **Open holds:** OQ-2/OQ-3/OQ-6 carried from design. FQ-1 resolved 2026-07-07. CP-P1 blocker resolved 2026-07-08.
+- **Pending checkpoint:** CP-2 — Pilot validation, triggers after P2 (T-04–T-06); reviewer floor fable.
 - **Archive:** none — all entries live
-- **Latest entry:** 2026-07-07 — Review of CP-P1
+- **Latest entry:** 2026-07-08 — Review of CP-P1 (re-review)
 
 ## Grammar
 - **Journal entry:** `## <YYYY-MM-DD> — <event>`
@@ -158,3 +158,22 @@
 **Spec amendments proposed:** none required if the constitution is reconciled to §5.2 (the canonical vocabulary source, feature.md §5). If instead §5.2 is changed to "task-table row" (more precise wording), that routes through `spec-amend` on feature.md §5.2 and re-emission of T-01/T-02.
 **Passed checks:** writer↔writer STATE/Grammar/dialect diffs empty; STATE block + Grammar bootstrap faithful to §5.1/§5.2; free-rider rule present in both writers (no grammar-only constitution read); OQ-1 reader cross-check correctly NOT baked into writers (reserved for P2 readers); no whole-file-read regression; deploy-sync byte-identical for all three masters; T-03 grep assertions pass.
 **Next action:** Operator reconciles the one-word dialect drift (recommend editing `specs/tech-stack.md:64` "§7 task-table row" → "§7 table row" and normalizing that file to LF — cheapest path, keeps §5.2 canonical and avoids spec-amend), then re-invoke `/spec-review` against CP-P1. No skill re-edit required under the recommended path.
+
+## 2026-07-08 — Review of CP-P1 (re-review)
+
+**Reviewer:** waseric (opus, inline)
+**Outcome:** pass
+**Tasks reviewed:** T-01, T-02, T-03
+**Diff range:** c6fa82c^..6baea95 (skill masters, unchanged since verdict 777c308) + working-tree `specs/tech-stack.md` (the reconciliation fix)
+**Blockers:** 0 — the sole prior blocker is resolved. Constitution [tech-stack.md:64](../tech-stack.md#L64) Task-block anchor now reads "`### <T-ID> — <title>` **and** the §7 table row" — byte-identical to feature.md §5.2 and both skills' emitted dialect tables (`diff` empty, both directions).
+**Important:** 0 — the prior CRLF finding is resolved. `specs/tech-stack.md` normalized to LF (0 CR bytes across 66 lines); working-tree diff is a clean 66-line CRLF→LF re-write with the one intended content edit at line 64.
+**Advisory:** 0.
+**Spec amendments proposed:** none. Recommended path (reconcile constitution to §5.2) was taken; §5.2 stays canonical, no `spec-amend` needed.
+**Exit criteria (all met):**
+- Cross-skill STATE/dialect diff empty — STATE block and dialect table byte-identical spec-write↔spec-design; Grammar-bootstrap intro's sole variance ("the spec" vs "the design spec") is the intended per-skill contextual difference, not a dialect drift.
+- Skill dialect matches the constitution grammar — constitution↔skill dialect table `diff` empty.
+- Grep assertions T-01–T-03 pass — unchanged since verdict; masters untouched (`git diff 777c308..HEAD` empty).
+- No whole-file-read regression — the only "in full" instruction is spec-write reading its upstream `DESIGN_SPEC_PATH` (an input), not a CWSP scoped-read reader regression (that surface is P2).
+- Deploy-sync byte-identical — spec-write / spec-design / project-constitution masters `diff` clean against `~/.claude/` copies.
+**Reviewer floor:** opus — met (reviewer ran on opus).
+**Next action:** Commit the working-tree `specs/tech-stack.md` fix as the paired spec-side commit alongside this verdict (spec + journal + constitution in one). CP-P1 is CLOSED. Resume `spec-execute` at P2 / T-04.

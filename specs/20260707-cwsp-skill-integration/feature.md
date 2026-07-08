@@ -316,6 +316,7 @@ Global DoD addenda for **every** task (not repeated per task): master edited; de
 - *Exit criteria.* Cross-skill STATE/dialect diff is empty; skill dialect matches the constitution grammar; grep assertions for T-01–T-03 pass; no whole-file-read regression introduced.
 - *Reviewer floor.* opus — guards the vocabulary every later phase copies; an inconsistency here propagates.
 - *Status.* **changes requested** on 2026-07-07 by waseric (opus, inline) — 1 blocker: skill dialect ≠ constitution grammar (constitution [tech-stack.md](../tech-stack.md) says "§7 **task-table** row"; §5.2 + both skills say "§7 **table** row"). Cross-skill (writer↔writer) diff empty; STATE/bootstrap faithful to §5.1/§5.2; free-rider correct; OQ-1 not baked into writers; deploy-sync byte-identical. Checkpoint stays open pending reconciliation. See journal verdict entry.
+  **Re-review: pass** on 2026-07-08 by waseric (opus, inline) — blocker resolved: constitution [tech-stack.md](../tech-stack.md) Task-block anchor reconciled to "§7 table row", now byte-identical to §5.2 and both skills; important (CRLF) resolved by normalizing tech-stack.md to LF. All exit criteria met; 0 blockers. Checkpoint **CLOSED**. Fix lives in the working-tree tech-stack.md edit — must land as the paired spec-side commit alongside this verdict. Next: P2 (T-04).
 
 **CP-2 — Pilot validation (the design's CP-2; architecture.md §9).**
 - *Trigger.* P2 (T-04–T-06) implemented.
