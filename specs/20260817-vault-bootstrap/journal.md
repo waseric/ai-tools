@@ -2,12 +2,12 @@
 
 ## Current State
 - **Phase:** CP-1 review (design authored, awaiting approval)
-- **Last completed:** design spec authored (2026-08-17)
+- **Last completed:** design pass — third-instance prior art mined and folded in (2026-08-17)
 - **Next:** CP-1 — Design Approval (architecture.md §9)
 - **Open holds:** OQ-1 through OQ-6 open by design; all carry leanings and owners. No blockers.
 - **Pending checkpoint:** CP-1 — Design Approval (architecture.md §9)
 - **Archive:** none — all entries live
-- **Latest entry:** `## 2026-08-17 — Design spec authored`
+- **Latest entry:** `## 2026-08-17 — Design pass: third-instance store model folded in`
 
 ## Grammar
 - **Journal entry:** `## <YYYY-MM-DD> — <event>`
@@ -47,3 +47,81 @@ Codified forward from [specs/tech-stack.md](../tech-stack.md) `## Grammar` — t
 **Not verified against external sources.** This spec makes no external-ecosystem claims — every factual claim is about the operator's own repos (audited first-hand and transcribed) or about this repo's own constitution and skills (read directly). No `WebFetch`/`WebSearch` pass was warranted.
 
 **Next.** CP-1 — Design Approval. The checkpoint reviews whether the archetype boundary is drawn correctly, whether the invariant/authored split matches the audit, whether §5.5's rejection of the shared-assets leaning is sound, and whether the OQ set contains the right deferrals.
+
+## 2026-08-17 — Design pass: third-instance store model folded in
+
+Still in `spec-design`, pre-CP-1, so these land as direct draft revisions rather than amendments —
+`spec-amend` governs approved specs.
+
+**Why a third instance.** The operator directed a mining pass over an internal capability
+repository (commits `51a5076..c177707`), on the standing premise that this work is conceptually
+iterative and the same problems get re-solved in each context. The commit range is squarely
+on-topic: it establishes a layered agent working-context store for a prose-first repo with agents
+as first-class contributors. Load-bearing content is transcribed into the audit's new **Appendix A**
+under the same durability constraint that produced the audit — the repo is not reachable from every
+context this design will be continued from.
+
+**The archetype-boundary question, raised and declined.** The mining pass opened with an
+observation that the third instance satisfies §4's *knowledge vault* definition verbatim while
+being emphatically not one (it has a release surface, a manifest, versioned distribution to an
+unseeable consumer set), which would make the vocabulary under-discriminating and would bear
+directly on CP-1's first review focus. **The operator declined to weight it.** The stated reason:
+that repo is a specialized multi-modal knowledge repository with its own distribution management,
+whose needs greatly exceed a normal knowledge repository's, and treating it as a boundary case would
+invite building toward its requirements. Recorded rather than dropped, with the standing calibration
+that the target archetype is closer to an AI-moderated notebook than to a distribution system. The
+§4 vocabulary is unchanged; Appendix A notes the discriminator limit as an observation only.
+
+**The substantive correction — memory is two kinds, not one location.** The audit (§5) read the two
+reference instances as having made opposite memory choices, each right for its posture, and §5.2
+derived memory *location* from sharing posture. The operator's framing supersedes that: knowledge
+projects will likely be **shared**, and what has to be first-class is the distinction between
+**user-oriented** and **repo-oriented** memories. Re-reading the audit's own quotes confirms it —
+both concern *operator-specific* facts, and the single-operator instance can commit them only
+because the distinction collapses for want of a second reader. Neither instance names the
+repo-oriented category at all. A shared vault needs both stores at once, so the split is asserted in
+every vault and the interview loses a switch instead of gaining one. This is now **§5.2a**, and the
+audit's §5 design consequence carries a superseded-in-part note pointing at it.
+
+**Two mechanical facts that were absent and change the design.**
+1. Repo-oriented memory is invisible to a dispatched subagent — it sees the agent contract and
+   path-scoped rules only. Since §5.7 wires every produced vault to the `spec-*` family including
+   dispatch, this is a second derivation axis, not an exotic case.
+2. `@import` in an agent contract does not defer cost; imported files load at launch. §5.1 ships
+   `@knowledge-map.md`, so the note now says plainly that the import buys single-sourcing, not
+   laziness — which is *why* path-scoped rules and skills had to enter the asset set.
+
+**Consequent additions.** A five-store routing table with the cheapest-store-that-reaches-the-right-
+audience rule (§5.2a); `.claude/rules/*.md` as a shipped store, used for the point-of-use hazard
+restatement (§5.3) and the spec-session doctrine block moved out of the always-loaded contract and
+scoped to `specs/**` (§5.7); a conditional `workspace-setup` skill, because the pointer to an
+in-vault memory directory cannot be committed and a fresh clone is therefore *silently*
+misconfigured — with the three details learned expensively (trust-prompt gating, no automatic
+migration, verify the contract actually loaded); a `MEMORY.md` header carrying its own load limit
+and team-visibility warning, which is the §5.3 restatement pattern applied to the memory store; the
+ignore lines that enforce the split; and **§5.2b**, two durability conventions (verified-as-of
+provenance, immutable citation) with an explicit anti-goal against making staleness a validator
+check.
+
+**What was deliberately not carried forward.** The third instance's release/manifest/versioning/
+dual-environment apparatus, its evidence-repo table as an apparatus, and any governance regime
+around the stores. §5.2a carries an explicit *Calibration* paragraph so a later reader can see the
+over-delivery line was drawn on purpose, and CP-1's review focus now asks whether it was drawn in
+the right place.
+
+**Also updated.** §6 NFRs (configuration switches — the memory split is no longer one; security now
+treats committed memory as a publication surface); §7 Phase 2's derived-answer list; §8 gains a
+**store-split test**, the behavioral check for the failure mode that is silent in the field; §14
+references the third instance with its non-carry-forward rationale.
+
+**Numbering.** New subsections are `5.2a` / `5.2b` rather than renumbering `5.3`–`5.7` and every
+cross-reference to them. The declared Grammar governs `## N.` and journal anchors, so the dialect is
+intact; a renumber is a legitimate CP-1 nit if the operator wants the sequence clean.
+
+**Next.** CP-1 — Design Approval, unchanged, with one review focus added.
+
+**One pre-existing tension surfaced, not resolved.** §5.2's interview already enumerated seven
+questions against a 3–5 NFR, and §5.2b's citation gate would make eight. Rather than quietly
+worsening it, §6's Adoptability NFR now states the tension, offers the defensible reading (several
+are one-breath decisions rather than prompts), and flags it for CP-1: either the target moves or the
+questions merge. Phase 6's effort measure is what settles it.

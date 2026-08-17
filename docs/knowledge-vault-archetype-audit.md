@@ -277,6 +277,12 @@ finding's own Frictions list gets this right — "Memory location is a decision,
 the sharing posture, not a shipped default. It also determines whether the wikilink prohibition
 needs its memory-file exception clause, so the two decisions are coupled.
 
+> **Superseded in part — see Appendix A.** Both quotes above concern **user-oriented** facts.
+> Neither instance names a **repo-oriented** memory category, and the newer instance can commit
+> personal facts safely only because it is single-operator. A third instance keeps both stores at
+> once and states the boundary, which reframes the "location" question as a *kind* question. The
+> spec's §5.2a supersedes this section's design consequence; the observations above stand.
+
 Finances' `memory/` holds 2 facts + index after one session (`agent-drives-desktop-tools`,
 `migration-priorities`), which suggests the in-vault variant does get used when it exists.
 
@@ -376,3 +382,116 @@ The finding proposes a link/index validator. The audit supplies its concrete che
 
 Checks 3–5 are the ones neither instance can currently enforce, and 3 has already failed in
 production.
+
+---
+
+## Appendix A — third instance: the knowledge-store model
+
+Transcribed 2026-08-17 from an internal capability repository, commits `51a5076..c177707`. Not
+reachable outside the operator's environment, hence transcription rather than citation — the same
+durability constraint that produced this audit (spec §3).
+
+**What this instance is, and why it is not a third vault.** A specialized multi-modal knowledge
+repository with its own distribution management: a published content tree with a manifest, version
+bumps, sync to an open-ended and unseeable consumer set, and a dual-environment constraint. Its
+functional requirements exceed a knowledge vault's. It satisfies the archetype's *observable*
+properties — git-first, prose-only, no runtime code, agents as first-class contributors, area
+directories with index READMEs, a root agent contract — which is worth noting as a limit of those
+properties as a discriminator, but the operator's judgment is that this repo's needs are a superset
+and that meeting them would be over-delivery for the vault archetype. Treated as prior art for the
+*store model only*.
+
+### A.1 The five stores
+
+Its agent contract §3, "Where knowledge goes" — "Four stores, four jobs. Putting a fact in the wrong
+one either bloats every session or hides it from the agent that needs it." Table, transcribed:
+
+| Store | Loads | In git | Use for |
+|---|---|---|---|
+| `CLAUDE.md` | Always, in full | Yes | Facts needed in every session. Keep under 200 lines. |
+| `.claude/rules/*.md` | Always, or path-scoped via `paths:` frontmatter | Yes | Topic instructions; scope them so they cost nothing until relevant |
+| `.claude/skills/*/SKILL.md` | Name + description always; body on demand | Yes | Procedures |
+| Auto memory | `MEMORY.md` index only; topic files on recall | Optional — machine-local pointer | Learnings discovered in session |
+
+Closing rule: "Prefer the cheapest store that reaches the right audience. If a section of this file
+grows into a procedure, move it to a skill."
+
+The fifth store is named in its §4: operator-specific and machine-specific material goes in
+`CLAUDE.local.md` (gitignored) or per-user memory — "never in a committed rule or skill."
+
+### A.2 The two mechanical constraints
+
+Stated in the same section as "two consequences worth holding":
+
+1. **Auto memory does not reach subagents.** A dispatched worker or reviewer "sees `CLAUDE.md` and
+   `.claude/rules/`, and nothing else from this list. Anything a worker must know belongs in-repo."
+   This is the stated reason the instance relocated memory into the repository at all.
+2. **`@imports` in `CLAUDE.md` do not save context** — imported files load at launch too. "Use a
+   path-scoped rule or a skill instead."
+
+### A.3 The uncommittable-configuration organ
+
+A `workspace-setup` skill (~113 lines), advertised by description and loaded on demand, whose
+premise is that some configuration cannot be committed and a fresh clone is therefore
+under-configured until someone runs it. Load-bearing content:
+
+- The memory-directory pointer must be an absolute or `~/`-prefixed path, so any committed value
+  "would be wrong on every other machine." The pointer lives in the gitignored local settings file;
+  **only the content is committed**.
+- Establish the repo root from `git rev-parse --show-toplevel`; never hardcode a home directory.
+- **Report state before changing anything.** If already pointed at the in-repo directory, "report
+  that and stop — do not rewrite the file." Idempotent by construction.
+- Two consequences it requires stating to the user explicitly: memories become **team-visible**, so
+  operator-specific facts belong elsewhere; and **changing the setting does not migrate existing
+  memories** — "offer it, do not perform it silently."
+- The setting "takes effect only after the workspace-trust dialog is accepted for this folder. If
+  memory writes are still landing elsewhere, that dialog is the first thing to check."
+- Verification is confirming the agent contract appears as a loaded memory file: "If it does not,
+  the file was not loaded and nothing else in this setup is trustworthy."
+- Prune stale local permission entries; "removing a permission entry is safe: the worst outcome is
+  one additional prompt."
+- Authored to be liftable: "makes no assumption about which repository it is in beyond reading
+  `CLAUDE.md`."
+
+### A.4 The committed-memory index header
+
+Its `MEMORY.md` opens with an HTML comment, not prose: the index is "committed and team-visible";
+"only the first 200 lines / 25KB load at session start — keep one line per entry and put detail in
+the topic file"; and operator-specific, machine-specific, or credential-adjacent facts "do NOT
+belong here." Point-of-use restatement applied to the memory store — the same three-point hazard
+pattern this audit documents in §4.
+
+Its entries are one line each, `- [Title](file.md) — hook`, and each points at the artifact it
+concerns rather than restating it.
+
+### A.5 Path-scoped rules in practice
+
+Two rules, both with `paths:` frontmatter. One scopes spec-pipeline doctrine — model floors,
+dispatch, context budget — to `specs/**/*.md`; the other scopes a single in-flight design spec's
+working context to that spec's directory and its related content paths, and states plainly that the
+spec "is authoritative. This rule carries only what an agent needs *before* reading it."
+
+Two transferable observations: the spec-doctrine block is the block most likely to go stale (this
+audit's §2.1 found the same in the mature vault instance, carrying an obsolete model tier), and it
+is needed only when a spec file is open — so it belongs out of the always-loaded contract. And a
+rule scoped to one spec is *temporary by design*, deleted when the spec closes.
+
+### A.6 Durability conventions
+
+- References carry `> Verified as of: YYYY-MM-DD` at line 1.
+- "Validated knowledge. Claims come from real build cycles. Mark provenance where a claim is
+  measured-but-not-shipped, or inferred."
+- External sources are cited by immutable version-pinned permalink, "never by local path or branch
+  tip"; a local checkout "is a convenience for reading; it is never the citation."
+- No repository outside the current one is ever modified from it — content reaches other
+  repositories through the declared sync path, never by direct edit.
+- The list of sibling repositories is explicitly "the evidence set for work currently in flight,
+  not the consumer set and not a fixed list. Add and remove rows as specs come and go."
+
+### A.7 Cross-session handoff via memory
+
+One commit writes two memory entries specifically so a queued spec amendment can be picked up in a
+fresh session: a `project` entry carrying the queued changes, their timing constraint, and the
+judgment calls that must survive; and a `feedback` entry carrying the reusable lesson the episode
+taught. Both "point at the finding rather than restating it." This is the discipline that makes an
+interrupted spec resumable, and it is a session-discipline convention rather than an artifact.
