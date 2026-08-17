@@ -1,13 +1,13 @@
 # vault-bootstrap — Journal
 
 ## Current State
-- **Phase:** CP-1 review (design authored, awaiting approval)
-- **Last completed:** design pass — third-instance prior art mined and folded in (2026-08-17)
-- **Next:** CP-1 — Design Approval (architecture.md §9)
-- **Open holds:** OQ-1 through OQ-6 open by design; all carry leanings and owners. No blockers.
-- **Pending checkpoint:** CP-1 — Design Approval (architecture.md §9)
+- **Phase:** CP-1 review — **changes requested**; spec stays `Draft`
+- **Last completed:** CP-1 review (2026-08-17) — 3 blockers, 6 important, 7 advisory
+- **Next:** resolve the 3 CP-1 blockers as **direct draft revisions** to `architecture.md` (the spec is pre-approval, so `spec-amend` does not apply), then re-invoke `/spec-review` against CP-1. B-3 needs an operator decision on the interview-question count.
+- **Open holds:** OQ-1 through OQ-6 open by design. **OQ-4 is now a blocker, not a deferral** — §5.1's `workspace-setup` asset already answers it the opposite way from its own leaning. OQ-1/2/3/5/6 stand as sound deferrals.
+- **Pending checkpoint:** CP-1 — Design Approval (architecture.md §9), open
 - **Archive:** none — all entries live
-- **Latest entry:** `## 2026-08-17 — Design pass: third-instance store model folded in`
+- **Latest entry:** `## 2026-08-17 — Review of CP-1`
 
 ## Grammar
 - **Journal entry:** `## <YYYY-MM-DD> — <event>`
@@ -149,3 +149,57 @@ scope. Both are noted in the audit's Naming paragraph so the inconsistency reads
 
 **No design content changed.** Labels and domain descriptors only; every claim, checkpoint, and open
 question is untouched.
+
+## 2026-08-17 — Review of CP-1
+
+**Reviewer:** Claude Opus 5 — inline `spec-review` (agent reviewer)
+**Outcome:** changes requested
+**Tasks reviewed:** none — design-spec checkpoint. Artifact under review is `architecture.md` plus
+[docs/knowledge-vault-archetype-audit.md](../../docs/knowledge-vault-archetype-audit.md), over
+`3bab5bd..01bd088`.
+**Blockers:** 3
+1. **The `*(conditional on repo-oriented memory in-vault)*` gate has no off-state.** §5.1 marks
+   `memory/MEMORY.md` and `.claude/skills/workspace-setup/SKILL.md` conditional on it, but §5.2a
+   makes repo-oriented memory unconditional and §6 *Configuration* states outright that "the memory
+   split is **not** a switch; both stores exist in every vault." Phase 1 cannot implement an ungated
+   gate, and CP-2's review focus is precisely "that conditional gates actually omit rather than emit
+   empty scaffolding."
+2. **OQ-4's leaning is contradicted by §5.1.** OQ-4 leans "do not create the directory," yet §5.1
+   ships `.claude/skills/workspace-setup/SKILL.md` — in every vault, per blocker 1. OQ-4 was authored
+   at `3bab5bd` and the `3d3c1a9` third-instance pass introduced `workspace-setup` without revisiting
+   it. As written the spec answers its own open question the opposite way from the deferral, which is
+   drift rather than a deferral.
+3. **§6's Adoptability NFR is contradicted by its own detailed design.** The 3–5 question target
+   versus 7 unconditional prompts (purpose, pre-existing dirs, git posture, sharing posture, Obsidian,
+   domain fact, hazard, anticipated use) plus the §5.2b citation gate and the §5.2/§6 license prompt.
+   The spec flagged this for CP-1 itself; the review's ruling is that the **target must move** — only
+   git-and-sharing-posture is genuinely mergeable. §8's interview-effort measure is unmeasurable until
+   this is settled, so it gates the Phase 6 validation approach too.
+
+**Important:** 6 — license is listed under "the answers the operator never gives" yet says *prompt*
+(§5.2); three off-by-one OQ cross-references (lines 64, 189, 284, all wrong since `3bab5bd` — the OQ
+set was never renumbered); the `.gitignore` "six-line core *gains* the local settings file" arithmetic
+(already in the audit's six, so the core is seven); the `<area>/README.md` × 5 row double-counting
+`techniques/` and `history/`, which have their own rows with different substance; audit §8.6's
+iCloud+git conditional block dropped with no asset row and no interview input to resolve
+`{{GIT_POSTURE}}`; and CP-1 review-focus item 5 (calibration) only partly satisfied — the Calibration
+paragraph claims more restraint than §5.1 exercises.
+
+**Review focus verdicts.** Archetype boundary: **pass** — Appendix A's repo that satisfies all five
+observable properties while sitting *outside* the archetype is the sharpest boundary evidence in the
+document, and §14 carries it. §5.5's rejection of the shared-assets leaning: **pass** — verified
+against the principle's text (item 1's no-runtime-dependency, item 3's standalone install) and
+against the live precedent (both `finding-*` skills do ship their own `_template/`, same two files).
+Five audit corrections: **pass** — #2/#3/#4/#5 reflected in §5.1/§5.3/§3, and #1 is consciously
+*superseded* by §5.2a with the audit carrying a matching "Superseded in part" note at its §5, which is
+a stronger outcome than reflection. Invariant/authored split against the audit: **pass with comments**.
+§5.2a calibration and the OQ set as deferrals: **fail**, per the blockers.
+
+**Spec amendments proposed:** none as amendments. The spec is `Draft — Open for Review` and pre-CP-1,
+so all three blockers land as **direct draft revisions**, consistent with the precedent this journal
+set at the third-instance pass: `spec-amend` governs approved specs.
+
+**Next action:** operator decides blocker 3's question count (the only blocker needing a decision
+rather than an edit); blockers 1 and 2 are mechanical reconciliations. Then re-invoke `/spec-review`
+against CP-1. CP-1's exit criterion of operator approval remains outstanding regardless — an agent
+reviewer cannot supply it.
