@@ -128,7 +128,7 @@ The inception date `20260514` comes from the session-economy spec's status banne
 
 ## 7. Task Breakdown
 
-### T-01 — Update path references in spec-lifecycle skills ✅ done 2026-05-15 (4ebec0c)
+### T-01 — Update path references in spec-lifecycle skills ✅ done 2026-05-15 (189c6cc)
 
 **Scope.** Modify 5 files:
 - `.agents/skills/spec-execute/SKILL.md`
@@ -158,7 +158,7 @@ The inception date `20260514` comes from the session-economy spec's status banne
 
 ---
 
-### T-02 — Update project-constitution skill ✅ done 2026-05-15 (90ed99d)
+### T-02 — Update project-constitution skill ✅ done 2026-05-15 (e91b939)
 
 **Scope.** Modify 1 file:
 - `.agents/skills/project-constitution/SKILL.md`
@@ -182,7 +182,7 @@ The inception date `20260514` comes from the session-economy spec's status banne
 
 ---
 
-### T-03 — Migrate existing spec files and delete todo ✅ done 2026-05-15 (d6555e6)
+### T-03 — Migrate existing spec files and delete todo ✅ done 2026-05-15 (c2678ed)
 
 **Scope.** Move and delete files under `specs/`:
 - `specs/session-economy-and-multi-repo-disciplines-architecture.md` → `specs/20260514-session-economy/architecture.md`

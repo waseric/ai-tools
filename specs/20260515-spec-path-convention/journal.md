@@ -24,7 +24,7 @@
 ## 2026-05-15 — T-01: Update path references in spec-lifecycle skills
 
 **Status:** done
-**Commits:** 4ebec0c
+**Commits:** 189c6cc
 **Files touched:**
 - `.agents/skills/spec-execute/SKILL.md`
 - `.agents/skills/spec-write/SKILL.md`
@@ -37,7 +37,7 @@
 - Journal guidance note added to `spec-write` OUTPUT FORMAT → confirmed: line reads "Create a `journal.md` in the same directory…"
 - Journal guidance note added to `spec-design` OUTPUT FORMAT → confirmed: line reads "Create a `journal.md` in the same directory."
 - `lastUpdated` bumped to `2026-05-15` on all 5 files → confirmed via read.
-- Changes committed → 4ebec0c.
+- Changes committed → 189c6cc.
 **Decisions made:** None — straight execution per spec.
 **Spec amendments:** None.
 **Surprises and learnings:** None — all replacements were mechanical string substitutions.
@@ -46,7 +46,7 @@
 ## 2026-05-15 — T-02: Update project-constitution skill
 
 **Status:** done
-**Commits:** 90ed99d
+**Commits:** e91b939
 **Files touched:**
 - `.agents/skills/project-constitution/SKILL.md`
 **Tests added:** N/A (prose-only changes; verified via grep)
@@ -56,7 +56,7 @@
 - Repository layout entry added to tech-stack template → confirmed: "Conventions Outside the Stack" section includes `- **Repository layout** —` bullet.
 - Output paragraph updated → confirmed: reads "live at `specs/`" not "live at the root of `docs/`".
 - `lastUpdated` bumped to `2026-05-15` → confirmed.
-- Changes committed → 90ed99d.
+- Changes committed → e91b939.
 **Decisions made:** None — straight execution per spec.
 **Spec amendments:** None.
 **Surprises and learnings:** None.
@@ -65,7 +65,7 @@
 ## 2026-05-15 — T-03: Migrate existing spec files and delete todo
 
 **Status:** done
-**Commits:** d6555e6
+**Commits:** c2678ed
 **Files touched:**
 - `specs/session-economy-and-multi-repo-disciplines-architecture.md` → `specs/20260514-session-economy/architecture.md`
 - `specs/session-economy-and-multi-repo-disciplines.journal.md` → `specs/20260514-session-economy/journal.md`

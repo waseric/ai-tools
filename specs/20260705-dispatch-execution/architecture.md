@@ -35,7 +35,7 @@ The architectural commitment is twofold. **Session context is not the carrier of
 
 ### Prior state
 
-`spec-execute` (governed by [the spec-execute architecture spec](../20260518-spec-execute-skill/architecture.md), Approved 2026-05-18) executes single-lane: the invoking session performs Phases 1–8 itself. Phase 4 permits delegating *parts* of a task to subagents at-or-above floor; Phase 8 weighs session continuity qualitatively at each boundary. Under `AUTONOMY: checkpoint` (batch mode, landed in commit `6bef6f8`), tasks run back-to-back in one session and context accumulates without bound until a checkpoint stops the run.
+`spec-execute` (governed by [the spec-execute architecture spec](../20260518-spec-execute-skill/architecture.md), Approved 2026-05-18) executes single-lane: the invoking session performs Phases 1–8 itself. Phase 4 permits delegating *parts* of a task to subagents at-or-above floor; Phase 8 weighs session continuity qualitatively at each boundary. Under `AUTONOMY: checkpoint` (batch mode, landed in commit `44bd7f1`), tasks run back-to-back in one session and context accumulates without bound until a checkpoint stops the run.
 
 An earlier spec, [session-economy](../20260514-session-economy/architecture.md) (2026-05-14), captured first-iteration ideas on session economy and added Phase 8's token-economy factor. It is historical context only; this design derives from current harness capabilities and current operational evidence, not from that spec's framing.
 

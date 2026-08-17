@@ -33,7 +33,7 @@ This document is a **retroactive design specification**: the skill already ships
 
 ### Prior state
 
-Before the skill existed, repository orientation was reconstructed each time a contributor (human or AI) arrived at a repo. Stack, scope, and intent were inferred from scattered signals — READMEs of varying freshness, ambient knowledge in chat, commit archaeology. The skill was introduced in commit `80000b1` (2026-05-14) as part of the broader `spec-design` / `project-constitution` / `spec-amend` addition to the methodology. The constitution it produces for the `ai-tools` repo itself was added in commit `76e6bb6` (2026-05-15).
+Before the skill existed, repository orientation was reconstructed each time a contributor (human or AI) arrived at a repo. Stack, scope, and intent were inferred from scattered signals — READMEs of varying freshness, ambient knowledge in chat, commit archaeology. The skill was introduced in commit `80000b1` (2026-05-14) as part of the broader `spec-design` / `project-constitution` / `spec-amend` addition to the methodology. The constitution it produces for the `ai-tools` repo itself was added in commit `cee22c5` (2026-05-15).
 
 No standalone architecture document for this skill was ever authored. The architectural commitments — particularly the **Atomic-Skill Portability Principle** — were absorbed into [specs/tech-stack.md](../tech-stack.md) during the 2026-05-17 amendment cascade that resolved the `intake-template-folder-dependency` finding. This spec consolidates the commitments back into a dedicated, reviewable artifact.
 
@@ -223,7 +223,7 @@ There is no Phase B "build the skill" — the skill is already built. There is n
 
 ### CP-2 — Drift audit complete
 
-**Status:** pass with comments on 2026-05-18 by Claude (agent reviewer); routing closed 2026-05-18. 0 blockers, 0 important, 4 advisory — D-1 resolved via amendment 2026-05-18-2 (commit 974b882); D-2 resolved via amendment 2026-05-18-1 (commit 6626756, option b — SKILL.md amended); D-3 accepted as known minor (rationale in journal); D-4 resolved via amendment 2026-05-18-3 (commit 7eda915). Retroactive-spec adoption (§11) **closed**. Full verdict in [journal.md](./journal.md#2026-05-18--review-of-cp-2).
+**Status:** pass with comments on 2026-05-18 by Claude (agent reviewer); routing closed 2026-05-18. 0 blockers, 0 important, 4 advisory — D-1 resolved via amendment 2026-05-18-2 (commit bbbf9bf); D-2 resolved via amendment 2026-05-18-1 (commit 8d09060, option b — SKILL.md amended); D-3 accepted as known minor (rationale in journal); D-4 resolved via amendment 2026-05-18-3 (commit a103913). Retroactive-spec adoption (§11) **closed**. Full verdict in [journal.md](./journal.md#2026-05-18--review-of-cp-2).
 
 **Trigger.** CP-1 passes.
 

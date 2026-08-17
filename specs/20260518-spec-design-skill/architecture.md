@@ -36,7 +36,7 @@ This document is a **retroactive design specification**: the skill already ships
 The skill was introduced in commit `80000b1` (2026-05-14) as part of the trilogy addition (`spec-design` + `project-constitution` + `spec-amend`) that completed the spec-driven-development core. Subsequent evolution:
 - `5ce4024` (2026-05-14) — session-economy and multi-repo disciplines added across the skill family.
 - `c63e3ba` (2026-05-14) — `lastUpdated` frontmatter added.
-- `4ebec0c` (2026-05-15) — path convention update: `docs/specs/<feature>.md` → `specs/YYYYMMDD-<name>/`, applied uniformly across the six lifecycle skills via the `spec-path-convention` feature spec.
+- `189c6cc` (2026-05-15) — path convention update: `docs/specs/<feature>.md` → `specs/YYYYMMDD-<name>/`, applied uniformly across the six lifecycle skills via the `spec-path-convention` feature spec.
 
 The closest thing to a design document the skill ever had is [docs/spec-design-recommendations.md](../../docs/spec-design-recommendations.md) — a recommendations doc extracted from a session that produced an `ai-frontmatter-distributor-architecture.md` design artifact in a separate private repo. The recommendations doc is treated in this spec as **authoritative for the skill's design rationale** but not authoritative for current behavior: the shipping SKILL.md is the latter. Where they diverge, SKILL.md wins and the divergence is a candidate finding for CP-2.
 
@@ -47,7 +47,7 @@ The closest thing to a design document the skill ever had is [docs/spec-design-r
 - **Atomic-Skill Portability Principle** ([specs/tech-stack.md §21-33](../tech-stack.md#L21-L33)). The skill must be a portable atomic unit: workflow + schema knowledge + section template bundled in its own `SKILL.md`; adapts to richer host-repo embodiments (e.g., an existing constitution, sibling skills) when present; degrades cleanly when absent. A `spec-design` installed against an unrelated host repo with no methodology siblings still produces a conformant design spec.
 - **AI context window limits** ([specs/tech-stack.md:44](../tech-stack.md#L44)). Design specs are LLM-consumed. Conciseness is a hard constraint on artifact length, not a style preference. SKILL.md propagates this constraint via the "no marketing language" rule and the recommended Phase-3 self-contained discipline; it does not impose explicit line caps as `project-constitution` does (because design-spec content scales with the artifact under design).
 - **Spec-driven-development convention** ([specs/tech-stack.md:51](../tech-stack.md#L51)). The methodology repo "eats its own cooking" — changes to the methodology follow the methodology. This convention is the explicit justification for this retroactive spec: a skill that authors design specs must itself be design-spec'd.
-- **Repository layout convention** ([specs/tech-stack.md:48](../tech-stack.md#L48)). `specs/YYYYMMDD-<artifact-name>/architecture.md` + `journal.md` is the canonical output path, set by the `spec-path-convention` propagation in commit `4ebec0c`.
+- **Repository layout convention** ([specs/tech-stack.md:48](../tech-stack.md#L48)). `specs/YYYYMMDD-<artifact-name>/architecture.md` + `journal.md` is the canonical output path, set by the `spec-path-convention` propagation in commit `189c6cc`.
 
 ### Dependencies
 
@@ -56,7 +56,7 @@ The closest thing to a design document the skill ever had is [docs/spec-design-r
   - [spec-write](../../.agents/skills/spec-write/SKILL.md) — reads a design spec as authoritative input via `DESIGN_SPEC_PATH`; produces a feature spec that names the design spec by path.
   - [spec-review](../../.agents/skills/spec-review/SKILL.md) — runs against the §9 Review Checkpoints declared in this spec (CP-1, CP-2).
   - [spec-amend](../../.agents/skills/spec-amend/SKILL.md) — applies the Amendment Protocol to this spec (and to SKILL.md when drift is found at CP-2).
-- **Lateral.** Sibling lifecycle skills (`spec-execute`, `spec-review`, `spec-amend`, `spec-write`) reference `spec-design` by name and path; they were modified together in commit `4ebec0c` when path conventions changed.
+- **Lateral.** Sibling lifecycle skills (`spec-execute`, `spec-review`, `spec-amend`, `spec-write`) reference `spec-design` by name and path; they were modified together in commit `189c6cc` when path conventions changed.
 
 ## 4. Architecture
 

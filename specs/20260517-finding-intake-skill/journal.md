@@ -24,7 +24,7 @@
 **Tasks defined:** T-01 (skill artifact, M) → T-02 (synthetic validation, S) → T-03 (real-signal dogfood, S) → T-04 (README flip, S). Four tasks, all S or M, sequenced so each boundary is a safe stopping point: T-01 is the deliverable; T-02 verifies mechanics; T-03 verifies real-world fit; T-04 lands the README change only after dogfood succeeds.
 
 **Conversation grounding:**
-- Operator invoked via `/spec-write phase b` against the existing findings-pipeline working directory. Confirmed at Discovery time that Phase A is closed (RC-2 verdict committed at d5a5adf; remediation at 2ae03fe).
+- Operator invoked via `/spec-write phase b` against the existing findings-pipeline working directory. Confirmed at Discovery time that Phase A is closed (RC-2 verdict committed at 8408a54; remediation at 32d102e).
 - Operator's Phase 2 directive on URL pointer failures ("if operator provides url, failure to retrieve url should not be silently accepted") refined the spec's policy beyond my recommended option — incorporated as a fetch-with-surfaced-failure model rather than the no-fetch model I'd originally proposed. The 60-second NFR remains intact in the typical no-pointer / fetch-succeeds case; pointer-with-fetch-failure is an explicit deviation case the operator chooses to handle.
 - Discovery confirmed sibling skill patterns (six existing skills at 200–225 lines each, frontmatter + ROLE + OPERATING PRINCIPLES + INPUTS + phased workflow) — Phase B SKILL.md targets ≤220 lines for consistency.
 
@@ -33,7 +33,7 @@
 ## 2026-05-17 — T-01: Author `.agents/skills/finding-intake/SKILL.md`
 
 **Status:** done
-**Commits:** 8e2a146
+**Commits:** a6c675e
 **Files touched:**
 - New: `.agents/skills/finding-intake/SKILL.md` (149 lines)
 - Edited: `specs/20260517-finding-intake-skill/feature.md` — T-01 marked done; §13 OQs collapsed to decisions D-1/D-2/D-3 in new §13a
@@ -70,7 +70,7 @@ All three were marked decidable-at-T-01 in the spec; all three resolved per thei
 ## 2026-05-17 — T-02: Synthetic validation exercise
 
 **Status:** done
-**Commits:** 4764f42
+**Commits:** 79dd92f
 **Files touched:**
 - New: `specs/findings/20260517-test-only-signal-synthetic-fixture/finding.md`
 - New: `specs/findings/20260517-test-only-signal-synthetic-fixture/journal.md`
@@ -119,11 +119,11 @@ All three were marked decidable-at-T-01 in the spec; all three resolved per thei
 ## 2026-05-17 — T-03: Real-signal dogfood exercise
 
 **Status:** done
-**Commits:** 58258e9 (finding artifact, `find:` prefix per skill suggestion) + this closeout commit (spec/journal updates)
+**Commits:** 5081324 (finding artifact, `find:` prefix per skill suggestion) + this closeout commit (spec/journal updates)
 **Files touched:**
 - New: `specs/findings/20260517-easy-survival-shelves-lwc-error/finding.md` (51 lines)
 - New: `specs/findings/20260517-easy-survival-shelves-lwc-error/journal.md` (12 lines)
-- Edited: `specs/20260517-finding-intake-skill/feature.md` — T-03 marked done; T-02 status line backfilled with commit SHA `4764f42` per drift signal noted at this session's orientation (T-02 closeout commit d362c1d backfilled the SHA into the journal but missed the §7 T-02 status line — fixed in passing during this closeout, scope-honest since it is a one-character-class consistency fix observed by spec-execute's pre-flight verify).
+- Edited: `specs/20260517-finding-intake-skill/feature.md` — T-03 marked done; T-02 status line backfilled with commit SHA `79dd92f` per drift signal noted at this session's orientation (T-02 closeout commit 4f65e0f backfilled the SHA into the journal but missed the §7 T-02 status line — fixed in passing during this closeout, scope-honest since it is a one-character-class consistency fix observed by spec-execute's pre-flight verify).
 - Edited: `specs/20260517-finding-intake-skill/journal.md` — this entry.
 
 **Tests added:** None (inspection-based per §8 Test Strategy; the exercise itself is the test). Inspection evidence:
@@ -145,7 +145,7 @@ All three were marked decidable-at-T-01 in the spec; all three resolved per thei
 - Pointer-fetch policy: outcome surfaced to operator (preview text spelled out the no-live-fetch decision and rationale) and recorded in the finding's journal Notes. Not silently swallowed.
 
 **DoD verification:** (per [feature.md §7 T-03 DoD](../20260517-finding-intake-skill/feature.md#L311))
-- Real finding artifact committed in `specs/findings/`: ✓ — commit 58258e9.
+- Real finding artifact committed in `specs/findings/`: ✓ — commit 5081324.
 - Dogfood outcomes journaled: ✓ — this entry, plus the per-finding journal at [specs/findings/20260517-easy-survival-shelves-lwc-error/journal.md](../findings/20260517-easy-survival-shelves-lwc-error/journal.md).
 - Any surfaced gaps resolved or escalated: ✓ — one advisory observation surfaced (pointer-fetch policy operator-supplied-snapshot gap); deferred to post-RC-3a `spec-amend`. See Surprises below.
 
@@ -153,7 +153,7 @@ All three were marked decidable-at-T-01 in the spec; all three resolved per thei
 
 - **Mode for the exercise: interactive.** T-02 already exercised structured-input mode; T-03 exercises interactive mode for orthogonal coverage. The interactive round-trip was a single confirmation question (AskUserQuestion) — measurable as one keystroke from the operator's side.
 - **Pointer-fetch: no live fetch attempt.** The forum is auth-walled (Sandlot's Bug Reports section requires member login; the PDF page header confirms operator is logged in as `waseric`). The operator pre-fetched and supplied a PDF snapshot at session intake. Per SKILL.md OP #3, *every* fetch decision must be surfaced — including the decision *not* to fetch. The interactive preview explicitly stated "live URL not attempted" with rationale; the finding's journal records it; this entry records it. This is the deviation the policy is designed to permit: the snapshot exists in a durable form, so a redundant live fetch would only burn time. Reviewers at RC-3a can challenge.
-- **Backfill T-02 SHA in §7.** Noted as a drift signal in orientation; fixed in-line during closeout rather than a separate housekeeping commit. Scope is a one-token addition (`commit 4764f42`); it brings T-02's status line into the same shape as T-01's status line; not a content change.
+- **Backfill T-02 SHA in §7.** Noted as a drift signal in orientation; fixed in-line during closeout rather than a separate housekeeping commit. Scope is a one-token addition (`commit 79dd92f`); it brings T-02's status line into the same shape as T-01's status line; not a content change.
 
 **Spec amendments:** None. Two observations parked for post-RC-3a treatment (see below).
 
@@ -210,9 +210,9 @@ All three were marked decidable-at-T-01 in the spec; all three resolved per thei
 - **RC-3a trigger arrives in this same commit.** This is the first task in Phase B whose closeout *also* triggers the spec's only feature-spec-level review checkpoint. The journal's "next task pointer" is no longer another T-XX task; it is the RC-3a checkpoint review. Phase 7 of spec-execute governs from here.
 
 **Next pointer:** **RC-3a — Phase B Skill Review** triggers ([feature.md §9 RC-3a](../20260517-finding-intake-skill/feature.md#L354)). All four Phase B tasks complete:
-- T-01: SKILL.md authored (commit 8e2a146)
-- T-02: synthetic validation exercise (commit 4764f42)
-- T-03: real-signal dogfood exercise (commits 58258e9 + 105bc50)
+- T-01: SKILL.md authored (commit a6c675e)
+- T-02: synthetic validation exercise (commit 79dd92f)
+- T-03: real-signal dogfood exercise (commits 5081324 + 1902951)
 - T-04: README primary-path flip (this commit)
 
 Reviewer focus per [feature.md §9 RC-3a Exit criteria](../20260517-finding-intake-skill/feature.md#L360-L365):
@@ -235,7 +235,7 @@ Per [spec-execute Phase 7](../../.agents/skills/spec-execute/SKILL.md) — stop 
 **Reviewer:** Claude (AI agent, reviewing on behalf of waseric)
 **Outcome:** pass with comments
 **Tasks reviewed:** T-01, T-02, T-03, T-04
-**Diff range:** `8e2a146^..HEAD` (7 commits)
+**Diff range:** `a6c675e^..HEAD` (7 commits)
 
 **Blockers:** 0
 **Important:** 0
@@ -245,17 +245,17 @@ Per [spec-execute Phase 7](../../.agents/skills/spec-execute/SKILL.md) — stop 
 
 Checkpoint contract quoted verbatim from [feature.md §9 RC-3a](feature.md#L356-L369). Review focus: schema fidelity, 60-second NFR, pointer-fetch policy, peer-skill conventions, README flip. Exit criteria: 5 items spanning SKILL.md shape, T-02 byte-for-byte match, T-03 real finding + timing + fetch outcome, T-04 manual-fallback preservation, no blockers/importants.
 
-Tasks-in-scope status (per [§7 task statuses](feature.md#L221-L347)): all four done; commits 8e2a146 (T-01), 4764f42+6b163de (T-02 + SHA backfill), 58258e9+105bc50 (T-03 work + closeout), 10f5c78 (T-04 combined).
+Tasks-in-scope status (per [§7 task statuses](feature.md#L221-L347)): all four done; commits a6c675e (T-01), 79dd92f+defa91f (T-02 + SHA backfill), 5081324+1902951 (T-03 work + closeout), 25da04a (T-04 combined).
 
 Diff shape: 8 files; +499 / −22. One new SKILL.md (149 lines); two new finding directories (synthetic + dogfood); README delta 159→170 lines; spec + journal updates.
 
-Initial drift signals: (1) SKILL.md Phase 3 step 3 + WHAT NOT TO DO both prescribe "leave/preserve commented skeletons" — produced artifacts strip them per T-05 precedent. (2) T-03 closeout commit (105bc50) bundled a T-02 SHA backfill; acknowledged in journal as a one-token consistency fix.
+Initial drift signals: (1) SKILL.md Phase 3 step 3 + WHAT NOT TO DO both prescribe "leave/preserve commented skeletons" — produced artifacts strip them per T-05 precedent. (2) T-03 closeout commit (1902951) bundled a T-02 SHA backfill; acknowledged in journal as a one-token consistency fix.
 
 ### Phase 2 — Scope verification
 
 All four tasks stayed within declared scope. T-01 produced exactly the declared file. T-02 and T-03 produced their declared finding directories (paired `finding.md` + `journal.md`). T-04 edited only the "Creating a new finding" section of the schema README. No undeclared files touched; no new dependencies, frameworks, or top-level abstractions introduced.
 
-Scope observation `[advisory]`: T-03 closeout (105bc50) bundled T-02 status-line SHA backfill alongside T-03 closeout work. Acknowledged in journal as scope-honest, but cleaner pattern is a dedicated housekeeping commit. Logged as advisory A4.
+Scope observation `[advisory]`: T-03 closeout (1902951) bundled T-02 status-line SHA backfill alongside T-03 closeout work. Acknowledged in journal as scope-honest, but cleaner pattern is a dedicated housekeeping commit. Logged as advisory A4.
 
 ### Phase 3 — Review focus walk
 
@@ -286,7 +286,7 @@ Per [§8 Test Strategy](feature.md#L348-L354), validation is inspection-based + 
 - **A1 (SKILL.md):** Template-scaffolding "copy verbatim" prose drift. SKILL.md Phase 3 step 3 + WHAT NOT TO DO both prescribe leaving/preserving commented skeletons; both produced journals strip them per T-05 precedent. Resolution: `/spec-amend` against SKILL.md to align prose with established precedent. **Recommend resolving before Phase C authoring begins** so Phase C inherits the corrected pattern.
 - **A2 (SKILL.md):** Pointer-fetch policy lacks "operator-supplied snapshot pre-exists" branch in Phase 3 step 4. Resolution: `/spec-amend` adding the fourth branch explicitly.
 - **A3 (SKILL.md):** Short-name stop-word list could grow ("test-only", "signal" surfaced from T-02). Cosmetic. Resolution: `/spec-amend`, low priority.
-- **A4 (commit hygiene):** T-03 closeout commit (105bc50) bundled T-02 SHA backfill. Acknowledged in journal as scope-honest. Forward guidance: dedicated housekeeping commits for future drift-fix work. No re-run required for this checkpoint.
+- **A4 (commit hygiene):** T-03 closeout commit (1902951) bundled T-02 SHA backfill. Acknowledged in journal as scope-honest. Forward guidance: dedicated housekeeping commits for future drift-fix work. No re-run required for this checkpoint.
 - **A5 (schema spec — upstream):** `_template/*.md` leading scaffolding comments could carry a self-describing "strip-from-artifact" note. Routes via `/spec-amend` against the [findings-pipeline-schema feature spec](../20260517-findings-pipeline-schema/feature.md), not this spec.
 
 ### Spec amendments proposed
@@ -306,7 +306,7 @@ RC-3a closes. Work may proceed past Phase B.
 ## 2026-05-17 — Amendment 2026-05-17-1
 
 **Section amended:** [.agents/skills/finding-intake/SKILL.md](../../.agents/skills/finding-intake/SKILL.md) Phase 3 steps 2 & 3 + WHAT NOT TO DO "Do not rewrite or paraphrase the templates" bullet
-**Trigger:** RC-3a review (commit 5e26f12) advisory A1 — template-scaffolding "copy verbatim" prose drift; SKILL.md prose contradicted three living examples that all strip template scaffolding (T-05, T-02, T-03).
+**Trigger:** RC-3a review (commit 20333e2) advisory A1 — template-scaffolding "copy verbatim" prose drift; SKILL.md prose contradicted three living examples that all strip template scaffolding (T-05, T-02, T-03).
 **Reason:** Empirical pattern across three findings (strip scaffolding) was correct; SKILL.md prose (preserve scaffolding) was wrong. Pre-Phase-C is the right moment to land the correction so the downstream `finding-triage` skill inherits the right pattern.
 **Impact summary:** No tasks affected (T-02/T-03 ratified, not invalidated); no checkpoints reopened; no completed work invalidated; A5 (schema-spec amendment, separate /spec-amend cycle) is the cross-side companion.
 **Approver:** waseric
@@ -316,7 +316,7 @@ RC-3a closes. Work may proceed past Phase B.
 
 ### Full record
 
-**Trigger.** RC-3a review (commit 5e26f12) advisory A1, surfaced first at T-02 closeout (journal.md:111) and reaffirmed by T-03's identical handling. SKILL.md prose prescribed preserving template scaffolding ("Leave the commented skeletons for later transitions in place"; produced artifacts match canonical templates "byte-for-byte at every position not occupied by operator input" including "the commented skeletons preserved verbatim"). Three living examples (T-05 `tab-display-issues`, T-02 synthetic, T-03 dogfood) all strip the leading HTML comment in `_template/finding.md` (lines 1–22) and the closing commented-out skeleton block in `_template/journal.md` (lines 29–84) on the empirical reading that those are *operator-facing scaffolding* (instructions for filling the template), not artifact content.
+**Trigger.** RC-3a review (commit 20333e2) advisory A1, surfaced first at T-02 closeout (journal.md:111) and reaffirmed by T-03's identical handling. SKILL.md prose prescribed preserving template scaffolding ("Leave the commented skeletons for later transitions in place"; produced artifacts match canonical templates "byte-for-byte at every position not occupied by operator input" including "the commented skeletons preserved verbatim"). Three living examples (T-05 `tab-display-issues`, T-02 synthetic, T-03 dogfood) all strip the leading HTML comment in `_template/finding.md` (lines 1–22) and the closing commented-out skeleton block in `_template/journal.md` (lines 29–84) on the empirical reading that those are *operator-facing scaffolding* (instructions for filling the template), not artifact content.
 
 **Section.** SKILL.md Phase 3 step 2 ("Write `finding.md`"); Phase 3 step 3 ("Write `journal.md`"); WHAT NOT TO DO "Do not rewrite or paraphrase the templates" bullet.
 
@@ -353,7 +353,7 @@ WHAT NOT TO DO templates bullet refined: "byte-for-byte at every position not oc
 
 ### Full record
 
-**Trigger.** RC-3a review (commit 5e26f12) advisory A2, surfaced fresh at T-03 dogfood. T-03 operator pre-supplied a PDF snapshot of an auth-walled forum thread at session intake. Current Phase 3 step 4 enumerated three branches (fetch-success / fetch-failure / no-fetch-capability) but none contemplated the "operator pre-supplied a snapshot" case. T-03 took the correct judgement call (treat the supplied snapshot as the snapshot; do not attempt redundant live fetch; journal the no-live-fetch rationale per OP #3) but the policy text gave no explicit guidance.
+**Trigger.** RC-3a review (commit 20333e2) advisory A2, surfaced fresh at T-03 dogfood. T-03 operator pre-supplied a PDF snapshot of an auth-walled forum thread at session intake. Current Phase 3 step 4 enumerated three branches (fetch-success / fetch-failure / no-fetch-capability) but none contemplated the "operator pre-supplied a snapshot" case. T-03 took the correct judgement call (treat the supplied snapshot as the snapshot; do not attempt redundant live fetch; journal the no-live-fetch rationale per OP #3) but the policy text gave no explicit guidance.
 
 **Section.** SKILL.md Phase 3 step 4 (External-pointer handling).
 
@@ -432,17 +432,17 @@ WHAT NOT TO DO templates bullet refined: "byte-for-byte at every position not oc
 ## 2026-05-17 — Amendment 2026-05-17-4
 
 **Section amended:** specs/20260517-finding-intake-skill/feature.md §6 NFRs (appended new `Skill portability` row; replaced `Context economy` row); §5.1 SKILL.md shape L152 (rewrote Phase 1 ORIENT description). Cascading file changes: new bundled template files at [.agents/skills/finding-intake/_template/finding.md](../../.agents/skills/finding-intake/_template/finding.md) and [.agents/skills/finding-intake/_template/journal.md](../../.agents/skills/finding-intake/_template/journal.md); SKILL.md updates to Phase 1 ORIENT (template/README reads), Phase 3 APPLY steps 2–3 (line-range strips → marker strips; host-or-bundled source), and WHAT NOT TO DO section (strip mechanism references).
-**Trigger:** Cascading from Amendment 2026-05-17-2 to schema spec (commit `9a1a717`), which committed scaffold-marker delimiters as the strip mechanism and templates as skill-bundled-with-host-override. This amendment brings `finding-intake` into conformance. Originating finding: [intake-template-folder-dependency](../findings/20260517-intake-template-folder-dependency/finding.md).
+**Trigger:** Cascading from Amendment 2026-05-17-2 to schema spec (commit `0923dda`), which committed scaffold-marker delimiters as the strip mechanism and templates as skill-bundled-with-host-override. This amendment brings `finding-intake` into conformance. Originating finding: [intake-template-folder-dependency](../findings/20260517-intake-template-folder-dependency/finding.md).
 **Reason:** The path-coupling and line-number-coupling identified in the originating finding both manifest in `finding-intake/SKILL.md` (host-relative `../../../specs/findings/_template/...` paths break under global skill install; hardcoded line ranges couple the skill to template line layout). Both are fixed by bundling templates inside the skill directory with host-override semantics and using scaffold markers carried by the templates themselves. The schema is no longer resolved from a host README at runtime — the skill's own prose carries the operational schema knowledge it needs.
 **Impact summary:** No tasks re-opened (T-01 through T-04 stay closed); no checkpoints re-opened (RC-3 and RC-3a stay closed). RC-3 advisory A-3 (portability liability flag) is satisfied by this amendment. Cross-reference: Amendment 5 ([finding-triage-skill](../20260517-finding-triage-skill/feature.md) + [.agents/skills/finding-triage/SKILL.md](../../.agents/skills/finding-triage/SKILL.md)) applies the same conformance pattern to the triage skill.
 **Approver:** waseric
 **Approved on:** 2026-05-17
 **Status implication:** kept at `Complete`. The amendment reverses no design decision, re-opens no §7 task. Explicit operator confirmation captured during the amendment session.
-**Commit:** `394133c`
+**Commit:** `27100ee`
 
 ### Full record
 
-**Trigger.** Cascading from Amendment 2026-05-17-2 to [specs/20260517-findings-pipeline-schema/feature.md](../20260517-findings-pipeline-schema/feature.md) (commit `9a1a717`), which committed scaffold-marker delimiters as the strip mechanism and templates as skill-bundled-with-host-override at the schema level. The `finding-intake` skill is the principal consumer of those templates; bringing it into conformance is the next cascade step.
+**Trigger.** Cascading from Amendment 2026-05-17-2 to [specs/20260517-findings-pipeline-schema/feature.md](../20260517-findings-pipeline-schema/feature.md) (commit `0923dda`), which committed scaffold-marker delimiters as the strip mechanism and templates as skill-bundled-with-host-override at the schema level. The `finding-intake` skill is the principal consumer of those templates; bringing it into conformance is the next cascade step.
 
 **Section(s) and files.** Feature spec §6 NFR (append) + §6 `Context economy` row (replace) + §5.1 SKILL.md shape L152 (replace); plus new files `.agents/skills/finding-intake/_template/finding.md` and `.agents/skills/finding-intake/_template/journal.md`; plus edits to `.agents/skills/finding-intake/SKILL.md` Phase 1 ORIENT, Phase 3 APPLY steps 2–3, and WHAT NOT TO DO section. Six changes bundled. Full before/after diffs are in the Phase 2 draft of this amendment in the calling session; the After blocks have been applied verbatim.
 

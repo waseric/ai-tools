@@ -70,7 +70,7 @@
 
 **Reviewer:** waseric (self-review, inline)
 **Outcome:** pass with comments — **CP-1 closed, design Approved**
-**Tasks reviewed:** none (design-approval checkpoint; artifact = architecture.md @ 80912ff + review-response edits)
+**Tasks reviewed:** none (design-approval checkpoint; artifact = architecture.md @ 4bb5f02 + review-response edits)
 **Blockers:** 0
 **Important:** 1 — §5.4/OQ-5 discoverability invariant fully discharged only for Tier 0; Tier 1/2 completeness relied on OQ-5's (then-open) glob convention.
 **Advisory:** 6 — §5.1 "only non-derivable" vs. derivable subset; §5.3 Execute-row NFR asymmetry vs. Review row; §5.5 typo "cephony"; §1/§6 orientation-cost figure (48k vs 45k+); journal missing `## Grammar` bootstrap; journal:46 stale "lint" mention (append-only history, left intact).

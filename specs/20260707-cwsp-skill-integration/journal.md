@@ -161,7 +161,7 @@
 **Reviewer:** waseric (opus, inline)
 **Outcome:** changes requested
 **Tasks reviewed:** T-01, T-02, T-03
-**Diff range:** c6fa82c^..6baea95
+**Diff range:** 35e6a00^..7e2db25
 **Blockers:** 1 — skill-emitted reference dialect ≠ constitution's declared grammar. Constitution [tech-stack.md](../tech-stack.md#L64) Task-block row reads `**and** the §7 **task-table** row`; feature.md §5.2 and both skills (spec-write:235, spec-design) read `**and** the §7 **table** row`. Fails the CP-P1 exit criterion "skill dialect matches the constitution grammar" (feature.md §3 requires the two identical). All other CP-P1 focus items pass.
 **Important:** 1 — `specs/tech-stack.md` is entirely CRLF (66/66 lines) while skill masters + specs are LF, so a literal byte-for-byte identity diff of the constitution grammar against the skills can never be empty. Pre-existing (not introduced by T-01–T-03); does not affect grep-derived INDEX function. Normalize to LF alongside the blocker fix.
 **Advisory:** 0
@@ -174,7 +174,7 @@
 **Reviewer:** waseric (opus, inline)
 **Outcome:** pass
 **Tasks reviewed:** T-01, T-02, T-03
-**Diff range:** c6fa82c^..6baea95 (skill masters, unchanged since verdict 777c308) + working-tree `specs/tech-stack.md` (the reconciliation fix)
+**Diff range:** 35e6a00^..7e2db25 (skill masters, unchanged since verdict e50363e) + working-tree `specs/tech-stack.md` (the reconciliation fix)
 **Blockers:** 0 — the sole prior blocker is resolved. Constitution [tech-stack.md:64](../tech-stack.md#L64) Task-block anchor now reads "`### <T-ID> — <title>` **and** the §7 table row" — byte-identical to feature.md §5.2 and both skills' emitted dialect tables (`diff` empty, both directions).
 **Important:** 0 — the prior CRLF finding is resolved. `specs/tech-stack.md` normalized to LF (0 CR bytes across 66 lines); working-tree diff is a clean 66-line CRLF→LF re-write with the one intended content edit at line 64.
 **Advisory:** 0.
@@ -182,7 +182,7 @@
 **Exit criteria (all met):**
 - Cross-skill STATE/dialect diff empty — STATE block and dialect table byte-identical spec-write↔spec-design; Grammar-bootstrap intro's sole variance ("the spec" vs "the design spec") is the intended per-skill contextual difference, not a dialect drift.
 - Skill dialect matches the constitution grammar — constitution↔skill dialect table `diff` empty.
-- Grep assertions T-01–T-03 pass — unchanged since verdict; masters untouched (`git diff 777c308..HEAD` empty).
+- Grep assertions T-01–T-03 pass — unchanged since verdict; masters untouched (`git diff e50363e..HEAD` empty).
 - No whole-file-read regression — the only "in full" instruction is spec-write reading its upstream `DESIGN_SPEC_PATH` (an input), not a CWSP scoped-read reader regression (that surface is P2).
 - Deploy-sync byte-identical — spec-write / spec-design / project-constitution masters `diff` clean against `~/.claude/` copies.
 **Reviewer floor:** opus — met (reviewer ran on opus).
@@ -295,7 +295,7 @@
 **Reviewer:** fable (dispatched spec-reviewer; floor fable — met)
 **Outcome:** pass with comments
 **Tasks reviewed:** T-04, T-05, T-06
-**Diff range:** e5c2d55^..HEAD
+**Diff range:** 2c97553^..HEAD
 **Execution:** dispatch — opus coordinator session spawned a `spec-reviewer` at model=fable (checkpoint floor could not be met inline by the opus session; operator chose dispatch). Reviewer ran Phases 1–7 and returned the verdict; this session (coordinator) performed Phase 8 write-back unchanged, recording the reviewer's verdict first-hand.
 **Blockers:** 0.
 **Important:** 1 — declared task-anchor grammar misses this spec's own task blocks. journal.md:15 + feature.md:131/150 declare `### <T-ID> — <title>` and assert "the §7 task table is canonical (always present)," but feature.md has **no** §7 table and its task blocks are `#### T-NN` (h4, e.g. feature.md:257); both the declared-dialect grep and the §5.2 discovery fallback (`^### T-[0-9]`) return zero on the very spec under test. Correctness-safe (a miss forces a cheap widen via broad task-ID grep, never wrong output — the §6 correctness-safety invariant held), but it is live anchor drift in the exact place the grammar was declared to prevent it. Pre-existing at spec authoring (2026-07-07), not introduced by T-04–T-06.
@@ -327,7 +327,7 @@
 **Approver:** waseric
 **Approved on:** 2026-07-08
 **Status implication:** kept (Draft — awaiting review; non-blocking clarification, does not advance or revert status)
-**Commit:** 3578fbe
+**Commit:** 26c995b
 
 ### Full record
 
@@ -388,7 +388,7 @@ After (matching feature.md's new bootstrap bullet — dogfood correction):
 ## 2026-07-08 — T-07: spec-review adopts STATE/INDEX vocabulary + cold-reader guarantee + STATE write-back
 
 **Status:** done
-**Commits:** e1bd8a8 (skill-master + deploy sync); this entry's paired spec/journal commit
+**Commits:** 520a3a3 (skill-master + deploy sync); this entry's paired spec/journal commit
 **Files touched:** `.agents/skills/spec-review/SKILL.md` (+ deploy copy `~/.claude/skills/spec-review/SKILL.md`)
 **Tests added:** none (grep-checkable prose assertions per §8; no test runner)
 **DoD verification:**
@@ -407,7 +407,7 @@ After (matching feature.md's new bootstrap bullet — dogfood correction):
 ## 2026-07-08 — T-08: spec-reviewer consults STATE on orientation
 
 **Status:** done
-**Commits:** 4f3a6e8 (agent-def + deploy sync); this entry's paired spec/journal commit
+**Commits:** 0d36eb9 (agent-def + deploy sync); this entry's paired spec/journal commit
 **Files touched:** `.agents/agents/spec-reviewer.md` (+ deploy copy `~/.claude/agents/spec-reviewer.md`)
 **Tests added:** none (grep-checkable prose assertions per §8)
 **DoD verification:**
@@ -425,7 +425,7 @@ After (matching feature.md's new bootstrap bullet — dogfood correction):
 ## 2026-07-08 — T-09: spec-amend adopts STATE/INDEX vocabulary + STATE write-back
 
 **Status:** done
-**Commits:** 8e3508c (skill-master + deploy sync); this entry's paired spec/journal commit
+**Commits:** f528bb4 (skill-master + deploy sync); this entry's paired spec/journal commit
 **Files touched:** `.agents/skills/spec-amend/SKILL.md` (+ deploy copy `~/.claude/skills/spec-amend/SKILL.md`)
 **Tests added:** none (grep-checkable prose assertions per §8)
 **DoD verification:**
@@ -443,7 +443,7 @@ After (matching feature.md's new bootstrap bullet — dogfood correction):
 ## 2026-07-08 — T-10: spec-amend collapses to the single amendment dialect form
 
 **Status:** done
-**Commits:** 7aa9279 (skill-master + deploy sync); this entry's paired spec/journal closeout commit
+**Commits:** 0490d6f (skill-master + deploy sync); this entry's paired spec/journal closeout commit
 **Files touched:** `.agents/skills/spec-amend/SKILL.md` (+ deploy copy `~/.claude/skills/spec-amend/SKILL.md`); `specs/20260707-cwsp-skill-integration/feature.md` (§7 T-10 status line); this journal (STATE + entry)
 **Tests added:** none (grep-checkable prose assertions per §8)
 **DoD verification:**
@@ -466,7 +466,7 @@ After (matching feature.md's new bootstrap bullet — dogfood correction):
 **Reviewer:** waseric (opus, inline — reviewer floor opus met)
 **Outcome:** pass
 **Tasks reviewed:** T-07, T-08, T-09, T-10
-**Diff range:** reviewed full P3 scope `659e45e..fb0efe3` (masters e1bd8a8 / 4f3a6e8 / 8e3508c / 7aa9279). The invocation's `DIFF_RANGE 69dfe17..fb0efe3` covered only T-10 (base was T-09's closeout); widened to the pre-T-07 base so the checkpoint's declared T-07–T-10 scope was reviewed in full. No work finding — an input-range note.
+**Diff range:** reviewed full P3 scope `b977f77..7fcc430` (masters 520a3a3 / 0d36eb9 / f528bb4 / 0490d6f). The invocation's `DIFF_RANGE 956448f..7fcc430` covered only T-10 (base was T-09's closeout); widened to the pre-T-07 base so the checkpoint's declared T-07–T-10 scope was reviewed in full. No work finding — an input-range note.
 **Blockers:** 0
 **Important:** 0
 **Advisory:** 2 — (1) STATE cross-check trailing clause differs contextually across the three files ("proceed to the working set below" / "proceed" / "move on"); the STATE shape, derivable-subset definition, and literal grep command are byte-identical — expected tailoring, not drift; noted so the standing consistency grep does not false-alarm. (2) Journal append-only anomaly: the 2026-07-08 "Re-sync T-01/T-02" entry sits at the journal head (line 17) out of chronological order, violating §5.1's "entries below stay append-only"; pre-P3, honestly documented in T-07's entry — flagged for a future journal-hygiene pass, correcting-in-place declined as worse than a documented anomaly.

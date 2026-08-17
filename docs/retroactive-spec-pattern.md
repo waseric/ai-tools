@@ -120,7 +120,7 @@ When a CP-2 audit (or a sibling-spec CP-1 audit) surfaces a finding that affects
 |---|---|
 | Surface | N=6 (`spec-amend`) CP-1 found §5.9 cited the strategy doc as holder of Amendment 2026-05-17-1; correct holder is project-constitution-skill. |
 | Trace upstream | Citation error traced to N=5 (`spec-review`) §5.11, which carried the same error. Both specs needed correction. |
-| Apply as single amendment ID | Amendment 2026-05-18-3 spanned both `architecture.md` files (commit `5d1e503`) + both journals (commit `c6ba48a`), with a single amendment ID. |
+| Apply as single amendment ID | Amendment 2026-05-18-3 spanned both `architecture.md` files (commit `945f9ab`) + both journals (commit `80bb899`), with a single amendment ID. |
 | Verify at both endpoints | N=5 §5.11 verified clean at N=5 CP-2 (session 4 of the batch); N=6 §5.9 verified clean at N=6 CP-2 (session 5 of the batch). |
 
 The mechanics worked at the first cycle and again at [amendment 2026-05-19-1](../specs/20260518-cp2-batch-audit/journal.md) (methodology-level decision trigger, six specs in scope). Two cycles across distinct trigger classes satisfied W-1; the convention is codified at [.agents/skills/spec-amend/SKILL.md §"Cross-skill case"](../.agents/skills/spec-amend/SKILL.md) under amendment 2026-05-19-2.

@@ -50,7 +50,7 @@
 - **Doctrine citation fixed (§3, §4, §9):** "verification wins ties" and doctrine rule "derived claims over narrative claims" were presented as inherited constitution phrases but did not appear anywhere in `CLAUDE.md` or any governing spec — grepped and confirmed absent. Replaced with direct citation of `CLAUDE.md`'s actual rework-prevention property ("mechanically re-derivable claims") at all three sites (§3 doctrine list, §4 Derivation re-check vocabulary entry, §9 CP-1 review-focus line).
 - **Cue coverage closed (§5.9):** the designed-stop set named in §2 Goals lists six stop types (checkpoint, blocker, amendment trigger, floor conflict, production-touching action, budget breach); §5.9's enumerated cue list covered only five, omitting floor conflict and production-touching-action stops. Added explicit cue treatment for both.
 
-**Deferred (advisory, not fixed here):** pre-existing drift where `AUTONOMY` (`SKILL.md:26`, commit `6bef6f8`, 2026-07-03) is undocumented in the `spec-execute` governing `architecture.md` (2026-05-18, predates that commit). Not caused by this spec; flagged for P2 to backfill alongside the `EXECUTION`-mode amendment rather than fixed here.
+**Deferred (advisory, not fixed here):** pre-existing drift where `AUTONOMY` (`SKILL.md:26`, commit `44bd7f1`, 2026-07-03) is undocumented in the `spec-execute` governing `architecture.md` (2026-05-18, predates that commit). Not caused by this spec; flagged for P2 to backfill alongside the `EXECUTION`-mode amendment rather than fixed here.
 
 **Consistency check (re-runnable):** `grep -rn "admindoc\|hungergames\|T-14\|40%" specs/20260705-dispatch-execution/architecture.md CLAUDE.md` returns zero hits (re-verified this date, post-edit).
 
@@ -71,34 +71,34 @@
 
 **Status:** done
 **Operating mode (operator-granted this session):** `AUTONOMY: checkpoint`; `EXECUTION: dispatch` requested but not yet built, so this session runs **inline** (operator's explicit fallback). P2 bootstraps dispatch inline by necessity.
-**Commits:** `630fc5a` (governing-spec amendment 2026-07-05-1 + its journal entry), `87ea98a` (SHA backfill), `d3c64c2` (master EXECUTION input + deploy sync).
+**Commits:** `2cb7848` (governing-spec amendment 2026-07-05-1 + its journal entry), `42aa54c` (SHA backfill), `50c96e8` (master EXECUTION input + deploy sync).
 **Executed by:** inline
 **Files touched:** `specs/20260518-spec-execute-skill/architecture.md` (§4 new "Execution modes and autonomy" subsection), `specs/20260518-spec-execute-skill/journal.md` (amendment 2026-07-05-1 record), `.agents/skills/spec-execute/SKILL.md` (INPUTS: new EXECUTION entry), deploy copy `~/.claude/skills/spec-execute/SKILL.md` (synced).
 **DoD verification:**
-- Governing-spec change routed through `spec-amend` (diff shown, first-class amendment 2026-07-05-1 journaled): commit `630fc5a`.
-- Master edited; master ≡ deploy: `diff -q` clean ("MASTER==DEPLOY OK"), commit `d3c64c2`.
+- Governing-spec change routed through `spec-amend` (diff shown, first-class amendment 2026-07-05-1 journaled): commit `2cb7848`.
+- Master edited; master ≡ deploy: `diff -q` clean ("MASTER==DEPLOY OK"), commit `50c96e8`.
 - Vocabulary agreement (dispatch spec ↔ governing spec ↔ master): grep confirms `EXECUTION`/`inline`/`dispatch` present in all three; "never loosen the stop set" present in governing spec + master.
 - Closeout journaled here with `Executed by: inline`.
 **Models used:** dispatch-execution spec declares no per-task Model floors (design spec, Implementation Sequencing not atomic Task Breakdown); no floor gating applies. Work done by this session's model (Opus 4.8).
 **Decisions made:**
 - **P2 decomposed into sub-steps** (operator choice): P2.1 EXECUTION mode + AUTONOMY backfill; P2.2 orchestrator/worker phase split + conduct + worker brief (§5.2–5.3); P2.3 receipt-schema support file + `Executed by` journal field (§5.4–5.5); P2.4 Phase 8 context budget (§5.6); P2.5 operator cues (§5.9); **P2.6 atomic defaults flip** (see below). §5.7 agent definitions = P3; §5.8 spec-review = P4 — not in P2.
 - **Defaults flip deferred to a final atomic micro-step (P2.6), not P2.1.** Flipping the master default to `dispatch` before dispatch conduct exists would ship a broken default; flipping only `AUTONOMY`→checkpoint while `EXECUTION` stays inline yields the mega-session combination the design fights (dispatch-execution §5.1). So the master keeps `EXECUTION: inline` / `AUTONOMY: task` defaults until all conduct lands, then flips both atomically. The governing spec already describes the *target* defaults as the design authority; master reconciles by P2 end (dispatch-execution CP-2 verifies).
-- **AUTONOMY backfill scope:** the gap was in the *governing spec* only (the master already documented AUTONOMY since `6bef6f8`). Backfill landed in the governing-spec amendment.
+- **AUTONOMY backfill scope:** the gap was in the *governing spec* only (the master already documented AUTONOMY since `44bd7f1`). Backfill landed in the governing-spec amendment.
 - **Amendment model:** dispatch-execution is treated as a sibling design-spec authority for dispatch behavior, mirroring how session-economy is authoritative for Phase 8; the governing spec describes the modes and cites dispatch-execution.
 **Spec amendments:** [governing spec amendment 2026-07-05-1](../20260518-spec-execute-skill/journal.md) — §4 "Execution modes and autonomy" subsection added.
-**Surprises and learnings:** The `git commit --amend` used to backfill the amendment SHA rewrote the SHA (2f4aca6→630fc5a), so backfill must be a *separate follow-up commit* (`87ea98a`), never `--amend`. Matches the cross-skill-case guidance in spec-amend ("backfill is a small follow-up commit").
+**Surprises and learnings:** The `git commit --amend` used to backfill the amendment SHA rewrote the SHA (2f4aca6→2cb7848), so backfill must be a *separate follow-up commit* (`42aa54c`), never `--amend`. Matches the cross-skill-case guidance in spec-amend ("backfill is a small follow-up commit").
 **Next task pointer:** P2.2 — orchestrator/worker phase split + conduct rules + worker brief (dispatch-execution §5.2, §5.3), against the [spec-execute governing spec](../20260518-spec-execute-skill/architecture.md) §4/§5 and the master.
 
 ## 2026-07-05 — P2.2: orchestrator/worker phase split + conduct rules + worker brief (governing-spec amendment + master)
 
 **Status:** done
 **Operating mode (operator-granted this session):** `AUTONOMY: checkpoint`; `EXECUTION: inline` (dispatch not yet built — P2 bootstraps it inline by necessity). Operator approved the concrete P2.2 diffs in-session before apply (spec amendment = designed stop under checkpoint).
-**Commits:** `ffe7206` (governing-spec §4/§5.12 application), `54ac7b2` (governing-spec amendment 2026-07-05-2 journal record), `44c61b7` (master DISPATCH MODE + Phase 2/4/5/6 notes + WHAT-NOT-TO-DO bullets, deploy synced). This closeout entry commits separately.
+**Commits:** `498d152` (governing-spec §4/§5.12 application), `1102639` (governing-spec amendment 2026-07-05-2 journal record), `73c1d3c` (master DISPATCH MODE + Phase 2/4/5/6 notes + WHAT-NOT-TO-DO bullets, deploy synced). This closeout entry commits separately.
 **Executed by:** inline
 **Files touched:** `specs/20260518-spec-execute-skill/architecture.md` (§4 index sentence + new §5.12), `specs/20260518-spec-execute-skill/journal.md` (amendment 2026-07-05-2 record), `.agents/skills/spec-execute/SKILL.md` (DISPATCH MODE section + 4 phase notes + 2 WHAT-NOT-TO-DO bullets), deploy copy `~/.claude/skills/spec-execute/SKILL.md` (synced).
 **DoD verification:**
-- Governing-spec change routed through `spec-amend` (diff shown + operator-approved in-session; first-class amendment 2026-07-05-2 journaled): commits `ffe7206` + `54ac7b2`.
-- Master edited; master ≡ deploy: `diff -q` clean ("MASTER==DEPLOY OK") post-commit, commit `44c61b7`.
+- Governing-spec change routed through `spec-amend` (diff shown + operator-approved in-session; first-class amendment 2026-07-05-2 journaled): commits `498d152` + `1102639`.
+- Master edited; master ≡ deploy: `diff -q` clean ("MASTER==DEPLOY OK") post-commit, commit `73c1d3c`.
 - Composition rule / orchestrator conduct / worker brief present in master (DISPATCH MODE section) and described in governing §5.12: grep confirms both.
 - Vocabulary agreement (dispatch spec ↔ governing spec ↔ master): `orchestrator`/`worker`/`receipt` present in all three (governing 8/7/5, master 16/11/12, dispatch spec 28/40/32).
 - Scope boundary held: no `receipt-schema.md` created (that is P2.3); `Executed by` field, context budget (P2.4), cues (P2.5), agent definitions (P3), and the defaults flip (P2.6) untouched.
@@ -107,7 +107,7 @@
 - **Governing-spec home = new §5.12** (a peer to §5.11), descriptive of the master's DISPATCH MODE section, rather than expanding each phase subsection. Keeps the eight per-phase subsections intact and groups dispatch as one cohesive block, mirroring how the dispatch spec itself groups §4/§5.2/§5.3.
 - **Master home = new top-level `# DISPATCH MODE` section + short per-phase "Dispatch mode." notes** on Phases 2/4/5/6, matching the INPUTS promise ("dispatch-mode notes on Phases 2 and 4–6"). Phase 5/6 notes added too (worker owns 4–6 as a unit) — a minor, faithful superset of the INPUTS wording.
 - **Forward references kept, flagged honest:** §5.12 and the master reference the receipt-schema support file (P2.3), `Executed by` (P2.3), context budget (P2.4), cues (P2.5), and the worker agent definition (P3). Dispatch is not *usable* until P2.6 + P3 regardless; the refs mark the amendment set's remaining steps, not drift.
-- **Commit shape (no self-referential backfill):** committed the governing-spec application (`ffe7206`) first, then the journal entry referencing that SHA (`54ac7b2`) — avoids the P2.1 `--amend`-rewrites-SHA trap by never having the journal reference its own commit.
+- **Commit shape (no self-referential backfill):** committed the governing-spec application (`498d152`) first, then the journal entry referencing that SHA (`1102639`) — avoids the P2.1 `--amend`-rewrites-SHA trap by never having the journal reference its own commit.
 **Spec amendments:** [governing spec amendment 2026-07-05-2](../20260518-spec-execute-skill/journal.md) — §4 index sentence + new §5.12 "Dispatch mode".
 **Surprises and learnings:** Invoking `spec-amend` and `spec-execute` as in-session Skills reset the Edit tool's "file has been read" tracking; had to re-Read anchor regions before editing. Cheap, but worth knowing: a skill launch is a read-state boundary. The clean 2-commit ordering (spec-edit → journal-referencing-it) is simpler than P2.1's commit-then-backfill and is the recommended pattern for future single-artifact amendments here.
 **Next task pointer:** P2.3 — receipt-schema support file (`.agents/skills/spec-execute/receipt-schema.md`, dispatch-execution §5.4) + `Executed by` journal field (§5.5); wire the master's Phase 6 journal template and the governing spec to reference both.
@@ -116,7 +116,7 @@
 
 **Status:** done
 **Operating mode (operator-granted this session):** `AUTONOMY: checkpoint`; `EXECUTION: inline` (dispatch not yet built — P2 bootstraps it inline by necessity). Operator approved the concrete P2.3 diffs in-session before apply (amendment = designed stop under checkpoint).
-**Commits:** `25c5ffb` (governing-spec §5.12 amendment application), `29939e5` (governing-spec amendment 2026-07-05-3 journal record, refs 25c5ffb), `fb04837` (new `receipt-schema.md` support file + master Phase 6 `Executed by` line + DISPATCH MODE receipt-file references, deploy synced). This closeout entry commits separately.
+**Commits:** `b3a91e4` (governing-spec §5.12 amendment application), `7cdec7b` (governing-spec amendment 2026-07-05-3 journal record, refs b3a91e4), `1b9a404` (new `receipt-schema.md` support file + master Phase 6 `Executed by` line + DISPATCH MODE receipt-file references, deploy synced). This closeout entry commits separately.
 **Executed by:** inline
 **Files touched:** `.agents/skills/spec-execute/receipt-schema.md` (new support file), `.agents/skills/spec-execute/SKILL.md` (Phase 6 template `Executed by` line + 2 DISPATCH MODE receipt-file references), deploy copies `~/.claude/skills/spec-execute/{SKILL.md,receipt-schema.md}` (synced), `specs/20260518-spec-execute-skill/architecture.md` (§5.12 Reversibility + Cross-reference stubs resolved), `specs/20260518-spec-execute-skill/journal.md` (amendment 2026-07-05-3 record).
 **Tests added:** n/a (doc/skill artifacts — verification is mechanical grep + diff).
@@ -125,7 +125,7 @@
 - `Executed by` field added to master Phase 6 journal template (dispatch-execution §5.5 shape): `grep -n "Executed by" .agents/skills/spec-execute/SKILL.md` → line 141.
 - Master references the now-existing support file (no "added in a later step" language): `grep -n "receipt-schema.md" .agents/skills/spec-execute/SKILL.md` → lines 212, 240.
 - Governing-spec §5.12 forward-reference stubs resolved: `grep -n "added in a later step" specs/20260518-spec-execute-skill/architecture.md` → no stale stubs.
-- Governing-spec change routed through `spec-amend` (first-class amendment 2026-07-05-3 journaled): commits `25c5ffb` + `29939e5`.
+- Governing-spec change routed through `spec-amend` (first-class amendment 2026-07-05-3 journaled): commits `b3a91e4` + `7cdec7b`.
 - Master ≡ deploy (both files): `diff -q` clean for `SKILL.md` and `receipt-schema.md` ("MASTER==DEPLOY OK").
 **Models used:** dispatch-execution declares no per-task Model floors (design spec); no floor gating applies. Work done by this session's model (Opus 4.8).
 **Decisions made:**
@@ -140,7 +140,7 @@
 
 **Status:** done
 **Operating mode (operator-granted this session):** `AUTONOMY: checkpoint`; `EXECUTION: inline` (dispatch not yet built — P2 bootstraps it inline by necessity). Operator approved the concrete P2.4 diffs in-session before apply (amendment = designed stop under checkpoint).
-**Commits:** `f677c90` (governing-spec §5.8/§6/§5.12 amendment application), `4ed745b` (governing-spec amendment 2026-07-05-4 journal record, refs f677c90), `234bd94` (master SKILL.md Phase 8 budget block + rubric row + always-stops override line, deploy synced). This closeout entry commits separately.
+**Commits:** `900d2c8` (governing-spec §5.8/§6/§5.12 amendment application), `e5df104` (governing-spec amendment 2026-07-05-4 journal record, refs 900d2c8), `532e857` (master SKILL.md Phase 8 budget block + rubric row + always-stops override line, deploy synced). This closeout entry commits separately.
 **Executed by:** inline
 **Files touched:** `.agents/skills/spec-execute/SKILL.md` (Phase 8 "Context budget" block + rubric row + always-stops override sentence), deploy copy `~/.claude/skills/spec-execute/SKILL.md` (synced), `specs/20260518-spec-execute-skill/architecture.md` (§5.8 Context budget paragraph + Override/Pattern updates, §6 Token-economy NFR row, §5.12 Cross-reference stub resolved), `specs/20260518-spec-execute-skill/journal.md` (amendment 2026-07-05-4 record).
 **Tests added:** n/a (doc/skill artifacts — verification is mechanical grep + diff).
@@ -149,7 +149,7 @@
 - Budget wired into governing spec §5.8 (Context budget paragraph + Override + Pattern all cite dispatch-execution §5.6): `grep -n "Context budget" specs/20260518-spec-execute-skill/architecture.md` → line 268.
 - §6 Token-economy NFR row updated with the mechanical-trigger clause + dispatch-execution §5.6 source: line 352.
 - §5.12 Cross-reference forward stub resolved (no stale "land in their own steps" for the Phase 8 budget): `grep -n "land in their own steps of the P2"` → none.
-- Governing-spec change routed through `spec-amend` (first-class amendment 2026-07-05-4 journaled): commits `f677c90` + `4ed745b`.
+- Governing-spec change routed through `spec-amend` (first-class amendment 2026-07-05-4 journaled): commits `900d2c8` + `e5df104`.
 - Master ≡ deploy (both files): `diff -q` clean for `SKILL.md` and `receipt-schema.md` ("MASTER==DEPLOY OK").
 **Models used:** dispatch-execution declares no per-task Model floors (design spec); no floor gating applies. Work done by this session's model (Opus 4.8).
 **Decisions made:**
@@ -164,7 +164,7 @@
 
 **Status:** done
 **Operating mode (operator-granted this session):** `AUTONOMY: checkpoint`; `EXECUTION: inline` (dispatch not yet built — P2 bootstraps it inline by necessity). Operator approved the concrete P2.5 diffs in-session before apply (amendment = designed stop under checkpoint).
-**Commits:** `6de1ffe` (governing-spec §5.13/§6/§4/§5.12 amendment application), `b984f3b` (governing-spec amendment 2026-07-05-5 journal record, refs 6de1ffe), `2b360ca` (master SKILL.md OPERATOR CUES section + Phase 7/Phase 8/AMENDMENT PROTOCOL pointer notes, deploy synced). This closeout entry commits separately.
+**Commits:** `862c5e2` (governing-spec §5.13/§6/§4/§5.12 amendment application), `bdb334c` (governing-spec amendment 2026-07-05-5 journal record, refs 862c5e2), `57d97cc` (master SKILL.md OPERATOR CUES section + Phase 7/Phase 8/AMENDMENT PROTOCOL pointer notes, deploy synced). This closeout entry commits separately.
 **Executed by:** inline
 **Files touched:** `.agents/skills/spec-execute/SKILL.md` (new `# OPERATOR CUES` section + 3 pointer notes), deploy copy `~/.claude/skills/spec-execute/SKILL.md` (synced), `specs/20260518-spec-execute-skill/architecture.md` (new §5.13, §6 Resumability-human NFR row, §4 §5.13 pointer, §5.12 Cross-reference stub resolved), `specs/20260518-spec-execute-skill/journal.md` (amendment 2026-07-05-5 record).
 **Tests added:** n/a (doc/skill artifacts — verification is mechanical grep + diff).
@@ -174,7 +174,7 @@
 - §6 *Resumability (human)* NFR row added: line 364.
 - §4 dispatch-mechanics sentence references §5.13: line 155.
 - §5.12 Cross-reference operator-cues forward stub resolved (no stale "land in their own step"): `grep -n "land in their own step of the P2"` → none.
-- Governing-spec change routed through `spec-amend` (first-class amendment 2026-07-05-5 journaled): commits `6de1ffe` + journal record.
+- Governing-spec change routed through `spec-amend` (first-class amendment 2026-07-05-5 journaled): commits `862c5e2` + journal record.
 - Master ≡ deploy (both files): `diff -q` clean for `SKILL.md` and `receipt-schema.md` ("MASTER==DEPLOY OK").
 **Models used:** dispatch-execution declares no per-task Model floors (design spec); no floor gating applies. Work done by this session's model (Opus 4.8).
 **Decisions made:**
@@ -190,7 +190,7 @@
 
 **Status:** done
 **Operating mode (operator-granted this session):** `AUTONOMY: checkpoint`; `EXECUTION: inline` (dispatch not yet built — P3 is what builds the workers dispatch will spawn). Direct artifact authoring of a new deliverable class (no governing spec exists for agent definitions; dispatch-execution §5.7 is the authority) plus a `CLAUDE.md` doctrine edit — neither is a `spec-amend` against an existing skill's governing spec, so no amendment stop applied.
-**Commits:** `174d908` (agent definitions + deploy-sync doctrine), `929c9f4` (dispatch-spec §13 OQ-4 resolution). This closeout entry commits separately.
+**Commits:** `311e5a3` (agent definitions + deploy-sync doctrine), `d81a851` (dispatch-spec §13 OQ-4 resolution). This closeout entry commits separately.
 **Executed by:** inline
 **Files touched:** `.agents/agents/spec-worker.md` (new), `.agents/agents/spec-reviewer.md` (new), deploy copies `~/.claude/agents/{spec-worker,spec-reviewer}.md` (new, synced), `CLAUDE.md` (Orientation + deploy-sync rule + commit-prefix convention extended to the agent-definitions class), `specs/20260705-dispatch-execution/architecture.md` (§13 OQ-4 resolved).
 **Tests added:** n/a (agent-definition/doc artifacts — verification is mechanical grep + diff + a deferred cold-read test).
@@ -221,7 +221,7 @@
 
 **Status:** done
 **Operating mode (operator-granted this session):** `AUTONOMY: checkpoint`; `EXECUTION: inline` (dispatch not yet built — this whole amendment set bootstraps dispatch inline by necessity). Operator approved the concrete P4 diffs in-session before apply (spec amendment = designed stop under checkpoint); `lastUpdated` bump confirmed via AskUserQuestion.
-**Commits:** `93c9ca0` (governing-spec §4/§5.12/§5.13/§6 application), `e872f62` (spec-review journal amendment 2026-07-06-1 record, refs 93c9ca0), `88357b2` (master SKILL.md REVIEW_EXECUTION input + DISPATCH MODE + OPERATOR CUES + WHAT-NOT-TO-DO bullet + lastUpdated bump, deploy synced). This closeout entry commits separately.
+**Commits:** `03571a8` (governing-spec §4/§5.12/§5.13/§6 application), `8e89e91` (spec-review journal amendment 2026-07-06-1 record, refs 03571a8), `67ab28c` (master SKILL.md REVIEW_EXECUTION input + DISPATCH MODE + OPERATOR CUES + WHAT-NOT-TO-DO bullet + lastUpdated bump, deploy synced). This closeout entry commits separately.
 **Executed by:** inline
 **Files touched:** `specs/20260518-spec-review-skill/architecture.md` (§4 execution-model pointer, new §5.12 Dispatch option + §5.13 Operator cues, two §6 NFR rows), `specs/20260518-spec-review-skill/journal.md` (amendment 2026-07-06-1 record), `.agents/skills/spec-review/SKILL.md` (INPUTS REVIEW_EXECUTION entry, DISPATCH MODE + OPERATOR CUES sections, 1 WHAT-NOT-TO-DO bullet, lastUpdated 2026-05-15→2026-07-06), deploy copy `~/.claude/skills/spec-review/SKILL.md` (synced).
 **Tests added:** n/a (doc/skill artifacts — verification is mechanical grep + diff).
@@ -230,7 +230,7 @@
 - Master `DISPATCH MODE` (coordinator/reviewer phase split, full-diff mandate, reviewer floor, reviewer brief, write-back) + `OPERATOR CUES` (verdict-boundary cue block, per-outcome + amendment + floor-conflict cues) sections shipped: `grep -n "^## DISPATCH MODE\|^## OPERATOR CUES"` → lines 185, 201; WHAT-NOT-TO-DO coordinator-drift bullet present (1 hit).
 - Governing spec §5.12 (dispatch option) + §5.13 (operator cues) authored, citing dispatch-execution §5.8/§5.9 as sibling authority; §4 execution-model pointer + two §6 NFR rows added: `grep -n "^### 5.12\|^### 5.13\|Dispatch isolation\|Resumability (human)"` → lines 267, 279, 299, 300.
 - Vocabulary agreement (dispatch spec ↔ governing spec ↔ master): `REVIEW_EXECUTION` present in all three (master 4, governing 5, dispatch spec 1); `spec-reviewer` present in all three (master 3, governing 3, dispatch spec 4).
-- Governing-spec change routed as first-class amendment 2026-07-06-1 (structured record in spec-review journal, refs 93c9ca0); this dispatch-execution P4 entry is the driving-spec primary record cross-referenced from there.
+- Governing-spec change routed as first-class amendment 2026-07-06-1 (structured record in spec-review journal, refs 03571a8); this dispatch-execution P4 entry is the driving-spec primary record cross-referenced from there.
 - Master ≡ deploy: `diff -q` clean ("MASTER==DEPLOY OK").
 - No wikilinks introduced; no new `~/.claude` paths in committed prose (the three §5.11/CP-1 hits are the pre-existing portability rule quoting the path as the thing to avoid).
 **Models used:** dispatch-execution declares no per-task Model floors (design spec); no floor gating applies. Work done by this session's model (Opus 4.8).
@@ -253,7 +253,7 @@
 
 **Status:** done
 **Operating mode (operator-granted this session):** `AUTONOMY: checkpoint`; `EXECUTION: inline` (dispatch not spawnable from this pre-existing session — the `~/.claude/agents/` definitions landed at P3 become detectable only in a fresh session; noted at P3). **Not a `spec-amend`:** the governing spec §4 "Defaults" (line 155, landed at amendment 2026-07-05-1) already declares `EXECUTION: dispatch` + `AUTONOMY: checkpoint` as the design authority — P2.6 reconciles the master *to* the already-amended spec (a master edit, no spec change), exactly as the P2.1 decision scoped it. No amendment stop applied; no drift/blocker surfaced under checkpoint.
-**Commits:** `d37feec` (master INPUTS defaults flip + framing rewording + `lastUpdated` bump, deploy synced). This closeout entry commits separately.
+**Commits:** `1e77507` (master INPUTS defaults flip + framing rewording + `lastUpdated` bump, deploy synced). This closeout entry commits separately.
 **Executed by:** inline
 **Files touched:** `.agents/skills/spec-execute/SKILL.md` (INPUTS `AUTONOMY` + `EXECUTION` default flip and restriction-framing rewording; `lastUpdated` 2026-07-03→2026-07-06), deploy copy `~/.claude/skills/spec-execute/SKILL.md` (synced — filesystem op, outside this repo, not git-tracked here).
 **Tests added:** n/a (skill artifact — verification is mechanical grep + diff).
@@ -280,7 +280,7 @@
 
 **Reviewer:** Claude (AI reviewer)
 **Outcome:** pass with comments
-**Tasks reviewed:** P2.1–P2.6, P3, P4 (the full amendment set; diff range `ffe7206~1..HEAD`) — design-spec checkpoint, no atomic Task Breakdown
+**Tasks reviewed:** P2.1–P2.6, P3, P4 (the full amendment set; diff range `498d152~1..HEAD`) — design-spec checkpoint, no atomic Task Breakdown
 **Blockers:** 0
 **Important:** 0
 **Advisory:** 1 — the spec-execute master's DISPATCH MODE never names the concrete `spec-worker` agent type a coordinator must spawn (it points at `.agents/agents/` and uses `worker(<agent-definition-name>, …)` generically), whereas the spec-review master names `spec-reviewer` explicitly (3×). Discoverable but asymmetric; would cost a cold coordinator a directory lookup. Not a spec-compliance failure — the design spec §5.7 and governing §5.12 are generic by the same choice, so governing-spec and master *agree*; naming the type is optional skill-text polish (typo-class direct edit, or fold into a future spec-execute master touch). No amendment proposed.

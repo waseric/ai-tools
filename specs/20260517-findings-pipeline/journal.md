@@ -107,7 +107,7 @@
 **Approver:** waseric
 **Approved on:** 2026-05-17
 **Status implication:** kept (spec stays at `Draft — Open for Review`)
-**Commit:** e34b33b
+**Commit:** b974889
 
 ### Full record
 
@@ -251,7 +251,7 @@ After:
 **Reviewer:** Claude (self-review on behalf of waseric)
 **Outcome:** pass with comments
 **Tasks reviewed:** Phase B (`finding-intake-skill` T-01..T-04 + RC-3a) + Phase C (`finding-triage-skill` T-01..T-04 + RC-3b) — the joint deliverable RC-3 gates per [§9 RC-3](architecture.md#rc-3--intake--triage-skill-review-gates-phase-c--phase-e).
-**Diff range:** `2b5466d~..HEAD` over `.agents/skills/finding-{intake,triage}/` + `specs/findings/` (Phase C feature-spec authorship through RC-3b closure).
+**Diff range:** `6d055e5~..HEAD` over `.agents/skills/finding-{intake,triage}/` + `specs/findings/` (Phase C feature-spec authorship through RC-3b closure).
 **Blockers:** 0
 **Important:** 0
 **Advisory:** 4 — see one-line summaries below.
@@ -263,11 +263,11 @@ After:
 
 **Review focus walk (one-line verdicts per RC-3 focus area):**
 - **Persona-frame guidance correctly embedded:** **pass with comments** (A-1 administrative). Intake's fixed-label discipline ([.agents/skills/finding-intake/SKILL.md L55, L151](../../.agents/skills/finding-intake/SKILL.md)) and triage's descriptive-with-override discipline ([.agents/skills/finding-triage/SKILL.md L55, L62, L92–L104, L192](../../.agents/skills/finding-triage/SKILL.md)) faithfully encode the design-spec §5.6 amendment sub-change F asymmetry (intake-is-anyone vs. triage/investigation are role-specific). Override path exercised on first real dogfood (T-03 operator override `business analyst` → `Sandlot administrator`) — resolves OQ-3 §10 watch item cleanly.
-- **Intake friction meets 60-second target:** **pass**. T-03 dogfood timed at ~30–60s with comfortable headroom; T-02 in structured mode was single-pass. Two further intake findings created mid-Phase-C session ([spec-write-leaves-specs-uncommitted](../findings/20260517-spec-write-leaves-specs-uncommitted/) commit `e6a93a2`, [intake-template-folder-dependency](../findings/20260517-intake-template-folder-dependency/) commit `c966f8a`) are independent under-real-conditions confirmation of the §6 interruption-tolerance NFR.
+- **Intake friction meets 60-second target:** **pass**. T-03 dogfood timed at ~30–60s with comfortable headroom; T-02 in structured mode was single-pass. Two further intake findings created mid-Phase-C session ([spec-write-leaves-specs-uncommitted](../findings/20260517-spec-write-leaves-specs-uncommitted/) commit `9ace514`, [intake-template-folder-dependency](../findings/20260517-intake-template-folder-dependency/) commit `684aaa6`) are independent under-real-conditions confirmation of the §6 interruption-tolerance NFR.
 - **Triage produces hard facts (not hypotheses about cause):** **pass**. Synthetic Triage notes ([finding.md L31](../findings/20260517-test-only-signal-synthetic-fixture/finding.md)) explicit: "No cause hypothesis recorded — Triage produces hard facts about shape." Real Triage notes ([finding.md L40](../findings/20260517-easy-survival-shelves-lwc-error/finding.md)) explicit: intake-time plugin-API hypothesis "deferred to investigation — recorded here as deferred, not confirmed at triage." The harder real-finding test case (Intake Summary already contained a plausible cause hypothesis) correctly preserved the hypothesis as deferred rather than promoting it to a Triage claim.
 
 **Exit criteria status:**
-- "Both skills exercised against at least one synthetic and one real finding": **met**. Intake T-02 ([test-only-signal-synthetic-fixture](../findings/20260517-test-only-signal-synthetic-fixture/), commit `4764f42`) + T-03 ([easy-survival-shelves-lwc-error](../findings/20260517-easy-survival-shelves-lwc-error/), commit `58258e9`); Triage T-02 (same fixture, commit `f7d59ac`) + T-03 (same real finding, commit `8a5d544`). The same two artifacts span both skills — natural since triage consumes intake output. Two additional real intake exercises landed independently mid-session.
+- "Both skills exercised against at least one synthetic and one real finding": **met**. Intake T-02 ([test-only-signal-synthetic-fixture](../findings/20260517-test-only-signal-synthetic-fixture/), commit `79dd92f`) + T-03 ([easy-survival-shelves-lwc-error](../findings/20260517-easy-survival-shelves-lwc-error/), commit `5081324`); Triage T-02 (same fixture, commit `1a6ecc9`) + T-03 (same real finding, commit `3562026`). The same two artifacts span both skills — natural since triage consumes intake output. Two additional real intake exercises landed independently mid-session.
 - "Persona-frame check passes for each": **met**. Intake fixed-label `Captured by: <name>; persona-frame: intake` verified at both produced artifacts. Triage descriptive-with-override `Triaged by: <name>; <descriptive frame>; persona-frame: triage` verified at both (synthetic: `methodologist`; real: `Sandlot administrator` operator-overridden). Persona discipline held in artifact content: neither triage opened code; reproductions are server-running (real) or convention-checking (synthetic), both legitimate per the design-spec OQ-3 D-3 distinction (running code to reproduce is allowed; reading code to hypothesize is not).
 
 **Advisory findings (one-line summaries; full body in the in-conversation verdict report at the time of review):**
@@ -303,17 +303,17 @@ After:
 ## 2026-05-17 — Amendment 2026-05-17-3
 
 **Section amended:** specs/20260517-findings-pipeline/architecture.md §13 OQ-3 (Multi-domain personas)
-**Trigger:** RC-3 review (commit `351a122`) explicitly proposed quoting the OQ-3 resolution back to §13; deferred from Phase C feature spec per its §12.
+**Trigger:** RC-3 review (commit `63ed943`) explicitly proposed quoting the OQ-3 resolution back to §13; deferred from Phase C feature spec per its §12.
 **Reason:** Leaving §13 OQ-3 at "Leaning + Decided at RC-3" after RC-3 had already decided would leave the design spec misleadingly open; the resolution lives in skill prose and Phase C §5.3 but was never quoted back to the design spec's working memory.
 **Impact summary:** No tasks/checkpoints affected (Phase C done, Phase B done, RC-3 already closed); no completed work invalidated; no cross-references require follow-up.
 **Approver:** waseric
 **Approved on:** 2026-05-17
 **Status implication:** kept (spec stays at `Draft — Open for Review`)
-**Commit:** `3ce9509`
+**Commit:** `3329b83`
 
 ### Full record
 
-**Trigger.** RC-3 self-review (Claude on behalf of waseric, 2026-05-17, commit `351a122`) verified that OQ-3's resolution was already codified in `.agents/skills/finding-triage/SKILL.md` and in the Phase C feature spec §5.3, and validated by real-signal dogfood at T-03 (operator override `business analyst` → `Sandlot administrator`). The RC-3 verdict explicitly proposed this quote-back amendment ("Quote-back amendment for OQ-3"). Phase C feature spec §12 also deferred the quote-back to a follow-on `/spec-amend` session against the design spec — this is that session.
+**Trigger.** RC-3 self-review (Claude on behalf of waseric, 2026-05-17, commit `63ed943`) verified that OQ-3's resolution was already codified in `.agents/skills/finding-triage/SKILL.md` and in the Phase C feature spec §5.3, and validated by real-signal dogfood at T-03 (operator override `business analyst` → `Sandlot administrator`). The RC-3 verdict explicitly proposed this quote-back amendment ("Quote-back amendment for OQ-3"). Phase C feature spec §12 also deferred the quote-back to a follow-on `/spec-amend` session against the design spec — this is that session.
 
 **Section.** §13 OQ-3 (L429–L439 pre-amendment).
 
@@ -327,7 +327,7 @@ After:
 > **Watch items.** If AI agents fail to adopt the right frame because the prompt always says "business analyst," generalize the prompt to "domain expert appropriate to <domain>."
 
 §13 OQ-3 — After:
-> **Decided.** 2026-05-17 (RC-3). Option (c) — operator records the frame descriptively. The `finding-triage` skill suggests a frame derived from the `Domain` field (`operational` → business analyst; `security` → security analyst; `testing` → QA lead; `methodology` → methodologist; `other` → operator-named) and accepts free-text override. Encoded in [`.agents/skills/finding-triage/SKILL.md` L92–L104](../../.agents/skills/finding-triage/SKILL.md) (persona-frame derivation table + override path) and in [Phase C feature spec §5.3](../20260517-finding-triage-skill/feature.md). Validated on first real-signal dogfood: T-03 ([easy-survival-shelves-lwc-error](../findings/20260517-easy-survival-shelves-lwc-error/), commit `8a5d544`) overrode suggested `business analyst` to operator-named `Sandlot administrator`, exercising the override path against real evidence.
+> **Decided.** 2026-05-17 (RC-3). Option (c) — operator records the frame descriptively. The `finding-triage` skill suggests a frame derived from the `Domain` field (`operational` → business analyst; `security` → security analyst; `testing` → QA lead; `methodology` → methodologist; `other` → operator-named) and accepts free-text override. Encoded in [`.agents/skills/finding-triage/SKILL.md` L92–L104](../../.agents/skills/finding-triage/SKILL.md) (persona-frame derivation table + override path) and in [Phase C feature spec §5.3](../20260517-finding-triage-skill/feature.md). Validated on first real-signal dogfood: T-03 ([easy-survival-shelves-lwc-error](../findings/20260517-easy-survival-shelves-lwc-error/), commit `3562026`) overrode suggested `business analyst` to operator-named `Sandlot administrator`, exercising the override path against real evidence.
 >
 > **Watch item (resolved in the direction of *used*).** Pre-decision concern was that AI agents would default to the suggested frame and the override surface would atrophy. T-03 dogfood resolved this in the direction of override-is-used: the operator-named frame fits the finding better than the derived frame, and the prompt structure (suggest + accept-override) preserves agent guidance without removing operator authority. If a future signal shows the override path going unused across multiple real findings, revisit by generalizing the suggestion to "domain expert appropriate to <domain>" — but as of RC-3, the path is exercised and the discipline holds.
 
@@ -346,17 +346,17 @@ After:
 ## 2026-05-17 — Amendment 2026-05-17-4
 
 **Section amended:** specs/20260517-findings-pipeline/architecture.md §13 OQ-4 (Triage-time revalidation policy for external pointers)
-**Trigger:** RC-3 review (commit `351a122`) explicitly proposed quoting the OQ-4 resolution back to §13; deferred from Phase C feature spec per its §12. Companion amendment to 2026-05-17-3 (OQ-3 quote-back).
+**Trigger:** RC-3 review (commit `63ed943`) explicitly proposed quoting the OQ-4 resolution back to §13; deferred from Phase C feature spec per its §12. Companion amendment to 2026-05-17-3 (OQ-3 quote-back).
 **Reason:** Same pattern as 2026-05-17-3 — leaving OQ-4 at "Leaning + Decided at RC-3" after RC-3 had already decided would leave the design spec misleadingly open; the resolution lives in skill prose and Phase C §5.4 but was never quoted back to the design spec's working memory.
 **Impact summary:** No tasks/checkpoints affected (Phase C done, RC-3 already closed); no completed work invalidated; no cross-references require follow-up. Satisfies Phase C feature spec §12's quoting-back deferral for OQ-4.
 **Approver:** waseric
 **Approved on:** 2026-05-17
 **Status implication:** kept (spec stays at `Draft — Open for Review`)
-**Commit:** `77234cc`
+**Commit:** `ecbf248`
 
 ### Full record
 
-**Trigger.** RC-3 self-review (Claude on behalf of waseric, 2026-05-17, commit `351a122`) verified that OQ-4's resolution was already codified in `.agents/skills/finding-triage/SKILL.md` L106–L114 and in the Phase C feature spec §5.4, and validated by real-signal dogfood at T-03 (rich-Intake summary → default `treated-as-static` for the auth-walled forum thread, no prompt felt ceremonial). The RC-3 verdict explicitly proposed this quote-back amendment ("Quote-back amendment for OQ-4"). Same Phase C §12 deferral pattern as OQ-3.
+**Trigger.** RC-3 self-review (Claude on behalf of waseric, 2026-05-17, commit `63ed943`) verified that OQ-4's resolution was already codified in `.agents/skills/finding-triage/SKILL.md` L106–L114 and in the Phase C feature spec §5.4, and validated by real-signal dogfood at T-03 (rich-Intake summary → default `treated-as-static` for the auth-walled forum thread, no prompt felt ceremonial). The RC-3 verdict explicitly proposed this quote-back amendment ("Quote-back amendment for OQ-4"). Same Phase C §12 deferral pattern as OQ-3.
 
 **Section.** §13 OQ-4 (L441–L449 pre-amendment).
 
@@ -368,7 +368,7 @@ After:
 > **Owner.** Decided at RC-3 as part of the `finding-triage` skill prompt design.
 
 §13 OQ-4 — After:
-> **Decided.** 2026-05-17 (RC-3). Optional revalidation with soft default. The `finding-triage` skill prompt asks the triager once whether to check the pointer; the soft default is `treated-as-static` when the Intake Summary is judged rich (≥3 sentences, names components, names reporters, includes verbatim quotes or snapshot references), and `recommend-check` when the Summary is sparse. Outcome recorded per pointer in the Triaged journal entry's `Pointer revalidation` field. Encoded in [`.agents/skills/finding-triage/SKILL.md` L106–L114](../../.agents/skills/finding-triage/SKILL.md) (rich-vs-sparse heuristic + soft-default branch) and in [Phase C feature spec §5.4](../20260517-finding-triage-skill/feature.md). Validated on first real-signal dogfood: T-03 ([easy-survival-shelves-lwc-error](../findings/20260517-easy-survival-shelves-lwc-error/), commit `8a5d544`) accepted the `treated-as-static` soft default for an auth-walled forum thread (operator-supplied PDF snapshot is durable evidence; the policy "felt minimal, not ceremonial" per the T-03 journal entry). The sparse-Intake branch remains unexercised — if and when a sparse-Intake finding arrives, the `recommend-check` branch gets exercised then.
+> **Decided.** 2026-05-17 (RC-3). Optional revalidation with soft default. The `finding-triage` skill prompt asks the triager once whether to check the pointer; the soft default is `treated-as-static` when the Intake Summary is judged rich (≥3 sentences, names components, names reporters, includes verbatim quotes or snapshot references), and `recommend-check` when the Summary is sparse. Outcome recorded per pointer in the Triaged journal entry's `Pointer revalidation` field. Encoded in [`.agents/skills/finding-triage/SKILL.md` L106–L114](../../.agents/skills/finding-triage/SKILL.md) (rich-vs-sparse heuristic + soft-default branch) and in [Phase C feature spec §5.4](../20260517-finding-triage-skill/feature.md). Validated on first real-signal dogfood: T-03 ([easy-survival-shelves-lwc-error](../findings/20260517-easy-survival-shelves-lwc-error/), commit `3562026`) accepted the `treated-as-static` soft default for an auth-walled forum thread (operator-supplied PDF snapshot is durable evidence; the policy "felt minimal, not ceremonial" per the T-03 journal entry). The sparse-Intake branch remains unexercised — if and when a sparse-Intake finding arrives, the `recommend-check` branch gets exercised then.
 
 **Reason.** Same pattern as OQ-3: leaving §13 OQ-4 at "Leaning + Decided at RC-3" after RC-3 has actually decided leaves the design spec misleadingly open. The resolution lives in skill prose and Phase C §5.4 but was never quoted back. Closing the loop in the spec's own working memory.
 
@@ -385,17 +385,17 @@ After:
 ## 2026-05-17 — Amendment 2026-05-17-5
 
 **Section amended:** specs/20260517-findings-pipeline/architecture.md §6 Non-functional Requirements (appended new `Skill portability` row)
-**Trigger:** Direct follow-on from Amendment 2026-05-17-1 to [specs/tech-stack.md](../tech-stack.md) (commit `0018c4c`), which committed the Atomic-Skill Portability Principle as a methodology-wide constraint. The design spec needed a back-reference so the principle is visible to readers of the findings-pipeline architecture; the README-as-derived-projection clarification rides along as the specific corollary surfaced by the originating finding's investigation.
+**Trigger:** Direct follow-on from Amendment 2026-05-17-1 to [specs/tech-stack.md](../tech-stack.md) (commit `fbb0c5f`), which committed the Atomic-Skill Portability Principle as a methodology-wide constraint. The design spec needed a back-reference so the principle is visible to readers of the findings-pipeline architecture; the README-as-derived-projection clarification rides along as the specific corollary surfaced by the originating finding's investigation.
 **Reason:** Two coupled gaps: (1) the methodology-wide commitment had no back-reference from the design spec; (2) the prior unstated assumption that host's `specs/findings/README.md` was a load-bearing runtime input for the `finding-{intake,triage}` skills needed an explicit replacement — articulating the README as a derived human-readable projection, not a runtime input.
 **Impact summary:** No tasks/checkpoints affected (RC-1 and RC-3 already closed); no completed work invalidated; cascading amendments 3/4/5 against `findings-pipeline-schema/feature.md` and the two SKILL.md files bring implementation into conformance.
 **Approver:** waseric
 **Approved on:** 2026-05-17
 **Status implication:** kept (spec stays at `Draft — Open for Review`; amendment is additive)
-**Commit:** `fa1d153`
+**Commit:** `c1418b0`
 
 ### Full record
 
-**Trigger.** Direct follow-on from Amendment 2026-05-17-1 to [specs/tech-stack.md](../tech-stack.md) (commit `0018c4c`), which committed the **Atomic-Skill Portability Principle** as a methodology-wide constraint on skill construction. The design spec needs to reference the principle so it is visible to readers of the findings-pipeline architecture; the README-as-derived-projection clarification rides along because it is the specific corollary surfaced by the originating finding's investigation phase ([intake-template-folder-dependency](../findings/20260517-intake-template-folder-dependency/finding.md), at status `under-investigation`).
+**Trigger.** Direct follow-on from Amendment 2026-05-17-1 to [specs/tech-stack.md](../tech-stack.md) (commit `fbb0c5f`), which committed the **Atomic-Skill Portability Principle** as a methodology-wide constraint on skill construction. The design spec needs to reference the principle so it is visible to readers of the findings-pipeline architecture; the README-as-derived-projection clarification rides along because it is the specific corollary surfaced by the originating finding's investigation phase ([intake-template-folder-dependency](../findings/20260517-intake-template-folder-dependency/finding.md), at status `under-investigation`).
 
 **Section.** §6 Non-functional Requirements (L286–L298 pre-amendment), appending one new row after the existing `External-pointer durability` row.
 

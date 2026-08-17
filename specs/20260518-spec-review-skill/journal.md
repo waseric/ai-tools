@@ -23,7 +23,7 @@ This is the load-bearing addition to the N=5 journal: each callout from the [N=4
 | **#4 §13 OQ count varies by skill divergence** (not a quality signal) | **Validated** | N=5 surfaced two real §13 OQs (design-spec checkpoint mechanics gap; amendment-then-re-review cycle artifact tracking). N=4 had two, N=3 had zero, N=2 had one, N=1 had one. OQ count tracks unspecified-phase-interaction count, not session age. Resisted urge to drop one to match prior-session norms. **Pattern for N=6:** OQ count will be whatever it is; faithful surfacing is the signal. |
 | **#5 Phase 8's source-attribution model exportable** (name the sibling design spec as pattern-source in §5) | **Validated; pattern stable** | retro §5.8 names session-economy §5.4 as the architectural source for both the Phase 8 multi-repo paragraph and the `SPEC_REPO_ROOT` INPUTS entry. The §5 subsection bears the citation directly; §8 Validation Approach and §14 References repeat it. **Pattern for N=6:** `spec-amend` also has session-economy contributions ([session-economy §5.3](../20260514-session-economy/architecture.md) prescribes `SPEC_REPO_ROOT` + Phase 8 paragraph for spec-amend). The same shape (i) §5-enumerated attribution applies. |
 | **Refined #1 — per-§5-subsection audit at authoring time** (§5-enumerated vs narrative-sourced as the two output shapes, concretized in N=4 amendment 2026-05-18-1) | **Validated; only shape (i) needed** | At authoring time, the audit walked retro §5.8 against session-economy §5.4. The §5-enumerated mapping holds cleanly: session-economy §5.4 prescribes two additions (INPUTS entry + Phase 8 paragraph), both present in retro §5.8 + INPUTS contract. No narrative-sourced shape (ii) mappings claimed. The N=4 failure mode (citing session-economy §5.3 / §5.5 as architectural source for spec-execute Phase 4/6, when those subsections are about *other* skills) is structurally impossible here: session-economy §5.4 IS the spec-review subsection. **Pattern for N=6:** spec-amend will face the same simple shape — session-economy §5.3 IS the spec-amend subsection — and the audit shape carries. |
-| **/spec-review → /spec-amend → /spec-review re-review cycle** (N=4 amendment observation: viable path for blockers collapsing to a single citation pattern) | **Not exercised at N=5 authoring; precedent stands** | The cycle is not invoked during authoring; it may fire at CP-1 of this spec if blockers surface. Until then, the N=4 precedent (commit `d11c405` + commit `061117e`) stands as the documented pattern. **Pattern for N=6:** carry forward as established. |
+| **/spec-review → /spec-amend → /spec-review re-review cycle** (N=4 amendment observation: viable path for blockers collapsing to a single citation pattern) | **Not exercised at N=5 authoring; precedent stands** | The cycle is not invoked during authoring; it may fire at CP-1 of this spec if blockers surface. Until then, the N=4 precedent (commit `b61cb3f` + commit `db2f7b3`) stands as the documented pattern. **Pattern for N=6:** carry forward as established. |
 
 ### Structural simplification — N=5 is the cleanest two-source application
 
@@ -51,7 +51,7 @@ The explicit table appeared in the session's Phase 1 Discovery Report. Repeated 
 | [specs/20260518-spec-design-skill/architecture.md](../20260518-spec-design-skill/architecture.md) + [journal.md](../20260518-spec-design-skill/journal.md) | Yes — N=2 retroactive-spec source | Original predecessor-distinction discipline. |
 | [specs/20260517-project-constitution-skill/architecture.md](../20260517-project-constitution-skill/architecture.md) + [journal.md](../20260517-project-constitution-skill/journal.md) | Yes — N=1 retroactive-spec source | Original structural source. |
 | [docs/retroactive-spec-strategy.md](../../docs/retroactive-spec-strategy.md) | Read — orientation only | Cited in §3, §9, §11, §12. Not used as a source for §4/§5 architectural commitments. |
-| [specs/20260515-spec-path-convention/architecture.md](../20260515-spec-path-convention/architecture.md) | Negative signal | Modifies spec-review's `SPEC_PATH` example via commit `4ebec0c` but does not architecturally describe the skill. |
+| [specs/20260515-spec-path-convention/architecture.md](../20260515-spec-path-convention/architecture.md) | Negative signal | Modifies spec-review's `SPEC_PATH` example via commit `189c6cc` but does not architecturally describe the skill. |
 | [.agents/skills/spec-execute/SKILL.md](../../.agents/skills/spec-execute/SKILL.md), [.agents/skills/spec-amend/SKILL.md](../../.agents/skills/spec-amend/SKILL.md), [.agents/skills/spec-write/SKILL.md](../../.agents/skills/spec-write/SKILL.md), [.agents/skills/spec-design/SKILL.md](../../.agents/skills/spec-design/SKILL.md) | Negative signal — pipeline neighbors, not architectural sources | Referenced for handoffs (Phase 7 of spec-execute → here; Phase 8 → spec-amend) but their internal architecture is out of scope for this skill's spec. |
 
 ### New "Pattern for N=6" callouts
@@ -90,7 +90,7 @@ Reused verbatim from N=1/N=2/N=3/N=4: "Maintainers of the `ai-tools` methodology
 
 ### Verification commitment level
 
-**Light verification**, per N=1/N=2/N=3/N=4 precedent. The spec text contains no external claims requiring WebFetch — all citations are repo-internal. Per-citation verifications walked at authoring time: predecessor line range (446–663) verified by reading the shared doc; session-economy §5.4 verified by reading the section; tech-stack.md §21-33 / §44 / §48 / §51 verified by reading on heading lines; commit SHAs (`80000b1`, `5ce4024`, `c63e3ba`, `4ebec0c`) verified against `git log`.
+**Light verification**, per N=1/N=2/N=3/N=4 precedent. The spec text contains no external claims requiring WebFetch — all citations are repo-internal. Per-citation verifications walked at authoring time: predecessor line range (446–663) verified by reading the shared doc; session-economy §5.4 verified by reading the section; tech-stack.md §21-33 / §44 / §48 / §51 verified by reading on heading lines; commit SHAs (`80000b1`, `5ce4024`, `c63e3ba`, `189c6cc`) verified against `git log`.
 
 **Pattern (carried from N=1/N=2/N=3/N=4, validated).** Light verification is the correct default for the legacy quintet.
 
@@ -186,7 +186,7 @@ Per-claim verification walked at review time:
 - SKILL.md structure: 217 lines, 8 numbered phases (lines 44/62/75/88/98/111/117/161), Reviewer Notes (line 195), Design Notes (line 203). Verified.
 - Session-economy §5.4 (lines 147–165): prescribes exactly two `spec-review` SKILL.md additions — `SPEC_REPO_ROOT` INPUTS entry and Phase 8 "Multi-repo case" paragraph. Both present in SKILL.md (INPUTS line 24; Phase 8 paragraph line 179). Verified.
 - Predecessor doc line range: `## Assistant` at line 446; `### Artifact: spec-review-prompt.md` at line 448; opening 4-backticks at line 450; closing 4-backticks at line 645; `### Design notes on the review prompt` at line 647; last paragraph ends line 663. Split accurate.
-- Commit SHAs: `80000b1` (trilogy), `5ce4024` (session-economy), `c63e3ba` (lastUpdated), `4ebec0c` (path convention) — all verified against `git log`.
+- Commit SHAs: `80000b1` (trilogy), `5ce4024` (session-economy), `c63e3ba` (lastUpdated), `189c6cc` (path convention) — all verified against `git log`.
 - Tech-stack.md citations: `#L21-L33` → "Atomic-Skill Portability Principle" heading; `#L44` → "AI context window limits"; `#L48` → "Repository layout"; `#L51` → "Spec-driven development". All four point to heading lines (section-heading citation discipline honored).
 - Portability rule: three `~/.claude/skills/...` occurrences in architecture.md (lines 257, 259, 316) are all meta-references inside backticks describing the prohibited pattern. No occurrences as actual link targets.
 - §13 OQ-1 and OQ-2: both include all six headed sub-blocks (Question / Analysis-table / Leaning / Owner / Watch items / Anti-goals). Verified.
@@ -194,25 +194,25 @@ Per-claim verification walked at review time:
 
 ### Pattern observation for N=6
 
-The [important] finding I1 (citation to nonexistent N=3 §5.X) shares structural shape with the N=4 amendment cycle (commits `57be7fa` → `d11c405` → `061117e`): a citation error caught at CP-1, routed to `/spec-amend`, re-reviewed if material. Two retro-spec CP-1s in a row have surfaced citation-discipline findings on **lineage/architectural-source attribution**. Pattern for N=6: the spec-amend retroactive spec should perform an explicit lineage-citation audit at authoring time, walking each "Pattern invoked" reference against the actual cited subsection. The shape of the N=4 amendment plus the present finding suggests this is a recurring failure mode of the cross-spec lineage narrative under the journal-mining pattern; codifying the authoring-time check would head it off at N=6 rather than catching it at CP-1.
+The [important] finding I1 (citation to nonexistent N=3 §5.X) shares structural shape with the N=4 amendment cycle (commits `0879935` → `b61cb3f` → `db2f7b3`): a citation error caught at CP-1, routed to `/spec-amend`, re-reviewed if material. Two retro-spec CP-1s in a row have surfaced citation-discipline findings on **lineage/architectural-source attribution**. Pattern for N=6: the spec-amend retroactive spec should perform an explicit lineage-citation audit at authoring time, walking each "Pattern invoked" reference against the actual cited subsection. The shape of the N=4 amendment plus the present finding suggests this is a recurring failure mode of the cross-spec lineage narrative under the journal-mining pattern; codifying the authoring-time check would head it off at N=6 rather than catching it at CP-1.
 
 ## 2026-05-18 — Amendment 2026-05-18-2
 
 **Section amended:** specs/20260518-spec-review-skill/architecture.md §5.10 (Voice discipline, "Pattern invoked" sub-block, line 247)
-**Trigger:** CP-1 review verdict (commit `fcb5094`) raised [important] finding I1 — `§5.X` placeholder unresolved AND cited pattern does not exist at N=3.
+**Trigger:** CP-1 review verdict (commit `d1972ff`) raised [important] finding I1 — `§5.X` placeholder unresolved AND cited pattern does not exist at N=3.
 **Reason:** "Carried forward verbatim" lineage was inaccurate on two counts: unresolved authoring placeholder, and the cited subsection does not exist at N=3 at all. Amended language matches verified facts and surfaces the N=3 gap explicitly.
 **Impact summary:** No task or checkpoint scope changed; no completed work invalidated; no cross-references require follow-up.
 **Approver:** Eric Wasgatt
 **Approved on:** 2026-05-18
 **Status implication:** No banner change (banner amends at post-CP-2 transition per N=1/N=2/N=3/N=4 convention); §9 CP-1 Status line preserved as the historical record of what CP-1 found. Honors §13 OQ-2 leaning (d) — do not codify re-review/Status-mutation mechanics on one cycle's evidence.
-**Commit:** `6efaf51`
+**Commit:** `4cfef25`
 
 ### Full record
 
 ```
 ## Amendment 2026-05-18-2 — specs/20260518-spec-review-skill/architecture.md §5.10
 
-**Trigger.** CP-1 review (verdict commit fcb5094, SHA backfill b8a188a)
+**Trigger.** CP-1 review (verdict commit d1972ff, SHA backfill 6aeaaaf)
 raised [important] finding I1: the "Pattern invoked" sub-block of §5.10
 cites "[N=3 §5.X](../20260518-spec-write-skill/architecture.md)" as a
 Voice-discipline source, but verification against N=3's architecture.md
@@ -283,8 +283,8 @@ This amendment is the **second consecutive citation-error amendment in the retro
 **Impact summary:** No tasks; spec-review CP-1 verdict remains "pass with comments" (post-CP-1 citation correction, same shape as the prior amendment 2026-05-18-2 to §5.10). No completed work invalidated.
 **Approver:** Eric Wasgatt
 **Approved on:** 2026-05-18
-**Status implication:** kept (Draft — Open for Review post-CP-1); §9 Status line "pass with comments on 2026-05-18 by Claude (AI assistant) on behalf of Eric Wasgatt — one [important] citation error in §5.10 (Voice-discipline lineage cites nonexistent N=3 §5.X) proposed for amendment via `/spec-amend`; see [journal](./journal.md) entry of same date. Verdict commit: `fcb5094`." remains as the contemporary record; this amendment is appended below per the N=5 amendment 2026-05-18-2 convention (do not mutate historical verdict text; append new amendment as a separate durable artifact).
-**Commit:** `5d1e503` (architecture edit); `c6ba48a` (journal entries)
+**Status implication:** kept (Draft — Open for Review post-CP-1); §9 Status line "pass with comments on 2026-05-18 by Claude (AI assistant) on behalf of Eric Wasgatt — one [important] citation error in §5.10 (Voice-discipline lineage cites nonexistent N=3 §5.X) proposed for amendment via `/spec-amend`; see [journal](./journal.md) entry of same date. Verdict commit: `d1972ff`." remains as the contemporary record; this amendment is appended below per the N=5 amendment 2026-05-18-2 convention (do not mutate historical verdict text; append new amendment as a separate durable artifact).
+**Commit:** `945f9ab` (architecture edit); `80bb899` (journal entries)
 
 ### Full record
 
@@ -292,10 +292,10 @@ See [specs/20260518-spec-amend-skill/journal.md](../20260518-spec-amend-skill/jo
 
 ### Cross-skill note (first post-trilogy cycle — §13 OQ-4 evidence)
 
-This is the **first post-trilogy-commit cross-skill amendment cycle**. The two pre-trilogy cross-skill changes (`5ce4024`, `4ebec0c`) used a different model (single commit touching multiple skills directly) that the trilogy commit was designed to deprecate. Mechanics applied — recorded in full in the spec-amend journal entry; summarized here so a reader of N=5's journal can navigate without round-tripping:
+This is the **first post-trilogy-commit cross-skill amendment cycle**. The two pre-trilogy cross-skill changes (`5ce4024`, `189c6cc`) used a different model (single commit touching multiple skills directly) that the trilogy commit was designed to deprecate. Mechanics applied — recorded in full in the spec-amend journal entry; summarized here so a reader of N=5's journal can navigate without round-tripping:
 
 - Single amendment ID (`2026-05-18-3`) shared across both specs.
-- One spec-edit commit (`5d1e503`) touching both `architecture.md` files.
+- One spec-edit commit (`945f9ab`) touching both `architecture.md` files.
 - One journal commit touching both `journal.md` files.
 - Primary record in spec-amend journal; companion record (this entry) in spec-review journal.
 
@@ -330,7 +330,7 @@ Per-claim verification walked at audit time:
 - **Session-economy §5.4 shape (i) mapping verified.** Read [specs/20260514-session-economy/architecture.md lines 147–164](../20260514-session-economy/architecture.md#L147-L164) directly. §5.4 prescribes exactly two SKILL.md additions: (1) `SPEC_REPO_ROOT` INPUTS entry; (2) Phase 8 "Multi-repo case" paragraph. Both present in SKILL.md ([line 24](../../.agents/skills/spec-review/SKILL.md#L24) and [line 179](../../.agents/skills/spec-review/SKILL.md#L179) respectively). Wording matches verbatim. Zero shape (ii) claims to verify; zero shape (ii) drift possible.
 - **ASPP citation discipline confirmed.** Spec §3 line 51 cites `tech-stack.md §21-33` correctly (heading line for Atomic-Skill Portability Principle). Spec §6 line 269 (Adoptability NFR) cites same. N=1/N=2/N=3/N=4 baseline pattern (correct citation at heading line) holds at N=5.
 - **Section-heading citation discipline confirmed.** All §3 tech-stack.md citations (§21-33, §44, §48, §51) point to heading lines per CP-1 verification trail and re-verification at this audit. N=2/N=3/N=4 corrective holds at N=5.
-- **Amendment-ID citation correctness post-amendment-2026-05-18-3 confirmed.** §5.11 line 259 now reads `[project-constitution-skill Amendment 2026-05-17-1](../20260517-project-constitution-skill/journal.md)` — correct holder. The pre-amendment citation form (strategy-doc holder) has been removed by amendment 2026-05-18-3 commit `5d1e503`. CP-2 verifies no remaining instances of the error class.
+- **Amendment-ID citation correctness post-amendment-2026-05-18-3 confirmed.** §5.11 line 259 now reads `[project-constitution-skill Amendment 2026-05-17-1](../20260517-project-constitution-skill/journal.md)` — correct holder. The pre-amendment citation form (strategy-doc holder) has been removed by amendment 2026-05-18-3 commit `945f9ab`. CP-2 verifies no remaining instances of the error class.
 - **Phase 8 protocol verified.** SKILL.md Phase 8 (lines 161–182) carries: (1) spec status line update; (2) journal entry with format template; (3) Multi-repo case paragraph; (4) conditional "if amendments proposed" routing through `spec-amend`; (5) conditional "if pass or pass with comments" next-task statement. Spec §5.8 carries identical "two unconditional + two conditional" structure with same content. Match.
 - **OPs and WND walked.** All six SKILL.md OPs (lines 35–42) have explicit §5/§6 carriers in spec (verified one-by-one). All eight WND items walked; WND-5 alone lacks explicit §5/§6 carrier (D-3).
 - **SKILL.md preamble walked line-by-line against frontmatter description.** Line 4 frontmatter names spec-design, spec-write, spec-execute, spec-amend (four pairings). Line 9 preamble names spec-write, spec-execute (two; omits spec-design and spec-amend; uses stale "trilogy" framing). D-4.
@@ -368,11 +368,11 @@ Summarized at audit close; full detail in the batch journal N=5 entry.
 **Approver:** Eric Wasgatt (operator)
 **Approved on:** 2026-05-18
 **Status implication:** kept at `Draft — Open for Review` (matches N=1/N=2/N=3/N=4 precedent — no defined successor state; closure recorded via §9 CP-2 Status line, not via banner advancement). Explicitly operator-confirmed via AskUserQuestion at Phase 1 of this /spec-amend session, surfacing the divergence between the original invocation's premise ("banner exits Draft") and the N=4 journal's documented precedent ("banner stays at Draft").
-**Commit:** `6d41b3b`
+**Commit:** `6fecc4e`
 
 ### Full record
 
-**Trigger.** N=5 CP-2 audit (commit `5c762a0`) finding D-3 — SKILL.md WND-5 (lines 190–191: "Do not rubber-stamp based on the journal entry alone. The journal is the implementer's claim; the diff is the evidence. Verify against the diff.") was walked against §5/§6 of this spec and found to have no explicit carrier. CP-2 audit logged this as the 5th data point in the WND-partial-home class (N=1/N=2/N=3/N=4/N=5 consecutive sessions). Operator chose route (a) — amend spec to carry the discipline — over reviewer-default (c) — accept as known minor — at audit close per AskUserQuestion.
+**Trigger.** N=5 CP-2 audit (commit `2cd2295`) finding D-3 — SKILL.md WND-5 (lines 190–191: "Do not rubber-stamp based on the journal entry alone. The journal is the implementer's claim; the diff is the evidence. Verify against the diff.") was walked against §5/§6 of this spec and found to have no explicit carrier. CP-2 audit logged this as the 5th data point in the WND-partial-home class (N=1/N=2/N=3/N=4/N=5 consecutive sessions). Operator chose route (a) — amend spec to carry the discipline — over reviewer-default (c) — accept as known minor — at audit close per AskUserQuestion.
 
 **Section.** [architecture.md §5.1 Phase 1 — Orient, "Behavior" sub-block (line 113)](./architecture.md#L113). The Behavior paragraph already enumerates the read-order; adding the rubber-stamp prohibition immediately before the "Then the reviewer emits an Orientation Report" closing sentence places the discipline in the cycle where it matters — between consuming the journal (step 4) and constructing the Orientation Report.
 
@@ -405,11 +405,11 @@ After:
 **Approver:** Eric Wasgatt (operator)
 **Approved on:** 2026-05-18
 **Status implication:** kept at `Draft — Open for Review` (SKILL.md-only edit; spec commitments unchanged)
-**Commit:** `67e0fe0`
+**Commit:** `62f191b`
 
 ### Full record
 
-**Trigger.** N=5 CP-2 audit finding D-1 — Design Notes "Drift is a first-class finding" sub-block (line 209) reads: *"Resolution goes through the Amendment Protocol from `spec-execute`, not through silent acceptance."* The phrasing predates trilogy commit `80000b1` (2026-05-14), which extracted the Amendment Protocol from spec-execute into the new `spec-amend` skill. Phase 8 body line 181 was correctly updated at that commit (*"route them through the `spec-amend` skill"*), but the Design Notes prose was not refactored — a documentation drift from the spec-driven-development-prompts predecessor's pre-trilogy phrasing. The CP-1 audit (commit `fcb5094`) surfaced this as advisory A3; the CP-2 audit (commit `5c762a0`) elevated it to D-1 with route (b) — amend SKILL.md. First-of-kind for the quintet retro-spec series; CP-2 audit logged the new finding class.
+**Trigger.** N=5 CP-2 audit finding D-1 — Design Notes "Drift is a first-class finding" sub-block (line 209) reads: *"Resolution goes through the Amendment Protocol from `spec-execute`, not through silent acceptance."* The phrasing predates trilogy commit `80000b1` (2026-05-14), which extracted the Amendment Protocol from spec-execute into the new `spec-amend` skill. Phase 8 body line 181 was correctly updated at that commit (*"route them through the `spec-amend` skill"*), but the Design Notes prose was not refactored — a documentation drift from the spec-driven-development-prompts predecessor's pre-trilogy phrasing. The CP-1 audit (commit `d1972ff`) surfaced this as advisory A3; the CP-2 audit (commit `2cd2295`) elevated it to D-1 with route (b) — amend SKILL.md. First-of-kind for the quintet retro-spec series; CP-2 audit logged the new finding class.
 
 **Section.** [.agents/skills/spec-review/SKILL.md Design Notes "Drift is a first-class finding" sub-block (line 209)](../../.agents/skills/spec-review/SKILL.md#L209). Surgical single-sentence edit; surrounding sub-block prose unchanged.
 
@@ -442,7 +442,7 @@ After:
 **Approver:** Eric Wasgatt (operator)
 **Approved on:** 2026-05-18
 **Status implication:** kept at `Draft — Open for Review` (SKILL.md-only edit; spec commitments unchanged)
-**Commit:** `05e4697`
+**Commit:** `b418afe`
 
 ### Full record
 
@@ -479,13 +479,13 @@ After:
 **Approver:** Eric Wasgatt (operator)
 **Approved on:** 2026-05-18
 **Status implication:** kept at `Draft — Open for Review` (SKILL.md-only edit; spec commitments unchanged)
-**Commit:** `e60a17b`
+**Commit:** `a0eaec2`
 
 ### Full record
 
 **Trigger.** N=5 CP-2 audit finding D-4 — SKILL.md preamble line 9 carries pre-trilogy-commit framing (*"Third in the trilogy with `spec-write` and `spec-execute`"*), omitting both `spec-design` (lifted to first-class in commit `80000b1`, 2026-05-14) and `spec-amend` (extracted from spec-execute in the same commit). The frontmatter description (line 4) names all four siblings explicitly: *"Pairs with `spec-design` and `spec-write` (which declare checkpoints), `spec-execute` (which produces the work being reviewed), and `spec-amend` (which applies spec changes when the review surfaces them)."* Preamble-vs-body mirror class, 5th consecutive data point (N=2 D-1 / N=3 D-5 / N=4 D-3 / N=4 D-4 / N=5 D-4).
 
-**Section.** [.agents/skills/spec-review/SKILL.md preamble — paragraph following "# Spec Review" (line 9)](../../.agents/skills/spec-review/SKILL.md#L9). Same shape as spec-execute amendment [2026-05-18-5](../20260518-spec-execute-skill/journal.md) (commit `988818d`): replace trilogy-framing clause with the four-sibling pairing list reusing frontmatter line 4 phrasing verbatim.
+**Section.** [.agents/skills/spec-review/SKILL.md preamble — paragraph following "# Spec Review" (line 9)](../../.agents/skills/spec-review/SKILL.md#L9). Same shape as spec-execute amendment [2026-05-18-5](../20260518-spec-execute-skill/journal.md) (commit `829ec3d`): replace trilogy-framing clause with the four-sibling pairing list reusing frontmatter line 4 phrasing verbatim.
 
 **Change.**
 
@@ -509,7 +509,7 @@ After:
 
 ### Pattern observation at four-amendment close
 
-This /spec-amend session bundled four amendments (one spec edit, three SKILL.md edits) into a single invocation, paired against the N=5 CP-2 audit (commit `5c762a0`). Differs from N=4's two-invocation split (one (a)-route session, one (b)-route session): N=5's smaller (a)-route count (one amendment vs. N=4's three) and the operator's framing of the four CP-2 amendments as "post-CP-2 closeout artifacts" supported the bundle. The invocation-shape discriminator from [N=4 pattern observation](../20260518-spec-execute-skill/journal.md) — *"the invocation-split discriminator is target artifact, not amendment count"* — generalizes: when the (a)-route count is small (one amendment) the split is unnecessary because there is no Orientation-Report coherence cost to bundling target artifacts within one invocation. **Pattern for N=6:** if spec-amend's CP-2 produces a mix of (a) and (b) routes with small (a) count, bundling is acceptable; if (a) count is ≥2 (matching N=4), splitting preserves Orientation coherence.
+This /spec-amend session bundled four amendments (one spec edit, three SKILL.md edits) into a single invocation, paired against the N=5 CP-2 audit (commit `2cd2295`). Differs from N=4's two-invocation split (one (a)-route session, one (b)-route session): N=5's smaller (a)-route count (one amendment vs. N=4's three) and the operator's framing of the four CP-2 amendments as "post-CP-2 closeout artifacts" supported the bundle. The invocation-shape discriminator from [N=4 pattern observation](../20260518-spec-execute-skill/journal.md) — *"the invocation-split discriminator is target artifact, not amendment count"* — generalizes: when the (a)-route count is small (one amendment) the split is unnecessary because there is no Orientation-Report coherence cost to bundling target artifacts within one invocation. **Pattern for N=6:** if spec-amend's CP-2 produces a mix of (a) and (b) routes with small (a) count, bundling is acceptable; if (a) count is ≥2 (matching N=4), splitting preserves Orientation coherence.
 
 ### Pattern observation — divergent-framing surfacing at Phase 1
 
@@ -523,10 +523,10 @@ Brief post-amendment re-audit of the (a)-route §5.1 carrier sentence and the th
 
 | Divergence | Routing | Verification | Status |
 |---|---|---|---|
-| D-1 (SKILL.md Design Notes stale "Amendment Protocol from `spec-execute`") | (b) amend SKILL.md | [SKILL.md line 209](../../.agents/skills/spec-review/SKILL.md#L209) now reads "Resolution goes through the `spec-amend` skill, not through silent acceptance." Phase 8 body line 181 unchanged. Frontmatter line 4 unchanged. Internal consistency restored. | Closed via [amendment 2026-05-18-5](#L406) commit `67e0fe0`. |
-| D-2 (SKILL.md uses `[important]` tag without defining semantics) | (b) amend SKILL.md | [SKILL.md OP §3 (line 39)](../../.agents/skills/spec-review/SKILL.md#L39) now defines `[important]` as middle tag with the spec §4 Vocabulary's load-bearing clause carried verbatim. Phase 3 line 83 / Phase 7 lines 132, 138 usages unchanged — they already reference the tag; the definition now lives in OP §3. | Closed via [amendment 2026-05-18-6](#L438) commit `05e4697`. |
-| D-3 (SKILL.md WND-5 rubber-stamp prohibition lacks §5/§6 carrier) | (a) amend spec §5.1 | [architecture.md §5.1 Behavior sub-block (line 113)](./architecture.md#L113) now carries: *"The journal is read as the implementer's claim, not as verified evidence; verification is against the diff itself, never the journal narrative alone."* SKILL.md WND-5 unchanged. Carrier discipline restored. | Closed via [amendment 2026-05-18-4](#L376) commit `6d41b3b`. |
-| D-4 (SKILL.md preamble "Third in the trilogy" omits spec-design + spec-amend) | (b) amend SKILL.md | [SKILL.md preamble line 9](../../.agents/skills/spec-review/SKILL.md#L9) now reads: *"Pairs with `spec-design` and `spec-write` (which declare checkpoints), `spec-execute` (which produces the work being reviewed), and `spec-amend` (which applies spec changes when the review surfaces them)."* Matches frontmatter line 4 verbatim. Preamble-vs-frontmatter consistency restored. | Closed via [amendment 2026-05-18-7](#L475) commit `e60a17b`. |
+| D-1 (SKILL.md Design Notes stale "Amendment Protocol from `spec-execute`") | (b) amend SKILL.md | [SKILL.md line 209](../../.agents/skills/spec-review/SKILL.md#L209) now reads "Resolution goes through the `spec-amend` skill, not through silent acceptance." Phase 8 body line 181 unchanged. Frontmatter line 4 unchanged. Internal consistency restored. | Closed via [amendment 2026-05-18-5](#L406) commit `62f191b`. |
+| D-2 (SKILL.md uses `[important]` tag without defining semantics) | (b) amend SKILL.md | [SKILL.md OP §3 (line 39)](../../.agents/skills/spec-review/SKILL.md#L39) now defines `[important]` as middle tag with the spec §4 Vocabulary's load-bearing clause carried verbatim. Phase 3 line 83 / Phase 7 lines 132, 138 usages unchanged — they already reference the tag; the definition now lives in OP §3. | Closed via [amendment 2026-05-18-6](#L438) commit `b418afe`. |
+| D-3 (SKILL.md WND-5 rubber-stamp prohibition lacks §5/§6 carrier) | (a) amend spec §5.1 | [architecture.md §5.1 Behavior sub-block (line 113)](./architecture.md#L113) now carries: *"The journal is read as the implementer's claim, not as verified evidence; verification is against the diff itself, never the journal narrative alone."* SKILL.md WND-5 unchanged. Carrier discipline restored. | Closed via [amendment 2026-05-18-4](#L376) commit `6fecc4e`. |
+| D-4 (SKILL.md preamble "Third in the trilogy" omits spec-design + spec-amend) | (b) amend SKILL.md | [SKILL.md preamble line 9](../../.agents/skills/spec-review/SKILL.md#L9) now reads: *"Pairs with `spec-design` and `spec-write` (which declare checkpoints), `spec-execute` (which produces the work being reviewed), and `spec-amend` (which applies spec changes when the review surfaces them)."* Matches frontmatter line 4 verbatim. Preamble-vs-frontmatter consistency restored. | Closed via [amendment 2026-05-18-7](#L475) commit `a0eaec2`. |
 | D-5 (design-spec adaptation gap) | (c) accept | Already routed via §13 OQ-1 leaning (c) — design-spec adaptation noted in §5.2 / §5.6; SKILL.md silent; watch items capture revisit conditions. No artifact change required. | Closed (accepted) — no amendment. |
 
 ### Cross-spec consistency — no regressions
@@ -552,7 +552,7 @@ Verified that the spec §4 Vocabulary entry for `[important]` and SKILL.md OP §
 
 ### Pattern observation at re-verification close
 
-The CP-2 closeout shape matches N=4 (commit `c116b46`) exactly: §9 Status line updated to list all routed amendment IDs + "Checkpoint closed", brief re-verification journal entry (this entry) with per-divergence Closed status, banner held at Draft with explicit precedent citation. **Pattern for N=6:** the closeout shape is stable from N=4 onward. Spec-amend's CP-2 closeout should reuse the same template with its own amendment-ID list. The banner-stays-at-Draft framing is now N=1/N=2/N=3/N=4/N=5 consecutive precedent — five data points are sufficient to treat the "no defined successor state" disposition as the methodology default until a future explicit decision changes it.
+The CP-2 closeout shape matches N=4 (commit `49d898c`) exactly: §9 Status line updated to list all routed amendment IDs + "Checkpoint closed", brief re-verification journal entry (this entry) with per-divergence Closed status, banner held at Draft with explicit precedent citation. **Pattern for N=6:** the closeout shape is stable from N=4 onward. Spec-amend's CP-2 closeout should reuse the same template with its own amendment-ID list. The banner-stays-at-Draft framing is now N=1/N=2/N=3/N=4/N=5 consecutive precedent — five data points are sufficient to treat the "no defined successor state" disposition as the methodology default until a future explicit decision changes it.
 
 ### Pattern observation for N=6 (carried forward to batch journal closing summary)
 
@@ -569,11 +569,11 @@ Resume batch audit at N=6 (`spec-amend` retroactive spec CP-2) per the [batch jo
 **Section amended:** [architecture.md:3](./architecture.md#L3) §1 Status banner
 **Trigger:** First execution of the post-CP-2 banner transition; methodology-level decision defining `Approved — CP-2 closed YYYY-MM-DD` as the post-`Draft — Open for Review` successor state, applied retroactively across N=1..N=6. The feedback-memory-driven Phase 1 surfacing discipline noted in N=5 amendment 2026-05-18-4 ([line 516](#L516)) was re-applied at this amendment's Phase 2 — the operator was shown both competing precedents (banner-amendment-to-follow promise vs. banner-stays-at-Draft re-verifications) along with the proposed forward advancement, and explicitly confirmed the methodology-level decision.
 **Reason:** Banner advances from `Draft — Open for Review` to `Approved — CP-2 closed 2026-05-18` per the methodology-level decision recorded in the cross-skill anchor.
-**Impact summary:** No tasks; CP-2 already closed (commit `741fd96` 2026-05-18 20:48:27); no completed work invalidated.
+**Impact summary:** No tasks; CP-2 already closed (commit `baac6d6` 2026-05-18 20:48:27); no completed work invalidated.
 **Approver:** Eric Wasgatt
 **Approved on:** 2026-05-19
 **Status implication:** **forward advancement** — first instance in the methodology. Draft → Approved.
-**Commit:** `88eda73` (six architecture.md banner edits); `cf50e2e` (cross-skill anchor + 6 paired companion journal entries).
+**Commit:** `09b6131` (six architecture.md banner edits); `09ba0e2` (cross-skill anchor + 6 paired companion journal entries).
 
 ### Full record
 
@@ -588,7 +588,7 @@ See [specs/20260518-cp2-batch-audit/journal.md](../20260518-cp2-batch-audit/jour
 **Approver:** Eric Wasgatt (operator) — concrete diffs presented in-session before apply under `AUTONOMY: checkpoint` (amendment = designed stop); `lastUpdated` bump confirmed via AskUserQuestion.
 **Approved on:** 2026-07-06
 **Status implication:** Kept at `Approved — CP-2 closed 2026-05-18`. The retroactive-spec adoption arc is complete; this forward addition is governed under the living-contract amendment protocol (§11) and does not reopen CP-1/CP-2, which reviewed the skill as it stood. Consistency of the new §5.12/§5.13 against the master is a dispatch-execution CP-2 line item (that checkpoint audits the whole P2–P4 amendment set).
-**Commit:** `93c9ca0` (governing-spec §4/§5.12/§5.13/§6 application). Paired master + deploy commit and the dispatch-execution P4 closeout follow in the same task closeout.
+**Commit:** `03571a8` (governing-spec §4/§5.12/§5.13/§6 application). Paired master + deploy commit and the dispatch-execution P4 closeout follow in the same task closeout.
 
 ### Full record
 

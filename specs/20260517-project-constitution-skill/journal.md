@@ -149,7 +149,7 @@ No `[blocker]` open questions; the spec is ready for CP-1 either way.
 
 **Verification performed:**
 - Byte-identical mirror claim: verified `diff -q` of `.agents/skills/project-constitution/SKILL.md` against `~/.claude/skills/project-constitution/SKILL.md`.
-- Commit SHAs in §3: `80000b1` (2026-05-14) and `76e6bb6` (2026-05-15) both verified via `git log`.
+- Commit SHAs in §3: `80000b1` (2026-05-14) and `cee22c5` (2026-05-15) both verified via `git log`.
 - Cross-references: `docs/constitution-amendment-gap-intake-prep.md`, `specs/mission.md`, `specs/tech-stack.md`, `specs/roadmap.md` (line 13 verified), `specs/20260514-session-economy/architecture.md` (lines 27 + 220 verified), `specs/20260517-finding-intake-skill/feature.md`, `specs/20260517-finding-triage-skill/feature.md`, `specs/20260517-findings-pipeline/architecture.md` — all exist.
 - `specs/tech-stack.md` §21-33 confirmed to contain the Atomic-Skill Portability Principle.
 
@@ -169,7 +169,7 @@ No `[blocker]` open questions; the spec is ready for CP-1 either way.
 **Approver:** Eric Wasgatt
 **Approved on:** 2026-05-17
 **Status implication:** kept (Draft — Open for Review)
-**Commit:** 0a6130c
+**Commit:** 10dda88
 
 ### Full record
 
@@ -298,7 +298,7 @@ After:
 **Approver:** Eric Wasgatt
 **Approved on:** 2026-05-18
 **Status implication:** SKILL.md has no Status banner; frontmatter `lastUpdated` advanced from 2026-05-15 to 2026-05-18.
-**Commit:** 6626756
+**Commit:** 8d09060
 
 ### Full record
 
@@ -361,7 +361,7 @@ After:
 **Approver:** Eric Wasgatt
 **Approved on:** 2026-05-18
 **Status implication:** kept (Draft — Open for Review)
-**Commit:** 974b882
+**Commit:** bbbf9bf
 
 ### Full record
 
@@ -400,7 +400,7 @@ After:
 **Approver:** Eric Wasgatt
 **Approved on:** 2026-05-18
 **Status implication:** kept (Draft — Open for Review)
-**Commit:** 7eda915
+**Commit:** a103913
 
 ### Full record
 
@@ -449,11 +449,11 @@ The project-constitution retroactive-spec adoption (§11) is **closed**. The spe
 **Section amended:** [architecture.md:3](./architecture.md#L3) §1 Status banner
 **Trigger:** First execution of the post-CP-2 banner transition; methodology-level decision defining `Approved — CP-2 closed YYYY-MM-DD` as the post-`Draft — Open for Review` successor state, applied retroactively across N=1..N=6. N=1 closed CP-2 standalone (not in the five-spec batch) per [strategy OQ-1 resolution (a)](../../docs/retroactive-spec-strategy.md#decisions-recorded-2026-05-18); this amendment includes N=1 in the cross-skill cycle because the successor state is methodology-level.
 **Reason:** Banner advances from `Draft — Open for Review` to `Approved — CP-2 closed 2026-05-18` per the methodology-level decision recorded in the cross-skill anchor.
-**Impact summary:** No tasks; CP-2 already closed (commit `f6dba46` 2026-05-18 11:20:52); no completed work invalidated.
+**Impact summary:** No tasks; CP-2 already closed (commit `444fec2` 2026-05-18 11:20:52); no completed work invalidated.
 **Approver:** Eric Wasgatt
 **Approved on:** 2026-05-19
 **Status implication:** **forward advancement** — first instance in the methodology. Draft → Approved.
-**Commit:** `88eda73` (six architecture.md banner edits); `cf50e2e` (cross-skill anchor + 6 paired companion journal entries).
+**Commit:** `09b6131` (six architecture.md banner edits); `09ba0e2` (cross-skill anchor + 6 paired companion journal entries).
 
 ### Full record
 

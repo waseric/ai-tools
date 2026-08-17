@@ -255,7 +255,7 @@ Global DoD addenda for **every** task (not repeated per task): master edited; de
 ### P3 — Cross-skill adoption
 
 #### T-07 — spec-review adopts STATE/INDEX vocabulary + cold-reader guarantee + STATE write-back
-- **Status.** done (2026-07-08; commit e1bd8a8 — see journal).
+- **Status.** done (2026-07-08; commit 520a3a3 — see journal).
 - **Title.** Wire STATE/INDEX vocabulary, the cold-reader guarantee, grammar consult, and Phase 8 STATE write-back into `spec-review`.
 - **Scope.** [.agents/skills/spec-review/SKILL.md](../../.agents/skills/spec-review/SKILL.md): Phase 1 ORIENT (:45 — STATE consult + cross-check + grammar consult; the Review-checkpoint working set from §5.3; **full-diff mandate explicitly preserved**); Phase 8 write-back — overwrite STATE in the same commit as the verdict entry.
 - **Acceptance criteria.** *Given* spec-review Phase 1, *then* prose directs STATE + checkpoint-contract-scoped reads while retaining the full-diff mandate (grep: "full diff" mandate still present — not weakened). *Given* Phase 8, *then* STATE is overwritten in the verdict commit. Grep: "Current State" present in Phase 1 + Phase 8; full-diff language intact.
@@ -265,7 +265,7 @@ Global DoD addenda for **every** task (not repeated per task): master edited; de
 - **Model floor.** sonnet — spec-review is already selective; edit is additive vocabulary + a write-back, verifiable by grep. Guarded by CP-P3.
 
 #### T-08 — spec-reviewer consults STATE on orientation
-- **Status.** done (2026-07-08; commit 4f3a6e8 — see journal).
+- **Status.** done (2026-07-08; commit 0d36eb9 — see journal).
 - **Title.** Add STATE consult (with cross-check) to the `spec-reviewer` agent definition's orientation read.
 - **Scope.** [.agents/agents/spec-reviewer.md](../../.agents/agents/spec-reviewer.md) — orientation read. Add STATE-first + cross-check; full-diff mandate unchanged.
 - **Acceptance criteria.** *Given* a reviewer subagent spawns cold, *then* it reads STATE + cross-checks before the checkpoint-scoped reads; full-diff mandate intact. Grep: "Current State" present; full-diff language intact.
@@ -275,7 +275,7 @@ Global DoD addenda for **every** task (not repeated per task): master edited; de
 - **Model floor.** sonnet — additive, grep-verifiable.
 
 #### T-09 — spec-amend adopts STATE/INDEX vocabulary + STATE write-back
-- **Status.** done (2026-07-08; commit 8e3508c — see journal).
+- **Status.** done (2026-07-08; commit f528bb4 — see journal).
 - **Title.** Wire STATE/INDEX vocabulary, grammar consult, and STATE write-back into `spec-amend`.
 - **Scope.** [.agents/skills/spec-amend/SKILL.md](../../.agents/skills/spec-amend/SKILL.md): Phase 1 ORIENT (:53 — STATE consult + cross-check + grammar consult; the Amend-section working set from §5.3); journal append (:134 — overwrite STATE in the amendment commit).
 - **Acceptance criteria.** *Given* spec-amend Phase 1, *then* prose directs STATE + section-scoped reads. *Given* the amendment journal append, *then* STATE is overwritten in the same commit. Grep: "Current State" present in Phase 1 + journal-append prose.
@@ -285,7 +285,7 @@ Global DoD addenda for **every** task (not repeated per task): master edited; de
 - **Model floor.** sonnet — additive vocabulary + write-back, grep-verifiable.
 
 #### T-10 — spec-amend collapses to the single amendment dialect form
-- **Status.** done (2026-07-08; commit 7aa9279 — see journal).
+- **Status.** done (2026-07-08; commit 0490d6f — see journal).
 - **Title.** Retire the three-variant amendment heading and the double-record; emit the single reference-dialect form `## <YYYY-MM-DD> — Amendment <id>`.
 - **Scope.** [.agents/skills/spec-amend/SKILL.md](../../.agents/skills/spec-amend/SKILL.md) — the amendment heading template (:75) and journal-entry template (:134-139), and any prose prescribing a separate verbatim "Full record". Emit one dated `## <YYYY-MM-DD> — Amendment <id>` heading holding the full record; drop the double-record. Note that INDEX's union pattern (§5.2) still reads *legacy* three-form amendments — this change is go-forward only, non-destructive to existing journals.
 - **Acceptance criteria.** *Given* spec-amend emits an amendment, *then* it writes exactly one dated `## ... — Amendment <id>` heading and no separate `### Full record` block. Grep: single-form heading template present; "Full record" double-record prose absent; a note that legacy forms remain readable via discovery present.
@@ -337,7 +337,7 @@ Global DoD addenda for **every** task (not repeated per task): master edited; de
 - *Review focus.* Vocabulary reads identically across spec-review, spec-amend, and the agent defs; the full-diff mandate survived T-07/T-08 intact; the amendment single-form (T-10) matches the reference dialect and legacy discovery still reads old forms; STATE write-backs are present in every write phase.
 - *Exit criteria.* Cross-skill grep consistency holds; full-diff mandate demonstrably intact; amendment-form grep assertions pass.
 - *Reviewer floor.* opus — cross-skill consistency + a grammar-form change with legacy-compat implications.
-- *Status.* **pass** on 2026-07-08 by waseric (opus, inline — floor met). 0 blockers, 0 important, 2 advisory. Reviewed the full P3 scope (T-07–T-10; masters e1bd8a8, 4f3a6e8, 8e3508c, 7aa9279 — the given `DIFF_RANGE` covered only T-10, widened to `659e45e..fb0efe3`). All three exit criteria met: cross-skill STATE cross-check core + literal grep command byte-identical across spec-review / spec-amend / spec-reviewer; full-diff mandate intact and explicitly reinforced in both spec-review (:54, :195) and spec-reviewer (:17, :31); amendment single-form present (spec-amend :77), `### Full record` double-record retired (0 matches), legacy-discovery note present (:142) and matches §5.2's union grep; STATE write-backs present in spec-review Phase 8 (:170) and spec-amend Phase 5 (:138). Deploy-sync byte-identical for all three. Advisories: (1) STATE cross-check trailing clause differs contextually across the three files ("proceed to the working set below" / "proceed" / "move on") — expected, not drift; (2) journal append-only anomaly — the 2026-07-08 "Re-sync T-01/T-02" entry sits at the journal head (:17) out of order, pre-P3, honestly documented in T-07's entry. Checkpoint **CLOSED**. Next: P4/T-11 remains gated shut per CP-2 — spec is functionally complete. See journal verdict entry.
+- *Status.* **pass** on 2026-07-08 by waseric (opus, inline — floor met). 0 blockers, 0 important, 2 advisory. Reviewed the full P3 scope (T-07–T-10; masters 520a3a3, 0d36eb9, f528bb4, 0490d6f — the given `DIFF_RANGE` covered only T-10, widened to `b977f77..7fcc430`). All three exit criteria met: cross-skill STATE cross-check core + literal grep command byte-identical across spec-review / spec-amend / spec-reviewer; full-diff mandate intact and explicitly reinforced in both spec-review (:54, :195) and spec-reviewer (:17, :31); amendment single-form present (spec-amend :77), `### Full record` double-record retired (0 matches), legacy-discovery note present (:142) and matches §5.2's union grep; STATE write-backs present in spec-review Phase 8 (:170) and spec-amend Phase 5 (:138). Deploy-sync byte-identical for all three. Advisories: (1) STATE cross-check trailing clause differs contextually across the three files ("proceed to the working set below" / "proceed" / "move on") — expected, not drift; (2) journal append-only anomaly — the 2026-07-08 "Re-sync T-01/T-02" entry sits at the journal head (:17) out of order, pre-P3, honestly documented in T-07's entry. Checkpoint **CLOSED**. Next: P4/T-11 remains gated shut per CP-2 — spec is functionally complete. See journal verdict entry.
 
 ## 10. Risks and Mitigations
 
