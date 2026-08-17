@@ -37,18 +37,20 @@ The target is that spinning up a knowledge vault costs a short interview and a c
 
 ### Originating finding
 
-This design is routed from [specs/findings/20260817-knowledge-vault-bootstrap-gap/](../findings/20260817-knowledge-vault-bootstrap-gap/finding.md) (`status: routed`, domain `methodology`, severity `important`). That finding's `source-signal.md` is the operator's own distillation, written immediately after the `Finances` vault spin-up.
+This design is routed from [specs/findings/20260817-knowledge-vault-bootstrap-gap/](../findings/20260817-knowledge-vault-bootstrap-gap/finding.md) (`status: routed`, domain `methodology`, severity `important`). That finding's `source-signal.md` is the operator's own distillation, written immediately after the newer instance's spin-up.
 
 ### Prior art, and the constraint that it is going away
 
 Two instances of the archetype exist:
 
-- **`sandlotminecraft/admindoc`** — Minecraft platform operations. ~330 tracked files, deliberately reshaped in 2026-05 under its own governing design spec (`specs/2026-05-25-admindoc-reshape/architecture.md`, 7 phases, 4 checkpoints, 6 open questions). Multi-operator, GitHub remote.
-- **`Finances`** — personal financial tooling. Spun up 2026-08-16/17, ~24 tracked files. Single-operator, local-only, no remote, iCloud-synced.
+- **`admindoc`** — platform operations. ~330 tracked files, deliberately reshaped in 2026-05 under its own governing design spec (`specs/2026-05-25-admindoc-reshape/architecture.md`, 7 phases, 4 checkpoints, 6 open questions). Multi-operator, GitHub remote.
+- **The newer instance** — a private personal domain. Spun up 2026-08-16/17, ~24 tracked files. Single-operator, local-only, no remote, iCloud-synced.
+
+**Naming.** `admindoc` is referred to by name; the second instance is *the newer instance* throughout, and its subject matter is deliberately not stated. The instances' domains are not load-bearing for any claim in this spec — only their postures, sizes, and structural choices are — so withholding them costs the design nothing. Where a domain detail is genuinely needed to make a point (as in §5.3's naming trap), it is described generically.
 
 **Both are reachable only from the operator's personal machine, and this design will be continued from a context that cannot reach `admindoc`.** Every load-bearing fact about the prior art has therefore been transcribed into [docs/knowledge-vault-archetype-audit.md](../../docs/knowledge-vault-archetype-audit.md), which is this spec's authoritative prior-art source. Downstream sessions cite the audit, not the repos. The audit corrects the originating finding in five places; §4 and §5 below are built on the audit's corrected account, not on the finding's table.
 
-The convergence evidence is weaker than the finding claims and the audit says so plainly: `Finances` names `admindoc` as prior art in its own `CLAUDE.md`, so this was a successful hand transplant across a domain boundary, not independent convergence. That weakens the "the shape is objectively real" claim and strengthens the scaffold claim — the hand transplant is precisely the step being automated.
+The convergence evidence is weaker than the finding claims and the audit says so plainly: the newer instance names `admindoc` as prior art in its own `CLAUDE.md`, so this was a successful hand transplant across a domain boundary, not independent convergence. That weakens the "the shape is objectively real" claim and strengthens the scaffold claim — the hand transplant is precisely the step being automated.
 
 The stronger convergence datum is different: **two independent design efforts against this archetype hit the same three open questions.** `admindoc`'s reshape spec asked about Obsidian git-plugin posture (its OQ-1), memory directory location once the vault is primary (OQ-5), and what belongs in `history/` (OQ-6). The originating finding, written 15 months later by the same operator against a different domain and without consulting those OQs, raised all three again. Questions that recur across independent designs of the same archetype must be shipped as explicit interview questions or shipped as decisions — never left implicit. This is the single most load-bearing input to §5.2.
 
@@ -57,7 +59,7 @@ The stronger convergence datum is different: **two independent design efforts ag
 - **Skills are authored in `.agents/skills/<name>/` and deployed to `~/.claude/skills/<name>/`.** Both copies must match at task closeout ([CLAUDE.md](../../CLAUDE.md), the deploy-sync rule). A skill that ships asset files makes the deploy-sync check a whole-directory diff, not a `SKILL.md` diff.
 - **Skill masters carry uniform frontmatter only** — `name`, `lastUpdated`, `description`. No harness-specific keys. Model floors and behavioral contracts live in the skill's prose.
 - **The Atomic-Skill Portability Principle** ([specs/tech-stack.md](../tech-stack.md)) requires that a skill self-contain its workflow, schema knowledge, and default templates, with no runtime dependency on host-repo files; discover and adapt to richer host embodiments when present; and degrade cleanly when absent. This principle is the binding constraint on §5.5 and it **contradicts the originating finding's leaning** on archetype selection.
-- **Content must not name specific consumers.** The skill cannot reference `admindoc` or `Finances` in its shipped output; the audit exists in `docs/` precisely so the domain-specific evidence lives outside the distributable surface.
+- **Content must not name specific consumers.** The skill cannot reference `admindoc` or the newer instance in its shipped output; the audit exists in `docs/` precisely so the domain-specific evidence lives outside the distributable surface.
 - **This repo declares a `## Grammar` block** in [specs/tech-stack.md](../tech-stack.md); it is codified forward into this spec's journal per §5.7.
 - Single branch `main`, no CI, no build step, no deployment target. A validator therefore cannot be a CI check in this repo; §5.4 and OQ-2 address what it can be.
 
@@ -255,7 +257,7 @@ The rule: **prefer the cheapest store that reaches the right audience**, and whe
 
 **Behavior.** Parts 1's credential-handling block ships near-verbatim; the audit found four sub-rules phrased near-identically across both instances, plus a shared causal observation that leaks come from *exploration* rather than routine work, so the rule applies hardest when a route is new. The grading table and the boundaries-on-action section are authored per-hazard-class from a frame. **The skill refuses to produce a vault when no hazard class is named** — the finding records that in the manual session this organ emerged from a question the agent nearly did not ask, which is precisely why it is a gate rather than a prompt.
 
-**Naming.** The bare token `discipline` is not used: the audit found that one instance's `architecture/discipline.md` is a *domain* doc about player sanctions while the other's `architecture/data-discipline.md` is the hazard doc. The name derives from the hazard class (`data-discipline`, `secrets-discipline`, `provenance-discipline`).
+**Naming.** The bare token `discipline` is not used: the audit found that one instance's `architecture/discipline.md` is a *domain* doc about something else entirely while the other's `architecture/data-discipline.md` is the hazard doc. The name derives from the hazard class (`data-discipline`, `secrets-discipline`, `provenance-discipline`).
 
 **Pattern invoked.** Defense in depth via restatement at point of use — the same reasoning behind `finding-intake`'s and `finding-triage`'s repeated "never silently swallow" rules appearing both in OPERATING PRINCIPLES and in WHAT NOT TO DO.
 
@@ -358,7 +360,7 @@ Spin up a genuinely new vault, of a *different* hazard class than either referen
 ## 8. Validation Approach
 
 - **Skeleton fidelity, both directions.** Materialize a skeleton and diff it against the audit's invariant table. Then run the validator against both reference instances: it must find the known unindexed root document in the mature instance (§5.4). A validator that reports both instances clean is a broken validator, and this is the check that says so.
-- **Reconstruction test.** Materialize with tokens filled for the `Finances` domain and diff against the real vault. The gap is exactly the authored surface (hazard doc + constitution) plus genuine domain content. Any *structural* difference is either a skeleton bug or an invariant the audit missed.
+- **Reconstruction test.** Materialize with tokens filled for the newer instance's domain and diff against the real vault. The gap is exactly the authored surface (hazard doc + constitution) plus genuine domain content. Any *structural* difference is either a skeleton bug or an invariant the audit missed.
 - **Store-split test.** In a produced vault, give a fresh session one durable fact about the vault and one personal working preference, and ask it to remember both. The first must land in the committed `memory/` index; the second must not appear anywhere in `git status`. This is the behavioral check on §5.2a, and it is the one that fails silently in the field.
 - **Cold-reader test.** Hand a produced vault to a fresh agent session with no access to the bootstrap conversation, and ask it to add a document to an area. It must place the file, add the index line, and leave `knowledge-map.md` alone. This validates the three load-bearing conventions as *behavioral* rather than documented.
 - **Interview-effort measure.** Count questions asked and operator time in the Phase 6 dogfood, against the 3–5 question NFR.
@@ -521,6 +523,6 @@ The honest split may therefore be three categories rather than two — substitut
 
 ### Inspirational
 
-- `sandlotminecraft/admindoc`, `specs/2026-05-25-admindoc-reshape/architecture.md` — a governed design spec for reshaping a repo into this archetype; its section set informed §7 and its OQ-1/OQ-5/OQ-6 are the recurrence evidence in §3. Not reachable outside the operator's personal machine; content transcribed in the audit.
+- `admindoc`, `specs/2026-05-25-admindoc-reshape/architecture.md` — a governed design spec for reshaping a repo into this archetype; its section set informed §7 and its OQ-1/OQ-5/OQ-6 are the recurrence evidence in §3. Not reachable outside the operator's personal machine; content transcribed in the audit.
 - A third prior-art instance — an internal capability repository, commits `51a5076..c177707` — source of §5.2a's five-store model, the two mechanical constraints (memory not reaching dispatched agents; the uncommittable memory pointer), the `workspace-setup` organ, and §5.2b's two durability conventions. It is **not** an instance of this archetype: it is a specialized multi-modal knowledge repository with its own distribution management, whose functional requirements exceed a knowledge vault's, so its release, manifest, versioning, and dual-environment apparatus is deliberately not carried forward (§5.2a *Calibration*). Not reachable outside the operator's environment; the load-bearing content is transcribed in the audit's Appendix A.
 - The `finding-intake` / `finding-triage` `_template/` pair — the template-with-host-override idiom reused in §5.1, and the deliberate-duplication-for-atomicity precedent cited in §5.5.

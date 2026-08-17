@@ -4,7 +4,7 @@
 > authoritative doctrine. Audited 2026-08-17.
 >
 > **Why this document exists at all.** The two instances audited here are the only
-> evidence the archetype exists, and one of them (`sandlotminecraft/admindoc`) is
+> evidence the archetype exists, and one of them (`admindoc`) is
 > reachable only from the operator's personal machine. The scaffold design will be
 > continued from a context with **no access to admindoc**. Everything load-bearing
 > is therefore transcribed or quoted here rather than pointed at. Treat this file,
@@ -12,14 +12,20 @@
 >
 > Companion finding: [specs/findings/20260817-knowledge-vault-bootstrap-gap/](../specs/findings/20260817-knowledge-vault-bootstrap-gap/).
 > That finding's `source-signal.md` is the operator's own distillation, written from
-> the Finances spin-up. This audit checks that distillation against both instances and
+> the newer instance's spin-up. This audit checks that distillation against both instances and
 > **corrects it in five places** — see §7.
+>
+> **Naming.** `admindoc` is named; the second instance is *the newer instance*, and its subject
+> matter is deliberately withheld. Only postures, sizes, and structural choices are load-bearing
+> here, so the domains are not needed. Where a domain detail carries a point (§4.4's naming trap,
+> §6's area sets), it is described generically. The companion finding's `source-signal.md` is a
+> verbatim operator snapshot and is not retro-scrubbed.
 
 ## 1. The two instances
 
-| | `sandlotminecraft/admindoc` | `Finances` |
+| | `admindoc` | newer instance |
 | --- | --- | --- |
-| Domain | Minecraft platform operations | Personal financial tooling |
+| Domain | platform operations | a private personal domain |
 | Age / maturity | ~2023 origin, deliberately reshaped 2026-05-25 | spun up 2026-08-16/17 |
 | Size at audit | ~330 tracked files, ~61k lines of markdown | ~24 tracked files |
 | Git posture | remote on GitHub, `main` only, hand-curated commits | **local only, no remote**, `main` only, agent commits |
@@ -29,7 +35,7 @@
 | Agent harness | Claude Code | Claude Code **and** Claudian |
 | Governing spec for its own shape | `specs/2026-05-25-admindoc-reshape/architecture.md` (design) + `specs/2026-05-25-admindoc-bootstrap/feature.md` (Phase 1) | none — hand-derived from admindoc |
 
-The convergence claim holds, but it is worth being precise about *why*: Finances did
+The convergence claim holds, but it is worth being precise about *why*: the newer instance did
 not converge independently. Its `CLAUDE.md` ends with an explicit **Prior art** section
 naming admindoc as the reference. So the evidence is not "two independent designs agreed"
 — it is "one design was successfully transplanted across a domain boundary by hand, and
@@ -43,14 +49,14 @@ removes.
 
 Present in both, and the largest single structural agreement. Section-by-section:
 
-| Section | admindoc | Finances | Verdict |
+| Section | admindoc | newer instance | Verdict |
 | --- | --- | --- | --- |
-| Orientation | ✅ "This is **admindoc**, the one-ring knowledge repository and design hub…" | ✅ "This is the **Finances** vault: the knowledge and design hub…" | **invariant**; 1–2 domain paragraphs |
+| Orientation | ✅ "This is **admindoc**, the one-ring knowledge repository and design hub…" | ✅ "This is the **<name>** vault: the knowledge and design hub…" (name elided) | **invariant**; 1–2 domain paragraphs |
 | Pointer to constitution | ✅ "read specs/mission.md first, check specs/roadmap.md, see specs/tech-stack.md" | ✅ same three, near-verbatim | **invariant, near-verbatim** |
 | `@knowledge-map.md` transclusion | ✅ | ✅ | **invariant, verbatim** |
 | Hazard block | ✅ as `## Secrets` + `## Privilege workarounds — containers` | ✅ as `## Read this before touching data` → pointer to `architecture/data-discipline.md` | **invariant organ, divergent placement** — see §4 |
 | Knowledge capture | ✅ | ✅ | **invariant**, but with an inverted memory clause — see §5 |
-| Session discipline | ❌ (implied by spec-session doctrine) | ✅ "A session leaves the vault in a coherent state, ready to be picked up cold." | **candidate invariant**; Finances' wording is the better one |
+| Session discipline | ❌ (implied by spec-session doctrine) | ✅ "A session leaves the vault in a coherent state, ready to be picked up cold." | **candidate invariant**; the newer instance's wording is the better one |
 | Conventions | ✅ | ✅ | **invariant**; see §3 |
 | Git posture | ✅ inside Conventions | ✅ own `## Git` section incl. iCloud caveat | **invariant**, promote to own section |
 | Spec workflow | ✅ | ✅ | **invariant, near-verbatim** |
@@ -64,7 +70,7 @@ Verbatim-quotable invariant, present in both with only the noun changed:
 > a teammate or a future session would need — access routes, techniques, platform facts,
 > conventions, gotchas — goes in the repo, where it is shared, reviewable, and reachable.
 
-and the index rule, which Finances states best:
+and the index rule, which the newer instance states best:
 
 > **Default:** write it into the area it belongs to and **add its line to that folder's
 > index**. A document no index points at is a document the next session won't find.
@@ -88,7 +94,7 @@ worth shipping near-verbatim:
 Shape: a two-column table (`Area` | `What lives there`), one row per area, each linking
 to that area's `README.md` (not to the directory). admindoc adds a second section,
 `## Frequently needed, easy to re-derive by accident` — a short bulleted list of the
-handful of facts sessions keep re-deriving. That section is **not** in Finances and is a
+handful of facts sessions keep re-deriving. That section is **not** in the newer instance and is a
 strong scaffold candidate: it is the map's highest-value half, and it is the one part
 that cannot be generated (it accrues from experience). Ship it as an empty section with
 its heading and a one-line explanation of what earns a bullet.
@@ -99,7 +105,7 @@ Present in both. Human entry point. Invariant sub-structure:
 
 1. One-line identity + what the repo is.
 2. **The boundary rule** — what lives here vs. what lives elsewhere. admindoc: "Knowledge
-   lives here. Code lives in mcinfra." Plus a tiebreak rule worth stealing verbatim:
+   lives here. Code lives in the code spoke." Plus a tiebreak rule worth stealing verbatim:
    *"when the two repos disagree, the spec is the source of truth for intent; the code is
    the source of truth for current behavior."*
 3. **Where to read next** — a 3–4 item list pointing at `specs/mission.md`,
@@ -128,7 +134,7 @@ Both instances, common lines (the true invariant core):
 
 Divergent lines, each with a *recorded reason* — these are the interesting ones:
 
-| Line | admindoc | Finances | Note |
+| Line | admindoc | newer instance | Note |
 | --- | --- | --- | --- |
 | `.obsidian/plugins/` | **not ignored, deliberately** | **ignored** | Direct conflict — see §4.2 |
 | `.claudian/` | n/a (no Claudian) | ignored | harness-conditional |
@@ -153,13 +159,13 @@ not one merged file.
 files are tracked vs. ignored, why the community-plugin set ships empty, and why a plugin
 was *removed from VCS* rather than merely disabled ("Disabling would leave its bundled jar,
 config, and askpass shim in the repo — inert but tracked"). This is the doc that prevents
-the exact 3 MB-bundle friction the finding reports from the Finances side. High-value,
+the exact 3 MB-bundle friction the finding reports from the newer instance's side. High-value,
 near-verbatim shippable, ~1 domain sentence.
 
 ### 2.6 Other root files
 
-- `LICENSE` — admindoc: MIT. Finances: none (private, no remote). Conditional on git posture.
-- admindoc has one stray root file (`Sandlot Skyblock Reset - 2025.md`) — unindexed, space-
+- `LICENSE` — admindoc: MIT. Newer instance: none (private, no remote). Conditional on git posture.
+- admindoc has one stray root file (a dated root-level document with spaces in its filename) — unindexed, space-
   bearing name, pre-reshape residue. Evidence that the index convention rots exactly as the
   finding predicts, in the mature instance, under an operator who wrote the convention.
   **This is the single strongest argument for the index-coverage validator.**
@@ -168,16 +174,16 @@ near-verbatim shippable, ~1 domain sentence.
 
 Both instances, in a `## Conventions` section:
 
-- Markdown links only — `[text](path)`. **No** `[[wikilinks]]`. Finances adds the exception
+- Markdown links only — `[text](path)`. **No** `[[wikilinks]]`. The newer instance adds the exception
   clause: "(memory files are the one exception, per their own format)"; admindoc has no
   memory dir so needs no exception. **The exception is memory-conditional, not absolute.**
 - No Obsidian canvas files as authoritative documentation.
 - No absolute filesystem paths in committed prose — repo-/vault-relative only.
 - No feature branches; work lands on `main` directly.
 - Hand-curated commits; spec work uses `spec: YYYY-MM-DD-<feature> — <short>`.
-- Finances only: "Every folder carries a `README.md` index." (admindoc states this in the
+- Newer instance only: "Every folder carries a `README.md` index." (admindoc states this in the
   Knowledge-capture section instead.)
-- Finances only: "Obsidian is the owner's primary interface. Agent edits must not break its
+- Newer instance only: "Obsidian is the owner's primary interface. Agent edits must not break its
   parsing…"
 
 ## 4. The hazard organ — the finding's best insight, and where it is incomplete
@@ -187,7 +193,7 @@ The finding is right that this is the highest-value document and that
 
 ### 4.1 Placement diverges, and admindoc's answer is the more robust one
 
-- **Finances:** a dedicated `architecture/data-discipline.md` (~70 lines), pointed at from
+- **Newer instance:** a dedicated `architecture/data-discipline.md` (~70 lines), pointed at from
   `CLAUDE.md` via a `## Read this before touching data` section that also restates the two
   rules in short form.
 - **admindoc:** **no dedicated doc.** The organ lives inline in `CLAUDE.md` as `## Secrets`
@@ -196,7 +202,7 @@ The finding is right that this is the highest-value document and that
 But the important structural fact is that admindoc **restates the hazard rule at the point
 of use**: `techniques/README.md` carries its own `## Secrets` section repeating "Name the
 route, never the value" with a pointer back to `CLAUDE.md`. The rule is replicated exactly
-where a contributor is about to violate it. Finances' `CLAUDE.md` does the same thing at one
+where a contributor is about to violate it. The newer instance's `CLAUDE.md` does the same thing at one
 level (summary + pointer to the full doc).
 
 **Design consequence:** the hazard organ is not one document, it is a *three-point pattern* —
@@ -222,10 +228,10 @@ Plus, in both, the same causal observation:
 > test" while figuring out an unfamiliar connection path. Apply the rule hardest when the
 > technique is new.
 
-And in both: **if a secret leaks, say so immediately so it can be rotated** (Finances adds:
+And in both: **if a secret leaks, say so immediately so it can be rotated** (the newer instance adds:
 in a git repo, a history rewrite may be needed as well as a rotation).
 
-### 4.3 Finances adds two organs admindoc lacks
+### 4.3 The newer instance adds two organs admindoc lacks
 
 - **A data-grade table** (Raw / Derived / Illustrative → where each may live), with a
   redaction bar and the sharp guidance *"prefer inventing the example over sanitizing a real
@@ -249,7 +255,7 @@ and never happen silently as an implementation detail.
 ### 4.4 A naming trap
 
 admindoc has `architecture/discipline.md` — which is **not** the hazard doc; it is a domain
-doc about player sanctions. Finances has `architecture/data-discipline.md`, which **is** the
+doc about something else entirely. The newer instance has `architecture/data-discipline.md`, which **is** the
 hazard doc. The scaffold must not claim the bare token `discipline`; prefer a name derived
 from the hazard class itself (`data-discipline`, `secrets-discipline`, `provenance-discipline`).
 
@@ -262,13 +268,13 @@ That is wrong. **admindoc has no `memory/` directory at all**, and says so as po
 > tooling habits, who the operator is — belong in per-user memory under `~/.claude`. If it
 > would still be true for a different admin, it is not this.
 
-Finances inverts this deliberately:
+The newer instance inverts this deliberately:
 
 > **The exception:** genuinely operator-specific facts … go in `memory/`, indexed in
 > `memory/MEMORY.md`. Still inside the vault, never in `~/.claude`.
 
 These are opposite answers to the same question, and both are correct *for their instance*:
-admindoc is **multi-operator with a remote** (per-user facts must not be shared), Finances is
+admindoc is **multi-operator with a remote** (per-user facts must not be shared), the newer instance is
 **single-operator, self-contained, no remote** (nothing should live outside the vault). The
 finding's own Frictions list gets this right — "Memory location is a decision, not a default"
 — so the error is confined to the invariant table.
@@ -283,7 +289,7 @@ needs its memory-file exception clause, so the two decisions are coupled.
 > once and states the boundary, which reframes the "location" question as a *kind* question. The
 > spec's §5.2a supersedes this section's design consequence; the observations above stand.
 
-Finances' `memory/` holds 2 facts + index after one session (`agent-drives-desktop-tools`,
+The newer instance's `memory/` holds 2 facts + index after one session (`agent-drives-desktop-tools`,
 `migration-priorities`), which suggests the in-vault variant does get used when it exists.
 
 ## 6. Area directories
@@ -291,8 +297,8 @@ Finances' `memory/` holds 2 facts + index after one session (`agent-drives-deskt
 Observed sets:
 
 - **admindoc:** `architecture/ techniques/ operations/ research/ history/` + `permissions/`
-  `plugins/` `skyblock/` `specs/`
-- **Finances:** `architecture/ techniques/ operations/ research/ history/` + `data/`
+  `plugins/` + one domain-specific area + `specs/`
+- **Newer instance:** `architecture/ techniques/ operations/ research/ history/` + `data/`
   `repositories/` `memory/` `specs/`
 
 The five-name core is confirmed exactly as the finding states. Every area dir in both repos
@@ -314,10 +320,10 @@ carries a `README.md`. Notable per-area findings:
 - **`history/` — prior art answers the finding's open question.** admindoc's reshape spec
   OQ-6 resolved to: ship the directory **empty at Phase 1, populate on first natural addition**,
   with the README stating the inclusion rule and its two exclusions ("not for changelog-style
-  entries (use `git log`), not for runbook content"). Finances instead seeded a "known episodes,
+  entries (use `git log`), not for runbook content"). The newer instance instead seeded a "known episodes,
   not yet written up" stub. Both are defensible; the admindoc answer is the governed one.
 - **`operations/` carries a dated `changelog/` subdirectory** with its own README index
-  (admindoc: ~40 dated entries). Finances has no changelog. Candidate optional area.
+  (admindoc: ~40 dated entries). The newer instance has no changelog. Candidate optional area.
 - **Cross-area routing sentences.** Each area README ends by naming what belongs *elsewhere*
   ("For *how to reach* a data surface … see techniques/"; "design rationale belongs in
   architecture/"). This is what keeps areas from bleeding. Cheap to template, easy to miss.
@@ -330,7 +336,7 @@ carries a `README.md`. Notable per-area findings:
 | 2 | `.gitignore` ships "Verbatim" | **Half right.** A six-line core is verbatim; everything else is a per-instance decision with a rationale comment, and the two instances *directly conflict* on `.obsidian/plugins/` (§2.4, §4.2). |
 | 3 | admindoc's hazard organ = "its Secrets section, its privilege-workaround rule" | **Right, and incomplete.** The organ is a three-point pattern — canonical statement, summary in the agent contract, restatement at each point of use (§4.1). Also: four credential sub-rules are near-verbatim across both instances (§4.2). |
 | 4 | Invariant list omits: `.obsidian/README.md`; the `techniques/` card shape; the README "other editors / non-breakage" section; `knowledge-map.md`'s "frequently re-derived" section; per-area cross-routing sentences | **Five additions**, all present in admindoc and all near-verbatim shippable (§2.5, §6, §2.3). |
-| 5 | "Two instances converged independently, which is the evidence the shape is real" | **Overstated.** Finances names admindoc as prior art in its own `CLAUDE.md`. This was a hand transplant, not independent convergence (§1). The scaffold argument survives — arguably strengthens — but the evidence should be described honestly in the spec. |
+| 5 | "Two instances converged independently, which is the evidence the shape is real" | **Overstated.** the newer instance names admindoc as prior art in its own `CLAUDE.md`. This was a hand transplant, not independent convergence (§1). The scaffold argument survives — arguably strengthens — but the evidence should be described honestly in the spec. |
 
 Not a correction, but the sharpest new datum: admindoc, the mature instance whose operator
 *wrote* the index convention, still has one unindexed root-level document with spaces in its
@@ -362,7 +368,7 @@ filename. The convention rots. §2.6.
    doctrine's *shape* with the model-floor ladder as a token, not admindoc's specific text.
 6. **iCloud + git**, verbatim-shippable as a conditional block: let sync settle before
    committing; avoid concurrent edits from two machines; with no remote this is the only copy.
-7. **`git add .` is named as the specific hazard** in Finances' git section — "the most likely
+7. **`git add .` is named as the specific hazard** in the newer instance's git section — "the most likely
    way something from `data/raw/` or an untracked scratch file ends up in history." Pairs with
    the staging-directory pattern.
 

@@ -22,16 +22,16 @@ Codified forward from [specs/tech-stack.md](../tech-stack.md) `## Grammar` — t
 **Trigger:** [specs/findings/20260817-knowledge-vault-bootstrap-gap/](../findings/20260817-knowledge-vault-bootstrap-gap/finding.md) at `status: routed`, route subtype `spec-write` via a `spec-design` pass first.
 **Status:** Draft — Open for Review
 
-**Discovery.** Prior conversation supplied the operator's own distillation of the manual `Finances` spin-up (preserved as the finding's `source-signal.md`), so no Discovery interview was restarted. Discovery instead consisted of a first-hand audit of both reference instances — `sandlotminecraft/admindoc` (~330 files, governed by its own reshape design spec) and the `Finances` vault (~24 files, one day old) — written up as [docs/knowledge-vault-archetype-audit.md](../../docs/knowledge-vault-archetype-audit.md).
+**Discovery.** Prior conversation supplied the operator's own distillation of the newer instance's manual spin-up (preserved as the finding's `source-signal.md`), so no Discovery interview was restarted. Discovery instead consisted of a first-hand audit of both reference instances — `admindoc` (~330 files, governed by its own reshape design spec) and the newer instance (~24 files, one day old) — written up as [docs/knowledge-vault-archetype-audit.md](../../docs/knowledge-vault-archetype-audit.md).
 
 **Why the audit exists as a separate committed document.** The operator will continue this work from a context with no access to `admindoc`. Everything load-bearing about the prior art is therefore transcribed into the audit rather than pointed at, and this spec cites the audit as authoritative for all prior-art claims (§3, §14). This was the session's primary durability constraint and it drove the ordering: audit first, then design.
 
 **The audit corrected the originating finding in five places**, and the spec is built on the corrected account:
-1. In-vault `memory/` is **not** invariant — `admindoc` has none and routes per-operator facts outside the repo by policy, the exact inverse of `Finances`. It is a decision that follows from sharing posture, and the spec derives it rather than shipping it (§5.2).
+1. In-vault `memory/` is **not** invariant — `admindoc` has none and routes per-operator facts outside the repo by policy, the exact inverse of the newer instance. It is a decision that follows from sharing posture, and the spec derives it rather than shipping it (§5.2).
 2. The `.gitignore` is verbatim only in a six-line core; the two instances **directly conflict** on `.obsidian/plugins/`.
 3. The hazard organ is a three-point pattern (canonical doc + agent-contract summary + point-of-use restatement), not one document (§5.3).
 4. Five invariants the finding omits, all near-verbatim shippable: `.obsidian/README.md`; the `techniques/` four-part card shape; the README non-breakage section; `knowledge-map.md`'s "frequently re-derived" section; per-area cross-routing sentences.
-5. The convergence claim is overstated — `Finances` names `admindoc` as prior art in its own `CLAUDE.md`, so this was a hand transplant, not independent convergence. The spec states this plainly (§3) and substitutes a stronger datum: two independent *designs* of the archetype, 15 months apart, hit the same three open questions (Obsidian posture, memory location, `history/` contents). That recurrence is the argument for shipping those three as explicit interview questions or decisions.
+5. The convergence claim is overstated — the newer instance names `admindoc` as prior art in its own `CLAUDE.md`, so this was a hand transplant, not independent convergence. The spec states this plainly (§3) and substitutes a stronger datum: two independent *designs* of the archetype, 15 months apart, hit the same three open questions (Obsidian posture, memory location, `history/` contents). That recurrence is the argument for shipping those three as explicit interview questions or decisions.
 
 **Operator decisions taken at Clarify.**
 - **Name:** `vault-bootstrap` — verb-shaped like the `spec-*` family, leaving room for a `*-bootstrap` sibling family.
@@ -125,3 +125,27 @@ questions against a 3–5 NFR, and §5.2b's citation gate would make eight. Rath
 worsening it, §6's Adoptability NFR now states the tension, offers the defensible reading (several
 are one-breath decisions rather than prompts), and flags it for CP-1: either the target moves or the
 questions merge. Phase 6's effort measure is what settles it.
+
+## 2026-08-17 — Generalize prior-art references
+
+**Operator directive.** Remove references to the reference instances' subject matter from the spec
+and the audit going forward. `admindoc` may be named — the name is generic enough to disclose
+nothing — and pointing at unreachable specs by path is fine, since an agent may happen to find one
+locally. Git history is deliberately **not** rewritten; this is a going-forward change only.
+
+**Applied.** The second instance is now *the newer instance* throughout `architecture.md`,
+`journal.md`, and the audit; its domain reads as "a private personal domain," and the first
+instance's as "platform operations." A code-spoke repo name, an area-directory name, a domain
+policy document's subject, and a stray root filename were generalized in place; one verbatim
+`CLAUDE.md` quote has its vault name elided rather than reworded, so it stays marked as a quote.
+Both documents gained a short **Naming** paragraph so a cold reader knows the label is deliberate
+and not a gap: the instances' *domains* were never load-bearing — only their postures, sizes, and
+structural choices are — so withholding them costs the design nothing.
+
+**Not scrubbed, and why.** The originating finding's `source-signal.md` is a verbatim operator
+snapshot; editing it would falsify what it claims to be. Unrelated older findings in
+`specs/findings/` are domain artifacts of their own dogfood exercises and out of this directive's
+scope. Both are noted in the audit's Naming paragraph so the inconsistency reads as a decision.
+
+**No design content changed.** Labels and domain descriptors only; every claim, checkpoint, and open
+question is untouched.
