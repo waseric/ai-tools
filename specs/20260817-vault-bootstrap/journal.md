@@ -1,13 +1,13 @@
 # vault-bootstrap — Journal
 
 ## Current State
-- **Phase:** CP-1 re-review complete (2026-08-18) — `changes requested`, 1 residual blocker. Spec stays `Draft`.
-- **Last completed:** CP-1 re-review of `architecture.md` over `3bab5bd..95b5a3e`
-- **Next:** strike the superseded 3–5 question target from §2 Goals and the §4 topology diagram, plus the two important findings; then re-invoke `/spec-review` against CP-1. Operator approval remains the standing exit criterion.
+- **Phase:** CP-1 re-review remediation complete (2026-08-18) — all findings from both review rounds closed. Spec stays `Draft`, awaiting a second re-review and operator approval.
+- **Last completed:** remediation of the CP-1 re-review's blocker, 2 importants, and 4 advisories
+- **Next:** re-invoke `/spec-review` against CP-1, or hand the shape to the operator. Operator approval remains the standing exit criterion and is not something an agent reviewer can supply.
 - **Open holds:** OQ-1/2/3/5/6 open by design and now confirmed as sound deferrals. **OQ-4 resolved during design.** The prior review's 7 advisories were never enumerated and are superseded by this re-review's advisory set.
 - **Pending checkpoint:** CP-1 — Design Approval (architecture.md §9), open
 - **Archive:** none — all entries live
-- **Latest entry:** `## 2026-08-18 — Re-review of CP-1`
+- **Latest entry:** `## 2026-08-18 — CP-1 re-review remediation`
 
 ## Grammar
 - **Journal entry:** `## <YYYY-MM-DD> — <event>`
@@ -328,3 +328,36 @@ precedent.
 **Next action:** strike 3–5 from §2 and §4, drop "conditional" at §5.2a's mechanical fact 2, then
 re-invoke `/spec-review` against CP-1 — or hand the shape to the operator for the approval that is
 the checkpoint's real gate.
+
+## 2026-08-18 — CP-1 re-review remediation
+
+All seven findings from the 2026-08-18 re-review closed as direct draft revisions (spec is
+pre-approval, so no `spec-amend` route — this journal's standing precedent).
+
+**Blocker — closed.** The superseded 3–5 question target struck from both places it survived: §2
+Goals now reads "four required questions, up to seven (§6)", and the §4 topology diagram's P2 row
+reads `4 required + 3 depth`. §6 remains the single authority on the number.
+
+**Important — both closed.** §5.2a's mechanical fact 2 no longer calls `workspace-setup`
+"conditional", matching §5.1's "no off-state". §9's CP-1 Status line was already fixed in the prior
+pass and now also carries this remediation, with the original verdict preserved as *Prior status*.
+
+**Advisory — all four closed.**
+- §5.2's "the extra six minutes" replaced with "more time" / "what the depth round buys" — the
+  number was unsupported and the Phase 6 dogfood is what produces it.
+- §13 gained a **Resolved during design** grouping at its end; OQ-4 moved there as an `h4` with its
+  analysis and resolution intact, so the section title stays honest as more OQs close.
+- §6's "up to 7 total" now states that 7 is reachable only when the scan finds pre-existing
+  directories, which is what depth question 2 asks about.
+- §5.1's standalone sync-layer row folded into the `CLAUDE.md` row as a named conditional sub-block,
+  restoring file-per-row granularity. **Operator correction taken in the same edit:** the row named
+  iCloud, which is one storage technology among several and has no business in a spec that must not
+  name specific consumers or stacks. The rule itself — let sync settle before committing, avoid
+  concurrent edits from two machines, with no remote this is the only copy — is genuine
+  contributor-facing git posture and stays in `CLAUDE.md` § Git, now gated on "a working tree backed
+  by a file-sync layer" rather than on a product name. §3's prior-art description of the newer
+  instance still says iCloud-synced; that is a transcribed fact about a reference instance, not
+  shipped content, and stays.
+
+**Next action:** re-invoke `/spec-review` against CP-1, or take the shape to the operator for the
+approval that is the checkpoint's real gate.

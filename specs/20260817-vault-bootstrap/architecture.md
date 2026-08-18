@@ -1,6 +1,6 @@
 # vault-bootstrap — Architecture and Protocol Specification
 
-> Status: Draft — Open for Review (CP-1 changes requested 2026-08-17; blockers remediated 2026-08-18, awaiting re-review)
+> Status: Draft — Open for Review (CP-1 changes requested twice, 2026-08-17 and 2026-08-18; all findings from both rounds remediated 2026-08-18, awaiting re-review)
 > Date: 2026-08-17
 > Author: waseric
 > Audience: the operator; contributors to this skill family; AI agents executing `vault-bootstrap` or a sibling archetype skill; adopters who install the skill without this repo
@@ -17,7 +17,7 @@ The target is that spinning up a knowledge vault costs a short interview and a c
 
 ### Goals
 
-- A new knowledge vault reaches a committed, coherent, cold-readable state in one session, with operator effort dominated by a 3–5 question interview rather than by authoring.
+- A new knowledge vault reaches a committed, coherent, cold-readable state in one session, with operator effort dominated by a short interview — four required questions, up to seven (§6) — rather than by authoring.
 - The invariant skeleton is captured once as versioned assets, so instance N+1 does not re-derive it from instance N by hand.
 - The hazard class of the new vault is named before the vault is produced; a vault without its hazard doc is not a valid output.
 - The three rot-prone conventions (index coverage, markdown-links-only, area-level knowledge-map changes) are enforced by a validator rather than by discipline.
@@ -81,7 +81,7 @@ The *produced* vault is always a third repository, distinct from both. `vault-bo
    operator invokes ───▶│  vault-bootstrap  (this skill)       │
                         ├──────────────────────────────────────┤
                         │ P1 SCAN     target dir + git state   │
-                        │ P2 INTERVIEW 3–5 archetype questions │
+                        │ P2 INTERVIEW 4 required + 3 depth    │
                         │ P3 MATERIALIZE skeleton + tokens     │
                         │ P4 AUTHOR   hazard doc               │
                         │ P5 DELEGATE ──────┐                  │
@@ -141,7 +141,7 @@ The ordering is load-bearing and inverted from intuition: **skeleton before cons
 
 | Asset | Substance | Token load |
 | --- | --- | --- |
-| `CLAUDE.md` | Agent contract. Sections, in order: Orientation; the boundary that costs most if missed; `@knowledge-map.md`; hazard summary + pointer; **Where knowledge goes** (the store-routing table, §5.2a); Knowledge capture; Session discipline; Conventions; Git; Spec workflow | 1–2 domain paragraphs + `{{BOUNDARY_RULE}}`, `{{MEMORY_CLAUSE}}`, `{{GIT_POSTURE}}`, `{{HAZARD_SUMMARY}}` |
+| `CLAUDE.md` | Agent contract. Sections, in order: Orientation; the boundary that costs most if missed; `@knowledge-map.md`; hazard summary + pointer; **Where knowledge goes** (the store-routing table, §5.2a); Knowledge capture; Session discipline; Conventions; Git; Spec workflow. The Git section carries one conditional sub-block, verbatim-shippable per audit §8.6, emitted only when the git-posture answer reports a working tree backed by a file-sync layer: let sync settle before committing; avoid concurrent edits from two machines; with no remote this is the only copy | 1–2 domain paragraphs + `{{BOUNDARY_RULE}}`, `{{MEMORY_CLAUSE}}`, `{{GIT_POSTURE}}`, `{{HAZARD_SUMMARY}}` |
 | `knowledge-map.md` | Header prose verbatim (audit §2.2); area table; empty `## Frequently needed, easy to re-derive by accident` section with its inclusion rule | area rows |
 | `README.md` | Human entry: identity; boundary rule + intent-vs-behavior tiebreak; Where to read next; Working in Obsidian *(conditional)*; Working in other editors — the non-breakage constraint; License *(conditional)* | `{{VAULT_NAME}}`, `{{BOUNDARY_RULE}}` |
 | `<area>/README.md` × 3 | Index scaffold for `architecture/`, `operations/`, `research/`, each ending with its cross-area routing sentence. The other two core areas — `techniques/` and `history/` — carry their own rows below, with different substance | area gloss |
@@ -153,7 +153,6 @@ The ordering is load-bearing and inverted from intuition: **skeleton before cons
 | `memory/MEMORY.md` | Index stub, plus a header carrying its own load limit (index-only, first ~200 lines) and the point-of-use restatement that this file is committed and team-visible, so operator-specific facts do not belong in it | — |
 | `.claude/rules/<topic>.md` | Path-scoped rule with `paths:` frontmatter. Shipped only where the design actually places one (§5.2a): the point-of-use hazard restatement, and the spec-session block scoped to `specs/**` | `{{HAZARD_POINTER}}` |
 | `.claude/skills/workspace-setup/SKILL.md` | The fresh-clone procedure for configuration that cannot be committed — chiefly the memory-directory pointer, which needs a machine-absolute path. Idempotent; reports and stops when already configured. Unconditional — §5.2a makes the repo-oriented store part of every vault, so this asset has no off-state | `{{MEMORY_DIR}}` |
-| `CLAUDE.md` § Git — sync-layer block | The iCloud-plus-git conditional block, verbatim-shippable per audit §8.6: let sync settle before committing; avoid concurrent edits from two machines; with no remote this is the only copy. Emitted only when the git-posture answer reports a sync-layer-backed working tree *(conditional)* | `{{GIT_POSTURE}}` |
 | staging dir + `README.md` | Gitignored-dir-with-committed-README pattern *(conditional on a staging need)* | `{{STAGING_DIR}}` |
 
 **Behavior.** The skill copies assets, substitutes tokens, and omits conditional assets whose gate is off. It never partially writes: a failed substitution (unresolved token) aborts before any file lands.
@@ -172,7 +171,7 @@ The ordering is load-bearing and inverted from intuition: **skeleton before cons
 
 **Shape.** Two rounds, and within them **two tiers**. Round 2's content depends on Round 1's answers. Every question is multiple-choice with a recommended option; none is open prose.
 
-The tiers are the answer to §6's adoptability target. **Four questions are required** — purpose, posture, Obsidian, hazard — and answering only those four produces a valid, coherent, committed vault. The remaining three are an explicitly **skippable depth round**: they improve the output materially, and the design says so, but none of them gates it. The skill states which tier it is in when it asks, so an operator in a hurry knows exactly where the floor is and an operator with ten minutes knows what the extra six minutes buy.
+The tiers are the answer to §6's adoptability target. **Four questions are required** — purpose, posture, Obsidian, hazard — and answering only those four produces a valid, coherent, committed vault. The remaining three are an explicitly **skippable depth round**: they improve the output materially, and the design says so, but none of them gates it. The skill states which tier it is in when it asks, so an operator in a hurry knows exactly where the floor is and an operator with more time knows what the depth round buys.
 
 **Round 1 — shape.**
 1. **[required] What is this vault for?** Offer concrete archetype-fit options, not a blank.
@@ -230,7 +229,7 @@ The rule: **prefer the cheapest store that reaches the right audience**, and whe
 **Two mechanical facts that constrain the split.**
 
 1. **Repo-oriented memory is not reachable by a dispatched subagent.** A worker or reviewer spawned into a fresh context sees the agent contract and path-scoped rules; it does not see recalled memory. So the derivation has a second axis beyond sharing posture: anything a *dispatched* agent must know belongs in the contract or a rule, not in memory — and since §5.7 wires the produced vault to the `spec-*` family (dispatch included) from its first commit, this applies to every vault, not to an exotic subset.
-2. **The pointer to an in-vault memory directory cannot be committed.** It needs a machine-absolute path and lives in an ignored local settings file. The *content* is committed; only the pointer is local. The consequence is that a fresh clone is silently under-configured — memory keeps working, just in the wrong place — which is why the conditional `workspace-setup` skill (§5.1) is a shipped asset rather than a sentence in the contract. Three details it must carry, each learned the expensive way: the setting takes effect only after the workspace-trust prompt is accepted; changing it does **not** migrate memories already written elsewhere, so migration is offered and never done silently; and verification is confirming the agent contract actually appears as a loaded memory file, because if it did not load, nothing else in the setup is trustworthy.
+2. **The pointer to an in-vault memory directory cannot be committed.** It needs a machine-absolute path and lives in an ignored local settings file. The *content* is committed; only the pointer is local. The consequence is that a fresh clone is silently under-configured — memory keeps working, just in the wrong place — which is why the `workspace-setup` skill (§5.1) is a shipped asset rather than a sentence in the contract. Three details it must carry, each learned the expensive way: the setting takes effect only after the workspace-trust prompt is accepted; changing it does **not** migrate memories already written elsewhere, so migration is offered and never done silently; and verification is confirming the agent contract actually appears as a loaded memory file, because if it did not load, nothing else in the setup is trustworthy.
 
 **Calibration — what this deliberately does not become.** The prior-art instance this model comes from also carries a release surface, a manifest, versioned distribution to an unseeable consumer set, and a dual-environment constraint. None of that is in scope. The target of this archetype is closer to an AI-moderated notebook than to a distribution system: the vault ships **the routing table, the two-kind memory split, and the ignore lines that enforce it** — five stores and one rule, not a governance regime. What the skeleton *does* ship under `.claude/` is bounded and named: two path-scoped rules the design already places (§5.3's point-of-use hazard restatement, §5.7's `specs/**` block) and one skill, `workspace-setup`, which exists because the memory pointer cannot be committed. Nothing is created speculatively — no empty `.claude/rules/` directory, no skill without a procedure to carry — but the restraint claimed here is *bounded need*, not absence: the archetype does create `.claude/` subdirectories when a named asset lands in one. That is the resolution OQ-4 records.
 
@@ -331,7 +330,7 @@ The produced vault's own grammar is a separate question from this spec's: the sk
 
 ## 6. Non-functional Requirements
 
-- **Adoptability.** A vault reaches its first commit in one session. Operator effort is dominated by the interview, which is two-tiered (§5.2): **4 required questions, up to 7 total**, plus up to two conditional follow-ups whose gates are derived from the posture answer rather than asked. The four required questions alone produce a valid vault; the depth round is recommended but skippable, and a skipped question is logged as a deferral rather than dropped. Every question carries a recommended default. This supersedes the earlier 3–5 target, which was contradicted by §5.2's own enumeration — resolved at CP-1 in favor of moving the target and declaring the floor, rather than merging questions the design argues are individually load-bearing.
+- **Adoptability.** A vault reaches its first commit in one session. Operator effort is dominated by the interview, which is two-tiered (§5.2): **4 required questions, up to 7 total** (7 reachable only when the scan finds pre-existing directories, which is what depth question 2 asks about), plus up to two conditional follow-ups whose gates are derived from the posture answer rather than asked. The four required questions alone produce a valid vault; the depth round is recommended but skippable, and a skipped question is logged as a deferral rather than dropped. Every question carries a recommended default. This supersedes the earlier 3–5 target, which was contradicted by §5.2's own enumeration — resolved at CP-1 in favor of moving the target and declaring the floor, rather than merging questions the design argues are individually load-bearing.
 - **Portability.** The skill functions installed standalone against an unrelated directory, with no dependency on this repo, on sibling skills, or on any host file. Host-provided overrides are used when present and absent-tolerated when not (§5.1).
 - **Observability.** Every interview answer that becomes a structural decision is recorded in the produced vault — deferrals as logged deferrals, the store split stated explicitly in the agent contract, the hazard class named in its own doc. A cold reader can tell what was decided and why without the originating session.
 - **Reversibility.** The skill's output is a set of files in an otherwise-untouched target directory, and the first commit is a single commit. Backing out is discarding that commit or deleting the produced files (§11).
@@ -379,7 +378,7 @@ Spin up a genuinely new vault, of a *different* hazard class than either referen
 **Trigger.** This spec is complete and committed.
 **Review focus.** Whether the archetype boundary is drawn correctly; whether the invariant/authored split matches the audit; whether §5.5's rejection of the finding's shared-assets leaning is sound; whether the five audit corrections are reflected rather than merely cited; and whether §5.2a's store split is calibrated to this archetype rather than carried over intact from a repo whose distribution requirements exceed it. The open questions are reviewed for whether they are the *right* deferrals, not for resolution.
 **Exit criteria.** Operator approves the shape and the OQ set; spec advances to `Approved`; downstream feature spec is cleared to be authored.
-**Status.** changes requested on 2026-08-17 by Claude Opus 5; remediated 2026-08-18; re-reviewed 2026-08-18 by Claude Opus 5 (inline `spec-review`, agent reviewer) — **changes requested**, 1 residual blocker: §2 and §4 still carry the superseded 3–5 question target that §6 replaced with `4 required / up to 7 total`. The three original blockers are otherwise closed. Checkpoint stays open. Operator approval of the shape and OQ set is still outstanding and is not something an agent reviewer can supply.
+**Status.** changes requested on 2026-08-17 by Claude Opus 5; remediated 2026-08-18; re-reviewed 2026-08-18 by Claude Opus 5 (inline `spec-review`, agent reviewer) — **changes requested**, 1 residual blocker (the superseded 3–5 question target surviving in §2 and §4), 2 important, 4 advisory. All of them remediated 2026-08-18 in a second pass: the 3–5 target struck from §2 and §4; §5.2a's residual "conditional `workspace-setup`" dropped; §5.2's unsupported "six minutes" removed; §6's 7-question ceiling qualified as reachable only on a non-empty target; §13 given a *Resolved during design* grouping for OQ-4; and §5.1's sync-layer row folded into the `CLAUDE.md` row and generalized off any named sync product. Checkpoint stays open awaiting re-review. Operator approval of the shape and OQ set is still outstanding and is not something an agent reviewer can supply.
 
 **Prior status.** changes requested on 2026-08-17 by Claude Opus 5 (inline `spec-review`, agent reviewer) — 3 blockers: the ungated `*(conditional on repo-oriented memory in-vault)*` gate (§5.1 vs §6); OQ-4's leaning contradicted by §5.1's `workspace-setup` asset; the §6 Adoptability 3–5 question target contradicted by §5.2/§5.2b. Checkpoint stays open. Operator approval of the shape and OQ set is still outstanding and is not something an agent reviewer can supply.
 
@@ -485,18 +484,6 @@ The honest split may therefore be three categories rather than two — substitut
 
 **Watch items.** If the Phase 6 dogfood's Orientation needs hand-repair, the frame is too loose and should enumerate more required elements.
 
-### OQ-4 — Does `vault-bootstrap` create `.claude/skills/` in the produced vault? — **Resolved during design**
-
-**Question.** The mature reference instance hosts two vault-local skills under a tracked `.claude/skills/`. Should the skeleton create that directory?
-
-**Analysis.** The question was posed at `3bab5bd`, when the answer was "vault-local skills arrive with a domain need, not at bootstrap" — an empty `.claude/skills/` being an empty directory git will not track anyway. The third-instance pass then introduced a *named* asset that lands there: `workspace-setup` (§5.1, §5.2a), which exists because the in-vault memory pointer needs a machine-absolute path and therefore cannot be committed. That is a bootstrap-time need, not a domain need, and it is unconditional — so the premise the deferral rested on no longer holds.
-
-**Resolution.** The skeleton does **not** create an empty `.claude/skills/`; it creates exactly the directories its named assets occupy, which as of this design is `.claude/skills/workspace-setup/` and the two path-scoped rules under `.claude/rules/`. Structure still follows need — the need is now present and named. Also shipped, unchanged from the original leaning: the `.gitignore` discipline (already in the core set — track skills and shared settings, ignore per-operator and machine state) and one sentence in the agent contract's conventions noting that vault-local skills belong under `.claude/skills/` and are tracked.
-
-**Why resolved rather than re-deferred.** A deferral whose leaning the detailed design already contradicts is drift, not a deferral. §5.1 and §5.2a answer this question in the body of the spec; leaving it open would mean the spec deferred a question it had already decided.
-
-**Owner.** Phase 1 implements; CP-2 confirms the created set matches the named-asset set exactly (no speculative directories).
-
 ### OQ-5 — Is `specs/docs/` part of the skeleton?
 
 **Question.** The mature instance parks non-spec doctrine documents — house rules, an internal doctrine document, a format ground-truth reference — under `specs/docs/`. Is that an invariant or an instance artifact?
@@ -520,6 +507,22 @@ The honest split may therefore be three categories rather than two — substitut
 **Owner.** Phase 5, ratified at CP-4.
 
 **Anti-goals.** Do not add a `--force` overwrite. The skill's blast radius is someone's knowledge repository, and the safe failure is doing nothing.
+
+### Resolved during design
+
+Questions posed as deferrals that the detailed design went on to answer. They stay here, with their analysis and resolution intact, rather than being deleted — the record of *why* a deferral stopped being one is the useful half.
+
+#### OQ-4 — Does `vault-bootstrap` create `.claude/skills/` in the produced vault?
+
+**Question.** The mature reference instance hosts two vault-local skills under a tracked `.claude/skills/`. Should the skeleton create that directory?
+
+**Analysis.** The question was posed at `3bab5bd`, when the answer was "vault-local skills arrive with a domain need, not at bootstrap" — an empty `.claude/skills/` being an empty directory git will not track anyway. The third-instance pass then introduced a *named* asset that lands there: `workspace-setup` (§5.1, §5.2a), which exists because the in-vault memory pointer needs a machine-absolute path and therefore cannot be committed. That is a bootstrap-time need, not a domain need, and it is unconditional — so the premise the deferral rested on no longer holds.
+
+**Resolution.** The skeleton does **not** create an empty `.claude/skills/`; it creates exactly the directories its named assets occupy, which as of this design is `.claude/skills/workspace-setup/` and the two path-scoped rules under `.claude/rules/`. Structure still follows need — the need is now present and named. Also shipped, unchanged from the original leaning: the `.gitignore` discipline (already in the core set — track skills and shared settings, ignore per-operator and machine state) and one sentence in the agent contract's conventions noting that vault-local skills belong under `.claude/skills/` and are tracked.
+
+**Why resolved rather than re-deferred.** A deferral whose leaning the detailed design already contradicts is drift, not a deferral. §5.1 and §5.2a answer this question in the body of the spec; leaving it open would mean the spec deferred a question it had already decided.
+
+**Owner.** Phase 1 implements; CP-2 confirms the created set matches the named-asset set exactly (no speculative directories).
 
 ## 14. References
 
