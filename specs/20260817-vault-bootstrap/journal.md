@@ -1,13 +1,13 @@
 # vault-bootstrap — Journal
 
 ## Current State
-- **Phase:** CP-1 review — **changes requested**; spec stays `Draft`
-- **Last completed:** CP-1 review (2026-08-17) — 3 blockers, 6 important, 7 advisory
-- **Next:** resolve the 3 CP-1 blockers as **direct draft revisions** to `architecture.md` (the spec is pre-approval, so `spec-amend` does not apply), then re-invoke `/spec-review` against CP-1. B-3 needs an operator decision on the interview-question count.
-- **Open holds:** OQ-1 through OQ-6 open by design. **OQ-4 is now a blocker, not a deferral** — §5.1's `workspace-setup` asset already answers it the opposite way from its own leaning. OQ-1/2/3/5/6 stand as sound deferrals.
+- **Phase:** CP-1 remediation complete; spec stays `Draft`, awaiting CP-1 re-review
+- **Last completed:** CP-1 blocker + important remediation (2026-08-18) — all 3 blockers and all 6 important findings applied as direct draft revisions
+- **Next:** re-invoke `/spec-review` against CP-1. The 7 advisory findings are not yet triaged.
+- **Open holds:** OQ-1/2/3/5/6 open by design and stand as sound deferrals. **OQ-4 is resolved during design** — the `workspace-setup` asset is a named bootstrap-time need, so the deferral's premise no longer holds.
 - **Pending checkpoint:** CP-1 — Design Approval (architecture.md §9), open
 - **Archive:** none — all entries live
-- **Latest entry:** `## 2026-08-17 — Review of CP-1`
+- **Latest entry:** `## 2026-08-18 — CP-1 remediation`
 
 ## Grammar
 - **Journal entry:** `## <YYYY-MM-DD> — <event>`
@@ -203,3 +203,65 @@ set at the third-instance pass: `spec-amend` governs approved specs.
 rather than an edit); blockers 1 and 2 are mechanical reconciliations. Then re-invoke `/spec-review`
 against CP-1. CP-1's exit criterion of operator approval remains outstanding regardless — an agent
 reviewer cannot supply it.
+
+## 2026-08-18 — CP-1 remediation
+
+**Trigger.** Operator directed remediation of the CP-1 review's findings. The spec is
+`Draft — Open for Review` and pre-approval, so every change lands as a **direct draft revision**,
+not an amendment — the precedent this journal set at the third-instance pass and which the review
+itself restated.
+
+**Blockers — all three closed.**
+
+1. **The ungated gate.** `memory/MEMORY.md` and `.claude/skills/workspace-setup/SKILL.md` are now
+   unconditional §5.1 rows; the `*(conditional on repo-oriented memory in-vault)*` marker is gone
+   from both, and the `workspace-setup` row states outright that §5.2a leaves it no off-state. The
+   same correction propagates to §5.4's check-2 false-positive class, which had described the
+   `memory/` exemption as conditional on a variant that no longer exists.
+2. **OQ-4.** Resolved during design rather than re-deferred, and rewritten to say why: the deferral
+   was authored at `3bab5bd` on the premise that vault-local skills arrive with a *domain* need, and
+   the third-instance pass then introduced a **bootstrap-time** one. The skeleton creates exactly the
+   `.claude/` subdirectories its named assets occupy — `workspace-setup` and the two path-scoped
+   rules — and nothing speculative. The original leaning's shipped artifacts (the `.gitignore`
+   discipline, the contract sentence) survive unchanged. CP-2 now confirms created-set equals
+   named-asset-set.
+3. **The interview target — operator decision.** Offered three reconciliations; the operator chose
+   **two-tier: 4 required + optional depth**. §5.2 now tags every question `[required]` or `[depth]`
+   and states that the four required questions (purpose, posture, Obsidian, hazard) alone produce a
+   valid vault. §6's Adoptability NFR reads `4 required, up to 7 total` and explicitly supersedes the
+   3–5 target. A skipped depth question becomes a logged deferral rather than a silent drop, and the
+   skill recommends the depth round rather than treating the floor as the expected path — the
+   anticipated-use question is the one the originating finding names as having most changed the
+   manual output, so it must not be cheap to lose by default. §8's effort measure now runs the
+   interview **twice**, and the required-only run doubles as the test that the four-question floor
+   genuinely produces a valid vault; if it does not, a depth question is misclassified.
+
+**Important — all six closed.**
+- **License reclassified.** It was listed under "the answers the operator never gives" while saying
+  *prompt*. Now stated correctly: the *gate* is derived from remote posture, the *choice* is a
+  question, and it is counted against the interview budget. §5.2b's citation-durability question is
+  given the same shape, so both conditionals are described by one rule.
+- **Three off-by-one OQ cross-references** fixed (§3's validator-and-CI line → OQ-1; §5.2's
+  `history/` line → OQ-2; §5.4's git-hook alternative → OQ-1). All three were wrong since `3bab5bd`.
+- **`.gitignore` arithmetic.** The core is **seven** lines, not "six plus two": the audit's six
+  already contain the local settings file, so the only addition is `CLAUDE.local.md`.
+- **The `<area>/README.md` row** is now `× 3` (`architecture/ operations/ research/`) and says
+  explicitly that `techniques/` and `history/` carry their own rows with different substance.
+- **Audit §8.6's iCloud-plus-git block** regains an asset row — a conditional `CLAUDE.md` § Git
+  sub-block emitted when the git-posture answer reports a sync-layer-backed working tree, which is
+  also the interview input that resolves `{{GIT_POSTURE}}`.
+- **§5.2a's Calibration paragraph** rewritten to claim only the restraint it actually exercises. It
+  now names what *is* shipped under `.claude/` (two rules, one skill), and states that the restraint
+  is **bounded need, not absence** — the archetype does create `.claude/` subdirectories when a named
+  asset lands in one.
+
+**Not addressed.** The review's 7 advisory findings. They were not enumerated in the review entry's
+body, so they are not actionable from the journal alone; they need to come from the review session or
+be re-derived at re-review.
+
+**Status banner.** §1 now records the CP-1 outcome and the remediation date inline, so a cold reader
+opening `architecture.md` alone sees that the document is post-review-and-revised rather than
+untouched draft.
+
+**Next.** Re-invoke `/spec-review` against CP-1. CP-1's exit criterion of operator approval remains
+outstanding regardless — an agent reviewer cannot supply it.
