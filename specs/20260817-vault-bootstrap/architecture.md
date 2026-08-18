@@ -1,6 +1,6 @@
 # vault-bootstrap — Architecture and Protocol Specification
 
-> Status: Draft — Open for Review (CP-1 changes requested twice, 2026-08-17 and 2026-08-18; all findings from both rounds remediated 2026-08-18, awaiting re-review)
+> Status: Draft — Open for Review (CP-1 changes requested twice, 2026-08-17 and 2026-08-18, both rounds remediated; revised again 2026-08-18 on operator feedback — the store split reframed portability-first, the validator unbundled, a premise-falsification test added. Awaiting re-review.)
 > Date: 2026-08-17
 > Author: waseric
 > Audience: the operator; contributors to this skill family; AI agents executing `vault-bootstrap` or a sibling archetype skill; adopters who install the skill without this repo
@@ -9,7 +9,7 @@
 
 `vault-bootstrap` is a skill that spins up a **knowledge vault** repository: a git-first, prose-only repository with no runtime code, whose contributors include AI agents as first-class participants, and (optionally) whose primary human authoring surface is Obsidian. It produces the repository skeleton, conducts a short interview for the facts a scan cannot observe, authors the one genuinely domain-specific document (the hazard doc), delegates the constitution to the existing `project-constitution` skill, validates the result, and commits.
 
-The architectural commitment is threefold. First, that **repository bootstrap is archetype-shaped** — there is no universal repo skeleton, so `vault-bootstrap` is deliberately one of a planned family of sibling archetype skills and must not become the only door. Second, that the ~80% of a knowledge vault that is invariant across instances ships as **static assets with token substitution**, not as prose regenerated per invocation, because regenerated prose re-derives and re-drifts every time. Third, that the conventions a knowledge vault depends on most — every folder carries an index; markdown links only; the knowledge map changes only per *area* — are **mechanically validated**, because the audit found the most load-bearing of them already rotted in the mature reference instance.
+The architectural commitment is fourfold. First, that **repository bootstrap is archetype-shaped** — there is no universal repo skeleton, so `vault-bootstrap` is deliberately one of a planned family of sibling archetype skills and must not become the only door. Second, that the ~80% of a knowledge vault that is invariant across instances ships as **static assets with token substitution**, not as prose regenerated per invocation, because regenerated prose re-derives and re-drifts every time. Third, that the conventions a knowledge vault depends on most — every folder carries an index; markdown links only; the knowledge map changes only per *area* — are **mechanically validated**, because the audit found the most load-bearing of them already rotted in the mature reference instance. Fourth, that **nothing durable about the vault lives outside the vault** — a clone is the whole thing at every sharing posture, and the one artefact that cannot be committed, the memory-directory pointer, is one the vault detects for itself rather than losing knowledge to silently.
 
 The target is that spinning up a knowledge vault costs a short interview and a commit, rather than the multi-hour manual derivation session that produced the two existing instances.
 
@@ -21,6 +21,7 @@ The target is that spinning up a knowledge vault costs a short interview and a c
 - The invariant skeleton is captured once as versioned assets, so instance N+1 does not re-derive it from instance N by hand.
 - The hazard class of the new vault is named before the vault is produced; a vault without its hazard doc is not a valid output.
 - The three rot-prone conventions (index coverage, markdown-links-only, area-level knowledge-map changes) are enforced by a validator rather than by discipline.
+- **No durable knowledge about the vault lives outside the vault.** What a vault knows survives a machine change and reaches every reader of the repository. The only thing permitted to be machine-local is a *pointer*, and the vault detects on its own when that pointer is unset (§5.2a).
 - `project-constitution` remains untouched and is delegated to, preserving its reusability for archetypes that are not knowledge vaults.
 - The skill remains a portable atomic unit per the [Atomic-Skill Portability Principle](../tech-stack.md), functioning when installed standalone against an unrelated repo.
 - The design leaves room for sibling archetype skills without requiring a dispatcher or a shared runtime dependency between them.
@@ -118,9 +119,9 @@ The ordering is load-bearing and inverted from intuition: **skeleton before cons
 | **Hazard doc** | The vault's canonical statement of its hazard class and the boundaries on agent action. Always present, always domain-specific, never shipped verbatim. |
 | **Area directory** | A top-level content directory carrying a `README.md` index and appearing as one row in `knowledge-map.md`. |
 | **Agent contract** | The vault's root `CLAUDE.md` — orientation, knowledge capture, session discipline, conventions, git posture. |
-| **Sharing posture** | Whether the vault is single- or multi-operator, and whether it has a remote. **Shared is the expected default** (§5.2). Determines the license, the hazard doc's sharing assumptions, and which memory store a given fact belongs in. |
+| **Sharing posture** | Whether the vault is single- or multi-operator, and whether it has a remote. **Single-operator and local is the expected default** (§5.2). Determines the license, the hazard doc's sharing assumptions, and where *user-oriented* memory lives. It never determines whether repo-oriented memory is in the vault — that is unconditional (§5.2a). |
 | **Repo-oriented memory** | A durable fact about *the vault* — its founding intent, a settled decision, a correction that must survive the session that found it. Belongs to the repository, is committed, and is team-visible (§5.2a). |
-| **User-oriented memory** | A fact about *an operator* — personal preference, working habit, machine path, credential-adjacent state. Never committed; stays in the harness-default memory location or an ignored local file (§5.2a). |
+| **User-oriented memory** | A fact about *an operator* — personal preference, working habit, machine path, credential-adjacent state. Its *kind* is fixed; its *location* follows the sharing posture: committed in-vault alongside repo-oriented memory when there is only one operator, routed to the harness-default location or an ignored local file when there is more than one (§5.2a). |
 | **Knowledge store** | One of the places a fact can be put, each with its own load cost and audience: the agent contract, a path-scoped rule, a skill, repo-oriented memory, user-oriented memory (§5.2a). |
 
 ### Composition rules
@@ -141,7 +142,7 @@ The ordering is load-bearing and inverted from intuition: **skeleton before cons
 
 | Asset | Substance | Token load |
 | --- | --- | --- |
-| `CLAUDE.md` | Agent contract. Sections, in order: Orientation; the boundary that costs most if missed; `@knowledge-map.md`; hazard summary + pointer; **Where knowledge goes** (the store-routing table, §5.2a); Knowledge capture; Session discipline; Conventions; Git; Spec workflow. The Git section carries one conditional sub-block, verbatim-shippable per audit §8.6, emitted only when the git-posture answer reports a working tree backed by a file-sync layer: let sync settle before committing; avoid concurrent edits from two machines; with no remote this is the only copy | 1–2 domain paragraphs + `{{BOUNDARY_RULE}}`, `{{MEMORY_CLAUSE}}`, `{{GIT_POSTURE}}`, `{{HAZARD_SUMMARY}}` |
+| `CLAUDE.md` | Agent contract. Sections, in order: Orientation; the boundary that costs most if missed; `@knowledge-map.md`; hazard summary + pointer; **Where knowledge goes** (the store-routing table, §5.2a); Knowledge capture; Session discipline; Conventions; Git; Spec workflow. The **Where knowledge goes** section ends with a one-line first-session check — if the memory pointer does not resolve into this vault, say so and offer `workspace-setup` — which is what converts a fresh clone from *silently* under-configured to *detectably* so (§5.2a). The Git section carries one conditional sub-block, verbatim-shippable per audit §8.6, emitted only when the git-posture answer reports a working tree backed by a file-sync layer: let sync settle before committing; avoid concurrent edits from two machines; with no remote this is the only copy | 1–2 domain paragraphs + `{{BOUNDARY_RULE}}`, `{{MEMORY_CLAUSE}}`, `{{GIT_POSTURE}}`, `{{HAZARD_SUMMARY}}` |
 | `knowledge-map.md` | Header prose verbatim (audit §2.2); area table; empty `## Frequently needed, easy to re-derive by accident` section with its inclusion rule | area rows |
 | `README.md` | Human entry: identity; boundary rule + intent-vs-behavior tiebreak; Where to read next; Working in Obsidian *(conditional)*; Working in other editors — the non-breakage constraint; License *(conditional)* | `{{VAULT_NAME}}`, `{{BOUNDARY_RULE}}` |
 | `<area>/README.md` × 3 | Index scaffold for `architecture/`, `operations/`, `research/`, each ending with its cross-area routing sentence. The other two core areas — `techniques/` and `history/` — carry their own rows below, with different substance | area gloss |
@@ -150,9 +151,9 @@ The ordering is load-bearing and inverted from intuition: **skeleton before cons
 | `.gitignore` | A **seven-line** core, then commented switchable blocks: the audit's six verbatim lines (which already include the local settings file) plus one addition, `CLAUDE.local.md`, as the named home for operator-specific facts (§5.2a) | posture switches |
 | `.obsidian/` + `.obsidian/README.md` | Vault config and the tracked-vs-ignored doc *(conditional on Obsidian)* | — |
 | `specs/constitution.journal.md` | Amendment journal with its explanatory header | — |
-| `memory/MEMORY.md` | Index stub, plus a header carrying its own load limit (index-only, first ~200 lines) and the point-of-use restatement that this file is committed and team-visible, so operator-specific facts do not belong in it | — |
+| `memory/MEMORY.md` | Index stub, plus a header carrying its own load limit (index-only, first ~200 lines) and a **posture-dependent** point-of-use restatement: on a multi-operator vault, that this file is committed and reaches every reader, so operator-specific facts do not belong in it; on a single-operator vault, that operator-specific facts *do* belong here rather than outside the vault, and what has to change the day a second reader arrives (§5.2a, OQ-7) | `{{MEMORY_CLAUSE}}` |
 | `.claude/rules/<topic>.md` | Path-scoped rule with `paths:` frontmatter. Shipped only where the design actually places one (§5.2a): the point-of-use hazard restatement, and the spec-session block scoped to `specs/**` | `{{HAZARD_POINTER}}` |
-| `.claude/skills/workspace-setup/SKILL.md` | The fresh-clone procedure for configuration that cannot be committed — chiefly the memory-directory pointer, which needs a machine-absolute path. Idempotent; reports and stops when already configured. Unconditional — §5.2a makes the repo-oriented store part of every vault, so this asset has no off-state | `{{MEMORY_DIR}}` |
+| `.claude/skills/workspace-setup/SKILL.md` | The fresh-clone procedure for configuration that cannot be committed — chiefly the memory-directory pointer, which needs a machine-absolute path. Idempotent; reports and stops when already configured. **Unconditional** — every vault has an in-vault memory store under the portability invariant (§5.2a), so this asset has no off-state at any posture. It is a procedure rather than a contract sentence because it is long, conditional, and needed once per clone | `{{MEMORY_DIR}}` |
 | staging dir + `README.md` | Gitignored-dir-with-committed-README pattern *(conditional on a staging need)* | `{{STAGING_DIR}}` |
 
 **Behavior.** The skill copies assets, substitutes tokens, and omits conditional assets whose gate is off. It never partially writes: a failed substitution (unresolved token) aborts before any file lands.
@@ -176,7 +177,7 @@ The tiers are the answer to §6's adoptability target. **Four questions are requ
 **Round 1 — shape.**
 1. **[required] What is this vault for?** Offer concrete archetype-fit options, not a blank.
 2. **[depth] What do the pre-existing directories hold?** (When the scan finds any.) "Undecided" is a valid answer and becomes a logged deferral rather than a stall.
-3. **[required] Git posture** — init / existing repo / remote or none — and **sharing posture**: single- or multi-operator. **Shared is the recommended default**, because a knowledge vault that is worth keeping tends to acquire a second reader, and the conventions that make sharing safe are expensive to retrofit. A single-operator answer is a deliberate narrowing, not the baseline.
+3. **[required] Git posture** — init / existing repo / remote or none — and **sharing posture**: single- or multi-operator. **Single-operator is the recommended default**, because the personal notebook is the common case and the archetype's target is closer to a notebook than to a team knowledge base. The answer does not decide *whether* the vault has a memory store — §5.2a makes that unconditional — only where *user-oriented* facts go inside it, so a wrong answer here is cheap to correct and never strands anything on a single machine.
 4. **[required] Obsidian** — is this an Obsidian vault? Gates the `.obsidian/` assets, the wikilink prohibition's exception clause, and the canvas rule.
 
 **Round 2 — domain, derived from Round 1.**
@@ -186,7 +187,7 @@ The tiers are the answer to §6's adoptability target. **Four questions are requ
 
 **Behavior — the answers the operator never gives.** Two things the interview does not ask: one because the archetype simply decides it, one because it follows from Round 1.
 
-- **Memory splits by *kind*, not by posture.** Repo-oriented memory goes in-vault and committed; user-oriented memory stays outside it. Sharing posture does not move that boundary — it only changes how much it costs to get wrong. See §5.2a, which replaces what earlier drafts derived here.
+- **Memory has two *kinds*, and only one of them has a posture-dependent *location*.** The kinds are fixed by the archetype and never asked. Repo-oriented memory is in-vault and committed at every posture — that is the portability invariant (§2), not a preference. User-oriented memory's location is *derived* from the posture answer already given in Q3: single-operator commits it in-vault beside the repo-oriented store; multi-operator routes it out. The skill states the derived answer in the produced agent contract rather than asking a fifth question, and states how to change it. See §5.2a.
 - **`history/` ships empty**, with its README stating the populate-on-first-addition rule (OQ-2 revisits the seeded-stub variant).
 
 **The conditional prompts.** Two questions exist outside both tiers because their *gates* are derived rather than asked. The **license** gate: remote-bearing → ask, local-only → omit entirely. The **citation-durability** gate (§5.2b): asked only when the vault will cite sources outside itself. When a gate opens, the choice itself is a real question and is counted as one against the interview budget rather than hidden inside a derivation — but neither can fire on the minimum path unless the posture answer opens it.
@@ -201,20 +202,27 @@ The tiers are the answer to §6's adoptability target. **Four questions are requ
 
 ### 5.2a Where knowledge goes — the store split
 
-**Purpose.** Give every fact exactly one right home, and make the two *kinds* of memory distinguishable, so a shared vault does not leak one operator's habits into the team's knowledge or lose a durable decision to a personal store.
+**Purpose.** Give every fact exactly one right home, under one invariant: **nothing durable about the vault lives outside the vault.**
 
-**The distinction that has to be first-class.** A knowledge vault accumulates two categories of fact that look alike at the moment of capture and diverge completely in where they belong:
+**The invariant comes first, and the split follows from it.** The archetype's whole value proposition is that a knowledge vault is a repository — clone it and you have everything it knows. A durable fact that lives in a per-machine store violates that directly and silently: the vault looks complete, and the missing knowledge only surfaces the day someone reads it from a different machine, or a dispatched agent needs it and cannot see it. So the design starts from the portability rule, not from a guess about how many people will read the vault.
+
+What that rule does *not* settle is what to do with facts that are durable but personal — an operator's working habits, tool preferences, machine paths. Those are real knowledge, they are worth keeping, and on a shared vault they must not become instructions to everyone. That is the one place sharing posture does work.
+
+**Two kinds, one of them with a posture-dependent location.**
 
 | | **Repo-oriented** | **User-oriented** |
 | --- | --- | --- |
 | About | The vault: founding intent, settled decisions, corrections that must outlive the session | An operator: preferences, working habits, machine paths, credential-adjacent state |
-| Home | `memory/` inside the vault | Harness-default memory location, or `CLAUDE.local.md` |
-| In git | **Yes** — committed, team-visible | **Never** |
-| Survives | A machine change, and reaches every other reader | Only that operator, only that machine |
+| Home | `memory/` inside the vault — **every posture, unconditionally** | Single-operator: `memory/` inside the vault, committed. Multi-operator: harness-default memory location, or `CLAUDE.local.md` |
+| In git | **Yes** | Single-operator: yes. Multi-operator: **never** |
+| Survives | A machine change, and reaches every other reader | Single-operator: a machine change. Multi-operator: only that operator, only that machine |
+| Decided by | The archetype | The Q3 posture answer, derived — not asked (§5.2) |
 
-Because a shared vault is the default (§5.2), this is not an optional refinement. The failure is asymmetric and both directions are silent: a personal habit committed into `memory/` becomes an instruction to everyone, and a durable decision written to a per-user store is invisible to the next reader who needs it.
+The kind distinction is first-class at every posture even where the two kinds share a location, because it is what makes a later re-split possible. A single-operator vault that acquires a second reader has to move exactly the user-oriented entries out, and it can only do that if they were labelled when written (OQ-7).
 
-**The five stores, and the routing rule.** The agent contract ships this table, adapted from the store model proven in the third prior-art instance (§14):
+**Why single-operator commits personal facts rather than routing them out.** Because the alternative loses them. On a single-operator vault there is no second reader to protect, so the only thing outward routing buys is separation — and it pays for that separation with the exact failure the invariant exists to prevent: knowledge stranded in one machine's harness directory, invisible to a clone, invisible to a dispatched agent, and gone with the machine. The newer reference instance reached this conclusion first and states it flatly — operator-specific facts go in `memory/`, "still inside the vault, never in `~/.claude`" (audit §5). That is the right answer for its posture, and this design adopts it as the single-operator default rather than treating it as an instance quirk.
+
+**The five stores, and the routing rule.** The agent contract ships this table, adapted from the store model proven in the third prior-art instance (§14). The last row's *In git* value is the one thing the posture answer sets:
 
 | Store | Loads | In git | Use for |
 | --- | --- | --- | --- |
@@ -222,20 +230,22 @@ Because a shared vault is the default (§5.2), this is not an optional refinemen
 | `.claude/rules/*.md` | Path-scoped via `paths:` frontmatter | Yes | Topic instructions that cost nothing until a matching file is opened |
 | `.claude/skills/*/SKILL.md` | Name + description always; body on demand | Yes | Procedures |
 | `memory/` (repo-oriented) | `MEMORY.md` index at start; topic files on recall | Yes | Durable facts about the vault, discovered in session |
-| Harness default / `CLAUDE.local.md` (user-oriented) | Per that operator | No | Everything personal or machine-specific |
+| User-oriented store | Per that operator | **Posture-derived** — in `memory/` and committed when single-operator; `CLAUDE.local.md` or the harness default when multi-operator | Everything personal or machine-specific |
 
 The rule: **prefer the cheapest store that reaches the right audience**, and when a contract section grows into a procedure, move it to a skill.
 
 **Two mechanical facts that constrain the split.**
 
-1. **Repo-oriented memory is not reachable by a dispatched subagent.** A worker or reviewer spawned into a fresh context sees the agent contract and path-scoped rules; it does not see recalled memory. So the derivation has a second axis beyond sharing posture: anything a *dispatched* agent must know belongs in the contract or a rule, not in memory — and since §5.7 wires the produced vault to the `spec-*` family (dispatch included) from its first commit, this applies to every vault, not to an exotic subset.
-2. **The pointer to an in-vault memory directory cannot be committed.** It needs a machine-absolute path and lives in an ignored local settings file. The *content* is committed; only the pointer is local. The consequence is that a fresh clone is silently under-configured — memory keeps working, just in the wrong place — which is why the `workspace-setup` skill (§5.1) is a shipped asset rather than a sentence in the contract. Three details it must carry, each learned the expensive way: the setting takes effect only after the workspace-trust prompt is accepted; changing it does **not** migrate memories already written elsewhere, so migration is offered and never done silently; and verification is confirming the agent contract actually appears as a loaded memory file, because if it did not load, nothing else in the setup is trustworthy.
+1. **Recalled memory is not reachable by a dispatched subagent.** A worker or reviewer spawned into a fresh context sees the agent contract and path-scoped rules; it does not see recalled memory. So the derivation has a second axis: anything a *dispatched* agent must know belongs in the contract or a rule, not in memory — and since §5.7 wires the produced vault to the `spec-*` family (dispatch included) from its first commit, this applies to every vault, not to an exotic subset. Note that this cuts *toward* the invariant rather than against it: a fact left in a per-machine store is invisible to a subagent twice over.
+2. **The pointer to an in-vault memory directory cannot be committed, and this is the invariant's whole cost.** The pointer needs a machine-absolute path and lives in an ignored local settings file. The *content* is committed; only the pointer is local. The consequence is that a fresh clone is under-configured — memory keeps working, just in the wrong place, which is the silent-loss mode the invariant exists to prevent. Two shipped organs answer it, and neither has an off-state:
+   - **A one-line first-session check** in the always-loaded agent contract (§5.1): if the memory pointer does not resolve into this vault, say so and offer the setup. This is the piece that converts *silently* under-configured into *detectably* under-configured, and it is nearly free because `CLAUDE.md` is already loaded.
+   - **The `workspace-setup` skill**, carrying the procedure itself. Three details it must carry, each learned the expensive way: the setting takes effect only after the workspace-trust prompt is accepted; changing it does **not** migrate memories already written elsewhere, so migration is offered and never done silently; and verification is confirming the agent contract actually appears as a loaded memory file, because if it did not load, nothing else in the setup is trustworthy.
 
-**Calibration — what this deliberately does not become.** The prior-art instance this model comes from also carries a release surface, a manifest, versioned distribution to an unseeable consumer set, and a dual-environment constraint. None of that is in scope. The target of this archetype is closer to an AI-moderated notebook than to a distribution system: the vault ships **the routing table, the two-kind memory split, and the ignore lines that enforce it** — five stores and one rule, not a governance regime. What the skeleton *does* ship under `.claude/` is bounded and named: two path-scoped rules the design already places (§5.3's point-of-use hazard restatement, §5.7's `specs/**` block) and one skill, `workspace-setup`, which exists because the memory pointer cannot be committed. Nothing is created speculatively — no empty `.claude/rules/` directory, no skill without a procedure to carry — but the restraint claimed here is *bounded need*, not absence: the archetype does create `.claude/` subdirectories when a named asset lands in one. That is the resolution OQ-4 records.
+**Calibration — what this deliberately does not become.** The prior-art instance this model comes from also carries a release surface, a manifest, versioned distribution to an unseeable consumer set, and a dual-environment constraint. None of that is in scope. The target of this archetype is closer to an AI-moderated notebook than to a distribution system: the vault ships **the routing table, the two-kind labelling, and the ignore lines that enforce it** — five stores and one rule, not a governance regime. What the skeleton *does* ship under `.claude/` is bounded and named: two path-scoped rules the design already places for reasons that predate this section (§5.3's point-of-use hazard restatement, §5.7's `specs/**` block) and one skill, `workspace-setup`, which exists because the memory pointer cannot be committed. Nothing is created speculatively — no empty `.claude/rules/` directory, no skill without a procedure to carry — but the restraint claimed here is *bounded need*, not absence: the archetype does create `.claude/` subdirectories when a named asset lands in one. That is the resolution OQ-4 records.
 
-**Why this design.** The audit (§5) reads the two reference instances as having made *opposite* memory choices, each right for its posture: the mature instance routes operator-specific facts outward by policy and keeps no in-vault `memory/`; the newer one routes the same category *inward*, explicitly "never in `~/.claude`." Both quotes are about **user-oriented** facts — and the newer instance can safely commit them only because it is single-operator, where the distinction collapses for want of a second reader. Neither instance names the repo-oriented category at all. Against a third instance that keeps both stores at once and states the boundary, the better reading is that a shared vault needs *both* answers simultaneously: the mature instance's outward routing for user-oriented facts, and an in-vault committed store for repo-oriented ones. Naming the two kinds is cheaper than deriving a location, and it removes a switch from the interview instead of adding one.
+**Why this design.** The audit (§5) reads the two reference instances as having made *opposite* memory choices. On the portability reading they made the *same* choice evaluated at different postures: keep durable knowledge reachable, and do not let one operator's habits become everyone's instructions. `admindoc` is multi-operator with a remote, so it routes personal facts outward; the newer instance is single-operator, so it keeps them in. Neither instance names the repo-oriented category at all — that is the genuine gap, and it is the same gap at both postures, which is why filling it is unconditional. A third instance keeps both stores at once and states the boundary, supplying the vocabulary. Naming the two kinds costs one table; deriving one location from an answer already given costs nothing; and neither adds a question to the interview.
 
-**Alternatives considered.** Keeping memory location as a single posture-derived toggle — rejected: it forces a shared vault to choose between committing personal facts and losing durable ones. Putting everything in the agent contract because that is the one store a subagent sees — rejected: it is the always-loaded store, and the archetype's whole token economy depends on it staying short.
+**Alternatives considered.** *Making the split appear only on a multi-operator answer, with one undifferentiated store for personal vaults* — rejected: it is cheaper on day one, but a vault that later acquires a second reader has no way to tell the two kinds apart and must re-derive the split by hand over every entry ever written (OQ-7). *Routing user-oriented facts outward at every posture* — rejected: it strands durable knowledge on one machine to buy a separation that a single-operator vault has no use for, which is the invariant's exact failure mode. *Making the location a switch the operator sets directly* — rejected: it is fully determined by the posture answer, and a question whose answer is already known is a question not worth asking. *Putting everything in the agent contract because that is the one store a subagent sees* — rejected: it is the always-loaded store, and the archetype's whole token economy depends on it staying short.
 
 ### 5.2b Durability conventions
 
@@ -284,6 +294,8 @@ The rule: **prefer the cheapest store that reaches the right audience**, and whe
 
 **Behavior.** Read-only; reports, never repairs. Runs as the last step before commit in the bootstrap sequence, and is left in the produced vault for re-use.
 
+**It ships first.** The validator is Phase 0 (§7) and is not gated behind CP-1. Its five checks derive from conventions the reference instances already declare, not from anything this spec decides, so it is correct whatever CP-1 concludes about the archetype boundary — and check 3 has a live miss to catch in the mature instance now rather than after a six-phase program.
+
 **Why this design, and why check 3 is the point.** The manual session's throwaway link walker found only false positives, which reads as "the conventions hold." The audit found otherwise: the *mature* reference instance — whose operator wrote the index convention — still carries an unindexed root-level document with spaces in its filename. Check 3 catches a real, live miss in the reference instance. Checks 3–5 are precisely the ones neither instance can currently enforce, and check 3 has already failed in production. That asymmetry is the argument for shipping a validator rather than a convention.
 
 **Alternatives considered.** A git hook installed into the produced vault — deferred to OQ-1: hooks are not committed by git and so do not survive a clone, which contradicts the archetype's self-contained property. CI enforcement — rejected for the vault (a local-only, remote-less vault has no CI) and unavailable in this repo (no CI, per §3).
@@ -324,6 +336,8 @@ This was examined and closed rather than deferred. `project-constitution`'s INPU
 
 **Design.** The produced `CLAUDE.md` carries a short Spec workflow section — spec layout, the constitution's location, the amendment journal, the skill family, and the route-drift-via-`spec-amend` rule — and nothing more. The spec-session doctrine block (model floors, dispatch conventions, context budget) ships **as a path-scoped rule scoped to `specs/**`**, not as a contract section: it is needed only when a spec file is open, it must reach a dispatched worker, and it is the block most likely to go stale. It is shipped **as shape with tokens** — not as any consumer's specific text, per this repo's rule that content must not name specific consumers. The model-floor ladder is a token, since floors change: the audit found the reference instance carrying a stale `fable` tier it had to annotate around in prose, and the third instance (§14) had already moved the same block out of its always-loaded contract for these reasons.
 
+**Why this section is load-bearing, and not merely convenient.** The obvious reading is that this exists so a vault can *use* the `spec-*` skills. The stronger reason is that two of the things it wires — `specs/constitution.journal.md` (§5.6) and the route-drift-via-`spec-amend` rule — are what let a vault survive being wrong. A knowledge vault's constitution is written at the moment of least evidence, at bootstrap, from an interview; the useful question is not whether its premises are right but what happens when the first real work falsifies one. Observed behavior in the newer instance: a first-phase survey contradicted a premise the operator had written into the constitution, and because the amendment journal and the routing rule were both present, the correction landed as two dated amendments inside 24 hours instead of as a silent in-place edit or an unrecorded contradiction. §8's premise-falsification test is the check on exactly this, and it is ranked above the cold-reader test because a vault that navigates well but cannot absorb a correction decays into a confidently wrong document.
+
 **Grammar.** This repo declares a `## Grammar` block in [specs/tech-stack.md](../tech-stack.md); it is codified forward into this spec's [journal.md](journal.md) per the `spec-design` contract, so downstream skills consult the spec's copy rather than re-reading the constitution. It is a point-in-time snapshot fixed for this spec's life; a mid-flight dialect change routes through `spec-amend`.
 
 The produced vault's own grammar is a separate question from this spec's: the skeleton's `specs/` layout ships the same anchor dialect as its default, which a vault may later override in its own constitution.
@@ -331,16 +345,22 @@ The produced vault's own grammar is a separate question from this spec's: the sk
 ## 6. Non-functional Requirements
 
 - **Adoptability.** A vault reaches its first commit in one session. Operator effort is dominated by the interview, which is two-tiered (§5.2): **4 required questions, up to 7 total** (7 reachable only when the scan finds pre-existing directories, which is what depth question 2 asks about), plus up to two conditional follow-ups whose gates are derived from the posture answer rather than asked. The four required questions alone produce a valid vault; the depth round is recommended but skippable, and a skipped question is logged as a deferral rather than dropped. Every question carries a recommended default. This supersedes the earlier 3–5 target, which was contradicted by §5.2's own enumeration — resolved at CP-1 in favor of moving the target and declaring the floor, rather than merging questions the design argues are individually load-bearing.
-- **Portability.** The skill functions installed standalone against an unrelated directory, with no dependency on this repo, on sibling skills, or on any host file. Host-provided overrides are used when present and absent-tolerated when not (§5.1).
+- **Skill portability.** The skill functions installed standalone against an unrelated directory, with no dependency on this repo, on sibling skills, or on any host file. Host-provided overrides are used when present and absent-tolerated when not (§5.1).
+- **Vault portability.** No durable knowledge about a produced vault lives outside it, at any sharing posture (§2, §5.2a). The one machine-local artefact is the memory-directory pointer, and the produced vault is required to detect its own unset pointer on the first session of a fresh clone rather than degrade silently. **Post-clone manual steps: at most one** — `workspace-setup` — and it must be self-announcing, never something a reader has to know to look for.
 - **Observability.** Every interview answer that becomes a structural decision is recorded in the produced vault — deferrals as logged deferrals, the store split stated explicitly in the agent contract, the hazard class named in its own doc. A cold reader can tell what was decided and why without the originating session.
 - **Reversibility.** The skill's output is a set of files in an otherwise-untouched target directory, and the first commit is a single commit. Backing out is discarding that commit or deleting the produced files (§11).
 - **Idempotence-adjacent safety.** Run against a non-empty directory, the skill reports what already exists and refuses to overwrite; it never silently replaces an existing `CLAUDE.md`, `README.md`, or `.gitignore`.
-- **Security.** The hazard doc gates output. The skill never writes a credential, and the staging-directory pattern (gitignored dir with a committed README) exists so that the guidance is present at the moment someone is about to drop a sensitive file into it. The committed memory store is treated as a publication surface: its ignore lines and its own header carry the user-oriented/repo-oriented rule at the point of writing (§5.2a).
-- **Configuration.** Two switches from the interview — Obsidian on/off, and whether the vault cites external sources (§5.2b) — plus the derived license and staging-directory gates. The memory split is *not* a switch; both stores exist in every vault. No configuration file.
+- **Security.** The hazard doc gates output. The skill never writes a credential, and the staging-directory pattern (gitignored dir with a committed README) exists so that the guidance is present at the moment someone is about to drop a sensitive file into it. The committed memory store is treated as a publication surface whenever the vault has more than one reader: on a multi-operator vault its ignore lines and its own header carry the keep-personal-facts-out rule at the point of writing; on a single-operator vault the header instead states that personal facts belong there and names what changes when a second reader arrives (§5.2a, OQ-7).
+- **Configuration.** Two switches from the interview — Obsidian on/off, and whether the vault cites external sources (§5.2b) — plus the derived license and staging-directory gates. The memory split is *not* a switch: both kinds are named in every vault, the repo-oriented store is in-vault at every posture, and the user-oriented store's location is derived from the Q3 posture answer rather than asked (§5.2a). No configuration file.
 
 ## 7. Implementation Sequencing (Forward-Looking)
 
 Phases, not atomic tasks. The downstream feature spec is named `specs/YYYYMMDD-vault-bootstrap-skill/feature.md` and owns the task breakdown.
+
+### Phase 0 — Validator (not gated by CP-1)
+The five checks (§5.4), false-positive handling for checks 1–2, and the report format. **Deliberately unbundled from the rest of the program and shippable before CP-1 closes.** Nothing in the check set depends on the archetype boundary, the store split, or the skeleton: all five checks derive from conventions the reference instances already declare, and check 3 has a confirmed live miss in the mature instance to fix today. Running it against both instances is simultaneously its first test and the re-verification of this design's central rot claim.
+
+Authored at its final home inside the skill directory. That directory is inert until Phase 2 writes `SKILL.md` — a skill is registered by its contract file, so an early validator is a file in a directory nothing yet advertises, not a half-published skill.
 
 ### Phase 1 — Skeleton assets and token vocabulary
 Materialize `_skeleton/` from the audit's confirmed-invariant set (§5.1); fix the token vocabulary and the conditional gates. Produces the asset tree the later phases substitute into. Consumes the audit, not the reference repos.
@@ -351,24 +371,23 @@ Author the two-round interview, the per-domain hazard candidates, and the derive
 ### Phase 3 — Hazard-doc frame
 The `_hazard/` frame, the near-verbatim credential-rules block, and the four per-hazard-class grading-table and action-boundary variants. Produces the authored-artifact generator and the output gate.
 
-### Phase 4 — Validator
-The five checks (§5.4), false-positive handling for checks 1–2, and the report format. Independently useful: it can be run against the two existing instances as its own first test, which is also how the design's central rot claim gets re-verified.
-
-### Phase 5 — Delegation, closeout, and deploy-sync
+### Phase 4 — Delegation, closeout, and deploy-sync
 Wire the `project-constitution` hand-off (§5.6), the validate-then-commit closeout, and the whole-directory deploy-sync of master → `~/.claude/skills/vault-bootstrap/`.
 
-### Phase 6 — Dogfood against a third vault
+### Phase 5 — Dogfood against a third vault
 Spin up a genuinely new vault, of a *different* hazard class than either reference instance, measuring operator effort and counting authored-vs-substituted files. This is the design's validation gate (§8), not a smoke test.
 
-**Sequencing constraints.** P1 precedes P2 (the interview's tokens are the assets' tokens). P3 depends on P2 (hazard candidates come from the domain question). P4 is independent of P1–P3 and may run in parallel. P5 requires P1–P3. P6 requires all.
+**Sequencing constraints.** Phase 0 depends on nothing and gates nothing; it may land before CP-1 closes and before any other phase starts. Phase 1 precedes Phase 2 (the interview's tokens are the assets' tokens). Phase 3 depends on Phase 2 (hazard candidates come from the domain question). Phase 4 requires Phases 1–3. Phase 5 requires all, including Phase 0 — the dogfood's closeout runs the validator.
 
 ## 8. Validation Approach
 
 - **Skeleton fidelity, both directions.** Materialize a skeleton and diff it against the audit's invariant table. Then run the validator against both reference instances: it must find the known unindexed root document in the mature instance (§5.4). A validator that reports both instances clean is a broken validator, and this is the check that says so.
 - **Reconstruction test.** Materialize with tokens filled for the newer instance's domain and diff against the real vault. The gap is exactly the authored surface (hazard doc + constitution) plus genuine domain content. Any *structural* difference is either a skeleton bug or an invariant the audit missed.
-- **Store-split test.** In a produced vault, give a fresh session one durable fact about the vault and one personal working preference, and ask it to remember both. The first must land in the committed `memory/` index; the second must not appear anywhere in `git status`. This is the behavioral check on §5.2a, and it is the one that fails silently in the field.
+- **Premise-falsification test.** *The highest-ranked behavioral test, above the cold-reader test.* Hand a produced vault a fact that contradicts a premise written into its own constitution, and confirm the session routes it to an amendment — a dated entry in `specs/constitution.journal.md` and a corrected constitution — rather than editing the constitution in place, or proceeding as though the premise still held. This is the archetype's most consequential behavior and the one nothing else in this list touches: a vault's structure is only worth anything if it can absorb being wrong. It is testable because it has been observed — the newer instance's constitution was amended twice inside 24 hours when a first-phase survey falsified a premise the operator had written, and the loop ran correctly. Two organs `vault-bootstrap` itself ships are what make it work: `specs/constitution.journal.md` (§5.6) and the route-drift-via-`spec-amend` rule in the agent contract's Spec workflow section (§5.7). If this test fails, those two organs are the suspects, and both are in scope.
+- **Store-split test, run at both postures.** In a produced vault, give a fresh session one durable fact about the vault and one personal working preference, and ask it to remember both. On a **multi-operator** vault the first must land in the committed `memory/` index and the second must not appear anywhere in `git status`. On a **single-operator** vault both must land in `memory/`, both must be committed, and each must be labelled by kind so a later re-split is mechanical (OQ-7). In neither posture may a durable fact land outside the vault — that is the invariant, and it is the failure that is silent in the field.
+- **Fresh-clone test.** Clone a produced vault to a location where the memory pointer is unset, and start a session. It must announce that memory is not resolving into the vault and offer `workspace-setup`, unprompted, before anything else is asked of it. Then count the manual steps between clone and fully-configured: §6 requires at most one. A clone that reads as healthy while writing memory elsewhere is the exact silent failure the portability invariant exists to prevent.
 - **Cold-reader test.** Hand a produced vault to a fresh agent session with no access to the bootstrap conversation, and ask it to add a document to an area. It must place the file, add the index line, and leave `knowledge-map.md` alone. This validates the three load-bearing conventions as *behavioral* rather than documented.
-- **Interview-effort measure.** In the Phase 6 dogfood, run the interview twice: once on the **required-only** path and once with the depth round, counting questions asked and operator time for each, against §6's `4 required / 7 total` NFR. The required-only run is also the test that the four-question floor genuinely produces a valid vault — if it does not, a depth question is misclassified and belongs in the required tier.
+- **Interview-effort measure.** In the Phase 5 dogfood, run the interview twice: once on the **required-only** path and once with the depth round, counting questions asked and operator time for each, against §6's `4 required / 7 total` NFR. The required-only run is also the test that the four-question floor genuinely produces a valid vault — if it does not, a depth question is misclassified and belongs in the required tier.
 - **Hazard gate test.** Decline to name a hazard class and confirm the skill refuses to produce a vault.
 - **Portability test.** Install the skill alone into `~/.claude/skills/`, run it against an unrelated directory with this repo absent, and confirm it completes (§5.5).
 
@@ -376,23 +395,35 @@ Spin up a genuinely new vault, of a *different* hazard class than either referen
 
 ### CP-1 — Design Approval
 **Trigger.** This spec is complete and committed.
-**Review focus.** Whether the archetype boundary is drawn correctly; whether the invariant/authored split matches the audit; whether §5.5's rejection of the finding's shared-assets leaning is sound; whether the five audit corrections are reflected rather than merely cited; and whether §5.2a's store split is calibrated to this archetype rather than carried over intact from a repo whose distribution requirements exceed it. The open questions are reviewed for whether they are the *right* deferrals, not for resolution.
+**Review focus.** Whether the archetype boundary is drawn correctly; whether the invariant/authored split matches the audit; whether §5.5's rejection of the finding's shared-assets leaning is sound; whether the five audit corrections are reflected rather than merely cited; whether §5.2a's store split is calibrated to this archetype rather than carried over intact from a repo whose distribution requirements exceed it; and whether the portability invariant (§2, §5.2a) is the right organizing axis for that split — specifically, whether deriving the user-oriented store's location from the posture answer is a real derivation or a decision in disguise. The open questions are reviewed for whether they are the *right* deferrals, not for resolution.
 **Exit criteria.** Operator approves the shape and the OQ set; spec advances to `Approved`; downstream feature spec is cleared to be authored.
-**Status.** changes requested on 2026-08-17 by Claude Opus 5; remediated 2026-08-18; re-reviewed 2026-08-18 by Claude Opus 5 (inline `spec-review`, agent reviewer) — **changes requested**, 1 residual blocker (the superseded 3–5 question target surviving in §2 and §4), 2 important, 4 advisory. All of them remediated 2026-08-18 in a second pass: the 3–5 target struck from §2 and §4; §5.2a's residual "conditional `workspace-setup`" dropped; §5.2's unsupported "six minutes" removed; §6's 7-question ceiling qualified as reachable only on a non-empty target; §13 given a *Resolved during design* grouping for OQ-4; and §5.1's sync-layer row folded into the `CLAUDE.md` row and generalized off any named sync product. Checkpoint stays open awaiting re-review. Operator approval of the shape and OQ set is still outstanding and is not something an agent reviewer can supply.
+**Status.** Open. Revised 2026-08-18 on structured feedback from the originating session, adjudicated by the operator. Five points were raised; four changed the spec.
 
-**Prior status.** changes requested on 2026-08-17 by Claude Opus 5 (inline `spec-review`, agent reviewer) — 3 blockers: the ungated `*(conditional on repo-oriented memory in-vault)*` gate (§5.1 vs §6); OQ-4's leaning contradicted by §5.1's `workspace-setup` asset; the §6 Adoptability 3–5 question target contradicted by §5.2/§5.2b. Checkpoint stays open. Operator approval of the shape and OQ set is still outstanding and is not something an agent reviewer can supply.
+| Feedback | Disposition |
+| --- | --- |
+| §5.2a is the load-bearing addition and the least grounded | Partly accepted. The weight is unevenly distributed and the section now says where: the routing table is rows in a file that ships anyway, and the two path-scoped rules exist for reasons that predate the section (§5.3, §5.7). The genuine weight is `workspace-setup`, and it survives — see the next row. |
+| "Shared is the recommended default" should flip to single-operator, collapsing §5.2a and giving `workspace-setup` an off-state | **Accepted in the default, rejected in the inference.** The default flips (§5.2 Q3). The collapse does not follow: it assumes a single-operator vault may leave durable facts in a per-machine store, which the operator's portability constraint forbids. The organizing axis is now the invariant *nothing durable about the vault lives outside the vault* (§2), which holds at every posture — so the repo-oriented store and `workspace-setup` stay unconditional, and only the user-oriented store's *location* derives from posture (§5.2a). |
+| The output has a setup ceremony even though the interview is fast | Accepted as far as it is reducible. The ceremony is one step and it is the irreducible price of the invariant, so it is now declared rather than wished away: §6 caps post-clone manual steps at one and requires it to be **self-announcing**, §5.1 ships a one-line first-session check in the always-loaded contract, and §8's fresh-clone test is the gate. |
+| Unbundle the validator — it is cheap, independent, and has a confirmed live miss to fix | Accepted. It is now **Phase 0**, explicitly not gated by CP-1 (§7, §5.4). |
+| §8 tests navigation but never tests whether a vault can absorb being wrong | Accepted, and it is the strongest point in the package. §8 gains a **premise-falsification test** ranked above the cold-reader test, and §5.7 now states that the amendment journal and the drift-routing rule are shipped for this reason rather than for convenience. |
+
+Operator approval of the shape and OQ set remains the standing exit criterion and is not something an agent reviewer can supply.
+
+**Prior status (round 2).** changes requested on 2026-08-17 by Claude Opus 5; remediated 2026-08-18; re-reviewed 2026-08-18 by Claude Opus 5 (inline `spec-review`, agent reviewer) — **changes requested**, 1 residual blocker (the superseded 3–5 question target surviving in §2 and §4), 2 important, 4 advisory. All of them remediated 2026-08-18 in a second pass: the 3–5 target struck from §2 and §4; §5.2a's residual "conditional `workspace-setup`" dropped; §5.2's unsupported "six minutes" removed; §6's 7-question ceiling qualified as reachable only on a non-empty target; §13 given a *Resolved during design* grouping for OQ-4; and §5.1's sync-layer row folded into the `CLAUDE.md` row and generalized off any named sync product. Checkpoint stays open awaiting re-review. Operator approval of the shape and OQ set is still outstanding and is not something an agent reviewer can supply.
+
+**Prior status (round 1).** changes requested on 2026-08-17 by Claude Opus 5 (inline `spec-review`, agent reviewer) — 3 blockers: the ungated `*(conditional on repo-oriented memory in-vault)*` gate (§5.1 vs §6); OQ-4's leaning contradicted by §5.1's `workspace-setup` asset; the §6 Adoptability 3–5 question target contradicted by §5.2/§5.2b. Checkpoint stays open. Operator approval of the shape and OQ set is still outstanding and is not something an agent reviewer can supply.
 
 ### CP-2 — Skeleton and Interview (post-Phase 3)
 **Trigger.** `_skeleton/`, the interview contract, and the hazard frame exist.
 **Review focus.** Token coverage with no unresolved substitution; that conditional gates actually omit rather than emit empty scaffolding; that the hazard gate blocks; that no shipped asset names a specific consumer.
 **Exit criteria.** A materialized skeleton diffs clean against the audit's invariant table; the reconstruction test's residue is only the authored surface.
 
-### CP-3 — Validator (post-Phase 4)
+### CP-3 — Validator (post-Phase 0)
 **Trigger.** The validator runs.
 **Review focus.** That check 3 finds the known real miss in the mature reference instance; that checks 1–2's two false-positive classes are handled; that the validator reports and never repairs.
 **Exit criteria.** Non-zero exit with an accurate report on the mature instance; clean exit on a freshly produced vault.
 
-### CP-4 — Adoption (post-Phase 6)
+### CP-4 — Adoption (post-Phase 5)
 **Trigger.** A third vault has been bootstrapped.
 **Review focus.** Operator effort against the NFR; the authored-vs-substituted file count; whether anything had to be hand-fixed after the skill finished. Anything hand-fixed is either a missing invariant or a missed interview question.
 **Exit criteria.** The third vault is coherent and committed without manual repair; deploy-sync verified across the whole skill directory.
@@ -401,13 +432,15 @@ Spin up a genuinely new vault, of a *different* hazard class than either referen
 
 | Risk | Likelihood | Impact | Mitigation | Owner |
 | --- | --- | --- | --- | --- |
-| **The design is wrong** — the archetype is really two archetypes, or the invariant set is over-fitted to two instances of one operator | Medium | High | CP-1 reviews the boundary before any implementation; the Phase 6 dogfood deliberately uses a different hazard class; the audit already documents where the two instances diverge rather than smoothing it over | operator |
+| **The design is wrong** — the archetype is really two archetypes, or the invariant set is over-fitted to two instances of one operator | Medium | High | CP-1 reviews the boundary before any implementation; the Phase 5 dogfood deliberately uses a different hazard class; the audit already documents where the two instances diverge rather than smoothing it over | operator |
 | Skeleton over-fits the reference instances; a third vault needs substantial hand-repair | Medium | Medium | CP-4's hand-fix count is the explicit measure; conditional gates keep posture-dependent assets out of the invariant core | CP-4 |
-| Deploy-sync drift — a shipped asset changes in the master but not the deploy copy | Medium | Medium | Whole-directory diff, not `SKILL.md` diff, in the deploy-sync check (§3); Phase 5 wires it | Phase 5 |
-| Validator false positives train the operator to ignore it | Medium | Medium | The two known false-positive classes are handled as first-class requirements in Phase 4, not as follow-ups; the manual session's throwaway walker found *only* false positives, so this is the observed failure mode | Phase 4 |
+| Deploy-sync drift — a shipped asset changes in the master but not the deploy copy | Medium | Medium | Whole-directory diff, not `SKILL.md` diff, in the deploy-sync check (§3); Phase 4 wires it | Phase 5 |
+| Validator false positives train the operator to ignore it | Medium | Medium | The two known false-positive classes are handled as first-class requirements in Phase 0, not as follow-ups; the manual session's throwaway walker found *only* false positives, so this is the observed failure mode | Phase 4 |
 | Sibling archetypes duplicate the skeleton and drift apart | High | Low | Accepted deliberately (§5.5); the family already pays this cost for `finding-*` templates; equivalence is asserted at the canonical state and drift is a finding, not a silent divergence | operator |
 | The hazard gate is experienced as friction and gets bypassed | Low | High | It is a gate rather than a prompt precisely because the finding records the question was nearly not asked; per-domain candidates make answering cheap | Phase 3 |
 | `project-constitution`'s informal seam regresses | Low | Medium | Closed as a presumed gap (§5.6); a regression is a real-symptom finding rather than a speculative amendment | operator |
+| A fresh clone writes memory outside the vault because its pointer is unset, and nobody notices | High | High | The pointer is the one thing the portability invariant cannot commit (§5.2a). Two organs, neither optional: the always-loaded first-session check that announces the mismatch, and `workspace-setup` that fixes it. §8's fresh-clone test is the gate; §6 caps post-clone manual steps at one | Phase 1 |
+| A single-operator vault gains a second reader and its committed personal facts become everyone's instructions | Medium | Medium | The two kinds are labelled at every posture even where they share a location, so the re-split is mechanical rather than a re-reading of every entry (§5.2a). OQ-7 owns the migration path | OQ-7 |
 | Prior art becomes unreachable mid-design | **Certain** | High | Already mitigated: the audit transcribes everything load-bearing, and this spec cites the audit rather than the repos | done |
 
 ## 11. Adoption Path
@@ -450,7 +483,7 @@ The rot evidence cuts specifically here: the mature instance's unindexed documen
 
 **Leaning.** Copy the validator into the produced vault *and* reference it from the agent contract's session-discipline section, treating the run as part of "a session leaves the vault in a coherent state." Skip the git hook — untracked hooks contradict self-containment. Accept that human-only edits are covered only at the next agent session, which is a real gap and better than none.
 
-**Owner.** Phase 4, ratified at CP-3.
+**Owner.** Phase 0, ratified at CP-3.
 
 **Watch items.** If the archetype ever grows a CI-bearing instance, revisit — CI would close the human-edit gap the leaning leaves open.
 
@@ -482,7 +515,7 @@ The honest split may therefore be three categories rather than two — substitut
 
 **Owner.** Phase 1/Phase 2 boundary, ratified at CP-2.
 
-**Watch items.** If the Phase 6 dogfood's Orientation needs hand-repair, the frame is too loose and should enumerate more required elements.
+**Watch items.** If the Phase 5 dogfood's Orientation needs hand-repair, the frame is too loose and should enumerate more required elements.
 
 ### OQ-5 — Is `specs/docs/` part of the skeleton?
 
@@ -494,7 +527,7 @@ The honest split may therefore be three categories rather than two — substitut
 
 **Owner.** Phase 1, ratified at CP-2.
 
-**Watch items.** If the Phase 6 dogfood produces a doctrine document in its first session, promote to a shipped directory.
+**Watch items.** If the Phase 5 dogfood produces a doctrine document in its first session, promote to a shipped directory.
 
 ### OQ-6 — What does the skill do when the target directory is already a populated vault?
 
@@ -504,9 +537,31 @@ The honest split may therefore be three categories rather than two — substitut
 
 **Leaning.** Three states, explicitly distinguished: **empty-or-near-empty** → normal bootstrap, reporting what it found and preserving it; **populated non-vault** → bootstrap the missing skeleton, never overwriting an existing file, listing every file it declined to touch; **already a vault** (has an agent contract *and* a knowledge map) → refuse to bootstrap, offer the diagnostic report, and stop there. Report-only in all three; no repair.
 
-**Owner.** Phase 5, ratified at CP-4.
+**Owner.** Phase 4, ratified at CP-4.
 
 **Anti-goals.** Do not add a `--force` overwrite. The skill's blast radius is someone's knowledge repository, and the safe failure is doing nothing.
+
+### OQ-7 — What happens the day a single-operator vault gains a second reader?
+
+**Question.** §5.2a commits personal facts into `memory/` on a single-operator vault. That is right while there is one operator. What is the migration when a second one arrives — and who notices that it is time?
+
+**Analysis.** The transition is the one moment the posture derivation is wrong in both directions at once: facts that were correctly committed become instructions to a stranger, and the header telling contributors that personal facts belong in `memory/` becomes actively misleading. Three things have to move together — the entries themselves, the `MEMORY.md` header, and the produced contract's statement of the rule.
+
+| Option | Cost | Failure mode |
+| --- | --- | --- |
+| Nothing shipped; handle it when it happens | zero | The transition is exactly the kind of change nobody schedules; the likely outcome is a shared vault carrying one operator's habits as doctrine, indefinitely |
+| Label entries by kind at write time; migration is a mechanical filter later | one frontmatter field or one index convention | Costs something on every write, for a transition that may never come |
+| Ship a `posture-change` procedure alongside `workspace-setup` | a second skill in every vault | Speculative — no observed instance has made this transition, and §5.2a's Calibration is explicit about not shipping apparatus ahead of need |
+
+The middle option is already partly taken: §5.2a requires the two kinds to stay distinguishable at every posture *precisely* so the re-split is mechanical, and §8's store-split test checks the labelling on the single-operator path. What is unresolved is the labelling's concrete form, and whether anything ships to perform the move.
+
+**Leaning.** Label, do not automate. Fix the labelling convention in Phase 1 as the cheapest thing that makes migration mechanical — most likely a `kind:` line in each memory topic file plus a column in the `MEMORY.md` index — and ship **no** migration procedure until an instance actually makes the transition. Add one sentence to the single-operator `MEMORY.md` header naming what changes when a second reader arrives, so the vault carries its own trigger rather than depending on someone remembering. A `posture-change` skill authored against zero observed transitions would be guessing at the hard part.
+
+**Owner.** Phase 1 fixes the labelling convention; CP-2 confirms it is present and mechanically filterable. The migration procedure itself is unowned by design until there is a transition to observe.
+
+**Watch items.** The first time any instance of this archetype adds a second operator. Also: if the Phase 5 dogfood's operator finds the labelling burdensome on a personal vault, the convention is too heavy and should shrink to an index column only.
+
+**Anti-goals.** Do not make the labelling a validator check — a mislabelled memory entry is a judgement call, and a checker that rules on it would be enforcing a taxonomy rather than a convention. Do not ship the migration as a `--convert` flag on `vault-bootstrap`: it is a retrofit, and §12 keeps retrofits out.
 
 ### Resolved during design
 

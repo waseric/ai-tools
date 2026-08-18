@@ -1,13 +1,13 @@
 # vault-bootstrap — Journal
 
 ## Current State
-- **Phase:** CP-1 re-review remediation complete (2026-08-18) — all findings from both review rounds closed. Spec stays `Draft`, awaiting a second re-review and operator approval.
-- **Last completed:** remediation of the CP-1 re-review's blocker, 2 importants, and 4 advisories
-- **Next:** re-invoke `/spec-review` against CP-1, or hand the shape to the operator. Operator approval remains the standing exit criterion and is not something an agent reviewer can supply.
-- **Open holds:** OQ-1/2/3/5/6 open by design and now confirmed as sound deferrals. **OQ-4 resolved during design.** The prior review's 7 advisories were never enumerated and are superseded by this re-review's advisory set.
+- **Phase:** CP-1 open. Revised 2026-08-18 on originating-session feedback adjudicated by the operator — the store split reframed portability-first, the validator unbundled to Phase 0, a premise-falsification test added. Spec stays `Draft`.
+- **Last completed:** feedback revision — 4 of 5 feedback points accepted, 1 accepted in part and its inference corrected
+- **Next:** re-invoke `/spec-review` against CP-1, or hand the shape to the operator. Operator approval remains the standing exit criterion and is not something an agent reviewer can supply. Phase 0 (the validator) is now clear to start without waiting on CP-1.
+- **Open holds:** OQ-1/2/3/5/6/7 open by design. **OQ-4 resolved during design.** OQ-7 is new — the single-to-multi-operator memory re-split, deliberately unowned until a transition is observed.
 - **Pending checkpoint:** CP-1 — Design Approval (architecture.md §9), open
 - **Archive:** none — all entries live
-- **Latest entry:** `## 2026-08-18 — CP-1 re-review remediation`
+- **Latest entry:** `## 2026-08-18 — Revision on originating-session feedback: portability-first store split`
 
 ## Grammar
 - **Journal entry:** `## <YYYY-MM-DD> — <event>`
@@ -361,3 +361,33 @@ pass and now also carries this remediation, with the original verdict preserved 
 
 **Next action:** re-invoke `/spec-review` against CP-1, or take the shape to the operator for the
 approval that is the checkpoint's real gate.
+
+## 2026-08-18 — Revision on originating-session feedback: portability-first store split
+
+**Trigger.** Structured CP-1 feedback from the session that authored this spec's original content and then ran the newer instance's spin-up. Five points: §5.2a over-weighted; "shared is the recommended default" contested; the output has a setup ceremony the interview does not; unbundle the validator; and §8 never tests whether a produced vault can absorb being wrong. Adjudicated by the operator, who supplied the constraint that settles the second point and forced the correction to it.
+
+**The operator's constraint, and why it reverses the feedback's inference.** Stated unconditionally: critical data must not be stranded in a local machine's `~/.claude`, because that destroys portability. Attached question — is it acceptable for the repository to hold memories about the operator's own preferences, likely yes for a personal notebook.
+
+The feedback's chain was: default to single-operator → §5.2a mostly collapses → `workspace-setup` gets an off-state → the produced vault sheds its post-clone ritual. The first link holds and the rest do not. The chain assumes that a single-operator vault may leave user-oriented facts in a per-machine store; the operator's constraint forbids exactly that. So the default flips and the apparatus stays.
+
+**What actually changed: the organizing axis, not the weight.** §5.2a previously argued the split exists because a shared vault would leak personal facts, and asserted that "sharing posture does not move that boundary." Both are now wrong. The section is rebuilt on the invariant **nothing durable about the vault lives outside the vault**, which holds at every posture:
+
+- Repo-oriented memory: in-vault and committed, **unconditionally**. Not a posture question.
+- User-oriented memory: kind is fixed by the archetype; **location** derives from the Q3 posture answer. Single-operator commits it in-vault beside the repo-oriented store; multi-operator routes it out.
+- The two kinds stay labelled at every posture even where they share a location — that is what makes a later re-split mechanical rather than a re-reading of every entry (new OQ-7).
+
+This reads the two reference instances better than the previous text did. The audit (§5) has them making *opposite* choices; on the portability reading they make the *same* choice evaluated at different postures — keep durable knowledge reachable, and do not let one operator's habits become everyone's instructions. `admindoc` is multi-operator, so it routes personal facts out; the newer instance is single-operator, so it keeps them in. Neither names the repo-oriented category, and that gap is identical at both postures, which is why filling it is unconditional.
+
+**The question the operator flagged, resolved as a derivation.** Committing user-preference memories into a personal notebook is now the single-operator default, stated in the produced agent contract rather than asked as a fifth interview question — the posture answer already determines it, and the interview floor stays at 4 required / 7 total. The `MEMORY.md` header becomes posture-dependent: on a shared vault it warns personal facts out; on a personal vault it says they belong there and names what changes when a second reader arrives.
+
+**The ceremony is declared, not wished away.** `workspace-setup` keeps no off-state, because the uncommittable memory pointer is the invariant's irreducible cost. What was fixable was the *silence*: a one-line first-session check now ships in the always-loaded agent contract, so a fresh clone announces that memory is not resolving into the vault and offers the setup, unprompted. §6 caps post-clone manual steps at one and requires it to be self-announcing; §8 gains a fresh-clone test as the gate.
+
+**Validator unbundled.** Promoted from Phase 4 to **Phase 0**, explicitly not gated by CP-1. Nothing in the five checks depends on the archetype boundary or the store split — all five derive from conventions the reference instances already declare — and check 3 has a confirmed live miss in the mature instance to fix now. Authored at its final home in the skill directory, which stays inert until Phase 2 writes `SKILL.md`. Old Phase 5 → 4, old Phase 6 → 5; CP-3 retargets to post-Phase 0, CP-4 to post-Phase 5.
+
+**Premise-falsification test added, and it is the best point in the feedback.** §8 tested navigation and nothing else. It now leads with a premise-falsification test, ranked above the cold-reader test: hand a produced vault a fact contradicting a premise in its own constitution, and confirm the session routes it to a dated amendment rather than an in-place edit or silent continuation. The evidence is live — the newer instance's constitution was amended twice inside 24 hours when a first-phase survey falsified a premise written at bootstrap, and the loop ran correctly. §5.7 now states that `specs/constitution.journal.md` and the route-drift-via-`spec-amend` rule are shipped for this reason rather than for convenience, which is a stronger justification than the one it carried.
+
+**Sections touched.** §1 (fourth architectural commitment), §2 (portability goal), §4 (three vocabulary rows), §5.1 (three asset rows), §5.2 (Q3 default; the derivation bullet), §5.2a (rewritten), §5.4 (ships first), §5.7 (why it is load-bearing), §6 (skill-vs-vault portability split, security, configuration), §7 (Phase 0 + renumber), §8 (two new tests, store-split test made posture-aware), §9 (CP-1 status with a disposition table; CP-3/CP-4 triggers), §10 (two new risks), §13 (OQ-7 added).
+
+**Not changed, deliberately.** The four-question interview floor. The `project-constitution` seam. §5.5's rejection of shared assets between sibling skills. The five-store table's shape — the feedback's charge that it is a governance apparatus was partly accepted by locating the weight (`workspace-setup`) rather than by trimming rows that cost nothing.
+
+**Status.** Spec stays `Draft`. CP-1 remains open; operator approval of the shape and OQ set is still the standing exit criterion.
