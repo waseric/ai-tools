@@ -1,13 +1,13 @@
 # vault-bootstrap — Journal
 
 ## Current State
-- **Phase:** CP-1 remediation complete; spec stays `Draft`, awaiting CP-1 re-review
-- **Last completed:** CP-1 blocker + important remediation (2026-08-18) — all 3 blockers and all 6 important findings applied as direct draft revisions
-- **Next:** re-invoke `/spec-review` against CP-1. The 7 advisory findings are not yet triaged.
-- **Open holds:** OQ-1/2/3/5/6 open by design and stand as sound deferrals. **OQ-4 is resolved during design** — the `workspace-setup` asset is a named bootstrap-time need, so the deferral's premise no longer holds.
+- **Phase:** CP-1 re-review complete (2026-08-18) — `changes requested`, 1 residual blocker. Spec stays `Draft`.
+- **Last completed:** CP-1 re-review of `architecture.md` over `3bab5bd..95b5a3e`
+- **Next:** strike the superseded 3–5 question target from §2 Goals and the §4 topology diagram, plus the two important findings; then re-invoke `/spec-review` against CP-1. Operator approval remains the standing exit criterion.
+- **Open holds:** OQ-1/2/3/5/6 open by design and now confirmed as sound deferrals. **OQ-4 resolved during design.** The prior review's 7 advisories were never enumerated and are superseded by this re-review's advisory set.
 - **Pending checkpoint:** CP-1 — Design Approval (architecture.md §9), open
 - **Archive:** none — all entries live
-- **Latest entry:** `## 2026-08-18 — CP-1 remediation`
+- **Latest entry:** `## 2026-08-18 — Re-review of CP-1`
 
 ## Grammar
 - **Journal entry:** `## <YYYY-MM-DD> — <event>`
@@ -265,3 +265,66 @@ untouched draft.
 
 **Next.** Re-invoke `/spec-review` against CP-1. CP-1's exit criterion of operator approval remains
 outstanding regardless — an agent reviewer cannot supply it.
+
+## 2026-08-18 — Re-review of CP-1
+
+**Reviewer:** Claude Opus 5 — inline `spec-review` (agent reviewer)
+**Outcome:** changes requested
+**Tasks reviewed:** none — design-spec checkpoint. Artifact under review is `architecture.md` plus
+[docs/knowledge-vault-archetype-audit.md](../../docs/knowledge-vault-archetype-audit.md), over
+`3bab5bd..95b5a3e`, with the remediation commit `95b5a3e` read in full against the prior verdict.
+
+**Prior blockers — 2 closed, 1 partially closed.**
+1. **The ungated gate — closed.** Both §5.1 rows are unconditional and the `workspace-setup` row
+   states why it has no off-state; §5.4's check-2 false-positive class no longer references the
+   dropped variant. One residual word survives in §5.2a (see important findings).
+2. **OQ-4 — closed.** Resolved during design, with the premise change (domain need → bootstrap-time
+   need) stated explicitly and CP-2 given the confirming check. This is the stronger outcome: it
+   records *why* the deferral stopped being one rather than silently deleting it.
+3. **The interview target — partially closed.** The two-tier design is coherent and internally
+   consistent: 4 required (purpose, posture, Obsidian, hazard) + 3 depth = 7, §6 restated as
+   `4 required / up to 7 total`, the two conditional prompts described by one rule, §8's effort
+   measure now running the interview twice with the required-only run doubling as the floor test.
+   But the superseded 3–5 number still stands in **§2 Goals** and in the **§4 topology diagram** —
+   the two places a reader meets it first. §6 announces the supersession; the document does not
+   carry it through. That is the same self-contradiction the original blocker named, now smaller.
+
+**Blockers:** 1
+1. **The superseded 3–5 question target survives in §2 and §4** (`architecture.md:20`, `:84`). §6
+   supersedes it explicitly, so the spec now asserts both numbers. Mechanical fix.
+
+**Important:** 2
+- **`architecture.md:233`** still calls it "the conditional `workspace-setup` skill" — residual of
+  blocker 1, contradicting §5.1's now-explicit "no off-state."
+- **§9's CP-1 Status line** recorded only the original verdict, with the remediation visible solely
+  in §1's banner and the journal. Fixed in this pass: the checkpoint entry now carries the
+  re-review outcome, with the original preserved as **Prior status**.
+
+**Advisory:** 4
+- §5.2's "the extra six minutes" quantifies the depth round with a number nothing in the spec
+  supports; the Phase 6 dogfood is what produces it.
+- §13 is titled *Open Questions* and contains a resolved one. A short "Resolved during design"
+  grouping would keep the section's contract honest as more OQs close.
+- §6's "up to 7 total" hides that depth question 2 fires only when the scan finds pre-existing
+  directories, so 7 is reachable only on a non-empty target.
+- §5.1's new iCloud row is a *sub-block of another row's file* rather than a file, mixing
+  granularity in an otherwise file-per-row table.
+
+**Review focus verdicts.** Archetype boundary: **pass** (unchanged). §5.5's rejection of the
+shared-assets leaning: **pass** (unchanged). Five audit corrections: **pass** (unchanged; the audit's
+§5 "Superseded in part" note and Appendix A verified present). Invariant/authored split: **pass with
+comments**. §5.2a calibration: **pass** — the rewritten paragraph now claims *bounded need* rather
+than absence and names the three shipped `.claude/` assets, which is what the prior fail asked for.
+The OQ set as deferrals: **pass** — with OQ-4 removed from the open set, the remaining five are
+genuinely undecided and each carries an owner and a ratifying checkpoint.
+
+**Exit criteria.** Not met. One blocker outstanding, and independently: operator approval of the
+shape and OQ set has not been given, which no agent reviewer can supply.
+
+**Spec amendments proposed:** none. The spec remains `Draft — Open for Review` and pre-approval, so
+the blocker and the important finding land as direct draft revisions, per this journal's standing
+precedent.
+
+**Next action:** strike 3–5 from §2 and §4, drop "conditional" at §5.2a's mechanical fact 2, then
+re-invoke `/spec-review` against CP-1 — or hand the shape to the operator for the approval that is
+the checkpoint's real gate.
